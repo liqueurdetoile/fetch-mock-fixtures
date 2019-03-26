@@ -1,0 +1,240 @@
+import Fixture from './Fixture';
+import parse from 'url-parse';
+import pathToRegexp from 'path-to-regexp';
+import sinon from 'sinon';
+
+/**
+ * Base class to build a mock server to respond to fetch calls. It stubs
+ * window.fetch
+ *
+ * @since 1.0.0
+ * @version 1.0.0
+ * @author Liqueur de Toile <contact@liqueurdetoile.com>
+ */
+export class Server {
+  delay = 0;
+  pattern = false;
+  headers = new Headers({'content-type': 'text/html'});
+  status = 200;
+  statusText = 'OK';
+  wrapper = false;
+
+  constructor(options) {
+    if (options) this.configure(options);
+  }
+
+  configure(options = {}) {
+    this
+      .setDelay(options.delay)
+      .setHeaders(options.headers)
+      .setStatus(options.status)
+      .setStatusText(options.statusText)
+      .setWrapper(options.wrapper)
+      .setFixturePattern(options.pattern);
+
+    return this;
+  }
+
+  reset() {
+    this.configure();
+
+    return this;
+  }
+
+  start() {
+    sinon.stub(window, 'fetch');
+
+    return this;
+  }
+
+  stop() {
+    window.fetch.restore();
+
+    return this;
+  }
+
+  setDelay(delay = 0) {
+    this.delay = delay;
+
+    return this;
+  }
+
+  setStatus(status = 200) {
+    this.status = status;
+
+    return this;
+  }
+
+  setStatusText(text = 'OK') {
+    this.statusText = text;
+
+    return this;
+  }
+
+  setHeaders(headers = {'content-type':'text/html'}) {
+    if (headers instanceof Headers) {
+      this.headers = headers;
+      return this;
+    }
+
+    this.headers = new Headers(headers);
+    return this;
+  }
+
+  setWrapper(wrapper = false) {
+    this.wrapper = wrapper;
+
+    return this;
+  }
+
+  setFixturePattern(pattern) {
+    this.pattern = pattern;
+
+    return this;
+  }
+
+  get url() {
+    let url = parse(this.request.url);
+
+    return url.pathname;
+  }
+
+  get query() {
+    let url = parse(this.request.url, true);
+
+    return url.query;
+  }
+
+  get request() {
+    if (window.fetch.firstCall.args[0] instanceof Request) return window.fetch.firstCall.args[0].clone();
+
+    return new Request(window.fetch.firstCall.args[0], window.fetch.lastCall.args[1]);
+  }
+
+  get fixture() {
+    let url = this.pattern || this.url;
+    let path = url.split('/').filter(p => p && p.indexOf(':') < 0);
+    let filename = this.request.method.toLowerCase();
+
+    return path.concat(filename).join('/');
+  }
+
+  wrap(data) {
+    if (!data) return null;
+
+    if (this.wrapper) {
+      if (this.wrapper instanceof Function) return this.wrapper(data);
+
+      if (typeof data === 'string') {
+        return this.wrapper.replace('%data%', data);
+      }
+
+      let body = String(this.wrapper);
+      for (let key in data) {
+        body = body.replace('%' + key + '%', data[key]);
+      }
+
+      return body;
+    }
+
+    return data;
+  }
+
+  respondWith(data, init = {}) {
+    if (data instanceof Response) {
+      window.fetch.callsFake(async () => {
+        /* istanbul ignore else */
+        if (this.delay) await this.sleep(this.delay);
+        return data;
+      });
+      return this;
+    }
+
+    init = Object.assign({
+      headers: this.headers,
+      status: this.status,
+      statusText: this.statusText
+    }, init);
+
+    window.fetch.callsFake(async () => {
+      /* istanbul ignore else */
+      if (this.delay) await this.sleep(this.delay);
+      return new Response(this.wrap(data), init)
+    });
+
+    return this;
+  }
+
+  respondWithStatus(status, data) {
+    return this.respondWith(data, {
+      status
+    });
+  }
+
+  respondWithJSON(data, options = {}) {
+    options.headers = options.headers || new Headers();
+    options.headers.set('content-type', 'application/json');
+
+    return this.respondWith(JSON.stringify(data), options);
+  }
+
+  respondWithFixture() {
+    window.fetch.callsFake(this._loadFixture.bind(this));
+
+    return this;
+  }
+
+  async sleep(delay) {
+    await new Promise(resolve => setTimeout(resolve, delay));
+  }
+
+  _getFixtureConstructor() {
+    return require(`fixtures/${this.fixture}.fixture.js`).default
+  }
+
+  async _loadFixture(fixture) {
+    let response;
+
+    /* istanbul ignore else */
+    if (!(fixture instanceof Fixture)) {
+      try {
+        const RequiredFixture = this._getFixtureConstructor();
+
+        fixture = new RequiredFixture(this);
+      } catch (err) {
+        return new Response(null, {
+          status: 404,
+          statusText: err.toString()
+        });
+      }
+    }
+
+    let params = {};
+
+    /* istanbul ignore else */
+    if (this.pattern) {
+      const keys = [];
+      const re = pathToRegexp(this.pattern, keys);
+      const parts = re.exec(this.url);
+
+      for (let i = 0; i < keys.length; i++) {
+        params[keys[i].name] = parts[i + 1];
+      }
+    }
+
+    /* istanbul ignore else */
+    if (fixture.initialized instanceof Function) await fixture.initialized(params);
+
+    /* istanbul ignore else */
+    if (this.delay) await this.sleep(this.delay);
+
+    response = fixture.response;
+
+    /* istanbul ignore else */
+    if (fixture.destroyed instanceof Function) await fixture.destroyed();
+
+    return response;
+  }
+}
+
+export default Server;

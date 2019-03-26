@@ -1,0 +1,21 @@
+{
+  "source": "./src",
+  "destination": "./docs",
+  "includes": ["\\.(js|jsdoc|vue)$"],
+  "plugins": [
+    {
+      "name": "esdoc-standard-plugin",
+      "option": {
+        "test": {
+          "source": "./tests/"
+        }
+      }
+    },
+    {
+      "name": "esdoc-ecmascript-proposal-plugin",
+      "option": {
+        "all": true
+      }
+    }
+  ]
+}
