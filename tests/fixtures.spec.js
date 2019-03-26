@@ -1,9 +1,7 @@
-import {Server} from '@';
+import server from './server';
 import PouchDB from 'pouchdb';
 
 describe('Fixtures testing suite', function() {
-  let server = new Server();
-
   beforeEach(() => server.start());
   afterEach(() => {
     server.stop();

@@ -1,9 +1,9 @@
-import MockServer from '@';
+import Server from '@';
 
 let response, data;
 
 describe('Mock Server core functionalities testing suite', function () {
-  let server = new MockServer();
+  const server = new Server();
 
   beforeEach(() => server.start());
   afterEach(() => {

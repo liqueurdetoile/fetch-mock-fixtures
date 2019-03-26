@@ -1,8 +1,8 @@
-import MockServer from '@';
+import Server from '@';
 
 describe('Wrapper option testing suite', function () {
   it('should wrap response with default slot', async function () {
-    let server = new MockServer({
+    let server = new Server({
       wrapper: '<h1>A good wrapper for %data%</h1>'
     });
 
@@ -17,7 +17,7 @@ describe('Wrapper option testing suite', function () {
   });
 
   it('should wrap response with named slots', async function () {
-    let server = new MockServer({
+    let server = new Server({
       wrapper: '<h1>A good wrapper for %title%</h1><h2>And for %subtitle% subtitle</h2>'
     });
 
@@ -34,7 +34,7 @@ describe('Wrapper option testing suite', function () {
   });
 
   it('should wrap response with JSON data', async function () {
-    let server = new MockServer({
+    let server = new Server({
       wrapper: `{
         "success":true,
         "data":%data%
@@ -52,7 +52,7 @@ describe('Wrapper option testing suite', function () {
   });
 
   it('should use a callback function as wrapper', async function() {
-    let server = new MockServer();
+    let server = new Server();
 
     server.wrapper = data => JSON.stringify({success:true, data})
 
