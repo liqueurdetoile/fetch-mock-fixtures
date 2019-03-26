@@ -34,6 +34,3 @@ node_modules
 ./index.html
 links.bat
 src.old
-
-# Dist dir for ci
-dist
