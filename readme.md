@@ -239,8 +239,6 @@ export default class UserGet1 extends Fixture {
   // We are using spread operator here to fetch back param
   initialized({id}) {
     return new Promise((resolve, reject) => {
-      let user = {};
-
       // Restoring fetch to do outside call
       this.server.stop();
 
@@ -251,14 +249,33 @@ export default class UserGet1 extends Fixture {
       this.server.start();
 
       Promise.all([p1, p2]).then([r1, r2] => {
-        user = Object.assign({}, r1, r2);
+        this.body = Object.assign({}, r1, r2);
+				resolve();
       })
-
-      resolve(user);
     });
   }
 }
 ```
+```javascript
+// Test code
+import {Server} from 'fetch-mock-fixtures';
+
+const server = new Server();
+
+server
+  // The header will default in any fixtures
+  .setHeaders({'content-type':'application/json'})
+  // All fixture body will be transformed with JSON.stringify
+  .setWrapper(data => JSON.stringify(data))
+	// Set pattern
+	.setFixturePattern('/api/users/:id')
+  // Activate fixture mode
+  .respondWithFixture()
+
+// Url will be used to locate fixture file
+const response = fetch('/api/users/56');
+```
+
 The initialized hook is always called async, even if declared only as sync operations. Therefore, you can simply return a promise or use the `async/await` statements.
 
 In the fixtures test suite, you will find a similar example with PouchDB. This can be very useful to generate bunches of data server side and import it client side for testing purposes.

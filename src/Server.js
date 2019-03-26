@@ -12,17 +12,66 @@ import sinon from 'sinon';
  * @author Liqueur de Toile <contact@liqueurdetoile.com>
  */
 export class Server {
+  /**
+   * Server response delay in ms
+   * @type {Number}
+   * @since 1.0.0
+   */
   delay = 0;
+
+  /**
+   * Server fixture file location pattern
+   * @type {Boolean}
+   * @since 1.0.0
+   */
   pattern = false;
+
+  /**
+   * Server response headers
+   * @type {Headers}
+   * @since 1.0.0
+   */
   headers = new Headers({'content-type': 'text/html'});
+
+  /**
+   * Server response status
+   * @type {Number}
+   * @since 1.0.0
+   */
   status = 200;
+
+  /**
+   * Server response status text
+   * @type {String}
+   * @since 1.0.0
+   */
   statusText = 'OK';
+
+  /**
+   * Server response data wrapper
+   * @type {Boolean|String|Function}
+   * @since 1.0.0
+   */
   wrapper = false;
 
+  /**
+   * Constructor. Configuration options can be passed.
+   * @version 1.0.0
+   * @since   1.0.0
+   * @param   {Object}  options Options
+   */
   constructor(options) {
     if (options) this.configure(options);
   }
 
+  /**
+   * Configuration setter
+   * @version 1.0.0
+   * @since   1.0.0
+   * @param   {Object}  [options={}] Options
+   * @params  {Number} [options.delay]  Response delay in ms
+   * @return  {Server}               Server instance
+   */
   configure(options = {}) {
     this
       .setDelay(options.delay)
