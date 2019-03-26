@@ -209,16 +209,13 @@ In order to dynamically load the fixture, the server needs to locate the right f
 **In both cases, the server expects to find fixtures in a relative `fixtures` folder**
 
 #### Setting up fixtures folder
-After transforming the url to a path, FMF will try to load fixture constructor by calling this server method :
+In order to let FMF loads the fixture, the server expects to have a `_getFixtureParams` method to resolve url to file.
 
-```javascript
-_getFixtureParams() {
-  return require(`fixtures/${this.fixture}.fixture.js`).default
-}
-```
 That implies that :
 1. FMF is able to resolve the path
 2. Fixture file expose a `default` property (that's why we're using default ES6 exports in the examples)
+
+From 1.0.2, FMF will throw an exception if the loader is not set.
 
 Therefore, you must ensure that fixture file will be found in the location. In case of error, the server will respond with a `404` error and provide the error description as status text.
 
@@ -239,7 +236,19 @@ module.exports = {
   // [...]
 };
 ```
-If you're not using webpack, you can also override the `_getFixtureParams` server's method to provide the right finder to load the fixture file.
+
+```javascript
+// Then in test
+import {Server} from 'fetch-mock-fixtures';
+
+const server = new Server();
+
+server._getFixtureParams = function () {
+  return require(`fixtures/${this.fixture}.fixture.js`).default
+}
+```
+
+If you're not using webpack, you can also override the `_getFixtureParams` server's method to provide any finder to load the fixture file.
 
 #### Pure filesystem resolution
 When not using pattern to analyze url, the server simply split the path and will look for a file named from the method used with `.fixture.js` as extension.

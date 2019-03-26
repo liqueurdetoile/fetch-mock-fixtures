@@ -263,7 +263,7 @@ export class Server {
   }
 
   _getFixtureParams() {
-    return require(`fixtures/${this.fixture}.fixture.js`).default;
+    throw new Error("Fixture finder have not been implemented. See readme for more informations.");
   }
 
   async _loadFixture(fixture) {
