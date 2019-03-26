@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">tests/core.spec.js | fetch-mock-fixtures</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="Mocker for fetch API with fixtures support"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="fetch-mock-fixtures"><meta property="twitter:description" content="Mocker for fetch API with fixtures support"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  <a href="test.html" data-ice="testLink">Test</a>
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/liqueurdetoile/fetch-mock-fixtures.git"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Fixture.js~Fixture.html">Fixture</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Server.js~Server.html">Server</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">tests/core.spec.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import MockServer from &apos;@&apos;;
+
+let response, data;
+
+describe(&apos;Mock Server core functionalities testing suite&apos;, function () {
+  let server = new MockServer();
+
+  beforeEach(() =&gt; server.start());
+  afterEach(() =&gt; {
+    server.stop();
+    server.reset();
+  });
+
+  describe(&apos;Testing initialize&apos;, function () {
+    it(&apos;should initialize and respond 200 to a basic get request&apos;, async function () {
+      server.respondWith();
+      response = await fetch(&apos;/&apos;);
+
+      response.status.should.equal(200);
+    });
+
+    it(&apos;should initialize and respond 404 to a basic get request&apos;, async function () {
+      server.respondWith(&apos;&apos;, {
+        status: 404
+      });
+
+      response = await fetch(&apos;/&apos;);
+      response.status.should.equal(404);
+    });
+
+    it(&apos;should initialize and respond 200 with data to a basic get request&apos;, async function () {
+      server.respondWith(&apos;{&quot;test&quot;:&quot;ok&quot;}&apos;, {
+        status: 200,
+        headers: {&apos;content-type&apos;: &apos;application/json&apos;}
+      });
+      response = await fetch(&apos;/&apos;);
+
+      response.status.should.equal(200);
+      response.headers.get(&apos;content-type&apos;).should.equal(&apos;application/json&apos;);
+      data = await response.json();
+      data.test.should.equal(&apos;ok&apos;);
+    });
+  });
+
+  describe(&apos;Server response setup&apos;, function() {
+    it(&apos;should initialize default global response parameters&apos;, function() {
+      server.status.should.equal(200);
+      server.statusText.should.equal(&apos;OK&apos;);
+      server.headers.get(&apos;content-type&apos;).should.equal(&apos;text/html&apos;);
+      server.wrapper.should.be.false;
+    })
+
+    it(&apos;should initialize global response parameters with configure&apos;, function() {
+      server.configure({
+        status: 404,
+        statusText: &apos;Not Found&apos;,
+        headers: new Headers({&apos;content-type&apos;: &apos;application/json&apos;}) // could also be called with only Headers constructor arguments
+      });
+
+      server.status.should.equal(404);
+      server.statusText.should.equal(&apos;Not Found&apos;);
+      server.headers.get(&apos;content-type&apos;).should.equal(&apos;application/json&apos;);
+      server.wrapper.should.be.false;
+    })
+
+    it(&apos;should set a delay for response&apos;, function() {
+      server.configure({
+        delay: 2000
+      })
+
+      server.delay.should.equal(2000);
+    })
+  })
+
+  describe(&apos;Incoming request informations&apos;, function() {
+    it(&apos;should expose a request object when initialized with data and init object&apos;, async function() {
+      response = await fetch(&apos;/test&apos;, {
+        headers: {&apos;content-type&apos;: &apos;application/json&apos;},
+        body: JSON.stringify(&apos;test&apos;),
+        method: &apos;POST&apos;
+      });
+
+      server.request.should.be.instanceof(Request);
+      server.request.method.should.equal(&apos;POST&apos;);
+      server.request.headers.get(&apos;content-type&apos;).should.equal(&apos;application/json&apos;);
+
+      let body = await server.request.json();
+      body.should.equal(&apos;test&apos;);
+    })
+
+    it(&apos;should expose a cloned request object when initialized with a request object&apos;, async function() {
+      let request = new Request(&apos;/test&apos;, {
+        headers: {&apos;content-type&apos;: &apos;application/json&apos;},
+        body: JSON.stringify(&apos;test&apos;),
+        method: &apos;POST&apos;
+      });
+
+      await fetch(request);
+
+      expect(server.request === request).to.be.false;
+      server.request.should.be.instanceof(Request);
+      server.request.method.should.equal(&apos;POST&apos;);
+      server.request.headers.get(&apos;content-type&apos;).should.equal(&apos;application/json&apos;);
+
+      let body = await server.request.json();
+      body.should.equal(&apos;test&apos;);
+    })
+
+    it(&apos;should expose url&apos;, async function() {
+      await fetch(&apos;/test&apos;);
+
+      server.url.should.equal(&apos;/test&apos;);
+    });
+
+    it(&apos;should expose url with request object&apos;, async function() {
+      let request = new Request(&apos;/test&apos;);
+
+      await fetch(request);
+      server.url.should.equal(&apos;/test&apos;);
+    });
+
+    it(&apos;should expose query&apos;, async function() {
+      await fetch(&apos;/test?t=a&apos;);
+
+      server.url.should.equal(&apos;/test&apos;);
+      expect(server.query).to.deep.equal({t: &apos;a&apos;});
+    });
+
+    it(&apos;should expose query with request object&apos;, async function() {
+      let request = new Request(&apos;/test?t=a&apos;);
+
+      await fetch(request);
+      server.url.should.equal(&apos;/test&apos;);
+      expect(server.query).to.deep.equal({t: &apos;a&apos;});
+    });
+  })
+
+  describe(&apos;Response and status response&apos;, function () {
+    it(&apos;should respond and delay with params&apos;, async function () {
+      server
+        .setDelay(500)
+        .respondWith(&apos;test&apos;);
+
+      let start = + new Date();
+      response = await fetch(&apos;/&apos;);
+      let end = + new Date();
+
+      expect((end-start) &gt;= 500).to.be.true;
+      response.status.should.equal(200);
+
+      let data = await response.text();
+
+      data.should.equal(&apos;test&apos;);
+    });
+
+    it(&apos;should respond with response object&apos;, async function () {
+      let response = new Response(&apos;test&apos;);
+
+      server
+        .setDelay(500)
+        .respondWith(response);
+
+      let start = + new Date();
+      response = await fetch(&apos;/&apos;);
+      let end = + new Date();
+
+      expect((end-start) &gt;= 500).to.be.true;
+      response.status.should.equal(200);
+
+      let data = await response.text();
+
+      data.should.equal(&apos;test&apos;);
+    });
+
+    it(&apos;should respond with status 204&apos;, async function () {
+      server.respondWithStatus(204);
+      response = await fetch(&apos;/&apos;);
+      response.status.should.equal(204);
+    });
+
+    it(&apos;should respond with status 301&apos;, async function () {
+      server.respondWithStatus(301);
+      response = await fetch(&apos;/&apos;);
+      response.status.should.equal(301);
+    });
+
+    it(&apos;should respond with status 401&apos;, async function () {
+      server.respondWithStatus(401);
+      response = await fetch(&apos;/&apos;);
+      response.status.should.equal(401);
+    });
+
+    it(&apos;should respond multiple times with status 401&apos;, async function () {
+      server.respondWithStatus(401);
+      response = await fetch(&apos;/&apos;);
+      response.status.should.equal(401);
+      response = await fetch(&apos;/&apos;);
+      response.status.should.equal(401);
+    });
+
+    it(&apos;should mutate status&apos;, async function () {
+      server.respondWithStatus(401);
+      response = await fetch(&apos;/&apos;);
+      response.status.should.equal(401);
+      server.respondWithStatus(200);
+      response = await fetch(&apos;/&apos;);
+      response.status.should.equal(200);
+    });
+  });
+});
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

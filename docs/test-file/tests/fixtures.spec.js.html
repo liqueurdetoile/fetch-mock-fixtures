@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">tests/fixtures.spec.js | fetch-mock-fixtures</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="Mocker for fetch API with fixtures support"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="fetch-mock-fixtures"><meta property="twitter:description" content="Mocker for fetch API with fixtures support"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  <a href="test.html" data-ice="testLink">Test</a>
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/liqueurdetoile/fetch-mock-fixtures.git"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Fixture.js~Fixture.html">Fixture</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Server.js~Server.html">Server</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">tests/fixtures.spec.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import {Server} from &apos;@&apos;;
+import PouchDB from &apos;pouchdb&apos;;
+
+describe(&apos;Fixtures testing suite&apos;, function() {
+  let server = new Server();
+
+  beforeEach(() =&gt; server.start());
+  afterEach(() =&gt; {
+    server.stop();
+    server.reset();
+  });
+
+  describe(&apos;Fixture path resolution&apos;, function() {
+    it(&apos;should provide fixture path&apos;, async function() {
+      await fetch(&apos;/api/users&apos;);
+
+      server.fixture.should.equal(&apos;api/users/get&apos;);
+    })
+  });
+
+  describe(&apos;Fixture loading&apos;, function() {
+    it(&apos;should load fixture and GET&apos;, async function() {
+      server
+        .setHeaders({&apos;content-type&apos;: &apos;application/json&apos;})
+        .setWrapper(body =&gt; JSON.stringify(body))
+        .respondWithFixture();
+
+      let response = await fetch(&apos;/api/users&apos;);
+
+      response.status.should.equal(200);
+
+      let data = await response.json();
+
+      data.should.deep.equal([
+        {
+          id: 1,
+          name: &apos;foo&apos;
+        },
+        {
+          id: 2,
+          name: &apos;bar&apos;
+        }
+      ]);
+    })
+
+    it(&apos;should load fixture and POST&apos;, async function() {
+      server
+        .setHeaders({&apos;content-type&apos;: &apos;application/json&apos;})
+        .setWrapper(body =&gt; JSON.stringify(body))
+        .respondWithFixture();
+
+      let response = await fetch(&apos;/api/users&apos;, {method: &apos;POST&apos;});
+
+      response.status.should.equal(201);
+
+      let data = await response.json();
+
+      data.should.deep.equal({
+        id: 3,
+        name: &apos;baz&apos;
+      });
+    })
+
+    it(&apos;should load fixture and fail&apos;, async function() {
+      server
+        .setHeaders({&apos;content-type&apos;: &apos;application/json&apos;})
+        .setWrapper(body =&gt; JSON.stringify(body))
+        .respondWithFixture();
+
+      let response = await fetch(&apos;/api/silly&apos;);
+
+      response.status.should.equal(404);
+    })
+  })
+
+  describe(&apos;On the fly fixture&apos;, function() {
+    it(&apos;should use an on-the-fly fixture&apos;, async function() {
+      const fixture = {};
+      const destroyed = sinon.spy();
+
+      fixture.initialized = function() {
+        this.body = &apos;test&apos;;
+      }
+
+      fixture.destroyed = () =&gt; {
+        destroyed();
+      }
+
+      server.setDelay(500).respondWithFixture();
+
+      let response = await fetch(fixture);
+      let data = await response.text();
+
+      response.status.should.equal(200);
+      data.should.equal(&apos;test&apos;);
+      destroyed.calledOnce.should.be.true;
+    })
+  });
+
+  describe(&apos;Pattern and database fixture&apos;, function() {
+    let db;
+
+    before(async () =&gt; {
+      db = new PouchDB(&apos;test&apos;);
+
+      await db.put({
+        _id: &apos;1&apos;,
+        name: &apos;foo&apos;
+      });
+    });
+
+    after(() =&gt; {
+      db.destroy();
+    })
+
+    it(&apos;should use a pattern to extract path params and use database&apos;, async function() {
+      server
+        .setFixturePattern(&apos;/api2/users/:id&apos;)
+        .respondWithFixture();
+
+      let response = await fetch(&apos;/api2/users/1&apos;);
+      let data = await response.json();
+
+      response.status.should.equal(200);
+      expect(data.name).to.equal(&apos;foo&apos;);
+    })
+  });
+})
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

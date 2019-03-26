@@ -1,0 +1,39 @@
+{
+  "coverage": "52.38%",
+  "expectCount": 42,
+  "actualCount": 22,
+  "files": {
+    "src/Fixture.js": {
+      "expectCount": 12,
+      "actualCount": 9,
+      "undocumentLines": [
+        54,
+        63,
+        64
+      ]
+    },
+    "src/Server.js": {
+      "expectCount": 30,
+      "actualCount": 13,
+      "undocumentLines": [
+        136,
+        142,
+        148,
+        158,
+        164,
+        170,
+        176,
+        182,
+        188,
+        196,
+        217,
+        242,
+        248,
+        255,
+        261,
+        265,
+        269
+      ]
+    }
+  }
+}

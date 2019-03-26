@@ -1,7 +1,45 @@
-import Fixture from './Fixture';
-import parse from 'url-parse';
-import pathToRegexp from 'path-to-regexp';
-import sinon from 'sinon';
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">src/Server.js | fetch-mock-fixtures</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="Mocker for fetch API with fixtures support"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="fetch-mock-fixtures"><meta property="twitter:description" content="Mocker for fetch API with fixtures support"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  <a href="test.html" data-ice="testLink">Test</a>
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/liqueurdetoile/fetch-mock-fixtures.git"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Fixture.js~Fixture.html">Fixture</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Server.js~Server.html">Server</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/Server.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import Fixture from &apos;./Fixture&apos;;
+import parse from &apos;url-parse&apos;;
+import pathToRegexp from &apos;path-to-regexp&apos;;
+import sinon from &apos;sinon&apos;;
 
 /**
  * Base class to build a mock server to respond to fetch calls. It stubs
@@ -9,7 +47,7 @@ import sinon from 'sinon';
  *
  * @since 1.0.0
  * @version 1.0.0
- * @author Liqueur de Toile <contact@liqueurdetoile.com>
+ * @author Liqueur de Toile &lt;contact@liqueurdetoile.com&gt;
  */
 export class Server {
   /**
@@ -31,7 +69,7 @@ export class Server {
    * @type {Headers}
    * @since 1.0.0
    */
-  headers = new Headers({'content-type': 'text/html'});
+  headers = new Headers({&apos;content-type&apos;: &apos;text/html&apos;});
 
   /**
    * Server response status
@@ -45,7 +83,7 @@ export class Server {
    * @type {String}
    * @since 1.0.0
    */
-  statusText = 'OK';
+  statusText = &apos;OK&apos;;
 
   /**
    * Server response data wrapper
@@ -103,7 +141,7 @@ export class Server {
    * @return  {Server}               Server instance
    */
   start() {
-    sinon.stub(window, 'fetch');
+    sinon.stub(window, &apos;fetch&apos;);
 
     return this;
   }
@@ -139,13 +177,13 @@ export class Server {
     return this;
   }
 
-  setStatusText(text = 'OK') {
+  setStatusText(text = &apos;OK&apos;) {
     this.statusText = text;
 
     return this;
   }
 
-  setHeaders(headers = {'content-type':'text/html'}) {
+  setHeaders(headers = {&apos;content-type&apos;:&apos;text/html&apos;}) {
     if (headers instanceof Headers) {
       this.headers = headers;
       return this;
@@ -187,10 +225,10 @@ export class Server {
 
   get fixture() {
     let url = this.pattern || this.url;
-    let path = url.split('/').filter(p => p && p.indexOf(':') < 0);
+    let path = url.split(&apos;/&apos;).filter(p =&gt; p &amp;&amp; p.indexOf(&apos;:&apos;) &lt; 0);
     let filename = this.request.method.toLowerCase();
 
-    return path.concat(filename).join('/');
+    return path.concat(filename).join(&apos;/&apos;);
   }
 
   wrap(data) {
@@ -199,13 +237,13 @@ export class Server {
     if (this.wrapper) {
       if (this.wrapper instanceof Function) return this.wrapper(data);
 
-      if (typeof data === 'string') {
-        return this.wrapper.replace('%data%', data);
+      if (typeof data === &apos;string&apos;) {
+        return this.wrapper.replace(&apos;%data%&apos;, data);
       }
 
       let body = String(this.wrapper);
       for (let key in data) {
-        body = body.replace('%' + key + '%', data[key]);
+        body = body.replace(&apos;%&apos; + key + &apos;%&apos;, data[key]);
       }
 
       return body;
@@ -216,7 +254,7 @@ export class Server {
 
   respondWith(data, init = {}) {
     if (data instanceof Response) {
-      window.fetch.callsFake(async () => {
+      window.fetch.callsFake(async () =&gt; {
         /* istanbul ignore else */
         if (this.delay) await this.sleep(this.delay);
         return data;
@@ -230,7 +268,7 @@ export class Server {
       statusText: this.statusText
     }, init);
 
-    window.fetch.callsFake(async () => {
+    window.fetch.callsFake(async () =&gt; {
       /* istanbul ignore else */
       if (this.delay) await this.sleep(this.delay);
       return new Response(this.wrap(data), init)
@@ -247,7 +285,7 @@ export class Server {
 
   respondWithJSON(data, options = {}) {
     options.headers = options.headers || new Headers();
-    options.headers.set('content-type', 'application/json');
+    options.headers.set(&apos;content-type&apos;, &apos;application/json&apos;);
 
     return this.respondWith(JSON.stringify(data), options);
   }
@@ -259,7 +297,7 @@ export class Server {
   }
 
   async sleep(delay) {
-    await new Promise(resolve => setTimeout(resolve, delay));
+    await new Promise(resolve =&gt; setTimeout(resolve, delay));
   }
 
   _getFixtureParams() {
@@ -270,7 +308,7 @@ export class Server {
     let response;
 
     /* istanbul ignore else */
-    if (typeof fixture === 'string') {
+    if (typeof fixture === &apos;string&apos;) {
       try {
         const init = this._getFixtureParams();
 
@@ -293,7 +331,7 @@ export class Server {
       const re = pathToRegexp(this.pattern, keys);
       const parts = re.exec(this.url);
 
-      for (let i = 0; i < keys.length; i++) {
+      for (let i = 0; i &lt; keys.length; i++) {
         params[keys[i].name] = parts[i + 1];
       }
     }
@@ -314,3 +352,20 @@ export class Server {
 }
 
 export default Server;
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

@@ -42,20 +42,26 @@ export default class Fixture {
   wrapper = false;
 
   /**
-   * Ficture constructor
+   * Fixture constructor
    * @version 1.0.0
    * @since   1.0.0
    * @param   {Server}  server Server instance
    */
-  constructor(server) {
+  constructor(server, init) {
     this.server = server;
+
     // Copy server wrap method
     this.wrap = server.wrap;
 
-    this.headers = server.headers;
-    this.status = server.status;
-    this.statusText = server.statusText;
-    this.wrapper = server.wrapper;
+    this.headers = init.headers || server.headers;
+    if (!(this.headers instanceof Headers)) this.headers = new Headers(this.headers);
+    this.status = init.status || server.status;
+    this.statusText = init.statusText || server.statusText;
+    this.wrapper = init.wrapper || server.wrapper;
+    this.body = init.body;
+
+    if (init.initialized) this.initialized = init.initialized;
+    if (init.destroyed) this.destroyed = init.destroyed;
   }
 
   /**

@@ -1,4 +1,4 @@
-import {Fixture, Server} from '@';
+import {Server} from '@';
 import PouchDB from 'pouchdb';
 
 describe('Fixtures testing suite', function() {
@@ -75,11 +75,11 @@ describe('Fixtures testing suite', function() {
 
   describe('On the fly fixture', function() {
     it('should use an on-the-fly fixture', async function() {
-      const fixture = new Fixture(server);
+      const fixture = {};
       const destroyed = sinon.spy();
 
-      fixture.initialized = () => {
-        fixture.body = 'test';
+      fixture.initialized = function() {
+        this.body = 'test';
       }
 
       fixture.destroyed = () => {

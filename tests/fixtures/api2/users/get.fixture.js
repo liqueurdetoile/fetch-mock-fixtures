@@ -1,8 +1,7 @@
-import {Fixture} from '@';
 import PouchDB from 'pouchdb';
 
-export default class UsersGet extends Fixture {
-  async initialized({id}) {
+export default {
+  initialized: async function({id}) {
     const db = new PouchDB('test');
 
     try {

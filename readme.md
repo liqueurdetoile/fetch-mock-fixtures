@@ -139,39 +139,47 @@ You may have a look at the wrapper test suite for some examples.
 ### Basics
 The fixture is a simple way to automatically configure a given response when matching a given "url". FMF provides a `Fixture` class as a convenient way to do it.
 
-A `Fixture` instance expects the server instance as constructor argument and it will be kept available as `server` fixture property. Unlike direct server configuration, a fixture have its own response configuration that are not persisted through fetch calls.
+At the most simple level, a fixture file only exports a singleton object to override server configuration :
+- `body` property for response data
+- `headers`, `status`, `statusText` and `wrapper`
 
-Nevertheless, for convenience, server configuration is cloned into fixture configuration when created.
+Headers can be provided as an `Headers` instance  or as an object with headers names as keys.
 
-To go into fixture mode, you must call the server `respondWithFixture` method before sending request.
+If no configuration value is available from fixture, the current server configuration value will be inherited.
+
+You can provide two functions as hooks (see below). In the hooks, the server instance is available as a property.
+
+Finally, to go into fixture mode, you must call the server `respondWithFixture` method before sending request.
+
+Under the hood, the fixture file is used to populate properties from a `Fixture` instance. The `Response` object is generated from fixture properties.
 
 ### Fixture lifecycle
 When server is dealing with a request, it will :
 1. load fixture and create an instance if needed;
-2. call and await the `initialized` hook on fixture. Returned data and further configuration can be made at this step;
-3. ask fixture to provide its `Response` object;
+2. call and await the `initialized` hook on fixture. Fetching returned data and further configuration can be made at this step;
+3. ask fixture to provide its `Response` object build from fixture properties;
 4. call and await the `destroyed` hook on fixture. Cleaning can be made at this step;
 5. send back the `Response` object
 
-### Configuring fixture response
-The best way is to set fixture properties in the `initialized` hook. The inheritance between server and fixture can ease the process. A `Fixture` instance exposes `body`, `headers`, `status`, `statusText` and `wrapper` properties. They will be used to build the `Response` object at step 3.
+To update fixture properties within hooks, you must **not** use anonymous functions as `this` will point to your test script and not the fixture instance.
+
+### Configuring fixture response data
+For static data, providing a value to body is enough. For dynamic data, you can use the `initialized` hook which is called async.
+
+The inheritance between server and fixture can ease the process.
 
 ```javascript
-// Fixture class
-import {Fixture} from 'fetch-mock-fixtures';
-
-export default class UserGet1 extends Fixture {
-  initialized() {
-    this.body = {
-      id: 1,
-      name: 'foo'
-    }
+// Fixture file
+export default {
+	body: {
+    id: 1,
+    name: 'foo'
   }
 }
 ```
 
 ```javascript
-// Test code
+// Within test
 import {Server} from 'fetch-mock-fixtures';
 
 const server = new Server();
@@ -193,21 +201,27 @@ In order to dynamically load the fixture, the server needs to locate the right f
 
 **In both cases, the server expects to find fixtures in a relative `fixtures` folder**
 
-#### Setting up fixtures root
+#### Setting up fixtures folder
 After transforming the url to a path, FMF will try to load fixture constructor by calling this server method :
 
 ```javascript
-_getFixtureConstructor() {
+_getFixtureParams() {
   return require(`fixtures/${this.fixture}.fixture.js`).default
 }
 ```
-Therefore, you must ensure that fixture factory will be found in this location. In case of error, the server will respond with a `404` error and provide the error description as status text.
+That implies that :
+1. FMF is able to resolve the path
+2. Fixture file expose a `default` property (that's why we're using default ES6 exports in the examples)
 
-With webpack, it is pretty easy to [create an alias](https://webpack.js.org/configuration/resolve/#resolvealias) to resolve fixtures location.
+Therefore, you must ensure that fixture file will be found in the location. In case of error, the server will respond with a `404` error and provide the error description as status text.
 
-For instance, if you fixtures are located under `tests/fixtures` within your project root folder, you can use this code in your webpack configuration :
+With Webpack, it's pretty easy to [create an alias](https://webpack.js.org/configuration/resolve/#resolvealias) to resolve fixtures location. **Nevertheless, to avoid importing tests fixtures in your production bundle, you must use either separate configuration for building and testing or use the webpack [`IgnorePlugin`](https://webpack.js.org/plugins/ignore-plugin/).** You can have a look at the webpack configuration for this current repo for an example.
+
+For instance, if you fixtures are located under `tests/fixtures` within your project root folder, you can use this code in your webpack tests configuration :
 
 ```javascript
+const path = require('path');
+
 module.exports = {
   // [...]
   resolve: {
@@ -218,41 +232,46 @@ module.exports = {
   // [...]
 };
 ```
-If you're not using webpack, you can simply override the `_getFixtureConstructor` server's method to provide the right finder for the fixture constructor.
+If you're not using webpack, you can also override the `_getFixtureParams` server's method to provide the right finder to load the fixture file.
 
 #### Pure filesystem resolution
-When not using pattern to analyze url, the server simply split the path and will look for a file named from the method used. For instance, `/api/v1/users/1` with GET method will resolve in `fixtures/api/v1/users1/1/get.fixture.js` and `/users` with POST method will resolve in `fixtures/users/post.fixture.js`.
+When not using pattern to analyze url, the server simply split the path and will look for a file named from the method used with `.fixture.js` as extension.
+
+For instance, `/api/v1/users/1` with GET method will resolve in `fixtures/api/v1/users/1/get.fixture.js` and `/users` with POST method will resolve in `fixtures/users/post.fixture.js`.
 
 This is most appropriate when you want a small set of samples for your testing purposes.
 
 #### Pattern resolution
 If you have a larger set of data or want to rely on external data source, you may want to use pattern resolution to extract params from url path.
 
-FMF uses the pattern available with [`path-to-regexp`](https://github.com/pillarjs/path-to-regexp). The resulting file path will be the one without params and the params will be passed in arguments to the initialized hook :
+FMF uses the pattern available with [`path-to-regexp`](https://github.com/pillarjs/path-to-regexp). The resulting file path will be the one without params and the params will be passed in arguments to the initialized hook.
+
+For instance, `/api/v1/users/:id` as pattern and `api/v1/users/1`with GET method in fetch call will resolve in `fixtures/api/v1/users/get.fixture.js` as file and will provide an `{id: 1}` as param to the `initialzed` hook.
 
 ```javascript
-// Fixture class
+// Fixture file
+
+// Located at /fixtures/api/users/get.fixture.js
 // We want to aggregate two requests to have the full users
-import {Fixture} from 'fetch-mock-fixtures';
 
-export default class UserGet1 extends Fixture {
-  // We are using spread operator here to fetch back param
-  initialized({id}) {
-    return new Promise((resolve, reject) => {
-      // Restoring fetch to do outside call
-      this.server.stop();
+export default {
+	// Do not use anonymous function here as we're using' this
+	initialized: function({id}) {
+	    return new Promise((resolve, reject) => {
+	      // Restoring fetch to do outside call
+	      this.server.stop();
 
-      let p1 = fetch(`http://api.example.com/users/${id}`);
-      let p2 = fetch(`http://api2.example.com/users/${id}`);
+	      let p1 = fetch(`http://api.example.com/users/${id}`);
+	      let p2 = fetch(`http://api2.example.com/users/${id}`);
 
-      // Restoring server
-      this.server.start();
+	      // Restoring server
+	      this.server.start();
 
-      Promise.all([p1, p2]).then([r1, r2] => {
-        this.body = Object.assign({}, r1, r2);
-				resolve();
-      })
-    });
+	      Promise.all([p1, p2]).then([r1, r2] => {
+	        this.body = Object.assign({}, r1, r2);
+					resolve();
+	      })
+	    });
   }
 }
 ```
@@ -263,45 +282,36 @@ import {Server} from 'fetch-mock-fixtures';
 const server = new Server();
 
 server
-  // The header will default in any fixtures
   .setHeaders({'content-type':'application/json'})
-  // All fixture body will be transformed with JSON.stringify
   .setWrapper(data => JSON.stringify(data))
 	// Set pattern
 	.setFixturePattern('/api/users/:id')
-  // Activate fixture mode
   .respondWithFixture()
 
 // Url will be used to locate fixture file
 const response = fetch('/api/users/56');
 ```
 
-The initialized hook is always called async, even if declared only as sync operations. Therefore, you can simply return a promise or use the `async/await` statements.
+The initialized hook is always called asynchronously, even if declared only as sync operations. Therefore, you can simply return a promise or use the `async/await` statements.
 
-In the fixtures test suite, you will find a similar example with PouchDB. This can be very useful to generate bunches of data server side and import it client side for testing purposes.
+In the fixtures test suite, you will find a similar example with PouchDB.
+
+This way is more appropriate when generating bunches of data server side and import it client side for testing purposes.
 
 ### Fixture on-the-fly
-It's also possible to create a fixture on-the-fly and demands server to send it back by providing the fixture instance to the `fetch` call. Path resolution will be ignored in that case.
+It's also possible to create a fixture on-the-fly by providing the fixture instance to the `fetch` call. Path resolution will be ignored in that case.
 
 ```javascript
-import {Fixture, Server} from 'fetch-mock-fixtures';
+import {Server} from 'fetch-mock-fixtures';
 
 const server = new Server();
-const fixture = new Fixture(server);
 
-fixture.initialized = () => {
-  // Set up the body
-  fixture.body = 'test';
-}
-
-fixture.destroyed = () => {
-  // Do some cleaning here
-}
-
-server.respondWithFixture();
+server.start().respondWithFixture();
 
 // Give the fixture as parameter to fetch
-const response = fetch(fixture);
+const response = fetch({
+	body: 'test'
+});
 ```
 
 ## Bugs and improvements
