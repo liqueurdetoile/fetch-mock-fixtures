@@ -12,6 +12,8 @@ that also provides this functionality, FMF provides an easy way to manage data f
 
 Fixtures can be generated on the fly, stored as a file tree or grabbed in an external data source.
 
+The main goal is to provide an easy way to perform API functional testing client side without the boring of running a server.
+
 **FMF is internally relying on Promise and the fetch API and linked objects (Request, Headers and Response). Be sure to use that the browser(s) used for testing implements these or is/are polyfilled.**
 
 <!-- TOC depthFrom:2 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
