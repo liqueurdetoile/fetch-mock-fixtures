@@ -1,6 +1,7 @@
 [![Build Status](https://travis-ci.org/liqueurdetoile/fetch-mock-fixtures.svg?branch=master)](https://travis-ci.org/liqueurdetoile/fetch-mock-fixtures)
 [![Coverage Status](https://coveralls.io/repos/github/liqueurdetoile/fetch-mock-fixtures/badge.svg?branch=master)](https://coveralls.io/github/liqueurdetoile/fetch-mock-fixtures?branch=master)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
+[![Documentation](https://liqueurdetoile.github.io/fetch-mock-fixtures/badge.svg)](https://liqueurdetoile.github.io/fetch-mock-fixtures/)
 
 <p align="center"><a href="https://liqueurdetoile.com" target="\_blank"><img src="https://hosting.liqueurdetoile.com/logo_lqdt.png" alt="Liqueur de Toile"></a></p>
 
@@ -69,15 +70,15 @@ fetch('/').then(response => {
 // Stop intercepting fetch calls
 server.stop();
 ```
-Under the hood, server is simply sending back a [`Response` object](https://developer.mozilla.org/en-US/docs/Web/API/Response/Response) that mimics a regular fetch call return value.
+Under the hood, the server is simply sending back a [`Response` object](https://developer.mozilla.org/en-US/docs/Web/API/Response/Response) that mimics a regular fetch call response.
 
 ### Configuring server response
 Response configuration can be done through a bunch of chainable methods.
 
-**Important: Configuration persists through each calls and can be changed at any time without the need to start/stop server. All changes will be applied on the next fetch call.**
+**Important: When done on server, configuration persists through each calls and can be changed at runtime without the need to start/stop server. All changes will be applied on the next fetch call.**
 
 #### Setting up returned data
-FMF can be set on the fly to send back some data. Without fixtures, you can use the `respondWith` server method. For additional configuration, see below.
+Server can be set to send back some data. Without fixtures, you can use the `respondWith` server method. For additional configuration, see below.
 
 The server instance also exposes two shortcuts :
 - `respondWithStatus` : This will send back the provided data with the given status,
