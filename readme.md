@@ -1,3 +1,7 @@
+[![Build Status](https://travis-ci.org/liqueurdetoile/fetch-mock-fixtures.svg?branch=master)](https://travis-ci.org/liqueurdetoile/fetch-mock-fixtures)
+[![Coverage Status](https://coveralls.io/repos/github/liqueurdetoile/fetch-mock-fixtures/badge.svg?branch=master)](https://coveralls.io/github/liqueurdetoile/fetch-mock-fixtures?branch=master)
+[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
+
 <p align="center"><a href="https://liqueurdetoile.com" target="\_blank"><img src="https://hosting.liqueurdetoile.com/logo_lqdt.png" alt="Liqueur de Toile"></a></p>
 
 # Fetch-mock-fixtures (FMF)
@@ -21,9 +25,9 @@ Fixtures can be generated on the fly, stored as a file tree or grabbed in an ext
 - [Fixtures system](#fixtures-system)
 	- [Basics](#basics)
 	- [Fixture lifecycle](#fixture-lifecycle)
-	- [Configuring fixture response](#configuring-fixture-response)
+	- [Configuring fixture response data](#configuring-fixture-response-data)
 	- [File location resolution](#file-location-resolution)
-		- [Setting up fixtures root](#setting-up-fixtures-root)
+		- [Setting up fixtures folder](#setting-up-fixtures-folder)
 		- [Pure filesystem resolution](#pure-filesystem-resolution)
 		- [Pattern resolution](#pattern-resolution)
 	- [Fixture on-the-fly](#fixture-on-the-fly)
