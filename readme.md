@@ -262,21 +262,21 @@ For instance, `/api/v1/users/:id` as pattern and `api/v1/users/1`with GET method
 export default {
 	// Do not use anonymous function here as we're using' this
 	initialized: function({id}) {
-	    return new Promise((resolve, reject) => {
-	      // Restoring fetch to do outside call
-	      this.server.stop();
+    return new Promise((resolve, reject) => {
+      // Restoring fetch to do outside call
+      this.server.stop();
 
-	      let p1 = fetch(`http://api.example.com/users/${id}`);
-	      let p2 = fetch(`http://api2.example.com/users/${id}`);
+      let p1 = fetch(`http://api.example.com/users/${id}`);
+      let p2 = fetch(`http://api2.example.com/users/${id}`);
 
-	      // Restoring server
-	      this.server.start();
+      // Restoring server
+      this.server.start();
 
-	      Promise.all([p1, p2]).then([r1, r2] => {
-	        this.body = Object.assign({}, r1, r2);
-					resolve();
-	      })
-	    });
+      Promise.all([p1, p2]).then([r1, r2] => {
+        this.body = Object.assign({}, r1, r2);
+				resolve();
+      })
+    });
   }
 }
 ```
