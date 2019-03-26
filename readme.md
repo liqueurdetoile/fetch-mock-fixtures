@@ -39,11 +39,11 @@ The main goal is to provide an easy way to perform API functional testing client
 <!-- /TOC -->
 
 ## Installation
-Installation can easily be done through NPM or yarn :
+Installation can easily be done through NPM or Yarn. Sinon is required by FMF but not included as a dependency and must be also loaded if not already installed :
 ```bash
-npm install fetch-mock-fixtures --save-dev
+npm install sinon fetch-mock-fixtures --save-dev
 
-yarn add fetch-mock-fixtures --dev
+yarn add sinon fetch-mock-fixtures --dev
 ```
 FMF aims to ease API testing, therefore it should be included as a dev dependency in projects.
 
