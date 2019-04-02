@@ -113,9 +113,9 @@ For testing purposes, you may want to go deeper. FMF have three ways of dealing 
 
 1. Sending a response based on the current configuration
 
-2. Sending a response that can be changed and based on a call count (it can be pretty handy when dealing with functional tests that may performs several calls)
+2. Sending a response that can vary on a call count (it can be pretty handy when dealing with functional tests that may performs several calls)
 
-3. Using fixtures (see below). Fixtures can be combined with call count
+3. Using fixtures (see below). Fixtures can be combined with ordered responses
 
 ### A more advanced example with Mocha
 In real world, you may use some frameworks for your tests. Here's a full real-like example with FMF and Mocha :
