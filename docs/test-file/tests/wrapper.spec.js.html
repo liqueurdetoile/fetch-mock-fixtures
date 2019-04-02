@@ -36,11 +36,11 @@
 </nav>
 
 <div class="content" data-ice="content"><h1 data-ice="title">tests/wrapper.spec.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import MockServer from &apos;@&apos;;
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import Server from &apos;@&apos;;
 
 describe(&apos;Wrapper option testing suite&apos;, function () {
   it(&apos;should wrap response with default slot&apos;, async function () {
-    let server = new MockServer({
+    let server = new Server({
       wrapper: &apos;&lt;h1&gt;A good wrapper for %data%&lt;/h1&gt;&apos;
     });
 
@@ -55,7 +55,7 @@ describe(&apos;Wrapper option testing suite&apos;, function () {
   });
 
   it(&apos;should wrap response with named slots&apos;, async function () {
-    let server = new MockServer({
+    let server = new Server({
       wrapper: &apos;&lt;h1&gt;A good wrapper for %title%&lt;/h1&gt;&lt;h2&gt;And for %subtitle% subtitle&lt;/h2&gt;&apos;
     });
 
@@ -72,7 +72,7 @@ describe(&apos;Wrapper option testing suite&apos;, function () {
   });
 
   it(&apos;should wrap response with JSON data&apos;, async function () {
-    let server = new MockServer({
+    let server = new Server({
       wrapper: `{
         &quot;success&quot;:true,
         &quot;data&quot;:%data%
@@ -90,7 +90,7 @@ describe(&apos;Wrapper option testing suite&apos;, function () {
   });
 
   it(&apos;should use a callback function as wrapper&apos;, async function() {
-    let server = new MockServer();
+    let server = new Server();
 
     server.wrapper = data =&gt; JSON.stringify({success:true, data})
 

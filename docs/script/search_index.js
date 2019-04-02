@@ -13,67 +13,91 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/tests/fixtures.spec.js.html#lineNumber4",
+    "test-file/tests/fixtures.spec.js.html#lineNumber5",
     "Fixtures testing suite",
     "test"
   ],
   [
     "",
+    "test-file/tests/fixtures.spec.js.html#lineNumber11",
+    "Fixtures testing suite Fixture errors",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/fixtures.spec.js.html#lineNumber34",
+    "Fixtures testing suite Fixture errors should throw an exception if no arguments are provided to fetch",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/fixtures.spec.js.html#lineNumber12",
+    "Fixtures testing suite Fixture errors should throw an exception if no loader have been set",
+    "test"
+  ],
+  [
+    "",
     "test-file/tests/fixtures.spec.js.html#lineNumber21",
+    "Fixtures testing suite Fixture errors should warn if old loader have been set",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/fixtures.spec.js.html#lineNumber53",
     "Fixtures testing suite Fixture loading",
     "test"
   ],
   [
     "",
-    "test-file/tests/fixtures.spec.js.html#lineNumber22",
+    "test-file/tests/fixtures.spec.js.html#lineNumber54",
     "Fixtures testing suite Fixture loading should load fixture and GET",
     "test"
   ],
   [
     "",
-    "test-file/tests/fixtures.spec.js.html#lineNumber46",
+    "test-file/tests/fixtures.spec.js.html#lineNumber78",
     "Fixtures testing suite Fixture loading should load fixture and POST",
     "test"
   ],
   [
     "",
-    "test-file/tests/fixtures.spec.js.html#lineNumber64",
+    "test-file/tests/fixtures.spec.js.html#lineNumber96",
     "Fixtures testing suite Fixture loading should load fixture and fail",
     "test"
   ],
   [
     "",
-    "test-file/tests/fixtures.spec.js.html#lineNumber13",
+    "test-file/tests/fixtures.spec.js.html#lineNumber45",
     "Fixtures testing suite Fixture path resolution",
     "test"
   ],
   [
     "",
-    "test-file/tests/fixtures.spec.js.html#lineNumber14",
+    "test-file/tests/fixtures.spec.js.html#lineNumber46",
     "Fixtures testing suite Fixture path resolution should provide fixture path",
     "test"
   ],
   [
     "",
-    "test-file/tests/fixtures.spec.js.html#lineNumber76",
+    "test-file/tests/fixtures.spec.js.html#lineNumber108",
     "Fixtures testing suite On the fly fixture",
     "test"
   ],
   [
     "",
-    "test-file/tests/fixtures.spec.js.html#lineNumber77",
+    "test-file/tests/fixtures.spec.js.html#lineNumber109",
     "Fixtures testing suite On the fly fixture should use an on-the-fly fixture",
     "test"
   ],
   [
     "",
-    "test-file/tests/fixtures.spec.js.html#lineNumber100",
+    "test-file/tests/fixtures.spec.js.html#lineNumber135",
     "Fixtures testing suite Pattern and database fixture",
     "test"
   ],
   [
     "",
-    "test-file/tests/fixtures.spec.js.html#lineNumber116",
+    "test-file/tests/fixtures.spec.js.html#lineNumber156",
     "Fixtures testing suite Pattern and database fixture should use a pattern to extract path params and use database",
     "test"
   ],
@@ -85,140 +109,224 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/tests/core.spec.js.html#lineNumber75",
+    "test-file/tests/core.spec.js.html#lineNumber85",
     "Mock Server core functionalities testing suite Incoming request informations",
     "test"
   ],
   [
     "",
-    "test-file/tests/core.spec.js.html#lineNumber91",
+    "test-file/tests/core.spec.js.html#lineNumber101",
     "Mock Server core functionalities testing suite Incoming request informations should expose a cloned request object when initialized with a request object",
     "test"
   ],
   [
     "",
-    "test-file/tests/core.spec.js.html#lineNumber76",
+    "test-file/tests/core.spec.js.html#lineNumber86",
     "Mock Server core functionalities testing suite Incoming request informations should expose a request object when initialized with data and init object",
     "test"
   ],
   [
     "",
-    "test-file/tests/core.spec.js.html#lineNumber122",
+    "test-file/tests/core.spec.js.html#lineNumber132",
     "Mock Server core functionalities testing suite Incoming request informations should expose query",
     "test"
   ],
   [
     "",
-    "test-file/tests/core.spec.js.html#lineNumber129",
+    "test-file/tests/core.spec.js.html#lineNumber139",
     "Mock Server core functionalities testing suite Incoming request informations should expose query with request object",
     "test"
   ],
   [
     "",
-    "test-file/tests/core.spec.js.html#lineNumber109",
+    "test-file/tests/core.spec.js.html#lineNumber119",
     "Mock Server core functionalities testing suite Incoming request informations should expose url",
     "test"
   ],
   [
     "",
-    "test-file/tests/core.spec.js.html#lineNumber115",
+    "test-file/tests/core.spec.js.html#lineNumber125",
     "Mock Server core functionalities testing suite Incoming request informations should expose url with request object",
     "test"
   ],
   [
     "",
-    "test-file/tests/core.spec.js.html#lineNumber138",
+    "test-file/tests/core.spec.js.html#lineNumber148",
     "Mock Server core functionalities testing suite Response and status response",
     "test"
   ],
   [
     "",
-    "test-file/tests/core.spec.js.html#lineNumber201",
+    "test-file/tests/core.spec.js.html#lineNumber238",
     "Mock Server core functionalities testing suite Response and status response should mutate status",
     "test"
   ],
   [
     "",
-    "test-file/tests/core.spec.js.html#lineNumber139",
+    "test-file/tests/core.spec.js.html#lineNumber247",
+    "Mock Server core functionalities testing suite Response and status response should process body if provided as a callback",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/core.spec.js.html#lineNumber176",
     "Mock Server core functionalities testing suite Response and status response should respond and delay with params",
     "test"
   ],
   [
     "",
     "test-file/tests/core.spec.js.html#lineNumber193",
+    "Mock Server core functionalities testing suite Response and status response should respond and delay with response object",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/core.spec.js.html#lineNumber157",
+    "Mock Server core functionalities testing suite Response and status response should respond and wrap null data",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/core.spec.js.html#lineNumber230",
     "Mock Server core functionalities testing suite Response and status response should respond multiple times with status 401",
     "test"
   ],
   [
     "",
-    "test-file/tests/core.spec.js.html#lineNumber156",
-    "Mock Server core functionalities testing suite Response and status response should respond with response object",
+    "test-file/tests/core.spec.js.html#lineNumber149",
+    "Mock Server core functionalities testing suite Response and status response should respond with no data",
     "test"
   ],
   [
     "",
-    "test-file/tests/core.spec.js.html#lineNumber175",
+    "test-file/tests/core.spec.js.html#lineNumber212",
     "Mock Server core functionalities testing suite Response and status response should respond with status 204",
     "test"
   ],
   [
     "",
-    "test-file/tests/core.spec.js.html#lineNumber181",
+    "test-file/tests/core.spec.js.html#lineNumber218",
     "Mock Server core functionalities testing suite Response and status response should respond with status 301",
     "test"
   ],
   [
     "",
-    "test-file/tests/core.spec.js.html#lineNumber187",
+    "test-file/tests/core.spec.js.html#lineNumber224",
     "Mock Server core functionalities testing suite Response and status response should respond with status 401",
     "test"
   ],
   [
     "",
-    "test-file/tests/core.spec.js.html#lineNumber45",
+    "test-file/tests/core.spec.js.html#lineNumber50",
     "Mock Server core functionalities testing suite Server response setup",
     "test"
   ],
   [
     "",
-    "test-file/tests/core.spec.js.html#lineNumber46",
+    "test-file/tests/core.spec.js.html#lineNumber51",
     "Mock Server core functionalities testing suite Server response setup should initialize default global response parameters",
     "test"
   ],
   [
     "",
-    "test-file/tests/core.spec.js.html#lineNumber53",
+    "test-file/tests/core.spec.js.html#lineNumber58",
     "Mock Server core functionalities testing suite Server response setup should initialize global response parameters with configure",
     "test"
   ],
   [
     "",
-    "test-file/tests/core.spec.js.html#lineNumber66",
+    "test-file/tests/core.spec.js.html#lineNumber71",
     "Mock Server core functionalities testing suite Server response setup should set a delay for response",
     "test"
   ],
   [
     "",
+    "test-file/tests/core.spec.js.html#lineNumber79",
+    "Mock Server core functionalities testing suite Server response setup should throw exception if server is not started and access to stub properties/methods",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/core.spec.js.html#lineNumber13",
+    "Mock Server core functionalities testing suite Testing initialize and running",
+    "test"
+  ],
+  [
+    "",
     "test-file/tests/core.spec.js.html#lineNumber14",
-    "Mock Server core functionalities testing suite Testing initialize",
+    "Mock Server core functionalities testing suite Testing initialize and running should initialize and respond 200 to a basic get request",
     "test"
   ],
   [
     "",
-    "test-file/tests/core.spec.js.html#lineNumber15",
-    "Mock Server core functionalities testing suite Testing initialize should initialize and respond 200 to a basic get request",
+    "test-file/tests/core.spec.js.html#lineNumber30",
+    "Mock Server core functionalities testing suite Testing initialize and running should initialize and respond 200 with data to a basic get request",
     "test"
   ],
   [
     "",
-    "test-file/tests/core.spec.js.html#lineNumber31",
-    "Mock Server core functionalities testing suite Testing initialize should initialize and respond 200 with data to a basic get request",
+    "test-file/tests/core.spec.js.html#lineNumber21",
+    "Mock Server core functionalities testing suite Testing initialize and running should initialize and respond 404 to a basic get request",
     "test"
   ],
   [
     "",
-    "test-file/tests/core.spec.js.html#lineNumber22",
-    "Mock Server core functionalities testing suite Testing initialize should initialize and respond 404 to a basic get request",
+    "test-file/tests/core.spec.js.html#lineNumber43",
+    "Mock Server core functionalities testing suite Testing initialize and running should return server running status",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/history.spec.js.html#lineNumber3",
+    "Requests history and successive calls test suite",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/history.spec.js.html#lineNumber14",
+    "Requests history and successive calls test suite Requests history",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/history.spec.js.html#lineNumber24",
+    "Requests history and successive calls test suite Requests history should return request history by index",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/history.spec.js.html#lineNumber15",
+    "Requests history and successive calls test suite Requests history should return the number of requests processed",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/history.spec.js.html#lineNumber40",
+    "Requests history and successive calls test suite Requests history should return whole requests history",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/history.spec.js.html#lineNumber55",
+    "Requests history and successive calls test suite Successive different responses",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/history.spec.js.html#lineNumber56",
+    "Requests history and successive calls test suite Successive different responses should chain responses",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/history.spec.js.html#lineNumber89",
+    "Requests history and successive calls test suite Successive different responses should chain responses and fixtures",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/history.spec.js.html#lineNumber118",
+    "Requests history and successive calls test suite Successive different responses should mutate/inherit params between responses",
     "test"
   ],
   [
@@ -540,6 +648,12 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "src/fixture.js~fixture#_headers",
+    "class/src/Fixture.js~Fixture.html#instance-member-_headers",
+    "src/Fixture.js~Fixture#_headers",
+    "member"
+  ],
+  [
     "src/fixture.js~fixture#body",
     "class/src/Fixture.js~Fixture.html#instance-member-body",
     "src/Fixture.js~Fixture#body",
@@ -552,6 +666,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/fixture.js~fixture#delay",
+    "class/src/Fixture.js~Fixture.html#instance-member-delay",
+    "src/Fixture.js~Fixture#delay",
+    "member"
+  ],
+  [
     "src/fixture.js~fixture#destroyed",
     "class/src/Fixture.js~Fixture.html#instance-member-destroyed",
     "src/Fixture.js~Fixture#destroyed",
@@ -559,20 +679,26 @@ window.esdocSearchIndex = [
   ],
   [
     "src/fixture.js~fixture#headers",
-    "class/src/Fixture.js~Fixture.html#instance-member-headers",
+    "class/src/Fixture.js~Fixture.html#instance-get-headers",
     "src/Fixture.js~Fixture#headers",
+    "member"
+  ],
+  [
+    "src/fixture.js~fixture#headers",
+    "class/src/Fixture.js~Fixture.html#instance-set-headers",
+    "src/Fixture.js~Fixture#headers",
+    "member"
+  ],
+  [
+    "src/fixture.js~fixture#init",
+    "class/src/Fixture.js~Fixture.html#instance-get-init",
+    "src/Fixture.js~Fixture#init",
     "member"
   ],
   [
     "src/fixture.js~fixture#initialized",
     "class/src/Fixture.js~Fixture.html#instance-member-initialized",
     "src/Fixture.js~Fixture#initialized",
-    "member"
-  ],
-  [
-    "src/fixture.js~fixture#response",
-    "class/src/Fixture.js~Fixture.html#instance-get-response",
-    "src/Fixture.js~Fixture#response",
     "member"
   ],
   [
@@ -594,12 +720,6 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
-    "src/fixture.js~fixture#wrap",
-    "class/src/Fixture.js~Fixture.html#instance-member-wrap",
-    "src/Fixture.js~Fixture#wrap",
-    "member"
-  ],
-  [
     "src/fixture.js~fixture#wrapper",
     "class/src/Fixture.js~Fixture.html#instance-member-wrapper",
     "src/Fixture.js~Fixture#wrapper",
@@ -612,9 +732,21 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "src/server.js~server#_getfixtureparams",
-    "class/src/Server.js~Server.html#instance-method-_getFixtureParams",
-    "src/Server.js~Server#_getFixtureParams",
+    "src/server.js~server#_argstorequest",
+    "class/src/Server.js~Server.html#instance-method-_argsToRequest",
+    "src/Server.js~Server#_argsToRequest",
+    "method"
+  ],
+  [
+    "src/server.js~server#_call",
+    "class/src/Server.js~Server.html#instance-member-_call",
+    "src/Server.js~Server#_call",
+    "member"
+  ],
+  [
+    "src/server.js~server#_getresponse",
+    "class/src/Server.js~Server.html#instance-method-_getResponse",
+    "src/Server.js~Server#_getResponse",
     "method"
   ],
   [
@@ -622,6 +754,18 @@ window.esdocSearchIndex = [
     "class/src/Server.js~Server.html#instance-method-_loadFixture",
     "src/Server.js~Server#_loadFixture",
     "method"
+  ],
+  [
+    "src/server.js~server#_stub",
+    "class/src/Server.js~Server.html#instance-member-_stub",
+    "src/Server.js~Server#_stub",
+    "member"
+  ],
+  [
+    "src/server.js~server#callcount",
+    "class/src/Server.js~Server.html#instance-get-callCount",
+    "src/Server.js~Server#callCount",
+    "member"
   ],
   [
     "src/server.js~server#configure",
@@ -648,10 +792,52 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "src/server.js~server#getallrequests",
+    "class/src/Server.js~Server.html#instance-method-getAllRequests",
+    "src/Server.js~Server#getAllRequests",
+    "method"
+  ],
+  [
+    "src/server.js~server#getfixtureparams",
+    "class/src/Server.js~Server.html#instance-method-getFixtureParams",
+    "src/Server.js~Server#getFixtureParams",
+    "method"
+  ],
+  [
+    "src/server.js~server#getrequest",
+    "class/src/Server.js~Server.html#instance-method-getRequest",
+    "src/Server.js~Server#getRequest",
+    "method"
+  ],
+  [
     "src/server.js~server#headers",
     "class/src/Server.js~Server.html#instance-member-headers",
     "src/Server.js~Server#headers",
     "member"
+  ],
+  [
+    "src/server.js~server#oncall",
+    "class/src/Server.js~Server.html#instance-method-onCall",
+    "src/Server.js~Server#onCall",
+    "method"
+  ],
+  [
+    "src/server.js~server#onfirstcall",
+    "class/src/Server.js~Server.html#instance-method-onFirstCall",
+    "src/Server.js~Server#onFirstCall",
+    "method"
+  ],
+  [
+    "src/server.js~server#onsecondcall",
+    "class/src/Server.js~Server.html#instance-method-onSecondCall",
+    "src/Server.js~Server#onSecondCall",
+    "method"
+  ],
+  [
+    "src/server.js~server#onthirdcall",
+    "class/src/Server.js~Server.html#instance-method-onThirdCall",
+    "src/Server.js~Server#onThirdCall",
+    "method"
   ],
   [
     "src/server.js~server#pattern",
@@ -670,6 +856,12 @@ window.esdocSearchIndex = [
     "class/src/Server.js~Server.html#instance-get-request",
     "src/Server.js~Server#request",
     "member"
+  ],
+  [
+    "src/server.js~server#requesttourl",
+    "class/src/Server.js~Server.html#instance-method-requestToUrl",
+    "src/Server.js~Server#requestToUrl",
+    "method"
   ],
   [
     "src/server.js~server#reset",
@@ -700,6 +892,12 @@ window.esdocSearchIndex = [
     "class/src/Server.js~Server.html#instance-method-respondWithStatus",
     "src/Server.js~Server#respondWithStatus",
     "method"
+  ],
+  [
+    "src/server.js~server#running",
+    "class/src/Server.js~Server.html#instance-get-running",
+    "src/Server.js~Server#running",
+    "member"
   ],
   [
     "src/server.js~server#setdelay",
@@ -768,6 +966,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/server.js~server#stub",
+    "class/src/Server.js~Server.html#instance-get-stub",
+    "src/Server.js~Server#stub",
+    "member"
+  ],
+  [
     "src/server.js~server#url",
     "class/src/Server.js~Server.html#instance-get-url",
     "src/Server.js~Server#url",
@@ -801,6 +1005,12 @@ window.esdocSearchIndex = [
     "tests/fixtures.spec.js",
     "test-file/tests/fixtures.spec.js.html",
     "tests/fixtures.spec.js",
+    "testFile"
+  ],
+  [
+    "tests/history.spec.js",
+    "test-file/tests/history.spec.js.html",
+    "tests/history.spec.js",
     "testFile"
   ],
   [

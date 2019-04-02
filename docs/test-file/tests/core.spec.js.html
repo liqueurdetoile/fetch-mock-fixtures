@@ -36,20 +36,19 @@
 </nav>
 
 <div class="content" data-ice="content"><h1 data-ice="title">tests/core.spec.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import MockServer from &apos;@&apos;;
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import Server from &apos;@&apos;;
 
 let response, data;
 
 describe(&apos;Mock Server core functionalities testing suite&apos;, function () {
-  let server = new MockServer();
+  const server = new Server();
 
   beforeEach(() =&gt; server.start());
   afterEach(() =&gt; {
-    server.stop();
-    server.reset();
+    server.reset().stop();
   });
 
-  describe(&apos;Testing initialize&apos;, function () {
+  describe(&apos;Testing initialize and running&apos;, function () {
     it(&apos;should initialize and respond 200 to a basic get request&apos;, async function () {
       server.respondWith();
       response = await fetch(&apos;/&apos;);
@@ -78,6 +77,12 @@ describe(&apos;Mock Server core functionalities testing suite&apos;, function ()
       data = await response.json();
       data.test.should.equal(&apos;ok&apos;);
     });
+
+    it(&apos;should return server running status&apos;, function() {
+      server.running.should.be.true;
+      server.stop();
+      server.running.should.be.false;
+    })
   });
 
   describe(&apos;Server response setup&apos;, function() {
@@ -107,6 +112,11 @@ describe(&apos;Mock Server core functionalities testing suite&apos;, function ()
       })
 
       server.delay.should.equal(2000);
+    })
+
+    it(&apos;should throw exception if server is not started and access to stub properties/methods&apos;, function() {
+      server.stop();
+      expect(server.getRequest.bind(server, 0)).to.throw();
     })
   })
 
@@ -147,20 +157,20 @@ describe(&apos;Mock Server core functionalities testing suite&apos;, function ()
     it(&apos;should expose url&apos;, async function() {
       await fetch(&apos;/test&apos;);
 
-      server.url.should.equal(&apos;/test&apos;);
+      server.url.pathname.should.equal(&apos;/test&apos;);
     });
 
     it(&apos;should expose url with request object&apos;, async function() {
       let request = new Request(&apos;/test&apos;);
 
       await fetch(request);
-      server.url.should.equal(&apos;/test&apos;);
+      server.url.pathname.should.equal(&apos;/test&apos;);
     });
 
     it(&apos;should expose query&apos;, async function() {
       await fetch(&apos;/test?t=a&apos;);
 
-      server.url.should.equal(&apos;/test&apos;);
+      server.url.pathname.should.equal(&apos;/test&apos;);
       expect(server.query).to.deep.equal({t: &apos;a&apos;});
     });
 
@@ -168,12 +178,39 @@ describe(&apos;Mock Server core functionalities testing suite&apos;, function ()
       let request = new Request(&apos;/test?t=a&apos;);
 
       await fetch(request);
-      server.url.should.equal(&apos;/test&apos;);
+      server.url.pathname.should.equal(&apos;/test&apos;);
       expect(server.query).to.deep.equal({t: &apos;a&apos;});
     });
   })
 
   describe(&apos;Response and status response&apos;, function () {
+    it(&apos;should respond with no data&apos;, async function() {
+      server.respondWithStatus(204);
+
+      let response = await fetch(&apos;/&apos;);
+
+      response.status.should.equal(204);
+    })
+
+    it(&apos;should respond and wrap null data&apos;, async function() {
+      server
+        .respondWithJSON(null, {
+          status: 200
+        })
+        .setWrapper(`{
+          &quot;result&quot;:&quot;success&quot;,
+          &quot;success&quot;:true,
+          &quot;data&quot;:%data%
+        }`);
+
+      let response = await fetch(&apos;/&apos;);
+
+      response.status.should.equal(200);
+      let data = await response.json();
+      expect(data.success).to.be.true;
+      expect(data.data).to.be.null;
+    })
+
     it(&apos;should respond and delay with params&apos;, async function () {
       server
         .setDelay(500)
@@ -191,7 +228,7 @@ describe(&apos;Mock Server core functionalities testing suite&apos;, function ()
       data.should.equal(&apos;test&apos;);
     });
 
-    it(&apos;should respond with response object&apos;, async function () {
+    it(&apos;should respond and delay with response object&apos;, async function () {
       let response = new Response(&apos;test&apos;);
 
       server
@@ -244,6 +281,16 @@ describe(&apos;Mock Server core functionalities testing suite&apos;, function ()
       response = await fetch(&apos;/&apos;);
       response.status.should.equal(200);
     });
+
+    it(&apos;should process body if provided as a callback&apos;, async function() {
+      server.respondWith(server =&gt; {
+        return server.url.pathname;
+      });
+
+      response = await fetch(&apos;/&apos;);
+      let t = await response.text();
+      expect(t).to.equal(&apos;/&apos;);
+    })
   });
 });
 </code></pre>

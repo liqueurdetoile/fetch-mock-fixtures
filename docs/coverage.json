@@ -1,38 +1,45 @@
 {
-  "coverage": "52.38%",
-  "expectCount": 42,
-  "actualCount": 22,
+  "coverage": "53.44%",
+  "expectCount": 58,
+  "actualCount": 31,
   "files": {
     "src/Fixture.js": {
-      "expectCount": 12,
-      "actualCount": 9,
+      "expectCount": 14,
+      "actualCount": 10,
       "undocumentLines": [
-        54,
-        63,
-        64
+        66,
+        67,
+        70,
+        74
       ]
     },
     "src/Server.js": {
-      "expectCount": 30,
-      "actualCount": 13,
+      "expectCount": 44,
+      "actualCount": 21,
       "undocumentLines": [
-        136,
-        142,
-        148,
-        158,
-        164,
-        170,
-        176,
-        182,
-        188,
-        196,
-        217,
+        187,
+        191,
+        195,
+        199,
+        205,
+        209,
+        213,
+        236,
         242,
         248,
-        255,
-        261,
-        265,
-        269
+        258,
+        264,
+        270,
+        278,
+        297,
+        301,
+        305,
+        351,
+        357,
+        364,
+        373,
+        399,
+        449
       ]
     }
   }

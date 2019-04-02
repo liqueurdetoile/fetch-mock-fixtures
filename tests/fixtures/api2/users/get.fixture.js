@@ -5,10 +5,11 @@ export default {
     const db = new PouchDB('test');
 
     try {
-      this.body = await db.get(id);
-      this.wrapper = data => JSON.stringify(data);
-      this.headers = (new Headers()).set('content-type', 'application/json');
-
+      this.body = id ? await db.get(id) : await db.allDocs({
+        include_docs: true
+      }).rows.map(row => row.doc);
+      this.wrapper = body => JSON.stringify(body);
+      this.headers = new Headers({'content-type': 'application/json'});      
     } catch (err) {
       this.status = 404;
     }

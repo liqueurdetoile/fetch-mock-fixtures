@@ -1,12 +1,46 @@
+import {Server} from '@';
 import server from './server';
 import PouchDB from 'pouchdb';
 
 describe('Fixtures testing suite', function() {
   beforeEach(() => server.start());
   afterEach(() => {
-    server.stop();
-    server.reset();
+    server.reset().stop();
   });
+
+  describe('Fixture errors', function() {
+    it('should throw an exception if no loader have been set', async function() {
+      let server = new Server();
+
+      server.respondWithFixture();
+      let response = await fetch('/');
+      response.status.should.equal(500);
+      response.statusText.should.equal("Fixture loader have not been implemented. See readme for more informations.")
+    })
+
+    it('should warn if old loader have been set', async function() {
+      let server = new Server();
+
+      sinon.spy(console, 'warn');
+      server._getFixtureParams = () => true;
+      server.respondWithFixture();
+
+      await fetch('/');
+
+      console.warn.calledOnceWith('_getFixtureParams have been deprecated and will be removed in next versions. Please use getFixtureParams instead.').should.be.true; // eslint-disable-line
+      console.warn.restore(); // eslint-disable-line
+    })
+
+    it('should throw an exception if no arguments are provided to fetch', async function() {
+      server.respondWithFixture();
+
+      try {
+        await fetch();
+      } catch (err) {
+        err.toString().should.equal('Error: You must either provide a path or a fixture initialization object to fetch call');
+      }
+    });
+  })
 
   describe('Fixture path resolution', function() {
     it('should provide fixture path', async function() {
@@ -78,6 +112,9 @@ describe('Fixtures testing suite', function() {
 
       fixture.initialized = function() {
         this.body = 'test';
+        this.headers = {
+          'content-type': 'text/html'
+        }
       }
 
       fixture.destroyed = () => {
@@ -105,6 +142,11 @@ describe('Fixtures testing suite', function() {
         _id: '1',
         name: 'foo'
       });
+
+      await db.put({
+        _id: '2',
+        name: 'bar'
+      });
     });
 
     after(() => {
@@ -113,7 +155,7 @@ describe('Fixtures testing suite', function() {
 
     it('should use a pattern to extract path params and use database', async function() {
       server
-        .setFixturePattern('/api2/users/:id')
+        .setFixturePattern('/api2/users/:id?')
         .respondWithFixture();
 
       let response = await fetch('/api2/users/1');

@@ -567,7 +567,7 @@
     "__docId__": 48,
     "kind": "file",
     "name": "src/Fixture.js",
-    "content": "/**\n * Main fixture constructor\n * @version 1.0.0\n * @since 1.0.0\n * @author Liqueur de Toile <contact@liqueurdetoile.com>\n */\nexport default class Fixture {\n  /**\n   * Server instance\n   * @type {Server}\n   */\n  server = null;\n\n  /**\n   * Response body\n   * @type {mixed}\n   */\n  body = null;\n\n  /**\n   * Response status\n   * @type {Number}\n   */\n  status = null;\n\n  /**\n   * Response status text\n   * @type {String}\n   */\n  statusText = null;\n\n  /**\n   * Response headers\n   * @type {Headers}\n   */\n  headers = null;\n\n  /**\n   * Response wrapper\n   * @type {Boolean|String|Function}\n   */\n  wrapper = false;\n\n  /**\n   * Fixture constructor\n   * @version 1.0.0\n   * @since   1.0.0\n   * @param   {Server}  server Server instance\n   */\n  constructor(server, init) {\n    this.server = server;\n\n    // Copy server wrap method\n    this.wrap = server.wrap;\n\n    this.headers = init.headers || server.headers;\n    if (!(this.headers instanceof Headers)) this.headers = new Headers(this.headers);\n    this.status = init.status || server.status;\n    this.statusText = init.statusText || server.statusText;\n    this.wrapper = init.wrapper || server.wrapper;\n    this.body = init.body;\n\n    if (init.initialized) this.initialized = init.initialized;\n    if (init.destroyed) this.destroyed = init.destroyed;\n  }\n\n  /**\n   * Returns the response object based on fixture properties\n   * @version 1.0.0\n   * @since   1.0.0\n   * @return  {response}  Response object\n   */\n  get response() {\n    return new Response(this.wrap(this.body), {\n      headers: this.headers,\n      status: this.status,\n      statusText: this.statusText\n    });\n  }\n}\n",
+    "content": "/**\n * Main fixture constructor\n * @version 1.0.0\n * @since 1.0.0\n * @author Liqueur de Toile <contact@liqueurdetoile.com>\n */\nexport default class Fixture {\n  /**\n   * Server instance\n   * @type {Server}\n   */\n  server = null;\n\n  /**\n   * Response body\n   * @type {mixed}\n   */\n  body = null;\n\n  /**\n   * Response delay in ms\n   * @type {Number}\n   */\n  delay = 0;\n\n  /**\n   * Response status\n   * @type {Number}\n   */\n  status = null;\n\n  /**\n   * Response status text\n   * @type {String}\n   */\n  statusText = null;\n\n  /**\n   * Response headers\n   * @type {Headers}\n   */\n  _headers = null;\n\n  /**\n   * Response wrapper\n   * @type {Boolean|String|Function}\n   */\n  wrapper = false;\n\n  /**\n   * Fixture constructor\n   * @version 1.0.0\n   * @since   1.0.0\n   * @param   {Server}  server Server instance\n   */\n  constructor(server, init) {\n    this.server = server;\n\n    this.delay = init.delay || server.delay;\n    this.headers = init.headers || server.headers;\n    this.status = init.status || server.status;\n    this.statusText = init.statusText || server.statusText;\n    this.wrapper = init.wrapper || server.wrapper;\n    this.body = init.body || null;\n\n    if (init.initialized instanceof Function) this.initialized = init.initialized;\n    if (init.destroyed instanceof Function) this.destroyed = init.destroyed;\n  }\n\n  get headers() {\n    return this._headers;\n  }\n\n  set headers(headers = {}) {\n    if (headers instanceof Headers) {\n      this._headers = headers;\n      return this;\n    }\n\n    this._headers = new Headers(headers);\n    return this;\n  }\n\n  /**\n   * Returns the response initialization object based on fixture properties\n   * @version 1.0.0\n   * @since   1.0.0\n   * @return  {Object}  Response init object\n   */\n  get init() {\n    return {\n      delay: this.delay,\n      headers: this.headers,\n      status: this.status,\n      statusText: this.statusText,\n      wrapper: this.wrapper,\n    }\n  }\n}\n",
     "static": true,
     "longname": "F:/Projets/fetch-mock-fixtures/src/Fixture.js",
     "access": "public",
@@ -638,12 +638,12 @@
   {
     "__docId__": 52,
     "kind": "member",
-    "name": "status",
+    "name": "delay",
     "memberof": "src/Fixture.js~Fixture",
     "static": false,
-    "longname": "src/Fixture.js~Fixture#status",
+    "longname": "src/Fixture.js~Fixture#delay",
     "access": "public",
-    "description": "Response status",
+    "description": "Response delay in ms",
     "lineNumber": 24,
     "type": {
       "nullable": null,
@@ -657,13 +657,32 @@
   {
     "__docId__": 53,
     "kind": "member",
+    "name": "status",
+    "memberof": "src/Fixture.js~Fixture",
+    "static": false,
+    "longname": "src/Fixture.js~Fixture#status",
+    "access": "public",
+    "description": "Response status",
+    "lineNumber": 30,
+    "type": {
+      "nullable": null,
+      "types": [
+        "Number"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 54,
+    "kind": "member",
     "name": "statusText",
     "memberof": "src/Fixture.js~Fixture",
     "static": false,
     "longname": "src/Fixture.js~Fixture#statusText",
     "access": "public",
     "description": "Response status text",
-    "lineNumber": 30,
+    "lineNumber": 36,
     "type": {
       "nullable": null,
       "types": [
@@ -674,15 +693,15 @@
     }
   },
   {
-    "__docId__": 54,
+    "__docId__": 55,
     "kind": "member",
-    "name": "headers",
+    "name": "_headers",
     "memberof": "src/Fixture.js~Fixture",
     "static": false,
-    "longname": "src/Fixture.js~Fixture#headers",
-    "access": "public",
+    "longname": "src/Fixture.js~Fixture#_headers",
+    "access": "private",
     "description": "Response headers",
-    "lineNumber": 36,
+    "lineNumber": 42,
     "type": {
       "nullable": null,
       "types": [
@@ -693,7 +712,7 @@
     }
   },
   {
-    "__docId__": 55,
+    "__docId__": 56,
     "kind": "member",
     "name": "wrapper",
     "memberof": "src/Fixture.js~Fixture",
@@ -701,7 +720,7 @@
     "longname": "src/Fixture.js~Fixture#wrapper",
     "access": "public",
     "description": "Response wrapper",
-    "lineNumber": 42,
+    "lineNumber": 48,
     "type": {
       "nullable": null,
       "types": [
@@ -714,7 +733,7 @@
     }
   },
   {
-    "__docId__": 56,
+    "__docId__": 57,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/Fixture.js~Fixture",
@@ -724,7 +743,7 @@
     "longname": "src/Fixture.js~Fixture#constructor",
     "access": "public",
     "description": "Fixture constructor",
-    "lineNumber": 50,
+    "lineNumber": 56,
     "since": "  1.0.0",
     "version": "1.0.0",
     "params": [
@@ -741,23 +760,6 @@
     ]
   },
   {
-    "__docId__": 58,
-    "kind": "member",
-    "name": "wrap",
-    "memberof": "src/Fixture.js~Fixture",
-    "static": false,
-    "longname": "src/Fixture.js~Fixture#wrap",
-    "access": "public",
-    "description": null,
-    "lineNumber": 54,
-    "undocument": true,
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
     "__docId__": 65,
     "kind": "member",
     "name": "initialized",
@@ -766,7 +768,7 @@
     "longname": "src/Fixture.js~Fixture#initialized",
     "access": "public",
     "description": null,
-    "lineNumber": 63,
+    "lineNumber": 66,
     "undocument": true,
     "type": {
       "types": [
@@ -783,7 +785,7 @@
     "longname": "src/Fixture.js~Fixture#destroyed",
     "access": "public",
     "description": null,
-    "lineNumber": 64,
+    "lineNumber": 67,
     "undocument": true,
     "type": {
       "types": [
@@ -794,25 +796,16 @@
   {
     "__docId__": 67,
     "kind": "get",
-    "name": "response",
+    "name": "headers",
     "memberof": "src/Fixture.js~Fixture",
     "generator": false,
     "async": false,
     "static": false,
-    "longname": "src/Fixture.js~Fixture#response",
+    "longname": "src/Fixture.js~Fixture#headers",
     "access": "public",
-    "description": "Returns the response object based on fixture properties",
-    "lineNumber": 73,
-    "since": "  1.0.0",
-    "version": "1.0.0",
-    "return": {
-      "nullable": null,
-      "types": [
-        "response"
-      ],
-      "spread": false,
-      "description": "Response object"
-    },
+    "description": null,
+    "lineNumber": 70,
+    "undocument": true,
     "type": {
       "types": [
         "*"
@@ -821,6 +814,48 @@
   },
   {
     "__docId__": 68,
+    "kind": "set",
+    "name": "headers",
+    "memberof": "src/Fixture.js~Fixture",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/Fixture.js~Fixture#headers",
+    "access": "public",
+    "description": null,
+    "lineNumber": 74,
+    "undocument": true
+  },
+  {
+    "__docId__": 71,
+    "kind": "get",
+    "name": "init",
+    "memberof": "src/Fixture.js~Fixture",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/Fixture.js~Fixture#init",
+    "access": "public",
+    "description": "Returns the response initialization object based on fixture properties",
+    "lineNumber": 90,
+    "since": "  1.0.0",
+    "version": "1.0.0",
+    "return": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": "Response init object"
+    },
+    "type": {
+      "types": [
+        "{\"delay\": *, \"headers\": *, \"status\": *, \"statusText\": *, \"wrapper\": *}"
+      ]
+    }
+  },
+  {
+    "__docId__": 72,
     "kind": "file",
     "name": "src/index.js",
     "content": "import Fixture from './Fixture';\nimport Server from './Server';\n\nexport default Server;\n\nexport {\n  Fixture,\n  Server\n}\n",
@@ -831,10 +866,10 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 69,
+    "__docId__": 73,
     "kind": "file",
     "name": "src/Server.js",
-    "content": "import Fixture from './Fixture';\nimport parse from 'url-parse';\nimport pathToRegexp from 'path-to-regexp';\nimport sinon from 'sinon';\n\n/**\n * Base class to build a mock server to respond to fetch calls. It stubs\n * window.fetch\n *\n * @since 1.0.0\n * @version 1.0.0\n * @author Liqueur de Toile <contact@liqueurdetoile.com>\n */\nexport class Server {\n  /**\n   * Server response delay in ms\n   * @type {Number}\n   * @since 1.0.0\n   */\n  delay = 0;\n\n  /**\n   * Server fixture file location pattern\n   * @type {Boolean}\n   * @since 1.0.0\n   */\n  pattern = false;\n\n  /**\n   * Server response headers\n   * @type {Headers}\n   * @since 1.0.0\n   */\n  headers = new Headers({'content-type': 'text/html'});\n\n  /**\n   * Server response status\n   * @type {Number}\n   * @since 1.0.0\n   */\n  status = 200;\n\n  /**\n   * Server response status text\n   * @type {String}\n   * @since 1.0.0\n   */\n  statusText = 'OK';\n\n  /**\n   * Server response data wrapper\n   * @type {Boolean|String|Function}\n   * @since 1.0.0\n   */\n  wrapper = false;\n\n  /**\n   * Constructor. Configuration options can be passed.\n   * @version 1.0.0\n   * @since   1.0.0\n   * @param   {Object}  options Options\n   */\n  constructor(options) {\n    if (options) this.configure(options);\n  }\n\n  /**\n   * Configuration setter\n   * @version 1.0.0\n   * @since   1.0.0\n   * @param   {Object}  [options={}] Options\n   * @params  {Number} [options.delay]  Response delay in ms\n   * @return  {Server}               Server instance\n   */\n  configure(options = {}) {\n    this\n      .setDelay(options.delay)\n      .setHeaders(options.headers)\n      .setStatus(options.status)\n      .setStatusText(options.statusText)\n      .setWrapper(options.wrapper)\n      .setFixturePattern(options.pattern);\n\n    return this;\n  }\n\n  /**\n   * Reset the server configuration to default\n   * @version 1.0.0\n   * @since   1.0.0\n   * @return  {Server}               Server instance\n   */\n  reset() {\n    this.configure();\n\n    return this;\n  }\n\n  /**\n   * Start the server by stubbing `window.fetch`\n   * @version 1.0.0\n   * @since   1.0.0\n   * @return  {Server}               Server instance\n   */\n  start() {\n    sinon.stub(window, 'fetch');\n\n    return this;\n  }\n\n  /**\n   * Stop the server by restoring `window.fetch`\n   * @version 1.0.0\n   * @since   1.0.0\n   * @return  {Server}               Server instance\n   */\n  stop() {\n    window.fetch.restore();\n\n    return this;\n  }\n\n  /**\n   * Set the response delay server wide\n   * @version 1.0.0\n   * @since   1.0.0\n   * @param   {Number}  [delay=0]    Response delay in ms\n   * @return  {Server}               Server instance\n   */\n  setDelay(delay = 0) {\n    this.delay = delay;\n\n    return this;\n  }\n\n  setStatus(status = 200) {\n    this.status = status;\n\n    return this;\n  }\n\n  setStatusText(text = 'OK') {\n    this.statusText = text;\n\n    return this;\n  }\n\n  setHeaders(headers = {'content-type':'text/html'}) {\n    if (headers instanceof Headers) {\n      this.headers = headers;\n      return this;\n    }\n\n    this.headers = new Headers(headers);\n    return this;\n  }\n\n  setWrapper(wrapper = false) {\n    this.wrapper = wrapper;\n\n    return this;\n  }\n\n  setFixturePattern(pattern) {\n    this.pattern = pattern;\n\n    return this;\n  }\n\n  get url() {\n    let url = parse(this.request.url);\n\n    return url.pathname;\n  }\n\n  get query() {\n    let url = parse(this.request.url, true);\n\n    return url.query;\n  }\n\n  get request() {\n    if (window.fetch.firstCall.args[0] instanceof Request) return window.fetch.firstCall.args[0].clone();\n\n    return new Request(window.fetch.firstCall.args[0], window.fetch.lastCall.args[1]);\n  }\n\n  get fixture() {\n    let url = this.pattern || this.url;\n    let path = url.split('/').filter(p => p && p.indexOf(':') < 0);\n    let filename = this.request.method.toLowerCase();\n\n    return path.concat(filename).join('/');\n  }\n\n  wrap(data) {\n    if (!data) return null;\n\n    if (this.wrapper) {\n      if (this.wrapper instanceof Function) return this.wrapper(data);\n\n      if (typeof data === 'string') {\n        return this.wrapper.replace('%data%', data);\n      }\n\n      let body = String(this.wrapper);\n      for (let key in data) {\n        body = body.replace('%' + key + '%', data[key]);\n      }\n\n      return body;\n    }\n\n    return data;\n  }\n\n  respondWith(data, init = {}) {\n    if (data instanceof Response) {\n      window.fetch.callsFake(async () => {\n        /* istanbul ignore else */\n        if (this.delay) await this.sleep(this.delay);\n        return data;\n      });\n      return this;\n    }\n\n    init = Object.assign({\n      headers: this.headers,\n      status: this.status,\n      statusText: this.statusText\n    }, init);\n\n    window.fetch.callsFake(async () => {\n      /* istanbul ignore else */\n      if (this.delay) await this.sleep(this.delay);\n      return new Response(this.wrap(data), init)\n    });\n\n    return this;\n  }\n\n  respondWithStatus(status, data) {\n    return this.respondWith(data, {\n      status\n    });\n  }\n\n  respondWithJSON(data, options = {}) {\n    options.headers = options.headers || new Headers();\n    options.headers.set('content-type', 'application/json');\n\n    return this.respondWith(JSON.stringify(data), options);\n  }\n\n  respondWithFixture() {\n    window.fetch.callsFake(this._loadFixture.bind(this));\n\n    return this;\n  }\n\n  async sleep(delay) {\n    await new Promise(resolve => setTimeout(resolve, delay));\n  }\n\n  _getFixtureParams() {\n    throw new Error(\"Fixture finder have not been implemented. See readme for more informations.\");\n  }\n\n  async _loadFixture(fixture) {\n    let response;\n\n    /* istanbul ignore else */\n    if (typeof fixture === 'string') {\n      try {\n        const init = this._getFixtureParams();\n\n        fixture = new Fixture(this, init);\n      } catch (err) {\n        return new Response(null, {\n          status: 404,\n          statusText: err.toString()\n        });\n      }\n    } else {\n      fixture = new Fixture(this, fixture);\n    }\n\n    let params = {};\n\n    /* istanbul ignore else */\n    if (this.pattern) {\n      const keys = [];\n      const re = pathToRegexp(this.pattern, keys);\n      const parts = re.exec(this.url);\n\n      for (let i = 0; i < keys.length; i++) {\n        params[keys[i].name] = parts[i + 1];\n      }\n    }\n\n    /* istanbul ignore else */\n    if (fixture.initialized instanceof Function) await fixture.initialized(params);\n\n    /* istanbul ignore else */\n    if (this.delay) await this.sleep(this.delay);\n\n    response = fixture.response;\n\n    /* istanbul ignore else */\n    if (fixture.destroyed instanceof Function) await fixture.destroyed();\n\n    return response;\n  }\n}\n\nexport default Server;\n",
+    "content": "import Fixture from './Fixture';\nimport parse from 'url-parse';\nimport pathToRegexp from 'path-to-regexp';\nimport sinon from 'sinon';\n\n/**\n * Build a mock server to respond to fetch calls. It stubs\n * window.fetch\n *\n * @since 1.0.0\n * @version 1.0.0\n * @author Liqueur de Toile <contact@liqueurdetoile.com>\n */\nexport class Server {\n  /**\n   * Server response delay in ms\n   * @type {Number}\n   * @since 1.0.0\n   */\n  delay = 0;\n\n  /**\n   * Server fixture file location pattern\n   * @type {Boolean}\n   * @since 1.0.0\n   */\n  pattern = false;\n\n  /**\n   * Server response headers\n   * @type {Headers}\n   * @since 1.0.0\n   */\n  headers = new Headers({'content-type': 'text/html'});\n\n  /**\n   * Server response status\n   * @type {Number}\n   * @since 1.0.0\n   */\n  status = 200;\n\n  /**\n   * Server response status text\n   * @type {String}\n   * @since 1.0.0\n   */\n  statusText = 'OK';\n\n  /**\n   * Server response data wrapper\n   * @type {Boolean|String|Function}\n   * @since 1.0.0\n   */\n  wrapper = false;\n\n  /**\n   * Stores a call flag to let initialize diifferent successive response\n   * @type {null|Number}\n   */\n  _call = null;\n\n  /**\n   * Stores the current stub when pausing server\n   * @type {Function}\n   */\n  _stub = null;\n\n  /**\n   * Constructor. Configuration options can be passed.\n   * @version 1.0.0\n   * @since   1.0.0\n   * @param   {Object}  options Options\n   */\n  constructor(options) {\n    if (options) this.configure(options);\n  }\n\n  /**\n   * Configuration setter\n   * @version 1.0.0\n   * @since   1.0.0\n   * @param   {Object}  [options={}] Options\n   * @params  {Number} [options.delay]  Response delay in ms\n   * @return  {Server}               Server instance\n   */\n  configure(options = {}) {\n    this\n      .setDelay(options.delay)\n      .setHeaders(options.headers)\n      .setStatus(options.status)\n      .setStatusText(options.statusText)\n      .setWrapper(options.wrapper)\n      .setFixturePattern(options.pattern);\n\n    return this;\n  }\n\n  /**\n   * Start the server by stubbing `window.fetch`\n   * @version 1.0.0\n   * @since   1.0.0\n   * @return  {Server}               Server instance\n   */\n  start() {\n    /* istanbul ignore else */\n    if (!this.running) sinon.stub(window, 'fetch');\n\n    return this;\n  }\n\n  /**\n   * Stop the server\n   * @version 1.0.0\n   * @since   1.0.0\n   * @return  {Server}               Server instance\n   */\n  stop() {\n    if (this.running) window.fetch.restore();\n\n    return this;\n  }\n\n  /**\n   * Reset the server configuration to default and\n   * clear stub overrides and server history\n   * @version 1.1.0\n   * @since   1.0.0\n   * @return  {Server}               Server instance\n   */\n  reset(stub = false) {\n    if (this.running && stub) {\n      window.fetch.reset();\n    }\n    this.configure();\n\n    return this;\n  }\n\n  /**\n   * Check if server is running by trying to access a stub property\n   * @version 1.0.0\n   * @since   1.1.0\n   * @return  {Boolean}\n   */\n  get running() {\n    return window.fetch.reset instanceof Function;\n  }\n\n  /**\n   * Exposes the underlying stub or throws error if server is not started\n   * @version 1.0.0\n   * @since   1.1.0\n   * @return  {Object}  Sinon stub\n   */\n  get stub() {\n    if (this.running) return window.fetch;\n\n    throw new Error('Server is not started');\n  }\n\n  /**\n   * Returns a parsed request url with url-parse. Prior to 1.0.0, returns only pathname\n   * @version [1.1.0]\n   * @since   [1.0.0]\n   * @return  {Object}  Parsed url\n   * @property {String} protocol The protocol scheme of the URL (e.g. http:)\n   * @property {String} slashes A boolean which indicates whether the protocol is followed by two forward slashes (//)\n   * @property {String} auth Authentication information portion (e.g. username:password)\n   * @property {String} username Username of basic authentication\n   * @property {String} password Password of basic authentication\n   * @property {String} host Host name with port number\n   * @property {String} hostname Host name without port number\n   * @property {String} port Optional port number\n   * @property {String} pathname URL path\n   * @property {String} query Parsed object containing query string, unless parsing is set to false\n   * @property {String} hash The \"fragment\" portion of the URL including the pound-sign (#)\n   * @property {String} href The full URL\n   * @property {String} origin The origin of the URL\n   *\n   * @see https://www.npmjs.com/package/url-parse\n   */\n  requestToUrl(request) {\n    return parse(request.url, true);\n  }\n\n  get request() {\n    return this._argsToRequest(this.stub.lastCall.args);\n  }\n\n  get url() {\n    return this.requestToUrl(this.request);\n  }\n\n  get query() {\n    return this.url.query;\n  }\n\n  _argsToRequest(args) {\n    if (args[0] instanceof Request) return args[0].clone();\n\n    return new Request(args[0], args[1]);\n  }\n\n  get callCount() {\n    return this.stub.callCount;\n  }\n\n  getRequest(n) {\n    return this._argsToRequest(this.stub.getCall(n).args);\n  }\n\n  getAllRequests() {\n    let requests = [];\n\n    for (let i = 0; i < this.callCount; i++) {\n      requests.push(this.getRequest(i));\n    }\n\n    return requests;\n  }\n\n  /**\n   * Set the response delay server wide\n   * @version 1.0.0\n   * @since   1.0.0\n   * @param   {Number}  [delay=0]    Response delay in ms\n   * @return  {Server}               Server instance\n   */\n  setDelay(delay = 0) {\n    this.delay = delay;\n\n    return this;\n  }\n\n  setStatus(status = 200) {\n    this.status = status;\n\n    return this;\n  }\n\n  setStatusText(text = 'OK') {\n    this.statusText = text;\n\n    return this;\n  }\n\n  setHeaders(headers = {'content-type':'text/html'}) {\n    if (headers instanceof Headers) {\n      this.headers = headers;\n      return this;\n    }\n\n    this.headers = new Headers(headers);\n    return this;\n  }\n\n  setWrapper(wrapper = false) {\n    this.wrapper = wrapper;\n\n    return this;\n  }\n\n  setFixturePattern(pattern) {\n    this.pattern = pattern;\n\n    return this;\n  }\n\n  get fixture() {\n    let url = this.pattern || this.url.pathname;\n    let path = url.split('/').filter(p => p && p.indexOf(':') < 0);\n    let filename = this.request.method.toLowerCase();\n\n    return path.concat(filename).join('/');\n  }\n\n  wrap(data, wrapper) {\n    if (wrapper) {\n      if (wrapper instanceof Function) return wrapper(data);\n\n      if (typeof data === 'string') {\n        return wrapper.replace('%data%', data);\n      }\n\n      let body = String(wrapper);\n      for (let key in data) {\n        body = body.replace('%' + key + '%', data[key]);\n      }\n\n      return body;\n    }\n\n    return data || null;\n  }\n\n  onFirstCall() {\n    return this.onCall(0);\n  }\n\n  onSecondCall() {\n    return this.onCall(1);\n  }\n\n  onThirdCall() {\n    return this.onCall(2);\n  }\n\n  /**\n   * Set the next configuration to be bind to the nth call to fetch\n   *\n   * @version 1.0.0\n   * @since   1.1.0\n   * @param   {Number}  n Call count\n   * @return  {Server}    Server instance\n   */\n  onCall(n) {\n    this._call = n;\n    return this;\n  }\n\n  /**\n   * Configure the server response\n   * @version 1.1.0\n   * @since   1.0.0\n   * @param   {null|Number|String|Function}  body  Response body\n   * @param   {Object}  [init={}]    Initialization object\n   * @return  {Server}               Server instance\n   */\n  respondWith(body, init = {}) {\n    let stub = this._call !== null ? this.stub.onCall(this._call) : this.stub;\n\n    // Freeze response init object\n    if (this._call !== null) {\n      init = Object.assign({\n        delay: this.delay,\n        headers: this.headers,\n        status: this.status,\n        statusText: this.statusText,\n        wrapper: this.wrapper,\n      }, init);\n    }\n\n    this._call = null;\n\n    stub.callsFake(() => this._getResponse(body, init));\n\n    return this;\n  }\n\n  respondWithStatus(status, body) {\n    return this.respondWith(body, {\n      status\n    });\n  }\n\n  respondWithJSON(body, init = {}) {\n    init.headers = init.headers || new Headers();\n    init.headers.set('content-type', 'application/json');\n\n    return this.respondWith(JSON.stringify(body), init);\n  }\n\n  respondWithFixture() {\n    let stub = this._call !== null ? this.stub.onCall(this._call) : this.stub;\n    this._call = null;\n\n    stub.callsFake(this._loadFixture.bind(this));\n\n    return this;\n  }\n\n  async sleep(delay) {\n    await new Promise(resolve => setTimeout(resolve, delay));\n  }\n\n  /**\n   * Loader for fixture params. You can use here the server.fixture dynamic property that\n   * computes a path from the current call\n   *\n   * @version 1.0.0\n   * @since   1.1.0\n   * @return  {Object}  Fixture params\n   */\n  getFixtureParams() {\n    try {\n      let params = this._getFixtureParams();\n      console.warn('_getFixtureParams have been deprecated and will be removed in next versions. Please use getFixtureParams instead.'); // eslint-disable-line\n\n      return params;\n    } catch (err) {\n      throw new Response(null, {\n        status: 500,\n        statusText: \"Fixture loader have not been implemented. See readme for more informations.\"\n      });\n    }\n  }\n\n  async _loadFixture(fixture) {\n    let response;\n\n    if (typeof fixture === 'undefined') throw new Error('You must either provide a path or a fixture initialization object to fetch call');\n\n    /* istanbul ignore else */\n    if (typeof fixture === 'string') {\n      try {\n        const init = this.getFixtureParams();\n\n        fixture = new Fixture(this, init);\n      } catch (err) {\n        return err instanceof Response ?\n          err :\n          new Response(null, {\n            status: 404,\n            statusText: err.toString()\n          });\n      }\n    } else {\n      fixture = new Fixture(this, fixture);\n    }\n\n    let params = {};\n\n    /* istanbul ignore else */\n    if (this.pattern) {\n      const keys = [];\n      const re = pathToRegexp(this.pattern, keys);\n      const parts = re.exec(this.url.pathname);\n\n      for (let i = 0; i < keys.length; i++) {\n        params[keys[i].name] = parts[i + 1];\n      }\n    }\n\n    /* istanbul ignore else */\n    if (fixture.initialized instanceof Function) await fixture.initialized(params);\n\n    /* istanbul ignore else */\n    if (this.delay) await this.sleep(this.delay);\n\n    response = await this._getResponse(fixture.body, fixture.init);\n\n    /* istanbul ignore else */\n    if (fixture.destroyed instanceof Function) await fixture.destroyed();\n\n    return response;\n  }\n\n  async _getResponse(body, init = {}) {\n    let response;\n\n    if (body instanceof Response) {\n      init = Object.assign({delay: this.delay}, init);\n      response = body;\n    }\n    else {\n      init = Object.assign({\n        delay: this.delay,\n        headers: this.headers,\n        status: this.status,\n        statusText: this.statusText,\n        wrapper: this.wrapper\n      }, init);\n\n      if (body instanceof Function) body = body(this);\n      response = new Response(this.wrap(body, init.wrapper), init)\n    }\n\n    /* istanbul ignore else */\n    if (init.delay) await this.sleep(init.delay);\n    return response.clone();\n  }\n}\n\nexport default Server;\n",
     "static": true,
     "longname": "F:/Projets/fetch-mock-fixtures/src/Server.js",
     "access": "public",
@@ -842,7 +877,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 70,
+    "__docId__": 74,
     "kind": "class",
     "name": "Server",
     "memberof": "src/Server.js",
@@ -852,7 +887,7 @@
     "export": true,
     "importPath": "fetch-mock-fixtures/src/Server.js",
     "importStyle": "{Server}",
-    "description": "Base class to build a mock server to respond to fetch calls. It stubs\nwindow.fetch",
+    "description": "Build a mock server to respond to fetch calls. It stubs\nwindow.fetch",
     "lineNumber": 14,
     "since": "1.0.0",
     "version": "1.0.0",
@@ -865,7 +900,7 @@
     "interface": false
   },
   {
-    "__docId__": 71,
+    "__docId__": 75,
     "kind": "member",
     "name": "delay",
     "memberof": "src/Server.js~Server",
@@ -885,7 +920,7 @@
     }
   },
   {
-    "__docId__": 72,
+    "__docId__": 76,
     "kind": "member",
     "name": "pattern",
     "memberof": "src/Server.js~Server",
@@ -905,7 +940,7 @@
     }
   },
   {
-    "__docId__": 73,
+    "__docId__": 77,
     "kind": "member",
     "name": "headers",
     "memberof": "src/Server.js~Server",
@@ -925,7 +960,7 @@
     }
   },
   {
-    "__docId__": 74,
+    "__docId__": 78,
     "kind": "member",
     "name": "status",
     "memberof": "src/Server.js~Server",
@@ -945,7 +980,7 @@
     }
   },
   {
-    "__docId__": 75,
+    "__docId__": 79,
     "kind": "member",
     "name": "statusText",
     "memberof": "src/Server.js~Server",
@@ -965,7 +1000,7 @@
     }
   },
   {
-    "__docId__": 76,
+    "__docId__": 80,
     "kind": "member",
     "name": "wrapper",
     "memberof": "src/Server.js~Server",
@@ -987,7 +1022,46 @@
     }
   },
   {
-    "__docId__": 77,
+    "__docId__": 81,
+    "kind": "member",
+    "name": "_call",
+    "memberof": "src/Server.js~Server",
+    "static": false,
+    "longname": "src/Server.js~Server#_call",
+    "access": "private",
+    "description": "Stores a call flag to let initialize diifferent successive response",
+    "lineNumber": 61,
+    "type": {
+      "nullable": null,
+      "types": [
+        "null",
+        "Number"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 82,
+    "kind": "member",
+    "name": "_stub",
+    "memberof": "src/Server.js~Server",
+    "static": false,
+    "longname": "src/Server.js~Server#_stub",
+    "access": "private",
+    "description": "Stores the current stub when pausing server",
+    "lineNumber": 67,
+    "type": {
+      "nullable": null,
+      "types": [
+        "Function"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 83,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/Server.js~Server",
@@ -997,7 +1071,7 @@
     "longname": "src/Server.js~Server#constructor",
     "access": "public",
     "description": "Constructor. Configuration options can be passed.",
-    "lineNumber": 63,
+    "lineNumber": 75,
     "since": "  1.0.0",
     "version": "1.0.0",
     "params": [
@@ -1014,7 +1088,7 @@
     ]
   },
   {
-    "__docId__": 78,
+    "__docId__": 84,
     "kind": "method",
     "name": "configure",
     "memberof": "src/Server.js~Server",
@@ -1024,7 +1098,7 @@
     "longname": "src/Server.js~Server#configure",
     "access": "public",
     "description": "Configuration setter",
-    "lineNumber": 75,
+    "lineNumber": 87,
     "since": "  1.0.0",
     "version": "1.0.0",
     "unknown": [
@@ -1057,31 +1131,7 @@
     }
   },
   {
-    "__docId__": 79,
-    "kind": "method",
-    "name": "reset",
-    "memberof": "src/Server.js~Server",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "src/Server.js~Server#reset",
-    "access": "public",
-    "description": "Reset the server configuration to default",
-    "lineNumber": 93,
-    "since": "  1.0.0",
-    "version": "1.0.0",
-    "return": {
-      "nullable": null,
-      "types": [
-        "Server"
-      ],
-      "spread": false,
-      "description": "Server instance"
-    },
-    "params": []
-  },
-  {
-    "__docId__": 80,
+    "__docId__": 85,
     "kind": "method",
     "name": "start",
     "memberof": "src/Server.js~Server",
@@ -1105,7 +1155,7 @@
     "params": []
   },
   {
-    "__docId__": 81,
+    "__docId__": 86,
     "kind": "method",
     "name": "stop",
     "memberof": "src/Server.js~Server",
@@ -1114,8 +1164,8 @@
     "static": false,
     "longname": "src/Server.js~Server#stop",
     "access": "public",
-    "description": "Stop the server by restoring `window.fetch`",
-    "lineNumber": 117,
+    "description": "Stop the server",
+    "lineNumber": 118,
     "since": "  1.0.0",
     "version": "1.0.0",
     "return": {
@@ -1129,7 +1179,413 @@
     "params": []
   },
   {
-    "__docId__": 82,
+    "__docId__": 87,
+    "kind": "method",
+    "name": "reset",
+    "memberof": "src/Server.js~Server",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/Server.js~Server#reset",
+    "access": "public",
+    "description": "Reset the server configuration to default and\nclear stub overrides and server history",
+    "lineNumber": 131,
+    "since": "  1.0.0",
+    "version": "1.1.0",
+    "return": {
+      "nullable": null,
+      "types": [
+        "Server"
+      ],
+      "spread": false,
+      "description": "Server instance"
+    },
+    "params": [
+      {
+        "name": "stub",
+        "optional": true,
+        "types": [
+          "boolean"
+        ],
+        "defaultRaw": false,
+        "defaultValue": "false"
+      }
+    ]
+  },
+  {
+    "__docId__": 88,
+    "kind": "get",
+    "name": "running",
+    "memberof": "src/Server.js~Server",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/Server.js~Server#running",
+    "access": "public",
+    "description": "Check if server is running by trying to access a stub property",
+    "lineNumber": 146,
+    "since": "  1.1.0",
+    "version": "1.0.0",
+    "return": {
+      "nullable": null,
+      "types": [
+        "Boolean"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 89,
+    "kind": "get",
+    "name": "stub",
+    "memberof": "src/Server.js~Server",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/Server.js~Server#stub",
+    "access": "public",
+    "description": "Exposes the underlying stub or throws error if server is not started",
+    "lineNumber": 156,
+    "since": "  1.1.0",
+    "version": "1.0.0",
+    "return": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": "Sinon stub"
+    },
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 90,
+    "kind": "method",
+    "name": "requestToUrl",
+    "memberof": "src/Server.js~Server",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/Server.js~Server#requestToUrl",
+    "access": "public",
+    "description": "Returns a parsed request url with url-parse. Prior to 1.0.0, returns only pathname",
+    "see": [
+      "https://www.npmjs.com/package/url-parse"
+    ],
+    "lineNumber": 183,
+    "since": "  [1.0.0]",
+    "version": "[1.1.0]",
+    "properties": [
+      {
+        "nullable": null,
+        "types": [
+          "String"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "protocol",
+        "description": "The protocol scheme of the URL (e.g. http:)"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "String"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "slashes",
+        "description": "A boolean which indicates whether the protocol is followed by two forward slashes (//)"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "String"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "auth",
+        "description": "Authentication information portion (e.g. username:password)"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "String"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "username",
+        "description": "Username of basic authentication"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "String"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "password",
+        "description": "Password of basic authentication"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "String"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "host",
+        "description": "Host name with port number"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "String"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "hostname",
+        "description": "Host name without port number"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "String"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "port",
+        "description": "Optional port number"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "String"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "pathname",
+        "description": "URL path"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "String"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "query",
+        "description": "Parsed object containing query string, unless parsing is set to false"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "String"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "hash",
+        "description": "The \"fragment\" portion of the URL including the pound-sign (#)"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "String"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "href",
+        "description": "The full URL"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "String"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "origin",
+        "description": "The origin of the URL"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": "Parsed url"
+    },
+    "params": [
+      {
+        "name": "request",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 91,
+    "kind": "get",
+    "name": "request",
+    "memberof": "src/Server.js~Server",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/Server.js~Server#request",
+    "access": "public",
+    "description": null,
+    "lineNumber": 187,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 92,
+    "kind": "get",
+    "name": "url",
+    "memberof": "src/Server.js~Server",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/Server.js~Server#url",
+    "access": "public",
+    "description": null,
+    "lineNumber": 191,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 93,
+    "kind": "get",
+    "name": "query",
+    "memberof": "src/Server.js~Server",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/Server.js~Server#query",
+    "access": "public",
+    "description": null,
+    "lineNumber": 195,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 94,
+    "kind": "method",
+    "name": "_argsToRequest",
+    "memberof": "src/Server.js~Server",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/Server.js~Server#_argsToRequest",
+    "access": "private",
+    "description": null,
+    "lineNumber": 199,
+    "undocument": true,
+    "params": [
+      {
+        "name": "args",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 95,
+    "kind": "get",
+    "name": "callCount",
+    "memberof": "src/Server.js~Server",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/Server.js~Server#callCount",
+    "access": "public",
+    "description": null,
+    "lineNumber": 205,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 96,
+    "kind": "method",
+    "name": "getRequest",
+    "memberof": "src/Server.js~Server",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/Server.js~Server#getRequest",
+    "access": "public",
+    "description": null,
+    "lineNumber": 209,
+    "undocument": true,
+    "params": [
+      {
+        "name": "n",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 97,
+    "kind": "method",
+    "name": "getAllRequests",
+    "memberof": "src/Server.js~Server",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/Server.js~Server#getAllRequests",
+    "access": "public",
+    "description": null,
+    "lineNumber": 213,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 98,
     "kind": "method",
     "name": "setDelay",
     "memberof": "src/Server.js~Server",
@@ -1139,7 +1595,7 @@
     "longname": "src/Server.js~Server#setDelay",
     "access": "public",
     "description": "Set the response delay server wide",
-    "lineNumber": 130,
+    "lineNumber": 230,
     "since": "  1.0.0",
     "version": "1.0.0",
     "params": [
@@ -1166,7 +1622,7 @@
     }
   },
   {
-    "__docId__": 84,
+    "__docId__": 100,
     "kind": "method",
     "name": "setStatus",
     "memberof": "src/Server.js~Server",
@@ -1176,7 +1632,7 @@
     "longname": "src/Server.js~Server#setStatus",
     "access": "public",
     "description": null,
-    "lineNumber": 136,
+    "lineNumber": 236,
     "undocument": true,
     "params": [
       {
@@ -1196,7 +1652,7 @@
     }
   },
   {
-    "__docId__": 86,
+    "__docId__": 102,
     "kind": "method",
     "name": "setStatusText",
     "memberof": "src/Server.js~Server",
@@ -1206,7 +1662,7 @@
     "longname": "src/Server.js~Server#setStatusText",
     "access": "public",
     "description": null,
-    "lineNumber": 142,
+    "lineNumber": 242,
     "undocument": true,
     "params": [
       {
@@ -1226,7 +1682,7 @@
     }
   },
   {
-    "__docId__": 88,
+    "__docId__": 104,
     "kind": "method",
     "name": "setHeaders",
     "memberof": "src/Server.js~Server",
@@ -1236,7 +1692,7 @@
     "longname": "src/Server.js~Server#setHeaders",
     "access": "public",
     "description": null,
-    "lineNumber": 148,
+    "lineNumber": 248,
     "undocument": true,
     "params": [
       {
@@ -1258,7 +1714,7 @@
     }
   },
   {
-    "__docId__": 91,
+    "__docId__": 107,
     "kind": "method",
     "name": "setWrapper",
     "memberof": "src/Server.js~Server",
@@ -1268,7 +1724,7 @@
     "longname": "src/Server.js~Server#setWrapper",
     "access": "public",
     "description": null,
-    "lineNumber": 158,
+    "lineNumber": 258,
     "undocument": true,
     "params": [
       {
@@ -1288,7 +1744,7 @@
     }
   },
   {
-    "__docId__": 93,
+    "__docId__": 109,
     "kind": "method",
     "name": "setFixturePattern",
     "memberof": "src/Server.js~Server",
@@ -1298,7 +1754,7 @@
     "longname": "src/Server.js~Server#setFixturePattern",
     "access": "public",
     "description": null,
-    "lineNumber": 164,
+    "lineNumber": 264,
     "undocument": true,
     "params": [
       {
@@ -1315,64 +1771,7 @@
     }
   },
   {
-    "__docId__": 95,
-    "kind": "get",
-    "name": "url",
-    "memberof": "src/Server.js~Server",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "src/Server.js~Server#url",
-    "access": "public",
-    "description": null,
-    "lineNumber": 170,
-    "undocument": true,
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 96,
-    "kind": "get",
-    "name": "query",
-    "memberof": "src/Server.js~Server",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "src/Server.js~Server#query",
-    "access": "public",
-    "description": null,
-    "lineNumber": 176,
-    "undocument": true,
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 97,
-    "kind": "get",
-    "name": "request",
-    "memberof": "src/Server.js~Server",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "src/Server.js~Server#request",
-    "access": "public",
-    "description": null,
-    "lineNumber": 182,
-    "undocument": true,
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 98,
+    "__docId__": 111,
     "kind": "get",
     "name": "fixture",
     "memberof": "src/Server.js~Server",
@@ -1382,7 +1781,7 @@
     "longname": "src/Server.js~Server#fixture",
     "access": "public",
     "description": null,
-    "lineNumber": 188,
+    "lineNumber": 270,
     "undocument": true,
     "type": {
       "types": [
@@ -1391,7 +1790,7 @@
     }
   },
   {
-    "__docId__": 99,
+    "__docId__": 112,
     "kind": "method",
     "name": "wrap",
     "memberof": "src/Server.js~Server",
@@ -1401,11 +1800,17 @@
     "longname": "src/Server.js~Server#wrap",
     "access": "public",
     "description": null,
-    "lineNumber": 196,
+    "lineNumber": 278,
     "undocument": true,
     "params": [
       {
         "name": "data",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "wrapper",
         "types": [
           "*"
         ]
@@ -1418,7 +1823,102 @@
     }
   },
   {
-    "__docId__": 100,
+    "__docId__": 113,
+    "kind": "method",
+    "name": "onFirstCall",
+    "memberof": "src/Server.js~Server",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/Server.js~Server#onFirstCall",
+    "access": "public",
+    "description": null,
+    "lineNumber": 297,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 114,
+    "kind": "method",
+    "name": "onSecondCall",
+    "memberof": "src/Server.js~Server",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/Server.js~Server#onSecondCall",
+    "access": "public",
+    "description": null,
+    "lineNumber": 301,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 115,
+    "kind": "method",
+    "name": "onThirdCall",
+    "memberof": "src/Server.js~Server",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/Server.js~Server#onThirdCall",
+    "access": "public",
+    "description": null,
+    "lineNumber": 305,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 116,
+    "kind": "method",
+    "name": "onCall",
+    "memberof": "src/Server.js~Server",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/Server.js~Server#onCall",
+    "access": "public",
+    "description": "Set the next configuration to be bind to the nth call to fetch",
+    "lineNumber": 317,
+    "since": "  1.1.0",
+    "version": "1.0.0",
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "n",
+        "description": "Call count"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Server"
+      ],
+      "spread": false,
+      "description": "Server instance"
+    }
+  },
+  {
+    "__docId__": 118,
     "kind": "method",
     "name": "respondWith",
     "memberof": "src/Server.js~Server",
@@ -1427,12 +1927,95 @@
     "static": false,
     "longname": "src/Server.js~Server#respondWith",
     "access": "public",
+    "description": "Configure the server response",
+    "lineNumber": 330,
+    "since": "  1.0.0",
+    "version": "1.1.0",
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "null",
+          "Number",
+          "String",
+          "Function"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "body",
+        "description": "Response body"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "{}",
+        "defaultRaw": {},
+        "name": "init",
+        "description": "Initialization object"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Server"
+      ],
+      "spread": false,
+      "description": "Server instance"
+    }
+  },
+  {
+    "__docId__": 120,
+    "kind": "method",
+    "name": "respondWithStatus",
+    "memberof": "src/Server.js~Server",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/Server.js~Server#respondWithStatus",
+    "access": "public",
     "description": null,
-    "lineNumber": 217,
+    "lineNumber": 351,
     "undocument": true,
     "params": [
       {
-        "name": "data",
+        "name": "status",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "body",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 121,
+    "kind": "method",
+    "name": "respondWithJSON",
+    "memberof": "src/Server.js~Server",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/Server.js~Server#respondWithJSON",
+    "access": "public",
+    "description": null,
+    "lineNumber": 357,
+    "undocument": true,
+    "params": [
+      {
+        "name": "body",
         "types": [
           "*"
         ]
@@ -1454,76 +2037,7 @@
     }
   },
   {
-    "__docId__": 101,
-    "kind": "method",
-    "name": "respondWithStatus",
-    "memberof": "src/Server.js~Server",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "src/Server.js~Server#respondWithStatus",
-    "access": "public",
-    "description": null,
-    "lineNumber": 242,
-    "undocument": true,
-    "params": [
-      {
-        "name": "status",
-        "types": [
-          "*"
-        ]
-      },
-      {
-        "name": "data",
-        "types": [
-          "*"
-        ]
-      }
-    ],
-    "return": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 102,
-    "kind": "method",
-    "name": "respondWithJSON",
-    "memberof": "src/Server.js~Server",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "src/Server.js~Server#respondWithJSON",
-    "access": "public",
-    "description": null,
-    "lineNumber": 248,
-    "undocument": true,
-    "params": [
-      {
-        "name": "data",
-        "types": [
-          "*"
-        ]
-      },
-      {
-        "name": "options",
-        "optional": true,
-        "types": [
-          "{}"
-        ],
-        "defaultRaw": {},
-        "defaultValue": "{}"
-      }
-    ],
-    "return": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 103,
+    "__docId__": 122,
     "kind": "method",
     "name": "respondWithFixture",
     "memberof": "src/Server.js~Server",
@@ -1533,7 +2047,7 @@
     "longname": "src/Server.js~Server#respondWithFixture",
     "access": "public",
     "description": null,
-    "lineNumber": 255,
+    "lineNumber": 364,
     "undocument": true,
     "params": [],
     "return": {
@@ -1543,7 +2057,7 @@
     }
   },
   {
-    "__docId__": 104,
+    "__docId__": 124,
     "kind": "method",
     "name": "sleep",
     "memberof": "src/Server.js~Server",
@@ -1553,7 +2067,7 @@
     "longname": "src/Server.js~Server#sleep",
     "access": "public",
     "description": null,
-    "lineNumber": 261,
+    "lineNumber": 373,
     "undocument": true,
     "params": [
       {
@@ -1566,23 +2080,31 @@
     "return": null
   },
   {
-    "__docId__": 105,
+    "__docId__": 125,
     "kind": "method",
-    "name": "_getFixtureParams",
+    "name": "getFixtureParams",
     "memberof": "src/Server.js~Server",
     "generator": false,
     "async": false,
     "static": false,
-    "longname": "src/Server.js~Server#_getFixtureParams",
-    "access": "private",
-    "description": null,
-    "lineNumber": 265,
-    "undocument": true,
-    "params": [],
-    "return": null
+    "longname": "src/Server.js~Server#getFixtureParams",
+    "access": "public",
+    "description": "Loader for fixture params. You can use here the server.fixture dynamic property that\ncomputes a path from the current call",
+    "lineNumber": 385,
+    "since": "  1.1.0",
+    "version": "1.0.0",
+    "return": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": "Fixture params"
+    },
+    "params": []
   },
   {
-    "__docId__": 106,
+    "__docId__": 126,
     "kind": "method",
     "name": "_loadFixture",
     "memberof": "src/Server.js~Server",
@@ -1592,7 +2114,7 @@
     "longname": "src/Server.js~Server#_loadFixture",
     "access": "private",
     "description": null,
-    "lineNumber": 269,
+    "lineNumber": 399,
     "undocument": true,
     "params": [
       {
@@ -1609,8 +2131,44 @@
     }
   },
   {
+    "__docId__": 127,
+    "kind": "method",
+    "name": "_getResponse",
+    "memberof": "src/Server.js~Server",
+    "generator": false,
+    "async": true,
+    "static": false,
+    "longname": "src/Server.js~Server#_getResponse",
+    "access": "private",
+    "description": null,
+    "lineNumber": 449,
+    "undocument": true,
+    "params": [
+      {
+        "name": "body",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "init",
+        "optional": true,
+        "types": [
+          "{}"
+        ],
+        "defaultRaw": {},
+        "defaultValue": "{}"
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
     "kind": "index",
-    "content": "[![Build Status](https://travis-ci.org/liqueurdetoile/fetch-mock-fixtures.svg?branch=master)](https://travis-ci.org/liqueurdetoile/fetch-mock-fixtures)\n[![Coverage Status](https://coveralls.io/repos/github/liqueurdetoile/fetch-mock-fixtures/badge.svg?branch=master)](https://coveralls.io/github/liqueurdetoile/fetch-mock-fixtures?branch=master)\n[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)\n[![Documentation](https://liqueurdetoile.github.io/fetch-mock-fixtures/badge.svg)](https://liqueurdetoile.github.io/fetch-mock-fixtures/)\n\n<p align=\"center\"><a href=\"https://liqueurdetoile.com\" target=\"\\_blank\"><img src=\"https://hosting.liqueurdetoile.com/logo_lqdt.png\" alt=\"Liqueur de Toile\"></a></p>\n\n# Fetch-mock-fixtures (FMF)\n\nFMF provides an easy way to mock fetch calls through Sinon stub. Unlike other modules\nthat also provides this functionality, FMF provides an easy way to manage data fixtures.\n\nFixtures can be generated on the fly, stored as a file tree or grabbed in an external data source.\n\nThe main goal is to provide an easy way to perform API functional testing client side without the boring of running a server.\n\n**FMF is internally relying on Promise and the fetch API and linked objects (Request, Headers and Response). Be sure to use that the browser(s) used for testing implements these or is/are polyfilled.**\n\n<!-- TOC depthFrom:2 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->\n\n- [Installation](#installation)\n- [Usage and configuration for mocking fetch calls](#usage-and-configuration-for-mocking-fetch-calls)\n\t- [Most basic example](#most-basic-example)\n\t- [Configuring server response](#configuring-server-response)\n\t\t- [Setting up returned data](#setting-up-returned-data)\n\t\t- [Response object configuration](#response-object-configuration)\n\t\t- [Using response wrappers](#using-response-wrappers)\n- [Fixtures system](#fixtures-system)\n\t- [Basics](#basics)\n\t- [Fixture lifecycle](#fixture-lifecycle)\n\t- [Configuring fixture response data](#configuring-fixture-response-data)\n\t- [File location resolution](#file-location-resolution)\n\t\t- [Setting up fixtures folder](#setting-up-fixtures-folder)\n\t\t- [Pure filesystem resolution](#pure-filesystem-resolution)\n\t\t- [Pattern resolution](#pattern-resolution)\n\t- [Fixture on-the-fly](#fixture-on-the-fly)\n- [Bugs and improvements](#bugs-and-improvements)\n\n<!-- /TOC -->\n\n## Installation\nInstallation can easily be done through NPM or Yarn. Sinon is required by FMF but not included as a dependency and must be also loaded if not already installed :\n```bash\nnpm install sinon fetch-mock-fixtures --save-dev\n\nyarn add sinon fetch-mock-fixtures --dev\n```\nFMF aims to ease API testing, therefore it should be included as a dev dependency in projects.\n\n## Usage and configuration for mocking fetch calls\n### Most basic example\n```javascript\n// Create a server\nimport {Server} from 'fetch-mock-fixtures';\n\n// Create the server instance\nserver = new Server();\n\n// Start intercepting fetch calls\nserver.start();\n\n// Set up the server response (no matter the url)\nserver.respondWith('Hello world !');\n\n// Do fetch call\nfetch('/').then(response => {\n  response.text().then(message => {\n    console.log(message); // outputs 'Hello world !'\n  });\n})\n\n// Stop intercepting fetch calls\nserver.stop();\n```\nUnder the hood, the server is simply sending back a [`Response` object](https://developer.mozilla.org/en-US/docs/Web/API/Response/Response) that mimics a regular fetch call response.\n\n### Configuring server response\nResponse configuration can be done through a bunch of chainable methods.\n\n**Important: When done on server, configuration persists through each calls and can be changed at runtime without the need to start/stop server. All changes will be applied on the next fetch call.**\n\n#### Setting up returned data\nServer can be set to send back some data. Without fixtures, you can use the `respondWith` server method. For additional configuration, see below.\n\nThe server instance also exposes two shortcuts :\n- `respondWithStatus` : This will send back the provided data with the given status,\n- `respondWithJSON` : this will apply `JSON.stringify` to the provided data and set content-type response headers to `application/json`.\n\n#### Response object configuration\n\nHere's the available response configuration options :\n\n  Configuration key | Chainable setter  | Description  |  Default\n--|---|---|---\n`delay`  | `setDelay`  |  Set a delay (in ms) before sending back response. It can be useful when testing timeout management  | `0`\n`headers`  | `setHeaders`  | Define the response headers. It accepts an object with header names as keys or an [Headers](https://developer.mozilla.org/en-US/docs/Web/API/Headers) instance  |  Default header is `content-type: text/html`\n`status` | `setStatus` | Define the response status code | `200`\n`statusText`  | `setStatusText`  | Define the response status text  |  `'OK'`\n\nFMF also accepts two other options that will be discussed below : `pattern` and `wrapper`.\n\n```javascript\n// Create a server\nimport {Server} from 'fetch-mock-fixtures';\n\n// Create the server instance and start it\nserver = new Server();\nserver.start();\n\n// Set headers status to 201 and content-type to application/json\nserver\n  .configure({\n    status: 201,\n    headers: {'content-type': 'application/json'}\n  })\n  .respondWith(JSON.stringify({test: 'ok'}));\n\n// or\nserver\n  .setHeaders({\n    'content-type': 'application/json'\n  })\n  .setStatus(201)\n  .respondWith(JSON.stringify({test: 'ok'}));\n\n// or shorter\nserver\n  .setStatus(201)\n  .respondWithJSON({test: 'ok'});\n\n// Reset configuration to default\nserver.reset();\n```\n#### Using response wrappers\nThe server instance allow the configuration of a wrapper that will be applied on data. The behavior of the wrapper depends on wrapper and data types :\n\nwrapper type  | data type  |  behavior\n--|---|--\n string | string  | The server will look for a `%data%` template in the wrapper and replace it with the data\n  string | object  | For each data key, the server will try to find a `%<key>%` template in the wrapper string and replace it with data value\n  function | anything  |  The server will use the returned value of the callback. Data is passed as argument of the callback\n\nYou may have a look at the wrapper test suite for some examples.\n\n## Fixtures system\n### Basics\nThe fixture is a simple way to automatically configure a given response when matching a given \"url\". FMF provides a `Fixture` class as a convenient way to do it.\n\nAt the most simple level, a fixture file only exports a singleton object to override server configuration :\n- `body` property for response data\n- `headers`, `status`, `statusText` and `wrapper`\n\nHeaders can be provided as an `Headers` instance  or as an object with headers names as keys.\n\nIf no configuration value is available from fixture, the current server configuration value will be inherited.\n\nYou can provide two functions as hooks (see below). In the hooks, the server instance is available as a property.\n\nFinally, to go into fixture mode, you must call the server `respondWithFixture` method before sending request.\n\nUnder the hood, the fixture file is used to populate properties from a `Fixture` instance. The `Response` object is generated from fixture properties.\n\n### Fixture lifecycle\nWhen server is dealing with a request, it will :\n1. load fixture and create an instance if needed;\n2. call and await the `initialized` hook on fixture. Fetching returned data and further configuration can be made at this step;\n3. ask fixture to provide its `Response` object build from fixture properties;\n4. call and await the `destroyed` hook on fixture. Cleaning can be made at this step;\n5. send back the `Response` object\n\nTo update fixture properties within hooks, you must **not** use anonymous functions as `this` will point to your test script and not the fixture instance.\n\n### Configuring fixture response data\nFor static data, providing a value to body is enough. For dynamic data, you can use the `initialized` hook which is called async.\n\nThe inheritance between server and fixture can ease the process.\n\n```javascript\n// Fixture file\nexport default {\n\tbody: {\n    id: 1,\n    name: 'foo'\n  }\n}\n```\n\n```javascript\n// Within test\nimport {Server} from 'fetch-mock-fixtures';\n\nconst server = new Server();\n\nserver\n  // The header will default in any fixtures\n  .setHeaders({'content-type':'application/json'})\n  // All fixture body will be transformed with JSON.stringify\n  .wrapper(data => JSON.stringify(data))\n  // Activate fixture mode\n  .respondWithFixture()\n\n// Url will be used to locate fixture file\nconst response = fetch('/api/users/1');\n```\n\n### File location resolution\nIn order to dynamically load the fixture, the server needs to locate the right file based on the url path. FMF allow pure filesystem or a more advanced way with [`path-to-regexp`](https://github.com/pillarjs/path-to-regexp) syntax.\n\n**In both cases, the server expects to find fixtures in a relative `fixtures` folder**\n\n#### Setting up fixtures folder\nIn order to let FMF loads the fixture, the server expects to have a `_getFixtureParams` method to resolve url to file.\n\nThat implies that :\n1. FMF is able to resolve the path\n2. Fixture file expose a `default` property (that's why we're using default ES6 exports in the examples)\n\nFrom 1.0.2, FMF will throw an exception if the loader is not set.\n\nTherefore, you must ensure that fixture file will be found in the location. In case of error, the server will respond with a `404` error and provide the error description as status text.\n\nWith Webpack, it's pretty easy to [create an alias](https://webpack.js.org/configuration/resolve/#resolvealias) to resolve fixtures location. **Nevertheless, to avoid importing tests fixtures in your production bundle, you must use either separate configuration for building and testing or use the webpack [`IgnorePlugin`](https://webpack.js.org/plugins/ignore-plugin/).** You can have a look at the webpack configuration for this current repo for an example.\n\nFor instance, if you fixtures are located under `tests/fixtures` within your project root folder, you can use this code in your webpack tests configuration :\n\n```javascript\nconst path = require('path');\n\nmodule.exports = {\n  // [...]\n  resolve: {\n    alias: {\n      'fixtures': path.resolve('./tests/fixtures')\n    }\n  }\n  // [...]\n};\n```\n\n```javascript\n// Then in test\nimport {Server} from 'fetch-mock-fixtures';\n\nconst server = new Server();\n\nserver._getFixtureParams = function () {\n  return require(`fixtures/${this.fixture}.fixture.js`).default\n}\n```\n\nIf you're not using webpack, you can also override the `_getFixtureParams` server's method to provide any finder to load the fixture file.\n\n#### Pure filesystem resolution\nWhen not using pattern to analyze url, the server simply split the path and will look for a file named from the method used with `.fixture.js` as extension.\n\nFor instance, `/api/v1/users/1` with GET method will resolve in `fixtures/api/v1/users/1/get.fixture.js` and `/users` with POST method will resolve in `fixtures/users/post.fixture.js`.\n\nThis is most appropriate when you want a small set of samples for your testing purposes.\n\n#### Pattern resolution\nIf you have a larger set of data or want to rely on external data source, you may want to use pattern resolution to extract params from url path.\n\nFMF uses the pattern available with [`path-to-regexp`](https://github.com/pillarjs/path-to-regexp). The resulting file path will be the one without params and the params will be passed in arguments to the initialized hook.\n\nFor instance, `/api/v1/users/:id` as pattern and `api/v1/users/1`with GET method in fetch call will resolve in `fixtures/api/v1/users/get.fixture.js` as file and will provide an `{id: 1}` as param to the `initialzed` hook.\n\n```javascript\n// Fixture file\n\n// Located at /fixtures/api/users/get.fixture.js\n// We want to aggregate two requests to have the full users\n\nexport default {\n\t// Do not use anonymous function here as we're using' this\n\tinitialized: function({id}) {\n    return new Promise((resolve, reject) => {\n      // Restoring fetch to do outside call\n      this.server.stop();\n\n      let p1 = fetch(`http://api.example.com/users/${id}`);\n      let p2 = fetch(`http://api2.example.com/users/${id}`);\n\n      // Restoring server\n      this.server.start();\n\n      Promise.all([p1, p2]).then([r1, r2] => {\n        this.body = Object.assign({}, r1, r2);\n\t\t\t\tresolve();\n      })\n    });\n  }\n}\n```\n```javascript\n// Test code\nimport {Server} from 'fetch-mock-fixtures';\n\nconst server = new Server();\n\nserver\n  .setHeaders({'content-type':'application/json'})\n  .setWrapper(data => JSON.stringify(data))\n\t// Set pattern\n\t.setFixturePattern('/api/users/:id')\n  .respondWithFixture()\n\n// Url will be used to locate fixture file\nconst response = fetch('/api/users/56');\n```\n\nThe initialized hook is always called asynchronously, even if declared only as sync operations. Therefore, you can simply return a promise or use the `async/await` statements.\n\nIn the fixtures test suite, you will find a similar example with PouchDB.\n\nThis way is more appropriate when generating bunches of data server side and import it client side for testing purposes.\n\n### Fixture on-the-fly\nIt's also possible to create a fixture on-the-fly by providing the fixture instance to the `fetch` call. Path resolution will be ignored in that case.\n\n```javascript\nimport {Server} from 'fetch-mock-fixtures';\n\nconst server = new Server();\n\nserver.start().respondWithFixture();\n\n// Give the fixture as parameter to fetch\nconst response = fetch({\n\tbody: 'test'\n});\n```\n\n## Bugs and improvements\nAny bugs and issues can be filed on the [github repository](https://github.com/liqueurdetoile/fetch-mock-fixtures/issues).\n\nYou are free and very welcome to fork the project and submit any PR to fix or improve FMF.\n",
+    "content": "[![Build Status](https://travis-ci.org/liqueurdetoile/fetch-mock-fixtures.svg?branch=master)](https://travis-ci.org/liqueurdetoile/fetch-mock-fixtures)\n[![Coverage Status](https://coveralls.io/repos/github/liqueurdetoile/fetch-mock-fixtures/badge.svg?branch=master)](https://coveralls.io/github/liqueurdetoile/fetch-mock-fixtures?branch=master)\n[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)\n[![Documentation](https://liqueurdetoile.github.io/fetch-mock-fixtures/badge.svg)](https://liqueurdetoile.github.io/fetch-mock-fixtures/)\n\n<p align=\"center\"><a href=\"https://liqueurdetoile.com\" target=\"\\_blank\"><img src=\"https://hosting.liqueurdetoile.com/logo_lqdt.png\" alt=\"Liqueur de Toile\"></a></p>\n\n# Fetch-mock-fixtures (FMF)\n\nFMF provides an easy way to mock fetch calls through Sinon stub. Unlike other modules\nthat also provides this functionality, FMF provides an easy way to manage data fixtures.\n\nFixtures can be generated on the fly, stored as a file tree or grabbed in an external data source.\n\nThe main goal is to provide an easy way to perform API functional testing client side without the boring of running a server.\n\n**FMF is internally relying on Promise and the fetch API and linked objects (Request, Headers and Response). Be sure to use that the browser(s) used for testing implements these or is/are polyfilled.**\n\n<!-- TOC depthFrom:2 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->\n\n- [Installation](#installation)\n- [Usage and configuration for mocking fetch calls](#usage-and-configuration-for-mocking-fetch-calls)\n\t- [Most basic example](#most-basic-example)\n\t- [Configuring server response](#configuring-server-response)\n\t\t- [Setting up returned data](#setting-up-returned-data)\n\t\t- [Response object configuration](#response-object-configuration)\n\t\t- [Using response wrappers](#using-response-wrappers)\n- [Fixtures system](#fixtures-system)\n\t- [Basics](#basics)\n\t- [Fixture lifecycle](#fixture-lifecycle)\n\t- [Configuring fixture response data](#configuring-fixture-response-data)\n\t- [File location resolution](#file-location-resolution)\n\t\t- [Setting up fixtures folder](#setting-up-fixtures-folder)\n\t\t- [Pure filesystem resolution](#pure-filesystem-resolution)\n\t\t- [Pattern resolution](#pattern-resolution)\n\t- [Fixture on-the-fly](#fixture-on-the-fly)\n- [Bugs and improvements](#bugs-and-improvements)\n\n<!-- /TOC -->\n\n## Installation\nInstallation can easily be done through NPM or Yarn. Sinon is required by FMF but not included as a dependency and must be also loaded if not already installed :\n```bash\nnpm install sinon fetch-mock-fixtures --save-dev\n\nyarn add sinon fetch-mock-fixtures --dev\n```\nFMF aims to ease API testing, therefore it should be included as a dev dependency in projects.\n\n## Usage and configuration for mocking fetch calls\n### Most basic example\n```javascript\n// Create a server\nimport {Server} from 'fetch-mock-fixtures';\n\n// Create the server instance\nserver = new Server();\n\n// Start intercepting fetch calls\nserver.start();\n\n// Set up the server response (no matter the url)\nserver.respondWith('Hello world !');\n\n// Do fetch call\nfetch('/').then(response => {\n  response.text().then(message => {\n    console.log(message); // outputs 'Hello world !'\n  });\n})\n\n// Stop intercepting fetch calls\nserver.stop();\n```\nUnder the hood, the server is simply sending back a [`Response` object](https://developer.mozilla.org/en-US/docs/Web/API/Response/Response) that mimics a regular fetch call response.\n\n### Controlling server\nAn FMF server instance exposes a few methods/properties to control server state.\n\nMethod  |  Description\n--|--\n`start()` |  Start the server by stubbing `window.fetch`\n`reset(stub=false)`  |  Reset to the server default configuration (see below). If `stub` is true, the sinon stub will also be resetted at the same time.\n`stop()`  |  Stop the server by restoring `window.fetch`. That does not affect server actual configuration.\n`running`  |  Returns true if server is running\n`stub`  |  Direct access to the stub of `window.fetch`. Accessing the property when server is not started will raise an Error.\n\nwindow.fetch is a fully functional [Sinon stub](https://sinonjs.org/releases/latest/stubs/). Therefore, you can use any of the method available on a stub.\n\n### Accessing request(s) sent to server\nThe server keeps all requests sent since the last start/stub reset. To ease, outgoing API requests tests, an FMF sever instance exposes a bunch of properties/method to access requests :\n\nProperty/Method  |  Description\n--|--\n`request`  |  Returns the last request made as a [Request object](https://developer.mozilla.org/en-US/docs/Web/API/Request)\n`url`  |  Returns the last url called as a parsed object (see [url-parse](https://www.npmjs.com/package/url-parse))\n`query`  |  Returns the parsed query part of the last called url (see [url-parse](https://www.npmjs.com/package/url-parse))\n`callCount`  |  Returns the number of requests received\n`getRequest(n)`  |  Returns the request send on the (n + 1)<sup>th</sup> call as a [Request object](https://developer.mozilla.org/en-US/docs/Web/API/Request). For instance, `server.getRequest(0)` will return the first request made\n`getAllRequests()`  |  Returns an array of all requests made as [Request objects](https://developer.mozilla.org/en-US/docs/Web/API/Request) in the same order than the calls\n`requestToUrl(request)`  |  Expects a [Request object](https://developer.mozilla.org/en-US/docs/Web/API/Request) as argument and returns a parsed url (see [url-parse](https://www.npmjs.com/package/url-parse))\n\n### Setting up Response\nIf you only need to disable `window.fetch`, you can simply start the server. All calls will be answered with the same default response configuration (see below).\n\nFor testing purposes, you may want to go deeper. FMF have three ways of dealing with incoming requests :\n\n1. Sending a response based on the current configuration\n\n2. Sending a response that can be changed and based on a call count (it can be pretty handy when dealing with functional tests that may performs several calls)\n\n3. Using fixtures (see below). Fixtures can be combined with call count\n\n### A more advanced example with Mocha\nIn real world, you may use some frameworks for your tests. Here's a full real-like example with FMF and Mocha :\n```javascript\nimport {Server} from 'fetch-mock-fixtures';\n// The api you're testing\nimport api from 'modules/api';\n\ndescribe('API test suite', function() {\n\tconst server = new Server();\n\n\tbefore(() => server.start()) // start the server at the beginning\n\tafterEach(() => server.reset(true)) // Fully reset server between each tests\n\tafter(() => server.stop()) // Stop the server at the end\n\n\tdescribe('Unit test API', function() {\n\t\tit('should GET data', async function() {\n\t\t\tserver.respondWithJSON({\n\t\t\t\tid: 1,\n\t\t\t\tname: 'foo'\n\t\t\t})\n\n\t\t\tconst data = await api.get('/api/v1/users/1');\n\t\t\tdata.should.deep.equal({\n\t\t\t\tid: 1,\n\t\t\t\tname: 'foo'\n\t\t\t});\n\n\t\t\tserver.respondWithJSON({ // Changing server configuration between calls\n\t\t\t\tid: 2,\n\t\t\t\tname: 'baz'\n\t\t\t})\n\n\t\t\tconst data = await api.get('/api/v1/users/2');\n\t\t\tdata.should.deep.equal({\n\t\t\t\tid: 2,\n\t\t\t\tname: 'baz'\n\t\t\t});\n\t\t})\n\t})\n\n\t// Others unit tests\n\n\tdescribe('Functional tests API', function() {\n\t\t// Okay, we have a two steps auth. First username, then password\n\t\tit('should log in user', async function() {\n\t\t\tserver\n\t\t\t\t.onFirstCall()\n\t\t\t\t.setStatus(401)\n\t\t\t\t.respondWithJSON({\n\t\t\t\t\tsuccess: true\n\t\t\t\t})\n\t\t\t\t.onSecondCall()\n\t\t\t\t.setStatus(200) // Can be skipped as it is the default server status\n\t\t\t\t.respondWithJSON({\n\t\t\t\t\tsuccess: true,\n\t\t\t\t\ttoken: '123'\n\t\t\t\t})\n\n\t\t\tlet logged = api.login({id: 1}); // will do the two requests\n\t\t\tlogged.should.be.true;\t\t\t\n\t\t\tapi.token.should.equal('123');\n\n\t\t\t// You can also check requests\n\t\t\tconst q1 = server.requestToUrl(server.getRequest(0)).query; // query part of the first request\n\t\t\tconst r2 = server.request; // Last request\n\n\t\t\tq1.username.should.equal('foo');\n\t\t\t// [...]\n\t\t})\n\t})\n\n\t// Others functional tests\n})\n```\n\n### Response configuration\n\n#### Data\n\n**Important: configuration persists through each calls and can be changed at runtime without the need to start/stop server. All changes will be applied on the next fetch call.**\n\nServer can be set to send back data. Without fixtures, you can use the `respondWith(body, init)` server method. For additional configuration, see below.\n\nThe server instance also exposes two shortcuts :\n- `respondWithStatus(status, body)` : This will send back the optionally provided body with the given status,\n- `respondWithJSON(body, init)` : this will apply `JSON.stringify` to the provided data and set content-type response headers to `application/json`.\n\n**Body can also be provided as a callback that will be evaluated synchronously at runtime. The server instance is passed as argument.**\n\n#### Response init parameters\n\nHere's the available response configuration options :\n\n  Configuration key | Chainable setter  | Description  |  Default\n--|---|---|---\n`delay`  | `setDelay`  |  Set a delay (in ms) before sending back response. It can be useful when testing timeout management  | `0`\n`headers`  | `setHeaders`  | Define the response headers. It accepts an object with header names as keys or an [Headers](https://developer.mozilla.org/en-US/docs/Web/API/Headers) instance  |  Default header is `content-type: text/html`\n`status` | `setStatus` | Define the response status code | `200`\n`statusText`  | `setStatusText`  | Define the response status text  |  `'OK'`\n\nFMF also accepts two other options that will be discussed below : `pattern` and `wrapper`.\n\n```javascript\n// Create a server\nimport {Server} from 'fetch-mock-fixtures';\n\n// Create the server instance and start it\nserver = new Server();\nserver.start();\n\n// Set headers status to 201 and content-type to application/json\nserver\n  .configure({\n    status: 201,\n    headers: {'content-type': 'application/json'}\n  })\n  .respondWith(JSON.stringify({test: 'ok'}));\n\n// or\nserver\n  .setHeaders({\n    'content-type': 'application/json'\n  })\n  .setStatus(201)\n  .respondWith(JSON.stringify({test: 'ok'}));\n\n// or shorter\nserver\n  .setStatus(201)\n  .respondWithJSON({test: 'ok'});\n\n// Reset configuration to default\nserver.reset();\n```\n\n### Using response wrappers\nThe server instance allow the configuration of a wrapper that will be applied on data. The behavior of the wrapper depends on wrapper and data types :\n\nwrapper type  | data type  |  behavior\n--|---|--\n string | string  | The server will look for a `%data%` template in the wrapper and replace it with the data\n  string | object  | For each data key, the server will try to find a `%<key>%` template in the wrapper string and replace it with data value\n  function | anything  |  The server will use the returned value of the callback. Data is passed as argument of the callback\n\nYou may have a look at the wrapper test suite for some examples.\n\n## Fixtures system\n### Basics\nThe fixture is a simple way to automatically configure a Response object when matching a given \"url\". FMF provides a `Fixture` class as a convenient way to do it while adding a callback before and after building the response object. Usually, you do not need to create the fixture instance but provides parameters as an object :\n\nParameter name  |  Type | Description\n:--:|:--:|--\ndelay  |  `Number` | Number of ms to wait before sending the response\nbody  |  `null, Number, String, Function` | Body to send back with response. If provided as a function, the body will be evaluated **synchronously**\nheaders |  `Object, Headers` | Headers can be provided as an `Headers` instance  or as an object with headers names as keys\nstatus |  `Number` | Response status code\nstatusText | `String` | Response status text\nwrapper | `String, Function` | See [Using response wrappers](#using-response-wrappers)\ninitialized  |  `Function` | Callback called **asynchronously** before building response\ndestroyed  |  `Function` | Callback called **asynchronously** after building response\n\n**If no configuration value for a given parameter is available from fixture, the current server configuration value will be inherited.**\n\nYou can provide two functions as hooks (see below). In the hooks, the `server` instance is available as a property from `this`.\n\nFinally, to go into fixture mode, you must call the server `respondWithFixture` method **before** sending the request or accordingly to the call order.\n\nUnder the hood, the fixture is used to populate properties from a `Fixture` instance. The `Response` object is then configured from fixture properties.\n\n### Fixture lifecycle\nWhen server is dealing with a request, it will :\n1. load fixture and create an instance if needed;\n2. call and await the `initialized` hook on fixture. Fetching returned data and further configuration can be made at this step;\n3. ask fixture to provide its `Response` object build from fixture properties. Dynamic synced response can be configured in a body as a callback;\n4. call and await the `destroyed` hook on fixture. Cleaning can be made at this step;\n5. send back the `Response` object\n\nTo update fixture properties or access server property within hooks, you must **not** use anonymous functions as `this` will point to your test script and not the fixture instance.\n\n### Configuring fixture response data\nFor static data, providing a value to body is enough. For dynamic data, you can use the `initialized` hook which is called async.\n\nThe inheritance between server and fixture can ease the process.\n\n```javascript\n// Fixture file\nexport default {\n\tbody: {\n    id: 1,\n    name: 'foo'\n  }\n}\n```\n\n```javascript\n// Within test\nimport {Server} from 'fetch-mock-fixtures';\n\nconst server = new Server();\n\nserver\n  // The header will default in any fixtures\n  .setHeaders({'content-type':'application/json'})\n  // All fixture body will be transformed with JSON.stringify\n  .wrapper(data => JSON.stringify(data))\n  // Activate fixture mode\n  .respondWithFixture()\n\n// Url will be used to locate fixture\nconst response = fetch('/api/users/1');\n```\n\n### Setting up fixtures resolution\nIn order to let FMF loads the fixture, the server expects to have a `getFixtureParams` method (`_getFixtureParams` prior to 1.1.0) to resolve url into fixture params.\n\nFrom 1.0.2, FMF will respond with a `500` error if the loader is not set.\n\nIn case of error, the server will respond with a `404` error and provide the error description as status text.\n\n### Using webpack and fixtures as files\nWith Webpack, it's pretty easy to [create an alias](https://webpack.js.org/configuration/resolve/#resolvealias) to resolve fixtures location and require them at runtime. **Nevertheless, to avoid importing tests fixtures in your production bundle, you must use either separate configuration for building and testing or use the webpack [`IgnorePlugin`](https://webpack.js.org/plugins/ignore-plugin/).** You can have a look at the webpack configuration for this current repo for an example.\n\nFor instance, if you fixtures are located under `tests/fixtures` within your project root folder, you can use this code in your webpack tests configuration :\n\n```javascript\nconst path = require('path');\n\nmodule.exports = {\n  // [...]\n  resolve: {\n    alias: {\n      'fixtures': path.resolve('./tests/fixtures')\n    }\n  }\n  // [...]\n};\n```\n\n```javascript\n// Then in test\nimport {Server} from 'fetch-mock-fixtures';\n\nconst server = new Server();\n\nserver.getFixtureParams = function () {\n  return require(`fixtures/${this.fixture}.fixture.js`).default\n}\n```\n\nYou can affect any logic the `getFixtureParams` server's method to provide any finder to load the fixture file.\n\n#### Pure path resolution\nWhen not using pattern to analyze url, the server simply split the path and will look for a file named from the method used with `.fixture.js` as extension.\n\nFor instance, `/api/v1/users/1` with GET method will resolve in `fixtures/api/v1/users/1/get.fixture.js` and `/users` with POST method will resolve in `fixtures/users/post.fixture.js`.\n\nThis is most appropriate when you want a small set of samples for your testing purposes.\n\n#### Pattern resolution\nIf you have a larger set of data or want to rely on external data source, you may want to use pattern resolution to extract params from url path.\n\nFMF uses the pattern available with [`path-to-regexp`](https://github.com/pillarjs/path-to-regexp). The resulting file path will be the one without params and the params will be passed in arguments to the initialized hook.\n\nFor instance, `/api/v1/users/:id` as pattern and `api/v1/users/1`with GET method in fetch call will resolve in `fixtures/api/v1/users/get.fixture.js` as file and will provide an `{id: 1}` as param to the `initialzed` hook.\n\n```javascript\n// Fixture file\n\n// Located at /fixtures/api/users/get.fixture.js\n// We want to aggregate two requests to have the full users\n\nexport default {\n\t// Do not use anonymous function here as we're using' this\n\tinitialized: function({id}) {\n    return new Promise((resolve, reject) => {\n      // Restoring fetch to do outside call\n      this.server.stop();\n\n      let p1 = fetch(`http://api.example.com/users/${id}`);\n      let p2 = fetch(`http://api2.example.com/users/${id}`);\n\n      // Restoring server\n      this.server.start();\n\n      Promise.all([p1, p2]).then([r1, r2] => {\n        this.body = Object.assign({}, r1, r2);\n\t\t\t\tresolve();\n      })\n    });\n  }\n}\n```\n```javascript\n// Test code\nimport {Server} from 'fetch-mock-fixtures';\n\nconst server = new Server();\n\nserver\n  .setHeaders({'content-type':'application/json'})\n  .setWrapper(data => JSON.stringify(data))\n\t// Set pattern\n\t.setFixturePattern('/api/users/:id')\n  .respondWithFixture()\n\n// Url will be used to locate fixture file\nconst response = fetch('/api/users/56');\n```\n\nThe initialized hook is always called asynchronously, even if declared only as sync operations. Therefore, you can simply return a promise or use the `async/await` statements.\n\nIn the fixtures test suite, you will find a similar example with PouchDB.\n\nThis way is more appropriate when generating bunches of data server side and import it client side for testing purposes.\n\n### Fixture on-the-fly\nIt's also possible to create a fixture on-the-fly by providing the fixture params to the `fetch` call. Path resolution will be ignored in that case.\n\n```javascript\nimport {Server} from 'fetch-mock-fixtures';\n\nconst server = new Server();\n\nserver.start().respondWithFixture();\n\n// Give the fixture as parameter to fetch\nconst response = fetch({\n\tbody: 'test'\n});\n```\n\n## Setting up multiple responses based on call count\nFor functional testing, it may be useful to configure multiple responses at once as there will be multiple requests made without ability to tweak server's response between them.\n\nThis can be easily done with `onCall` method and the shortcuts `onFirstCall` (i.e. `onCall(0)`), `onSecondCall` (i.e. `onCall(1)`) and `onThirdCall` (i.e. `onCall(2)`).\n\nWithout `onCall`, the server will use its current response configuration if `respondWith` have been used or fixture if `respondWithFixture` have been used. This also apply when request doesn't match a predefined count.\n\nFor instance, let's say we want to simulate a timeout management.\n\nFirst request response must be delayed by 5s then a 504 error, second one must be immediate still with a 504 error and next ones from a fixture.\n\n```javascript\nimport {Server} from 'fetch-mock-fixtures';\n\nconst server = new Server();\n\nserver\n\t.start()\n\n\t.onFirstCall() // Tells server to freeze response configuration at next respondWithXXX call and keep it for first response\n\t.setDelay(5000)\n\t.respondWithStatus(504) // Freeze the configuration at this step\n\n\t.onSecondCall() // Tells server to freeze response configuration at next respondWithXXX call and keep it for second response\n\t.setDelay(0) // Set back delay to 0\n\t.respondWithStatus(504) // Freeze the actual configuration for the second request\n\n\t.respondWithFixture(); // Default response for third and next requests\n```\n\n**The default configuration must be provided at the very end of the chain.**\n\n## Bugs and improvements\nAny bugs and issues can be filed on the [github repository](https://github.com/liqueurdetoile/fetch-mock-fixtures/issues).\n\nYou are free and very welcome to fork the project and submit any PR to fix or improve FMF.\n\n## Changelog\n- 1.0.1 : Add requests history and possibility to set up different responses based on requests order. Add delay as a response parameter into fixture.\n",
     "longname": "F:\\Projets\\fetch-mock-fixtures\\README.md",
     "name": "./README.md",
     "static": true,
@@ -1618,17 +2176,17 @@
   },
   {
     "kind": "packageJSON",
-    "content": "{\r\n  \"name\": \"fetch-mock-fixtures\",\r\n  \"version\": \"0.0.0\",\r\n  \"description\": \"Mocker for fetch API with fixtures support\",\r\n  \"main\": \"dist/index.min.js\",\r\n  \"scripts\": {\r\n    \"build\": \"webpack --config webpack.conf/build.js -p\",\r\n    \"test\": \"cross-env BABEL_ENV=test karma start --single-run --browsers ChromeHeadless && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage\",\r\n    \"test:watch\": \"cross-env BABEL_ENV=test karma start --browsers ChromeHeadless  --log-level warn\",\r\n    \"test:all\": \"cross-env BABEL_ENV=test karma start --single-run --log-level error\"\r\n  },\r\n  \"devDependencies\": {\r\n    \"@babel/core\": \"^7.4.0\",\r\n    \"@babel/plugin-proposal-class-properties\": \"^7.4.0\",\r\n    \"@babel/plugin-proposal-object-rest-spread\": \"^7.4.0\",\r\n    \"@babel/plugin-syntax-dynamic-import\": \"^7.2.0\",\r\n    \"@babel/preset-env\": \"^7.4.2\",\r\n    \"babel-eslint\": \"^10.0.0\",\r\n    \"babel-loader\": \"^8\",\r\n    \"babel-plugin-istanbul\": \"^5.1.0\",\r\n    \"chai\": \"^4.2.0\",\r\n    \"clean-webpack-plugin\": \"^0.1.19\",\r\n    \"coveralls\": \"^3.0.3\",\r\n    \"cross-env\": \"^5.2.0\",\r\n    \"cz-conventional-changelog\": \"^2.1.0\",\r\n    \"eslint\": \"^5.15.3\",\r\n    \"eslint-loader\": \"^2.1.2\",\r\n    \"json-loader\": \"^0.5.7\",\r\n    \"karma\": \"^4.0.0\",\r\n    \"karma-babel-preprocessor\": \"^8.0.0\",\r\n    \"karma-chai\": \"^0.1.0\",\r\n    \"karma-chrome-launcher\": \"^2.2.0\",\r\n    \"karma-coverage\": \"^1.1.2\",\r\n    \"karma-coverage-istanbul-reporter\": \"^2.0.4\",\r\n    \"karma-edge-launcher\": \"^0.4.2\",\r\n    \"karma-firefox-launcher\": \"^1.1.0\",\r\n    \"karma-ie-launcher\": \"^1.0.0\",\r\n    \"karma-mocha\": \"^1.3.0\",\r\n    \"karma-mocha-reporter\": \"^2.2.5\",\r\n    \"karma-sinon\": \"^1.0.5\",\r\n    \"karma-sourcemap-loader\": \"^0.3.7\",\r\n    \"karma-webpack\": \"^4.0.0-rc.6\",\r\n    \"mocha\": \"^5.2.0\",\r\n    \"mocha-lcov-reporter\": \"^1.3.0\",\r\n    \"pouchdb\": \"^7.0.0\",\r\n    \"semantic-release\": \"^15.13.3\",\r\n    \"sinon\": \"^7.3.0\",\r\n    \"webpack\": \"^4.29.6\",\r\n    \"webpack-bundle-analyzer\": \"^3.1.0\",\r\n    \"webpack-cli\": \"^3.3.0\",\r\n    \"webpack-merge\": \"^4.2.1\"\r\n  },\r\n  \"repository\": {\r\n    \"type\": \"git\",\r\n    \"url\": \"https://github.com/liqueurdetoile/fetch-mock-fixtures.git\"\r\n  },\r\n  \"keywords\": [\r\n    \"fetch\",\r\n    \"mock\",\r\n    \"fixtures\"\r\n  ],\r\n  \"author\": \"Liqueur de Toile\",\r\n  \"license\": \"MIT\",\r\n  \"bugs\": {\r\n    \"url\": \"https://github.com/liqueurdetoile/fetch-mock-fixtures/issues\"\r\n  },\r\n  \"homepage\": \"https://github.com/liqueurdetoile/fetch-mock-fixtures\",\r\n  \"dependencies\": {\r\n    \"path-to-regexp\": \"^3.0.0\",\r\n    \"url-parse\": \"^1.4.4\"\r\n  },\r\n  \"peerDependencies\": {\r\n    \"sinon\": \"^7\"\r\n  },\r\n  \"config\": {\r\n    \"commitizen\": {\r\n      \"path\": \"./node_modules/cz-conventional-changelog\"\r\n    }\r\n  }\r\n}\r\n",
+    "content": "{\r\n  \"name\": \"fetch-mock-fixtures\",\r\n  \"version\": \"0.0.0\",\r\n  \"description\": \"Mocker for fetch API with fixtures support\",\r\n  \"main\": \"dist/index.min.js\",\r\n  \"scripts\": {\r\n    \"build\": \"webpack --config webpack.conf/build.js -p\",\r\n    \"test\": \"cross-env BABEL_ENV=test karma start --single-run --browsers ChromeHeadless && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage\",\r\n    \"test:watch\": \"cross-env BABEL_ENV=test karma start --browsers ChromeHeadless  --log-level warn\",\r\n    \"test:all\": \"cross-env BABEL_ENV=test karma start --single-run --log-level error\"\r\n  },\r\n  \"devDependencies\": {\r\n    \"@babel/core\": \"^7.4.0\",\r\n    \"@babel/plugin-proposal-class-properties\": \"^7.4.0\",\r\n    \"@babel/plugin-proposal-object-rest-spread\": \"^7.4.0\",\r\n    \"@babel/plugin-syntax-dynamic-import\": \"^7.2.0\",\r\n    \"@babel/preset-env\": \"^7.4.2\",\r\n    \"babel-eslint\": \"^10.0.0\",\r\n    \"babel-loader\": \"^8\",\r\n    \"babel-plugin-istanbul\": \"^5.1.0\",\r\n    \"chai\": \"^4.2.0\",\r\n    \"clean-webpack-plugin\": \"^0.1.19\",\r\n    \"coveralls\": \"^3.0.3\",\r\n    \"cross-env\": \"^5.2.0\",\r\n    \"cz-conventional-changelog\": \"^2.1.0\",\r\n    \"eslint\": \"^5.16.0\",\r\n    \"eslint-loader\": \"^2.1.2\",\r\n    \"json-loader\": \"^0.5.7\",\r\n    \"karma\": \"^4.0.0\",\r\n    \"karma-babel-preprocessor\": \"^8.0.0\",\r\n    \"karma-chai\": \"^0.1.0\",\r\n    \"karma-chrome-launcher\": \"^2.2.0\",\r\n    \"karma-coverage\": \"^1.1.2\",\r\n    \"karma-coverage-istanbul-reporter\": \"^2.0.4\",\r\n    \"karma-edge-launcher\": \"^0.4.2\",\r\n    \"karma-firefox-launcher\": \"^1.1.0\",\r\n    \"karma-ie-launcher\": \"^1.0.0\",\r\n    \"karma-mocha\": \"^1.3.0\",\r\n    \"karma-mocha-reporter\": \"^2.2.5\",\r\n    \"karma-sinon\": \"^1.0.5\",\r\n    \"karma-sourcemap-loader\": \"^0.3.7\",\r\n    \"karma-webpack\": \"^4.0.0-rc.6\",\r\n    \"mocha\": \"^5.2.0\",\r\n    \"mocha-lcov-reporter\": \"^1.3.0\",\r\n    \"pouchdb\": \"^7.0.0\",\r\n    \"semantic-release\": \"^15.13.3\",\r\n    \"sinon\": \"^7.3.1\",\r\n    \"webpack\": \"^4.29.6\",\r\n    \"webpack-bundle-analyzer\": \"^3.1.0\",\r\n    \"webpack-cli\": \"^3.3.0\",\r\n    \"webpack-merge\": \"^4.2.1\"\r\n  },\r\n  \"repository\": {\r\n    \"type\": \"git\",\r\n    \"url\": \"https://github.com/liqueurdetoile/fetch-mock-fixtures.git\"\r\n  },\r\n  \"keywords\": [\r\n    \"fetch\",\r\n    \"mock\",\r\n    \"fixtures\"\r\n  ],\r\n  \"author\": \"Liqueur de Toile\",\r\n  \"license\": \"MIT\",\r\n  \"bugs\": {\r\n    \"url\": \"https://github.com/liqueurdetoile/fetch-mock-fixtures/issues\"\r\n  },\r\n  \"homepage\": \"https://github.com/liqueurdetoile/fetch-mock-fixtures\",\r\n  \"dependencies\": {\r\n    \"path-to-regexp\": \"^3.0.0\",\r\n    \"url-parse\": \"^1.4.4\"\r\n  },\r\n  \"peerDependencies\": {\r\n    \"sinon\": \"^7\"\r\n  },\r\n  \"config\": {\r\n    \"commitizen\": {\r\n      \"path\": \"./node_modules/cz-conventional-changelog\"\r\n    }\r\n  }\r\n}\r\n",
     "longname": "F:\\Projets\\fetch-mock-fixtures\\package.json",
     "name": "package.json",
     "static": true,
     "access": "public"
   },
   {
-    "__docId__": 107,
+    "__docId__": 128,
     "kind": "testFile",
     "name": "tests/core.spec.js",
-    "content": "import MockServer from '@';\r\n\r\nlet response, data;\r\n\r\ndescribe('Mock Server core functionalities testing suite', function () {\r\n  let server = new MockServer();\r\n\r\n  beforeEach(() => server.start());\r\n  afterEach(() => {\r\n    server.stop();\r\n    server.reset();\r\n  });\r\n\r\n  describe('Testing initialize', function () {\r\n    it('should initialize and respond 200 to a basic get request', async function () {\r\n      server.respondWith();\r\n      response = await fetch('/');\r\n\r\n      response.status.should.equal(200);\r\n    });\r\n\r\n    it('should initialize and respond 404 to a basic get request', async function () {\r\n      server.respondWith('', {\r\n        status: 404\r\n      });\r\n\r\n      response = await fetch('/');\r\n      response.status.should.equal(404);\r\n    });\r\n\r\n    it('should initialize and respond 200 with data to a basic get request', async function () {\r\n      server.respondWith('{\"test\":\"ok\"}', {\r\n        status: 200,\r\n        headers: {'content-type': 'application/json'}\r\n      });\r\n      response = await fetch('/');\r\n\r\n      response.status.should.equal(200);\r\n      response.headers.get('content-type').should.equal('application/json');\r\n      data = await response.json();\r\n      data.test.should.equal('ok');\r\n    });\r\n  });\r\n\r\n  describe('Server response setup', function() {\r\n    it('should initialize default global response parameters', function() {\r\n      server.status.should.equal(200);\r\n      server.statusText.should.equal('OK');\r\n      server.headers.get('content-type').should.equal('text/html');\r\n      server.wrapper.should.be.false;\r\n    })\r\n\r\n    it('should initialize global response parameters with configure', function() {\r\n      server.configure({\r\n        status: 404,\r\n        statusText: 'Not Found',\r\n        headers: new Headers({'content-type': 'application/json'}) // could also be called with only Headers constructor arguments\r\n      });\r\n\r\n      server.status.should.equal(404);\r\n      server.statusText.should.equal('Not Found');\r\n      server.headers.get('content-type').should.equal('application/json');\r\n      server.wrapper.should.be.false;\r\n    })\r\n\r\n    it('should set a delay for response', function() {\r\n      server.configure({\r\n        delay: 2000\r\n      })\r\n\r\n      server.delay.should.equal(2000);\r\n    })\r\n  })\r\n\r\n  describe('Incoming request informations', function() {\r\n    it('should expose a request object when initialized with data and init object', async function() {\r\n      response = await fetch('/test', {\r\n        headers: {'content-type': 'application/json'},\r\n        body: JSON.stringify('test'),\r\n        method: 'POST'\r\n      });\r\n\r\n      server.request.should.be.instanceof(Request);\r\n      server.request.method.should.equal('POST');\r\n      server.request.headers.get('content-type').should.equal('application/json');\r\n\r\n      let body = await server.request.json();\r\n      body.should.equal('test');\r\n    })\r\n\r\n    it('should expose a cloned request object when initialized with a request object', async function() {\r\n      let request = new Request('/test', {\r\n        headers: {'content-type': 'application/json'},\r\n        body: JSON.stringify('test'),\r\n        method: 'POST'\r\n      });\r\n\r\n      await fetch(request);\r\n\r\n      expect(server.request === request).to.be.false;\r\n      server.request.should.be.instanceof(Request);\r\n      server.request.method.should.equal('POST');\r\n      server.request.headers.get('content-type').should.equal('application/json');\r\n\r\n      let body = await server.request.json();\r\n      body.should.equal('test');\r\n    })\r\n\r\n    it('should expose url', async function() {\r\n      await fetch('/test');\r\n\r\n      server.url.should.equal('/test');\r\n    });\r\n\r\n    it('should expose url with request object', async function() {\r\n      let request = new Request('/test');\r\n\r\n      await fetch(request);\r\n      server.url.should.equal('/test');\r\n    });\r\n\r\n    it('should expose query', async function() {\r\n      await fetch('/test?t=a');\r\n\r\n      server.url.should.equal('/test');\r\n      expect(server.query).to.deep.equal({t: 'a'});\r\n    });\r\n\r\n    it('should expose query with request object', async function() {\r\n      let request = new Request('/test?t=a');\r\n\r\n      await fetch(request);\r\n      server.url.should.equal('/test');\r\n      expect(server.query).to.deep.equal({t: 'a'});\r\n    });\r\n  })\r\n\r\n  describe('Response and status response', function () {\r\n    it('should respond and delay with params', async function () {\r\n      server\r\n        .setDelay(500)\r\n        .respondWith('test');\r\n\r\n      let start = + new Date();\r\n      response = await fetch('/');\r\n      let end = + new Date();\r\n\r\n      expect((end-start) >= 500).to.be.true;\r\n      response.status.should.equal(200);\r\n\r\n      let data = await response.text();\r\n\r\n      data.should.equal('test');\r\n    });\r\n\r\n    it('should respond with response object', async function () {\r\n      let response = new Response('test');\r\n\r\n      server\r\n        .setDelay(500)\r\n        .respondWith(response);\r\n\r\n      let start = + new Date();\r\n      response = await fetch('/');\r\n      let end = + new Date();\r\n\r\n      expect((end-start) >= 500).to.be.true;\r\n      response.status.should.equal(200);\r\n\r\n      let data = await response.text();\r\n\r\n      data.should.equal('test');\r\n    });\r\n\r\n    it('should respond with status 204', async function () {\r\n      server.respondWithStatus(204);\r\n      response = await fetch('/');\r\n      response.status.should.equal(204);\r\n    });\r\n\r\n    it('should respond with status 301', async function () {\r\n      server.respondWithStatus(301);\r\n      response = await fetch('/');\r\n      response.status.should.equal(301);\r\n    });\r\n\r\n    it('should respond with status 401', async function () {\r\n      server.respondWithStatus(401);\r\n      response = await fetch('/');\r\n      response.status.should.equal(401);\r\n    });\r\n\r\n    it('should respond multiple times with status 401', async function () {\r\n      server.respondWithStatus(401);\r\n      response = await fetch('/');\r\n      response.status.should.equal(401);\r\n      response = await fetch('/');\r\n      response.status.should.equal(401);\r\n    });\r\n\r\n    it('should mutate status', async function () {\r\n      server.respondWithStatus(401);\r\n      response = await fetch('/');\r\n      response.status.should.equal(401);\r\n      server.respondWithStatus(200);\r\n      response = await fetch('/');\r\n      response.status.should.equal(200);\r\n    });\r\n  });\r\n});\r\n",
+    "content": "import Server from '@';\r\n\r\nlet response, data;\r\n\r\ndescribe('Mock Server core functionalities testing suite', function () {\r\n  const server = new Server();\r\n\r\n  beforeEach(() => server.start());\r\n  afterEach(() => {\r\n    server.reset().stop();\r\n  });\r\n\r\n  describe('Testing initialize and running', function () {\r\n    it('should initialize and respond 200 to a basic get request', async function () {\r\n      server.respondWith();\r\n      response = await fetch('/');\r\n\r\n      response.status.should.equal(200);\r\n    });\r\n\r\n    it('should initialize and respond 404 to a basic get request', async function () {\r\n      server.respondWith('', {\r\n        status: 404\r\n      });\r\n\r\n      response = await fetch('/');\r\n      response.status.should.equal(404);\r\n    });\r\n\r\n    it('should initialize and respond 200 with data to a basic get request', async function () {\r\n      server.respondWith('{\"test\":\"ok\"}', {\r\n        status: 200,\r\n        headers: {'content-type': 'application/json'}\r\n      });\r\n      response = await fetch('/');\r\n\r\n      response.status.should.equal(200);\r\n      response.headers.get('content-type').should.equal('application/json');\r\n      data = await response.json();\r\n      data.test.should.equal('ok');\r\n    });\r\n\r\n    it('should return server running status', function() {\r\n      server.running.should.be.true;\r\n      server.stop();\r\n      server.running.should.be.false;\r\n    })\r\n  });\r\n\r\n  describe('Server response setup', function() {\r\n    it('should initialize default global response parameters', function() {\r\n      server.status.should.equal(200);\r\n      server.statusText.should.equal('OK');\r\n      server.headers.get('content-type').should.equal('text/html');\r\n      server.wrapper.should.be.false;\r\n    })\r\n\r\n    it('should initialize global response parameters with configure', function() {\r\n      server.configure({\r\n        status: 404,\r\n        statusText: 'Not Found',\r\n        headers: new Headers({'content-type': 'application/json'}) // could also be called with only Headers constructor arguments\r\n      });\r\n\r\n      server.status.should.equal(404);\r\n      server.statusText.should.equal('Not Found');\r\n      server.headers.get('content-type').should.equal('application/json');\r\n      server.wrapper.should.be.false;\r\n    })\r\n\r\n    it('should set a delay for response', function() {\r\n      server.configure({\r\n        delay: 2000\r\n      })\r\n\r\n      server.delay.should.equal(2000);\r\n    })\r\n\r\n    it('should throw exception if server is not started and access to stub properties/methods', function() {\r\n      server.stop();\r\n      expect(server.getRequest.bind(server, 0)).to.throw();\r\n    })\r\n  })\r\n\r\n  describe('Incoming request informations', function() {\r\n    it('should expose a request object when initialized with data and init object', async function() {\r\n      response = await fetch('/test', {\r\n        headers: {'content-type': 'application/json'},\r\n        body: JSON.stringify('test'),\r\n        method: 'POST'\r\n      });\r\n\r\n      server.request.should.be.instanceof(Request);\r\n      server.request.method.should.equal('POST');\r\n      server.request.headers.get('content-type').should.equal('application/json');\r\n\r\n      let body = await server.request.json();\r\n      body.should.equal('test');\r\n    })\r\n\r\n    it('should expose a cloned request object when initialized with a request object', async function() {\r\n      let request = new Request('/test', {\r\n        headers: {'content-type': 'application/json'},\r\n        body: JSON.stringify('test'),\r\n        method: 'POST'\r\n      });\r\n\r\n      await fetch(request);\r\n\r\n      expect(server.request === request).to.be.false;\r\n      server.request.should.be.instanceof(Request);\r\n      server.request.method.should.equal('POST');\r\n      server.request.headers.get('content-type').should.equal('application/json');\r\n\r\n      let body = await server.request.json();\r\n      body.should.equal('test');\r\n    })\r\n\r\n    it('should expose url', async function() {\r\n      await fetch('/test');\r\n\r\n      server.url.pathname.should.equal('/test');\r\n    });\r\n\r\n    it('should expose url with request object', async function() {\r\n      let request = new Request('/test');\r\n\r\n      await fetch(request);\r\n      server.url.pathname.should.equal('/test');\r\n    });\r\n\r\n    it('should expose query', async function() {\r\n      await fetch('/test?t=a');\r\n\r\n      server.url.pathname.should.equal('/test');\r\n      expect(server.query).to.deep.equal({t: 'a'});\r\n    });\r\n\r\n    it('should expose query with request object', async function() {\r\n      let request = new Request('/test?t=a');\r\n\r\n      await fetch(request);\r\n      server.url.pathname.should.equal('/test');\r\n      expect(server.query).to.deep.equal({t: 'a'});\r\n    });\r\n  })\r\n\r\n  describe('Response and status response', function () {\r\n    it('should respond with no data', async function() {\r\n      server.respondWithStatus(204);\r\n\r\n      let response = await fetch('/');\r\n\r\n      response.status.should.equal(204);\r\n    })\r\n\r\n    it('should respond and wrap null data', async function() {\r\n      server\r\n        .respondWithJSON(null, {\r\n          status: 200\r\n        })\r\n        .setWrapper(`{\r\n          \"result\":\"success\",\r\n          \"success\":true,\r\n          \"data\":%data%\r\n        }`);\r\n\r\n      let response = await fetch('/');\r\n\r\n      response.status.should.equal(200);\r\n      let data = await response.json();\r\n      expect(data.success).to.be.true;\r\n      expect(data.data).to.be.null;\r\n    })\r\n\r\n    it('should respond and delay with params', async function () {\r\n      server\r\n        .setDelay(500)\r\n        .respondWith('test');\r\n\r\n      let start = + new Date();\r\n      response = await fetch('/');\r\n      let end = + new Date();\r\n\r\n      expect((end-start) >= 500).to.be.true;\r\n      response.status.should.equal(200);\r\n\r\n      let data = await response.text();\r\n\r\n      data.should.equal('test');\r\n    });\r\n\r\n    it('should respond and delay with response object', async function () {\r\n      let response = new Response('test');\r\n\r\n      server\r\n        .setDelay(500)\r\n        .respondWith(response);\r\n\r\n      let start = + new Date();\r\n      response = await fetch('/');\r\n      let end = + new Date();\r\n\r\n      expect((end-start) >= 500).to.be.true;\r\n      response.status.should.equal(200);\r\n\r\n      let data = await response.text();\r\n\r\n      data.should.equal('test');\r\n    });\r\n\r\n    it('should respond with status 204', async function () {\r\n      server.respondWithStatus(204);\r\n      response = await fetch('/');\r\n      response.status.should.equal(204);\r\n    });\r\n\r\n    it('should respond with status 301', async function () {\r\n      server.respondWithStatus(301);\r\n      response = await fetch('/');\r\n      response.status.should.equal(301);\r\n    });\r\n\r\n    it('should respond with status 401', async function () {\r\n      server.respondWithStatus(401);\r\n      response = await fetch('/');\r\n      response.status.should.equal(401);\r\n    });\r\n\r\n    it('should respond multiple times with status 401', async function () {\r\n      server.respondWithStatus(401);\r\n      response = await fetch('/');\r\n      response.status.should.equal(401);\r\n      response = await fetch('/');\r\n      response.status.should.equal(401);\r\n    });\r\n\r\n    it('should mutate status', async function () {\r\n      server.respondWithStatus(401);\r\n      response = await fetch('/');\r\n      response.status.should.equal(401);\r\n      server.respondWithStatus(200);\r\n      response = await fetch('/');\r\n      response.status.should.equal(200);\r\n    });\r\n\r\n    it('should process body if provided as a callback', async function() {\r\n      server.respondWith(server => {\r\n        return server.url.pathname;\r\n      });\r\n\r\n      response = await fetch('/');\r\n      let t = await response.text();\r\n      expect(t).to.equal('/');\r\n    })\r\n  });\r\n});\r\n",
     "static": true,
     "longname": "F:/Projets/fetch-mock-fixtures/tests/core.spec.js",
     "access": null,
@@ -1636,7 +2194,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 108,
+    "__docId__": 129,
     "kind": "test",
     "name": "describe0",
     "testId": 0,
@@ -1649,7 +2207,7 @@
     "lineNumber": 5
   },
   {
-    "__docId__": 109,
+    "__docId__": 130,
     "kind": "test",
     "name": "describe1",
     "testId": 1,
@@ -1658,11 +2216,11 @@
     "static": true,
     "longname": "tests/core.spec.js~describe0.describe1",
     "access": null,
-    "description": "Testing initialize",
-    "lineNumber": 14
+    "description": "Testing initialize and running",
+    "lineNumber": 13
   },
   {
-    "__docId__": 110,
+    "__docId__": 131,
     "kind": "test",
     "name": "it2",
     "testId": 2,
@@ -1672,10 +2230,10 @@
     "longname": "tests/core.spec.js~describe0.describe1.it2",
     "access": null,
     "description": "should initialize and respond 200 to a basic get request",
-    "lineNumber": 15
+    "lineNumber": 14
   },
   {
-    "__docId__": 111,
+    "__docId__": 132,
     "kind": "test",
     "name": "it3",
     "testId": 3,
@@ -1685,10 +2243,10 @@
     "longname": "tests/core.spec.js~describe0.describe1.it3",
     "access": null,
     "description": "should initialize and respond 404 to a basic get request",
-    "lineNumber": 22
+    "lineNumber": 21
   },
   {
-    "__docId__": 112,
+    "__docId__": 133,
     "kind": "test",
     "name": "it4",
     "testId": 4,
@@ -1698,260 +2256,325 @@
     "longname": "tests/core.spec.js~describe0.describe1.it4",
     "access": null,
     "description": "should initialize and respond 200 with data to a basic get request",
-    "lineNumber": 31
+    "lineNumber": 30
   },
   {
-    "__docId__": 113,
+    "__docId__": 134,
     "kind": "test",
-    "name": "describe5",
+    "name": "it5",
     "testId": 5,
+    "memberof": "tests/core.spec.js~describe0.describe1",
+    "testDepth": 2,
+    "static": true,
+    "longname": "tests/core.spec.js~describe0.describe1.it5",
+    "access": null,
+    "description": "should return server running status",
+    "lineNumber": 43
+  },
+  {
+    "__docId__": 135,
+    "kind": "test",
+    "name": "describe6",
+    "testId": 6,
     "memberof": "tests/core.spec.js~describe0",
     "testDepth": 1,
     "static": true,
-    "longname": "tests/core.spec.js~describe0.describe5",
+    "longname": "tests/core.spec.js~describe0.describe6",
     "access": null,
     "description": "Server response setup",
-    "lineNumber": 45
+    "lineNumber": 50
   },
   {
-    "__docId__": 114,
-    "kind": "test",
-    "name": "it6",
-    "testId": 6,
-    "memberof": "tests/core.spec.js~describe0.describe5",
-    "testDepth": 2,
-    "static": true,
-    "longname": "tests/core.spec.js~describe0.describe5.it6",
-    "access": null,
-    "description": "should initialize default global response parameters",
-    "lineNumber": 46
-  },
-  {
-    "__docId__": 115,
+    "__docId__": 136,
     "kind": "test",
     "name": "it7",
     "testId": 7,
-    "memberof": "tests/core.spec.js~describe0.describe5",
+    "memberof": "tests/core.spec.js~describe0.describe6",
     "testDepth": 2,
     "static": true,
-    "longname": "tests/core.spec.js~describe0.describe5.it7",
+    "longname": "tests/core.spec.js~describe0.describe6.it7",
     "access": null,
-    "description": "should initialize global response parameters with configure",
-    "lineNumber": 53
+    "description": "should initialize default global response parameters",
+    "lineNumber": 51
   },
   {
-    "__docId__": 116,
+    "__docId__": 137,
     "kind": "test",
     "name": "it8",
     "testId": 8,
-    "memberof": "tests/core.spec.js~describe0.describe5",
+    "memberof": "tests/core.spec.js~describe0.describe6",
     "testDepth": 2,
     "static": true,
-    "longname": "tests/core.spec.js~describe0.describe5.it8",
+    "longname": "tests/core.spec.js~describe0.describe6.it8",
+    "access": null,
+    "description": "should initialize global response parameters with configure",
+    "lineNumber": 58
+  },
+  {
+    "__docId__": 138,
+    "kind": "test",
+    "name": "it9",
+    "testId": 9,
+    "memberof": "tests/core.spec.js~describe0.describe6",
+    "testDepth": 2,
+    "static": true,
+    "longname": "tests/core.spec.js~describe0.describe6.it9",
     "access": null,
     "description": "should set a delay for response",
-    "lineNumber": 66
+    "lineNumber": 71
   },
   {
-    "__docId__": 117,
-    "kind": "test",
-    "name": "describe9",
-    "testId": 9,
-    "memberof": "tests/core.spec.js~describe0",
-    "testDepth": 1,
-    "static": true,
-    "longname": "tests/core.spec.js~describe0.describe9",
-    "access": null,
-    "description": "Incoming request informations",
-    "lineNumber": 75
-  },
-  {
-    "__docId__": 118,
+    "__docId__": 139,
     "kind": "test",
     "name": "it10",
     "testId": 10,
-    "memberof": "tests/core.spec.js~describe0.describe9",
+    "memberof": "tests/core.spec.js~describe0.describe6",
     "testDepth": 2,
     "static": true,
-    "longname": "tests/core.spec.js~describe0.describe9.it10",
+    "longname": "tests/core.spec.js~describe0.describe6.it10",
     "access": null,
-    "description": "should expose a request object when initialized with data and init object",
-    "lineNumber": 76
+    "description": "should throw exception if server is not started and access to stub properties/methods",
+    "lineNumber": 79
   },
   {
-    "__docId__": 119,
+    "__docId__": 140,
     "kind": "test",
-    "name": "it11",
+    "name": "describe11",
     "testId": 11,
-    "memberof": "tests/core.spec.js~describe0.describe9",
-    "testDepth": 2,
-    "static": true,
-    "longname": "tests/core.spec.js~describe0.describe9.it11",
-    "access": null,
-    "description": "should expose a cloned request object when initialized with a request object",
-    "lineNumber": 91
-  },
-  {
-    "__docId__": 120,
-    "kind": "test",
-    "name": "it12",
-    "testId": 12,
-    "memberof": "tests/core.spec.js~describe0.describe9",
-    "testDepth": 2,
-    "static": true,
-    "longname": "tests/core.spec.js~describe0.describe9.it12",
-    "access": null,
-    "description": "should expose url",
-    "lineNumber": 109
-  },
-  {
-    "__docId__": 121,
-    "kind": "test",
-    "name": "it13",
-    "testId": 13,
-    "memberof": "tests/core.spec.js~describe0.describe9",
-    "testDepth": 2,
-    "static": true,
-    "longname": "tests/core.spec.js~describe0.describe9.it13",
-    "access": null,
-    "description": "should expose url with request object",
-    "lineNumber": 115
-  },
-  {
-    "__docId__": 122,
-    "kind": "test",
-    "name": "it14",
-    "testId": 14,
-    "memberof": "tests/core.spec.js~describe0.describe9",
-    "testDepth": 2,
-    "static": true,
-    "longname": "tests/core.spec.js~describe0.describe9.it14",
-    "access": null,
-    "description": "should expose query",
-    "lineNumber": 122
-  },
-  {
-    "__docId__": 123,
-    "kind": "test",
-    "name": "it15",
-    "testId": 15,
-    "memberof": "tests/core.spec.js~describe0.describe9",
-    "testDepth": 2,
-    "static": true,
-    "longname": "tests/core.spec.js~describe0.describe9.it15",
-    "access": null,
-    "description": "should expose query with request object",
-    "lineNumber": 129
-  },
-  {
-    "__docId__": 124,
-    "kind": "test",
-    "name": "describe16",
-    "testId": 16,
     "memberof": "tests/core.spec.js~describe0",
     "testDepth": 1,
     "static": true,
-    "longname": "tests/core.spec.js~describe0.describe16",
+    "longname": "tests/core.spec.js~describe0.describe11",
     "access": null,
-    "description": "Response and status response",
-    "lineNumber": 138
+    "description": "Incoming request informations",
+    "lineNumber": 85
   },
   {
-    "__docId__": 125,
+    "__docId__": 141,
+    "kind": "test",
+    "name": "it12",
+    "testId": 12,
+    "memberof": "tests/core.spec.js~describe0.describe11",
+    "testDepth": 2,
+    "static": true,
+    "longname": "tests/core.spec.js~describe0.describe11.it12",
+    "access": null,
+    "description": "should expose a request object when initialized with data and init object",
+    "lineNumber": 86
+  },
+  {
+    "__docId__": 142,
+    "kind": "test",
+    "name": "it13",
+    "testId": 13,
+    "memberof": "tests/core.spec.js~describe0.describe11",
+    "testDepth": 2,
+    "static": true,
+    "longname": "tests/core.spec.js~describe0.describe11.it13",
+    "access": null,
+    "description": "should expose a cloned request object when initialized with a request object",
+    "lineNumber": 101
+  },
+  {
+    "__docId__": 143,
+    "kind": "test",
+    "name": "it14",
+    "testId": 14,
+    "memberof": "tests/core.spec.js~describe0.describe11",
+    "testDepth": 2,
+    "static": true,
+    "longname": "tests/core.spec.js~describe0.describe11.it14",
+    "access": null,
+    "description": "should expose url",
+    "lineNumber": 119
+  },
+  {
+    "__docId__": 144,
+    "kind": "test",
+    "name": "it15",
+    "testId": 15,
+    "memberof": "tests/core.spec.js~describe0.describe11",
+    "testDepth": 2,
+    "static": true,
+    "longname": "tests/core.spec.js~describe0.describe11.it15",
+    "access": null,
+    "description": "should expose url with request object",
+    "lineNumber": 125
+  },
+  {
+    "__docId__": 145,
+    "kind": "test",
+    "name": "it16",
+    "testId": 16,
+    "memberof": "tests/core.spec.js~describe0.describe11",
+    "testDepth": 2,
+    "static": true,
+    "longname": "tests/core.spec.js~describe0.describe11.it16",
+    "access": null,
+    "description": "should expose query",
+    "lineNumber": 132
+  },
+  {
+    "__docId__": 146,
     "kind": "test",
     "name": "it17",
     "testId": 17,
-    "memberof": "tests/core.spec.js~describe0.describe16",
+    "memberof": "tests/core.spec.js~describe0.describe11",
     "testDepth": 2,
     "static": true,
-    "longname": "tests/core.spec.js~describe0.describe16.it17",
+    "longname": "tests/core.spec.js~describe0.describe11.it17",
     "access": null,
-    "description": "should respond and delay with params",
+    "description": "should expose query with request object",
     "lineNumber": 139
   },
   {
-    "__docId__": 126,
+    "__docId__": 147,
     "kind": "test",
-    "name": "it18",
+    "name": "describe18",
     "testId": 18,
-    "memberof": "tests/core.spec.js~describe0.describe16",
-    "testDepth": 2,
+    "memberof": "tests/core.spec.js~describe0",
+    "testDepth": 1,
     "static": true,
-    "longname": "tests/core.spec.js~describe0.describe16.it18",
+    "longname": "tests/core.spec.js~describe0.describe18",
     "access": null,
-    "description": "should respond with response object",
-    "lineNumber": 156
+    "description": "Response and status response",
+    "lineNumber": 148
   },
   {
-    "__docId__": 127,
+    "__docId__": 148,
     "kind": "test",
     "name": "it19",
     "testId": 19,
-    "memberof": "tests/core.spec.js~describe0.describe16",
+    "memberof": "tests/core.spec.js~describe0.describe18",
     "testDepth": 2,
     "static": true,
-    "longname": "tests/core.spec.js~describe0.describe16.it19",
+    "longname": "tests/core.spec.js~describe0.describe18.it19",
     "access": null,
-    "description": "should respond with status 204",
-    "lineNumber": 175
+    "description": "should respond with no data",
+    "lineNumber": 149
   },
   {
-    "__docId__": 128,
+    "__docId__": 149,
     "kind": "test",
     "name": "it20",
     "testId": 20,
-    "memberof": "tests/core.spec.js~describe0.describe16",
+    "memberof": "tests/core.spec.js~describe0.describe18",
     "testDepth": 2,
     "static": true,
-    "longname": "tests/core.spec.js~describe0.describe16.it20",
+    "longname": "tests/core.spec.js~describe0.describe18.it20",
     "access": null,
-    "description": "should respond with status 301",
-    "lineNumber": 181
+    "description": "should respond and wrap null data",
+    "lineNumber": 157
   },
   {
-    "__docId__": 129,
+    "__docId__": 150,
     "kind": "test",
     "name": "it21",
     "testId": 21,
-    "memberof": "tests/core.spec.js~describe0.describe16",
+    "memberof": "tests/core.spec.js~describe0.describe18",
     "testDepth": 2,
     "static": true,
-    "longname": "tests/core.spec.js~describe0.describe16.it21",
+    "longname": "tests/core.spec.js~describe0.describe18.it21",
     "access": null,
-    "description": "should respond with status 401",
-    "lineNumber": 187
+    "description": "should respond and delay with params",
+    "lineNumber": 176
   },
   {
-    "__docId__": 130,
+    "__docId__": 151,
     "kind": "test",
     "name": "it22",
     "testId": 22,
-    "memberof": "tests/core.spec.js~describe0.describe16",
+    "memberof": "tests/core.spec.js~describe0.describe18",
     "testDepth": 2,
     "static": true,
-    "longname": "tests/core.spec.js~describe0.describe16.it22",
+    "longname": "tests/core.spec.js~describe0.describe18.it22",
     "access": null,
-    "description": "should respond multiple times with status 401",
+    "description": "should respond and delay with response object",
     "lineNumber": 193
   },
   {
-    "__docId__": 131,
+    "__docId__": 152,
     "kind": "test",
     "name": "it23",
     "testId": 23,
-    "memberof": "tests/core.spec.js~describe0.describe16",
+    "memberof": "tests/core.spec.js~describe0.describe18",
     "testDepth": 2,
     "static": true,
-    "longname": "tests/core.spec.js~describe0.describe16.it23",
+    "longname": "tests/core.spec.js~describe0.describe18.it23",
     "access": null,
-    "description": "should mutate status",
-    "lineNumber": 201
+    "description": "should respond with status 204",
+    "lineNumber": 212
   },
   {
-    "__docId__": 132,
+    "__docId__": 153,
+    "kind": "test",
+    "name": "it24",
+    "testId": 24,
+    "memberof": "tests/core.spec.js~describe0.describe18",
+    "testDepth": 2,
+    "static": true,
+    "longname": "tests/core.spec.js~describe0.describe18.it24",
+    "access": null,
+    "description": "should respond with status 301",
+    "lineNumber": 218
+  },
+  {
+    "__docId__": 154,
+    "kind": "test",
+    "name": "it25",
+    "testId": 25,
+    "memberof": "tests/core.spec.js~describe0.describe18",
+    "testDepth": 2,
+    "static": true,
+    "longname": "tests/core.spec.js~describe0.describe18.it25",
+    "access": null,
+    "description": "should respond with status 401",
+    "lineNumber": 224
+  },
+  {
+    "__docId__": 155,
+    "kind": "test",
+    "name": "it26",
+    "testId": 26,
+    "memberof": "tests/core.spec.js~describe0.describe18",
+    "testDepth": 2,
+    "static": true,
+    "longname": "tests/core.spec.js~describe0.describe18.it26",
+    "access": null,
+    "description": "should respond multiple times with status 401",
+    "lineNumber": 230
+  },
+  {
+    "__docId__": 156,
+    "kind": "test",
+    "name": "it27",
+    "testId": 27,
+    "memberof": "tests/core.spec.js~describe0.describe18",
+    "testDepth": 2,
+    "static": true,
+    "longname": "tests/core.spec.js~describe0.describe18.it27",
+    "access": null,
+    "description": "should mutate status",
+    "lineNumber": 238
+  },
+  {
+    "__docId__": 157,
+    "kind": "test",
+    "name": "it28",
+    "testId": 28,
+    "memberof": "tests/core.spec.js~describe0.describe18",
+    "testDepth": 2,
+    "static": true,
+    "longname": "tests/core.spec.js~describe0.describe18.it28",
+    "access": null,
+    "description": "should process body if provided as a callback",
+    "lineNumber": 247
+  },
+  {
+    "__docId__": 158,
     "kind": "testFile",
     "name": "tests/fixtures.spec.js",
-    "content": "import {Server} from '@';\nimport PouchDB from 'pouchdb';\n\ndescribe('Fixtures testing suite', function() {\n  let server = new Server();\n\n  beforeEach(() => server.start());\n  afterEach(() => {\n    server.stop();\n    server.reset();\n  });\n\n  describe('Fixture path resolution', function() {\n    it('should provide fixture path', async function() {\n      await fetch('/api/users');\n\n      server.fixture.should.equal('api/users/get');\n    })\n  });\n\n  describe('Fixture loading', function() {\n    it('should load fixture and GET', async function() {\n      server\n        .setHeaders({'content-type': 'application/json'})\n        .setWrapper(body => JSON.stringify(body))\n        .respondWithFixture();\n\n      let response = await fetch('/api/users');\n\n      response.status.should.equal(200);\n\n      let data = await response.json();\n\n      data.should.deep.equal([\n        {\n          id: 1,\n          name: 'foo'\n        },\n        {\n          id: 2,\n          name: 'bar'\n        }\n      ]);\n    })\n\n    it('should load fixture and POST', async function() {\n      server\n        .setHeaders({'content-type': 'application/json'})\n        .setWrapper(body => JSON.stringify(body))\n        .respondWithFixture();\n\n      let response = await fetch('/api/users', {method: 'POST'});\n\n      response.status.should.equal(201);\n\n      let data = await response.json();\n\n      data.should.deep.equal({\n        id: 3,\n        name: 'baz'\n      });\n    })\n\n    it('should load fixture and fail', async function() {\n      server\n        .setHeaders({'content-type': 'application/json'})\n        .setWrapper(body => JSON.stringify(body))\n        .respondWithFixture();\n\n      let response = await fetch('/api/silly');\n\n      response.status.should.equal(404);\n    })\n  })\n\n  describe('On the fly fixture', function() {\n    it('should use an on-the-fly fixture', async function() {\n      const fixture = {};\n      const destroyed = sinon.spy();\n\n      fixture.initialized = function() {\n        this.body = 'test';\n      }\n\n      fixture.destroyed = () => {\n        destroyed();\n      }\n\n      server.setDelay(500).respondWithFixture();\n\n      let response = await fetch(fixture);\n      let data = await response.text();\n\n      response.status.should.equal(200);\n      data.should.equal('test');\n      destroyed.calledOnce.should.be.true;\n    })\n  });\n\n  describe('Pattern and database fixture', function() {\n    let db;\n\n    before(async () => {\n      db = new PouchDB('test');\n\n      await db.put({\n        _id: '1',\n        name: 'foo'\n      });\n    });\n\n    after(() => {\n      db.destroy();\n    })\n\n    it('should use a pattern to extract path params and use database', async function() {\n      server\n        .setFixturePattern('/api2/users/:id')\n        .respondWithFixture();\n\n      let response = await fetch('/api2/users/1');\n      let data = await response.json();\n\n      response.status.should.equal(200);\n      expect(data.name).to.equal('foo');\n    })\n  });\n})\n",
+    "content": "import {Server} from '@';\nimport server from './server';\nimport PouchDB from 'pouchdb';\n\ndescribe('Fixtures testing suite', function() {\n  beforeEach(() => server.start());\n  afterEach(() => {\n    server.reset().stop();\n  });\n\n  describe('Fixture errors', function() {\n    it('should throw an exception if no loader have been set', async function() {\n      let server = new Server();\n\n      server.respondWithFixture();\n      let response = await fetch('/');\n      response.status.should.equal(500);\n      response.statusText.should.equal(\"Fixture loader have not been implemented. See readme for more informations.\")\n    })\n\n    it('should warn if old loader have been set', async function() {\n      let server = new Server();\n\n      sinon.spy(console, 'warn');\n      server._getFixtureParams = () => true;\n      server.respondWithFixture();\n\n      await fetch('/');\n\n      console.warn.calledOnceWith('_getFixtureParams have been deprecated and will be removed in next versions. Please use getFixtureParams instead.').should.be.true; // eslint-disable-line\n      console.warn.restore(); // eslint-disable-line\n    })\n\n    it('should throw an exception if no arguments are provided to fetch', async function() {\n      server.respondWithFixture();\n\n      try {\n        await fetch();\n      } catch (err) {\n        err.toString().should.equal('Error: You must either provide a path or a fixture initialization object to fetch call');\n      }\n    });\n  })\n\n  describe('Fixture path resolution', function() {\n    it('should provide fixture path', async function() {\n      await fetch('/api/users');\n\n      server.fixture.should.equal('api/users/get');\n    })\n  });\n\n  describe('Fixture loading', function() {\n    it('should load fixture and GET', async function() {\n      server\n        .setHeaders({'content-type': 'application/json'})\n        .setWrapper(body => JSON.stringify(body))\n        .respondWithFixture();\n\n      let response = await fetch('/api/users');\n\n      response.status.should.equal(200);\n\n      let data = await response.json();\n\n      data.should.deep.equal([\n        {\n          id: 1,\n          name: 'foo'\n        },\n        {\n          id: 2,\n          name: 'bar'\n        }\n      ]);\n    })\n\n    it('should load fixture and POST', async function() {\n      server\n        .setHeaders({'content-type': 'application/json'})\n        .setWrapper(body => JSON.stringify(body))\n        .respondWithFixture();\n\n      let response = await fetch('/api/users', {method: 'POST'});\n\n      response.status.should.equal(201);\n\n      let data = await response.json();\n\n      data.should.deep.equal({\n        id: 3,\n        name: 'baz'\n      });\n    })\n\n    it('should load fixture and fail', async function() {\n      server\n        .setHeaders({'content-type': 'application/json'})\n        .setWrapper(body => JSON.stringify(body))\n        .respondWithFixture();\n\n      let response = await fetch('/api/silly');\n\n      response.status.should.equal(404);\n    })\n  })\n\n  describe('On the fly fixture', function() {\n    it('should use an on-the-fly fixture', async function() {\n      const fixture = {};\n      const destroyed = sinon.spy();\n\n      fixture.initialized = function() {\n        this.body = 'test';\n        this.headers = {\n          'content-type': 'text/html'\n        }\n      }\n\n      fixture.destroyed = () => {\n        destroyed();\n      }\n\n      server.setDelay(500).respondWithFixture();\n\n      let response = await fetch(fixture);\n      let data = await response.text();\n\n      response.status.should.equal(200);\n      data.should.equal('test');\n      destroyed.calledOnce.should.be.true;\n    })\n  });\n\n  describe('Pattern and database fixture', function() {\n    let db;\n\n    before(async () => {\n      db = new PouchDB('test');\n\n      await db.put({\n        _id: '1',\n        name: 'foo'\n      });\n\n      await db.put({\n        _id: '2',\n        name: 'bar'\n      });\n    });\n\n    after(() => {\n      db.destroy();\n    })\n\n    it('should use a pattern to extract path params and use database', async function() {\n      server\n        .setFixturePattern('/api2/users/:id?')\n        .respondWithFixture();\n\n      let response = await fetch('/api2/users/1');\n      let data = await response.json();\n\n      response.status.should.equal(200);\n      expect(data.name).to.equal('foo');\n    })\n  });\n})\n",
     "static": true,
     "longname": "F:/Projets/fetch-mock-fixtures/tests/fixtures.spec.js",
     "access": null,
@@ -1959,153 +2582,333 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 133,
+    "__docId__": 159,
     "kind": "test",
-    "name": "describe24",
-    "testId": 24,
+    "name": "describe29",
+    "testId": 29,
     "memberof": "tests/fixtures.spec.js",
     "testDepth": 0,
     "static": true,
-    "longname": "tests/fixtures.spec.js~describe24",
+    "longname": "tests/fixtures.spec.js~describe29",
     "access": null,
     "description": "Fixtures testing suite",
-    "lineNumber": 4
+    "lineNumber": 5
   },
   {
-    "__docId__": 134,
+    "__docId__": 160,
     "kind": "test",
-    "name": "describe25",
-    "testId": 25,
-    "memberof": "tests/fixtures.spec.js~describe24",
-    "testDepth": 1,
-    "static": true,
-    "longname": "tests/fixtures.spec.js~describe24.describe25",
-    "access": null,
-    "description": "Fixture path resolution",
-    "lineNumber": 13
-  },
-  {
-    "__docId__": 135,
-    "kind": "test",
-    "name": "it26",
-    "testId": 26,
-    "memberof": "tests/fixtures.spec.js~describe24.describe25",
-    "testDepth": 2,
-    "static": true,
-    "longname": "tests/fixtures.spec.js~describe24.describe25.it26",
-    "access": null,
-    "description": "should provide fixture path",
-    "lineNumber": 14
-  },
-  {
-    "__docId__": 136,
-    "kind": "test",
-    "name": "describe27",
-    "testId": 27,
-    "memberof": "tests/fixtures.spec.js~describe24",
-    "testDepth": 1,
-    "static": true,
-    "longname": "tests/fixtures.spec.js~describe24.describe27",
-    "access": null,
-    "description": "Fixture loading",
-    "lineNumber": 21
-  },
-  {
-    "__docId__": 137,
-    "kind": "test",
-    "name": "it28",
-    "testId": 28,
-    "memberof": "tests/fixtures.spec.js~describe24.describe27",
-    "testDepth": 2,
-    "static": true,
-    "longname": "tests/fixtures.spec.js~describe24.describe27.it28",
-    "access": null,
-    "description": "should load fixture and GET",
-    "lineNumber": 22
-  },
-  {
-    "__docId__": 138,
-    "kind": "test",
-    "name": "it29",
-    "testId": 29,
-    "memberof": "tests/fixtures.spec.js~describe24.describe27",
-    "testDepth": 2,
-    "static": true,
-    "longname": "tests/fixtures.spec.js~describe24.describe27.it29",
-    "access": null,
-    "description": "should load fixture and POST",
-    "lineNumber": 46
-  },
-  {
-    "__docId__": 139,
-    "kind": "test",
-    "name": "it30",
+    "name": "describe30",
     "testId": 30,
-    "memberof": "tests/fixtures.spec.js~describe24.describe27",
-    "testDepth": 2,
-    "static": true,
-    "longname": "tests/fixtures.spec.js~describe24.describe27.it30",
-    "access": null,
-    "description": "should load fixture and fail",
-    "lineNumber": 64
-  },
-  {
-    "__docId__": 140,
-    "kind": "test",
-    "name": "describe31",
-    "testId": 31,
-    "memberof": "tests/fixtures.spec.js~describe24",
+    "memberof": "tests/fixtures.spec.js~describe29",
     "testDepth": 1,
     "static": true,
-    "longname": "tests/fixtures.spec.js~describe24.describe31",
+    "longname": "tests/fixtures.spec.js~describe29.describe30",
     "access": null,
-    "description": "On the fly fixture",
-    "lineNumber": 76
+    "description": "Fixture errors",
+    "lineNumber": 11
   },
   {
-    "__docId__": 141,
+    "__docId__": 161,
+    "kind": "test",
+    "name": "it31",
+    "testId": 31,
+    "memberof": "tests/fixtures.spec.js~describe29.describe30",
+    "testDepth": 2,
+    "static": true,
+    "longname": "tests/fixtures.spec.js~describe29.describe30.it31",
+    "access": null,
+    "description": "should throw an exception if no loader have been set",
+    "lineNumber": 12
+  },
+  {
+    "__docId__": 162,
     "kind": "test",
     "name": "it32",
     "testId": 32,
-    "memberof": "tests/fixtures.spec.js~describe24.describe31",
+    "memberof": "tests/fixtures.spec.js~describe29.describe30",
     "testDepth": 2,
     "static": true,
-    "longname": "tests/fixtures.spec.js~describe24.describe31.it32",
+    "longname": "tests/fixtures.spec.js~describe29.describe30.it32",
     "access": null,
-    "description": "should use an on-the-fly fixture",
-    "lineNumber": 77
+    "description": "should warn if old loader have been set",
+    "lineNumber": 21
   },
   {
-    "__docId__": 142,
+    "__docId__": 163,
     "kind": "test",
-    "name": "describe33",
+    "name": "it33",
     "testId": 33,
-    "memberof": "tests/fixtures.spec.js~describe24",
+    "memberof": "tests/fixtures.spec.js~describe29.describe30",
+    "testDepth": 2,
+    "static": true,
+    "longname": "tests/fixtures.spec.js~describe29.describe30.it33",
+    "access": null,
+    "description": "should throw an exception if no arguments are provided to fetch",
+    "lineNumber": 34
+  },
+  {
+    "__docId__": 164,
+    "kind": "test",
+    "name": "describe34",
+    "testId": 34,
+    "memberof": "tests/fixtures.spec.js~describe29",
     "testDepth": 1,
     "static": true,
-    "longname": "tests/fixtures.spec.js~describe24.describe33",
+    "longname": "tests/fixtures.spec.js~describe29.describe34",
     "access": null,
-    "description": "Pattern and database fixture",
-    "lineNumber": 100
+    "description": "Fixture path resolution",
+    "lineNumber": 45
   },
   {
-    "__docId__": 143,
+    "__docId__": 165,
     "kind": "test",
-    "name": "it34",
-    "testId": 34,
-    "memberof": "tests/fixtures.spec.js~describe24.describe33",
+    "name": "it35",
+    "testId": 35,
+    "memberof": "tests/fixtures.spec.js~describe29.describe34",
     "testDepth": 2,
     "static": true,
-    "longname": "tests/fixtures.spec.js~describe24.describe33.it34",
+    "longname": "tests/fixtures.spec.js~describe29.describe34.it35",
     "access": null,
-    "description": "should use a pattern to extract path params and use database",
-    "lineNumber": 116
+    "description": "should provide fixture path",
+    "lineNumber": 46
   },
   {
-    "__docId__": 144,
+    "__docId__": 166,
+    "kind": "test",
+    "name": "describe36",
+    "testId": 36,
+    "memberof": "tests/fixtures.spec.js~describe29",
+    "testDepth": 1,
+    "static": true,
+    "longname": "tests/fixtures.spec.js~describe29.describe36",
+    "access": null,
+    "description": "Fixture loading",
+    "lineNumber": 53
+  },
+  {
+    "__docId__": 167,
+    "kind": "test",
+    "name": "it37",
+    "testId": 37,
+    "memberof": "tests/fixtures.spec.js~describe29.describe36",
+    "testDepth": 2,
+    "static": true,
+    "longname": "tests/fixtures.spec.js~describe29.describe36.it37",
+    "access": null,
+    "description": "should load fixture and GET",
+    "lineNumber": 54
+  },
+  {
+    "__docId__": 168,
+    "kind": "test",
+    "name": "it38",
+    "testId": 38,
+    "memberof": "tests/fixtures.spec.js~describe29.describe36",
+    "testDepth": 2,
+    "static": true,
+    "longname": "tests/fixtures.spec.js~describe29.describe36.it38",
+    "access": null,
+    "description": "should load fixture and POST",
+    "lineNumber": 78
+  },
+  {
+    "__docId__": 169,
+    "kind": "test",
+    "name": "it39",
+    "testId": 39,
+    "memberof": "tests/fixtures.spec.js~describe29.describe36",
+    "testDepth": 2,
+    "static": true,
+    "longname": "tests/fixtures.spec.js~describe29.describe36.it39",
+    "access": null,
+    "description": "should load fixture and fail",
+    "lineNumber": 96
+  },
+  {
+    "__docId__": 170,
+    "kind": "test",
+    "name": "describe40",
+    "testId": 40,
+    "memberof": "tests/fixtures.spec.js~describe29",
+    "testDepth": 1,
+    "static": true,
+    "longname": "tests/fixtures.spec.js~describe29.describe40",
+    "access": null,
+    "description": "On the fly fixture",
+    "lineNumber": 108
+  },
+  {
+    "__docId__": 171,
+    "kind": "test",
+    "name": "it41",
+    "testId": 41,
+    "memberof": "tests/fixtures.spec.js~describe29.describe40",
+    "testDepth": 2,
+    "static": true,
+    "longname": "tests/fixtures.spec.js~describe29.describe40.it41",
+    "access": null,
+    "description": "should use an on-the-fly fixture",
+    "lineNumber": 109
+  },
+  {
+    "__docId__": 172,
+    "kind": "test",
+    "name": "describe42",
+    "testId": 42,
+    "memberof": "tests/fixtures.spec.js~describe29",
+    "testDepth": 1,
+    "static": true,
+    "longname": "tests/fixtures.spec.js~describe29.describe42",
+    "access": null,
+    "description": "Pattern and database fixture",
+    "lineNumber": 135
+  },
+  {
+    "__docId__": 173,
+    "kind": "test",
+    "name": "it43",
+    "testId": 43,
+    "memberof": "tests/fixtures.spec.js~describe29.describe42",
+    "testDepth": 2,
+    "static": true,
+    "longname": "tests/fixtures.spec.js~describe29.describe42.it43",
+    "access": null,
+    "description": "should use a pattern to extract path params and use database",
+    "lineNumber": 156
+  },
+  {
+    "__docId__": 174,
+    "kind": "testFile",
+    "name": "tests/history.spec.js",
+    "content": "import Server from '@';\n\ndescribe('Requests history and successive calls test suite', function() {\n  let server = new Server();\n\n  beforeEach(() => {\n    server.start();\n  })\n\n  afterEach(() => {\n    server.reset().stop();\n  })\n\n  describe('Requests history', function() {\n    it('should return the number of requests processed', async function() {\n      await fetch('/');\n      server.callCount.should.equal(1);\n      await fetch('/');\n      server.callCount.should.equal(2);\n      await fetch('/');\n      server.callCount.should.equal(3);\n    })\n\n    it('should return request history by index', async function() {\n      server.respondWith('test')\n\n      await fetch('/');\n\n      expect(server.url.pathname === '/').to.be.true;\n      expect(server.request.url === server.getRequest(0).url).to.be.true;\n\n      await fetch('/foo');\n\n      expect(server.url.pathname === '/foo').to.be.true;\n      expect(server.request.url === server.getRequest(0).url).to.be.false;\n      expect(server.request.url === server.getRequest(1).url).to.be.true;\n      expect(server.requestToUrl(server.getRequest(0)).pathname).to.equal('/');\n    })\n\n    it('should return whole requests history', async function() {\n      await fetch('/');\n      await fetch('/foo');\n      await fetch('/bar');\n\n      let requests = server.getAllRequests().map(req => server.requestToUrl(req).pathname);\n\n      requests.should.deep.equal([\n        '/',\n        '/foo',\n        '/bar'\n      ]);\n    })\n  });\n\n  describe('Successive different responses', function() {\n    it('should chain responses', async function() {\n      server\n        .onFirstCall()\n        .respondWith('test1')\n        .onSecondCall()\n        .respondWith('test2')\n        .onThirdCall()\n        .respondWith('test3')\n        .onCall(3)\n        .respondWith('test4')\n        .respondWith('over')\n\n      let response;\n\n      response = await fetch('/');\n      expect(await response.text()).to.equal('test1');\n\n      response = await fetch('/');\n      expect(await response.text()).to.equal('test2');\n\n      response = await fetch('/');\n      expect(await response.text()).to.equal('test3');\n\n      response = await fetch('/');\n      expect(await response.text()).to.equal('test4');\n\n      response = await fetch('/');\n      expect(await response.text()).to.equal('over');\n\n      response = await fetch('/');\n      expect(await response.text()).to.equal('over');\n    })\n\n    it('should chain responses and fixtures', async function() {\n      let fixture = {\n        body: function(server) {\n          return server.callCount;\n        }\n      }\n\n      server\n        .onFirstCall()\n        .respondWithFixture()\n        .onCall(2)\n        .respondWithFixture()\n        .respondWithStatus(504);\n\n      let response;\n\n      response = await fetch(fixture);\n      response.status.should.equal(200);\n\n      response = await fetch(fixture);\n      response.status.should.equal(504);\n\n      response = await fetch(fixture);\n      response.status.should.equal(200);\n\n      response = await fetch(fixture);\n      response.status.should.equal(504);\n    })\n\n    it('should mutate/inherit params between responses', async function() {\n      server\n        .onFirstCall()\n        .setStatus(404)\n        .respondWith(null)\n        .onSecondCall()\n        .setStatus(200)\n        .respondWith(null)\n        .setStatus(204)\n        .respondWith(null)\n\n      let response;\n\n      response = await fetch();\n      response.status.should.equal(404);\n\n      response = await fetch();\n      response.status.should.equal(200);\n\n      response = await fetch();\n      response.status.should.equal(204);\n    })\n  })\n})\n",
+    "static": true,
+    "longname": "F:/Projets/fetch-mock-fixtures/tests/history.spec.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 175,
+    "kind": "test",
+    "name": "describe44",
+    "testId": 44,
+    "memberof": "tests/history.spec.js",
+    "testDepth": 0,
+    "static": true,
+    "longname": "tests/history.spec.js~describe44",
+    "access": null,
+    "description": "Requests history and successive calls test suite",
+    "lineNumber": 3
+  },
+  {
+    "__docId__": 176,
+    "kind": "test",
+    "name": "describe45",
+    "testId": 45,
+    "memberof": "tests/history.spec.js~describe44",
+    "testDepth": 1,
+    "static": true,
+    "longname": "tests/history.spec.js~describe44.describe45",
+    "access": null,
+    "description": "Requests history",
+    "lineNumber": 14
+  },
+  {
+    "__docId__": 177,
+    "kind": "test",
+    "name": "it46",
+    "testId": 46,
+    "memberof": "tests/history.spec.js~describe44.describe45",
+    "testDepth": 2,
+    "static": true,
+    "longname": "tests/history.spec.js~describe44.describe45.it46",
+    "access": null,
+    "description": "should return the number of requests processed",
+    "lineNumber": 15
+  },
+  {
+    "__docId__": 178,
+    "kind": "test",
+    "name": "it47",
+    "testId": 47,
+    "memberof": "tests/history.spec.js~describe44.describe45",
+    "testDepth": 2,
+    "static": true,
+    "longname": "tests/history.spec.js~describe44.describe45.it47",
+    "access": null,
+    "description": "should return request history by index",
+    "lineNumber": 24
+  },
+  {
+    "__docId__": 179,
+    "kind": "test",
+    "name": "it48",
+    "testId": 48,
+    "memberof": "tests/history.spec.js~describe44.describe45",
+    "testDepth": 2,
+    "static": true,
+    "longname": "tests/history.spec.js~describe44.describe45.it48",
+    "access": null,
+    "description": "should return whole requests history",
+    "lineNumber": 40
+  },
+  {
+    "__docId__": 180,
+    "kind": "test",
+    "name": "describe49",
+    "testId": 49,
+    "memberof": "tests/history.spec.js~describe44",
+    "testDepth": 1,
+    "static": true,
+    "longname": "tests/history.spec.js~describe44.describe49",
+    "access": null,
+    "description": "Successive different responses",
+    "lineNumber": 55
+  },
+  {
+    "__docId__": 181,
+    "kind": "test",
+    "name": "it50",
+    "testId": 50,
+    "memberof": "tests/history.spec.js~describe44.describe49",
+    "testDepth": 2,
+    "static": true,
+    "longname": "tests/history.spec.js~describe44.describe49.it50",
+    "access": null,
+    "description": "should chain responses",
+    "lineNumber": 56
+  },
+  {
+    "__docId__": 182,
+    "kind": "test",
+    "name": "it51",
+    "testId": 51,
+    "memberof": "tests/history.spec.js~describe44.describe49",
+    "testDepth": 2,
+    "static": true,
+    "longname": "tests/history.spec.js~describe44.describe49.it51",
+    "access": null,
+    "description": "should chain responses and fixtures",
+    "lineNumber": 89
+  },
+  {
+    "__docId__": 183,
+    "kind": "test",
+    "name": "it52",
+    "testId": 52,
+    "memberof": "tests/history.spec.js~describe44.describe49",
+    "testDepth": 2,
+    "static": true,
+    "longname": "tests/history.spec.js~describe44.describe49.it52",
+    "access": null,
+    "description": "should mutate/inherit params between responses",
+    "lineNumber": 118
+  },
+  {
+    "__docId__": 184,
     "kind": "testFile",
     "name": "tests/wrapper.spec.js",
-    "content": "import MockServer from '@';\n\ndescribe('Wrapper option testing suite', function () {\n  it('should wrap response with default slot', async function () {\n    let server = new MockServer({\n      wrapper: '<h1>A good wrapper for %data%</h1>'\n    });\n\n    server.start();\n    server.respondWith('title');\n\n    let response = await fetch('/');\n    let data = await response.text();\n\n    data.should.equal('<h1>A good wrapper for title</h1>');\n    server.stop();\n  });\n\n  it('should wrap response with named slots', async function () {\n    let server = new MockServer({\n      wrapper: '<h1>A good wrapper for %title%</h1><h2>And for %subtitle% subtitle</h2>'\n    });\n\n    server.start();\n    server.respondWith({\n      title: 'great jedi',\n      subtitle: 'padawan'\n    });\n\n    let response = await fetch('/');\n    let data = await response.text();\n    data.should.equal('<h1>A good wrapper for great jedi</h1><h2>And for padawan subtitle</h2>');\n    server.stop();\n  });\n\n  it('should wrap response with JSON data', async function () {\n    let server = new MockServer({\n      wrapper: `{\n        \"success\":true,\n        \"data\":%data%\n      }`\n    });\n\n    server.start();\n    server.respondWithJSON({test: 'ok'});\n\n    let response = await fetch('/');\n    let data = await response.json();\n    data.success.should.be.true;\n    data.data.test.should.equal('ok');\n    server.stop();\n  });\n\n  it('should use a callback function as wrapper', async function() {\n    let server = new MockServer();\n\n    server.wrapper = data => JSON.stringify({success:true, data})\n\n    server.start();\n    server.respondWith({test: 'ok'});\n\n    let response = await fetch('/');\n    let data = await response.json();\n    data.success.should.be.true;\n    data.data.test.should.equal('ok');\n    server.stop();\n  })\n});\n",
+    "content": "import Server from '@';\n\ndescribe('Wrapper option testing suite', function () {\n  it('should wrap response with default slot', async function () {\n    let server = new Server({\n      wrapper: '<h1>A good wrapper for %data%</h1>'\n    });\n\n    server.start();\n    server.respondWith('title');\n\n    let response = await fetch('/');\n    let data = await response.text();\n\n    data.should.equal('<h1>A good wrapper for title</h1>');\n    server.stop();\n  });\n\n  it('should wrap response with named slots', async function () {\n    let server = new Server({\n      wrapper: '<h1>A good wrapper for %title%</h1><h2>And for %subtitle% subtitle</h2>'\n    });\n\n    server.start();\n    server.respondWith({\n      title: 'great jedi',\n      subtitle: 'padawan'\n    });\n\n    let response = await fetch('/');\n    let data = await response.text();\n    data.should.equal('<h1>A good wrapper for great jedi</h1><h2>And for padawan subtitle</h2>');\n    server.stop();\n  });\n\n  it('should wrap response with JSON data', async function () {\n    let server = new Server({\n      wrapper: `{\n        \"success\":true,\n        \"data\":%data%\n      }`\n    });\n\n    server.start();\n    server.respondWithJSON({test: 'ok'});\n\n    let response = await fetch('/');\n    let data = await response.json();\n    data.success.should.be.true;\n    data.data.test.should.equal('ok');\n    server.stop();\n  });\n\n  it('should use a callback function as wrapper', async function() {\n    let server = new Server();\n\n    server.wrapper = data => JSON.stringify({success:true, data})\n\n    server.start();\n    server.respondWith({test: 'ok'});\n\n    let response = await fetch('/');\n    let data = await response.json();\n    data.success.should.be.true;\n    data.data.test.should.equal('ok');\n    server.stop();\n  })\n});\n",
     "static": true,
     "longname": "F:/Projets/fetch-mock-fixtures/tests/wrapper.spec.js",
     "access": null,
@@ -2113,66 +2916,66 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 145,
+    "__docId__": 185,
     "kind": "test",
-    "name": "describe35",
-    "testId": 35,
+    "name": "describe53",
+    "testId": 53,
     "memberof": "tests/wrapper.spec.js",
     "testDepth": 0,
     "static": true,
-    "longname": "tests/wrapper.spec.js~describe35",
+    "longname": "tests/wrapper.spec.js~describe53",
     "access": null,
     "description": "Wrapper option testing suite",
     "lineNumber": 3
   },
   {
-    "__docId__": 146,
+    "__docId__": 186,
     "kind": "test",
-    "name": "it36",
-    "testId": 36,
-    "memberof": "tests/wrapper.spec.js~describe35",
+    "name": "it54",
+    "testId": 54,
+    "memberof": "tests/wrapper.spec.js~describe53",
     "testDepth": 1,
     "static": true,
-    "longname": "tests/wrapper.spec.js~describe35.it36",
+    "longname": "tests/wrapper.spec.js~describe53.it54",
     "access": null,
     "description": "should wrap response with default slot",
     "lineNumber": 4
   },
   {
-    "__docId__": 147,
+    "__docId__": 187,
     "kind": "test",
-    "name": "it37",
-    "testId": 37,
-    "memberof": "tests/wrapper.spec.js~describe35",
+    "name": "it55",
+    "testId": 55,
+    "memberof": "tests/wrapper.spec.js~describe53",
     "testDepth": 1,
     "static": true,
-    "longname": "tests/wrapper.spec.js~describe35.it37",
+    "longname": "tests/wrapper.spec.js~describe53.it55",
     "access": null,
     "description": "should wrap response with named slots",
     "lineNumber": 19
   },
   {
-    "__docId__": 148,
+    "__docId__": 188,
     "kind": "test",
-    "name": "it38",
-    "testId": 38,
-    "memberof": "tests/wrapper.spec.js~describe35",
+    "name": "it56",
+    "testId": 56,
+    "memberof": "tests/wrapper.spec.js~describe53",
     "testDepth": 1,
     "static": true,
-    "longname": "tests/wrapper.spec.js~describe35.it38",
+    "longname": "tests/wrapper.spec.js~describe53.it56",
     "access": null,
     "description": "should wrap response with JSON data",
     "lineNumber": 36
   },
   {
-    "__docId__": 149,
+    "__docId__": 189,
     "kind": "test",
-    "name": "it39",
-    "testId": 39,
-    "memberof": "tests/wrapper.spec.js~describe35",
+    "name": "it57",
+    "testId": 57,
+    "memberof": "tests/wrapper.spec.js~describe53",
     "testDepth": 1,
     "static": true,
-    "longname": "tests/wrapper.spec.js~describe35.it39",
+    "longname": "tests/wrapper.spec.js~describe53.it57",
     "access": null,
     "description": "should use a callback function as wrapper",
     "lineNumber": 54

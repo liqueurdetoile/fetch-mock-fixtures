@@ -107,15 +107,168 @@ fetch(&apos;/&apos;).then(response =&gt; {
 server.stop();</code>
 </code></pre>
 <p>Under the hood, the server is simply sending back a <a href="https://developer.mozilla.org/en-US/docs/Web/API/Response/Response"><code>Response</code> object</a> that mimics a regular fetch call response.</p>
-<h3 id="configuring-server-response">Configuring server response</h3><p>Response configuration can be done through a bunch of chainable methods.</p>
-<p><strong>Important: When done on server, configuration persists through each calls and can be changed at runtime without the need to start/stop server. All changes will be applied on the next fetch call.</strong></p>
-<h4 id="setting-up-returned-data">Setting up returned data</h4><p>Server can be set to send back some data. Without fixtures, you can use the <code>respondWith</code> server method. For additional configuration, see below.</p>
+<h3 id="controlling-server">Controlling server</h3><p>An FMF server instance exposes a few methods/properties to control server state.</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>start()</code></td>
+<td>Start the server by stubbing <code>window.fetch</code></td>
+</tr>
+<tr>
+<td><code>reset(stub=false)</code></td>
+<td>Reset to the server default configuration (see below). If <code>stub</code> is true, the sinon stub will also be resetted at the same time.</td>
+</tr>
+<tr>
+<td><code>stop()</code></td>
+<td>Stop the server by restoring <code>window.fetch</code>. That does not affect server actual configuration.</td>
+</tr>
+<tr>
+<td><code>running</code></td>
+<td>Returns true if server is running</td>
+</tr>
+<tr>
+<td><code>stub</code></td>
+<td>Direct access to the stub of <code>window.fetch</code>. Accessing the property when server is not started will raise an Error.</td>
+</tr>
+</tbody>
+</table>
+<p>window.fetch is a fully functional <a href="https://sinonjs.org/releases/latest/stubs/">Sinon stub</a>. Therefore, you can use any of the method available on a stub.</p>
+<h3 id="accessing-request-s--sent-to-server">Accessing request(s) sent to server</h3><p>The server keeps all requests sent since the last start/stub reset. To ease, outgoing API requests tests, an FMF sever instance exposes a bunch of properties/method to access requests :</p>
+<table>
+<thead>
+<tr>
+<th>Property/Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>request</code></td>
+<td>Returns the last request made as a <a href="https://developer.mozilla.org/en-US/docs/Web/API/Request">Request object</a></td>
+</tr>
+<tr>
+<td><code>url</code></td>
+<td>Returns the last url called as a parsed object (see <a href="https://www.npmjs.com/package/url-parse">url-parse</a>)</td>
+</tr>
+<tr>
+<td><code>query</code></td>
+<td>Returns the parsed query part of the last called url (see <a href="https://www.npmjs.com/package/url-parse">url-parse</a>)</td>
+</tr>
+<tr>
+<td><code>callCount</code></td>
+<td>Returns the number of requests received</td>
+</tr>
+<tr>
+<td><code>getRequest(n)</code></td>
+<td>Returns the request send on the (n + 1)&lt;sup&gt;th&lt;/sup&gt; call as a <a href="https://developer.mozilla.org/en-US/docs/Web/API/Request">Request object</a>. For instance, <code>server.getRequest(0)</code> will return the first request made</td>
+</tr>
+<tr>
+<td><code>getAllRequests()</code></td>
+<td>Returns an array of all requests made as <a href="https://developer.mozilla.org/en-US/docs/Web/API/Request">Request objects</a> in the same order than the calls</td>
+</tr>
+<tr>
+<td><code>requestToUrl(request)</code></td>
+<td>Expects a <a href="https://developer.mozilla.org/en-US/docs/Web/API/Request">Request object</a> as argument and returns a parsed url (see <a href="https://www.npmjs.com/package/url-parse">url-parse</a>)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="setting-up-response">Setting up Response</h3><p>If you only need to disable <code>window.fetch</code>, you can simply start the server. All calls will be answered with the same default response configuration (see below).</p>
+<p>For testing purposes, you may want to go deeper. FMF have three ways of dealing with incoming requests :</p>
+<ol>
+<li><p>Sending a response based on the current configuration</p>
+</li>
+<li><p>Sending a response that can be changed and based on a call count (it can be pretty handy when dealing with functional tests that may performs several calls)</p>
+</li>
+<li><p>Using fixtures (see below). Fixtures can be combined with call count</p>
+</li>
+</ol>
+<h3 id="a-more-advanced-example-with-mocha">A more advanced example with Mocha</h3><p>In real world, you may use some frameworks for your tests. Here&apos;s a full real-like example with FMF and Mocha :</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import {Server} from &apos;fetch-mock-fixtures&apos;;
+// The api you&apos;re testing
+import api from &apos;modules/api&apos;;
+
+describe(&apos;API test suite&apos;, function() {
+    const server = new Server();
+
+    before(() =&gt; server.start()) // start the server at the beginning
+    afterEach(() =&gt; server.reset(true)) // Fully reset server between each tests
+    after(() =&gt; server.stop()) // Stop the server at the end
+
+    describe(&apos;Unit test API&apos;, function() {
+        it(&apos;should GET data&apos;, async function() {
+            server.respondWithJSON({
+                id: 1,
+                name: &apos;foo&apos;
+            })
+
+            const data = await api.get(&apos;/api/v1/users/1&apos;);
+            data.should.deep.equal({
+                id: 1,
+                name: &apos;foo&apos;
+            });
+
+            server.respondWithJSON({ // Changing server configuration between calls
+                id: 2,
+                name: &apos;baz&apos;
+            })
+
+            const data = await api.get(&apos;/api/v1/users/2&apos;);
+            data.should.deep.equal({
+                id: 2,
+                name: &apos;baz&apos;
+            });
+        })
+    })
+
+    // Others unit tests
+
+    describe(&apos;Functional tests API&apos;, function() {
+        // Okay, we have a two steps auth. First username, then password
+        it(&apos;should log in user&apos;, async function() {
+            server
+                .onFirstCall()
+                .setStatus(401)
+                .respondWithJSON({
+                    success: true
+                })
+                .onSecondCall()
+                .setStatus(200) // Can be skipped as it is the default server status
+                .respondWithJSON({
+                    success: true,
+                    token: &apos;123&apos;
+                })
+
+            let logged = api.login({id: 1}); // will do the two requests
+            logged.should.be.true;            
+            api.token.should.equal(&apos;123&apos;);
+
+            // You can also check requests
+            const q1 = server.requestToUrl(server.getRequest(0)).query; // query part of the first request
+            const r2 = server.request; // Last request
+
+            q1.username.should.equal(&apos;foo&apos;);
+            // [...]
+        })
+    })
+
+    // Others functional tests
+})</code>
+</code></pre>
+<h3 id="response-configuration">Response configuration</h3><h4 id="data">Data</h4><p><strong>Important: configuration persists through each calls and can be changed at runtime without the need to start/stop server. All changes will be applied on the next fetch call.</strong></p>
+<p>Server can be set to send back data. Without fixtures, you can use the <code>respondWith(body, init)</code> server method. For additional configuration, see below.</p>
 <p>The server instance also exposes two shortcuts :</p>
 <ul>
-<li><code>respondWithStatus</code> : This will send back the provided data with the given status,</li>
-<li><code>respondWithJSON</code> : this will apply <code>JSON.stringify</code> to the provided data and set content-type response headers to <code>application/json</code>.</li>
+<li><code>respondWithStatus(status, body)</code> : This will send back the optionally provided body with the given status,</li>
+<li><code>respondWithJSON(body, init)</code> : this will apply <code>JSON.stringify</code> to the provided data and set content-type response headers to <code>application/json</code>.</li>
 </ul>
-<h4 id="response-object-configuration">Response object configuration</h4><p>Here&apos;s the available response configuration options :</p>
+<p><strong>Body can also be provided as a callback that will be evaluated synchronously at runtime. The server instance is passed as argument.</strong></p>
+<h4 id="response-init-parameters">Response init parameters</h4><p>Here&apos;s the available response configuration options :</p>
 <table>
 <thead>
 <tr>
@@ -184,7 +337,7 @@ server
 // Reset configuration to default
 server.reset();</code>
 </code></pre>
-<h4 id="using-response-wrappers">Using response wrappers</h4><p>The server instance allow the configuration of a wrapper that will be applied on data. The behavior of the wrapper depends on wrapper and data types :</p>
+<h3 id="using-response-wrappers">Using response wrappers</h3><p>The server instance allow the configuration of a wrapper that will be applied on data. The behavior of the wrapper depends on wrapper and data types :</p>
 <table>
 <thead>
 <tr>
@@ -212,26 +365,71 @@ server.reset();</code>
 </tbody>
 </table>
 <p>You may have a look at the wrapper test suite for some examples.</p>
-<h2 id="fixtures-system">Fixtures system</h2><h3 id="basics">Basics</h3><p>The fixture is a simple way to automatically configure a given response when matching a given &quot;url&quot;. FMF provides a <code>Fixture</code> class as a convenient way to do it.</p>
-<p>At the most simple level, a fixture file only exports a singleton object to override server configuration :</p>
-<ul>
-<li><code>body</code> property for response data</li>
-<li><code>headers</code>, <code>status</code>, <code>statusText</code> and <code>wrapper</code></li>
-</ul>
-<p>Headers can be provided as an <code>Headers</code> instance  or as an object with headers names as keys.</p>
-<p>If no configuration value is available from fixture, the current server configuration value will be inherited.</p>
-<p>You can provide two functions as hooks (see below). In the hooks, the server instance is available as a property.</p>
-<p>Finally, to go into fixture mode, you must call the server <code>respondWithFixture</code> method before sending request.</p>
-<p>Under the hood, the fixture file is used to populate properties from a <code>Fixture</code> instance. The <code>Response</code> object is generated from fixture properties.</p>
+<h2 id="fixtures-system">Fixtures system</h2><h3 id="basics">Basics</h3><p>The fixture is a simple way to automatically configure a Response object when matching a given &quot;url&quot;. FMF provides a <code>Fixture</code> class as a convenient way to do it while adding a callback before and after building the response object. Usually, you do not need to create the fixture instance but provides parameters as an object :</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Parameter name</th>
+<th style="text-align:center">Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">delay</td>
+<td style="text-align:center"><code>Number</code></td>
+<td>Number of ms to wait before sending the response</td>
+</tr>
+<tr>
+<td style="text-align:center">body</td>
+<td style="text-align:center"><code>null, Number, String, Function</code></td>
+<td>Body to send back with response. If provided as a function, the body will be evaluated <strong>synchronously</strong></td>
+</tr>
+<tr>
+<td style="text-align:center">headers</td>
+<td style="text-align:center"><code>Object, Headers</code></td>
+<td>Headers can be provided as an <code>Headers</code> instance  or as an object with headers names as keys</td>
+</tr>
+<tr>
+<td style="text-align:center">status</td>
+<td style="text-align:center"><code>Number</code></td>
+<td>Response status code</td>
+</tr>
+<tr>
+<td style="text-align:center">statusText</td>
+<td style="text-align:center"><code>String</code></td>
+<td>Response status text</td>
+</tr>
+<tr>
+<td style="text-align:center">wrapper</td>
+<td style="text-align:center"><code>String, Function</code></td>
+<td>See <a href="#using-response-wrappers">Using response wrappers</a></td>
+</tr>
+<tr>
+<td style="text-align:center">initialized</td>
+<td style="text-align:center"><code>Function</code></td>
+<td>Callback called <strong>asynchronously</strong> before building response</td>
+</tr>
+<tr>
+<td style="text-align:center">destroyed</td>
+<td style="text-align:center"><code>Function</code></td>
+<td>Callback called <strong>asynchronously</strong> after building response</td>
+</tr>
+</tbody>
+</table>
+<p><strong>If no configuration value for a given parameter is available from fixture, the current server configuration value will be inherited.</strong></p>
+<p>You can provide two functions as hooks (see below). In the hooks, the <code>server</code> instance is available as a property from <code>this</code>.</p>
+<p>Finally, to go into fixture mode, you must call the server <code>respondWithFixture</code> method <strong>before</strong> sending the request or accordingly to the call order.</p>
+<p>Under the hood, the fixture is used to populate properties from a <code>Fixture</code> instance. The <code>Response</code> object is then configured from fixture properties.</p>
 <h3 id="fixture-lifecycle">Fixture lifecycle</h3><p>When server is dealing with a request, it will :</p>
 <ol>
 <li>load fixture and create an instance if needed;</li>
 <li>call and await the <code>initialized</code> hook on fixture. Fetching returned data and further configuration can be made at this step;</li>
-<li>ask fixture to provide its <code>Response</code> object build from fixture properties;</li>
+<li>ask fixture to provide its <code>Response</code> object build from fixture properties. Dynamic synced response can be configured in a body as a callback;</li>
 <li>call and await the <code>destroyed</code> hook on fixture. Cleaning can be made at this step;</li>
 <li>send back the <code>Response</code> object</li>
 </ol>
-<p>To update fixture properties within hooks, you must <strong>not</strong> use anonymous functions as <code>this</code> will point to your test script and not the fixture instance.</p>
+<p>To update fixture properties or access server property within hooks, you must <strong>not</strong> use anonymous functions as <code>this</code> will point to your test script and not the fixture instance.</p>
 <h3 id="configuring-fixture-response-data">Configuring fixture response data</h3><p>For static data, providing a value to body is enough. For dynamic data, you can use the <code>initialized</code> hook which is called async.</p>
 <p>The inheritance between server and fixture can ease the process.</p>
 <pre><code class="lang-javascript"><code class="source-code prettyprint">// Fixture file
@@ -255,20 +453,13 @@ server
   // Activate fixture mode
   .respondWithFixture()
 
-// Url will be used to locate fixture file
+// Url will be used to locate fixture
 const response = fetch(&apos;/api/users/1&apos;);</code>
 </code></pre>
-<h3 id="file-location-resolution">File location resolution</h3><p>In order to dynamically load the fixture, the server needs to locate the right file based on the url path. FMF allow pure filesystem or a more advanced way with <a href="https://github.com/pillarjs/path-to-regexp"><code>path-to-regexp</code></a> syntax.</p>
-<p><strong>In both cases, the server expects to find fixtures in a relative <code>fixtures</code> folder</strong></p>
-<h4 id="setting-up-fixtures-folder">Setting up fixtures folder</h4><p>In order to let FMF loads the fixture, the server expects to have a <code>_getFixtureParams</code> method to resolve url to file.</p>
-<p>That implies that :</p>
-<ol>
-<li>FMF is able to resolve the path</li>
-<li>Fixture file expose a <code>default</code> property (that&apos;s why we&apos;re using default ES6 exports in the examples)</li>
-</ol>
-<p>From 1.0.2, FMF will throw an exception if the loader is not set.</p>
-<p>Therefore, you must ensure that fixture file will be found in the location. In case of error, the server will respond with a <code>404</code> error and provide the error description as status text.</p>
-<p>With Webpack, it&apos;s pretty easy to <a href="https://webpack.js.org/configuration/resolve/#resolvealias">create an alias</a> to resolve fixtures location. <strong>Nevertheless, to avoid importing tests fixtures in your production bundle, you must use either separate configuration for building and testing or use the webpack <a href="https://webpack.js.org/plugins/ignore-plugin/"><code>IgnorePlugin</code></a>.</strong> You can have a look at the webpack configuration for this current repo for an example.</p>
+<h3 id="setting-up-fixtures-resolution">Setting up fixtures resolution</h3><p>In order to let FMF loads the fixture, the server expects to have a <code>getFixtureParams</code> method (<code>_getFixtureParams</code> prior to 1.1.0) to resolve url into fixture params.</p>
+<p>From 1.0.2, FMF will respond with a <code>500</code> error if the loader is not set.</p>
+<p>In case of error, the server will respond with a <code>404</code> error and provide the error description as status text.</p>
+<h3 id="using-webpack-and-fixtures-as-files">Using webpack and fixtures as files</h3><p>With Webpack, it&apos;s pretty easy to <a href="https://webpack.js.org/configuration/resolve/#resolvealias">create an alias</a> to resolve fixtures location and require them at runtime. <strong>Nevertheless, to avoid importing tests fixtures in your production bundle, you must use either separate configuration for building and testing or use the webpack <a href="https://webpack.js.org/plugins/ignore-plugin/"><code>IgnorePlugin</code></a>.</strong> You can have a look at the webpack configuration for this current repo for an example.</p>
 <p>For instance, if you fixtures are located under <code>tests/fixtures</code> within your project root folder, you can use this code in your webpack tests configuration :</p>
 <pre><code class="lang-javascript"><code class="source-code prettyprint">const path = require(&apos;path&apos;);
 
@@ -287,12 +478,12 @@ import {Server} from &apos;fetch-mock-fixtures&apos;;
 
 const server = new Server();
 
-server._getFixtureParams = function () {
+server.getFixtureParams = function () {
   return require(`fixtures/${this.fixture}.fixture.js`).default
 }</code>
 </code></pre>
-<p>If you&apos;re not using webpack, you can also override the <code>_getFixtureParams</code> server&apos;s method to provide any finder to load the fixture file.</p>
-<h4 id="pure-filesystem-resolution">Pure filesystem resolution</h4><p>When not using pattern to analyze url, the server simply split the path and will look for a file named from the method used with <code>.fixture.js</code> as extension.</p>
+<p>You can affect any logic the <code>getFixtureParams</code> server&apos;s method to provide any finder to load the fixture file.</p>
+<h4 id="pure-path-resolution">Pure path resolution</h4><p>When not using pattern to analyze url, the server simply split the path and will look for a file named from the method used with <code>.fixture.js</code> as extension.</p>
 <p>For instance, <code>/api/v1/users/1</code> with GET method will resolve in <code>fixtures/api/v1/users/1/get.fixture.js</code> and <code>/users</code> with POST method will resolve in <code>fixtures/users/post.fixture.js</code>.</p>
 <p>This is most appropriate when you want a small set of samples for your testing purposes.</p>
 <h4 id="pattern-resolution">Pattern resolution</h4><p>If you have a larger set of data or want to rely on external data source, you may want to use pattern resolution to extract params from url path.</p>
@@ -342,7 +533,7 @@ const response = fetch(&apos;/api/users/56&apos;);</code>
 <p>The initialized hook is always called asynchronously, even if declared only as sync operations. Therefore, you can simply return a promise or use the <code>async/await</code> statements.</p>
 <p>In the fixtures test suite, you will find a similar example with PouchDB.</p>
 <p>This way is more appropriate when generating bunches of data server side and import it client side for testing purposes.</p>
-<h3 id="fixture-on-the-fly">Fixture on-the-fly</h3><p>It&apos;s also possible to create a fixture on-the-fly by providing the fixture instance to the <code>fetch</code> call. Path resolution will be ignored in that case.</p>
+<h3 id="fixture-on-the-fly">Fixture on-the-fly</h3><p>It&apos;s also possible to create a fixture on-the-fly by providing the fixture params to the <code>fetch</code> call. Path resolution will be ignored in that case.</p>
 <pre><code class="lang-javascript"><code class="source-code prettyprint">import {Server} from &apos;fetch-mock-fixtures&apos;;
 
 const server = new Server();
@@ -354,8 +545,34 @@ const response = fetch({
     body: &apos;test&apos;
 });</code>
 </code></pre>
+<h2 id="setting-up-multiple-responses-based-on-call-count">Setting up multiple responses based on call count</h2><p>For functional testing, it may be useful to configure multiple responses at once as there will be multiple requests made without ability to tweak server&apos;s response between them.</p>
+<p>This can be easily done with <code>onCall</code> method and the shortcuts <code>onFirstCall</code> (i.e. <code>onCall(0)</code>), <code>onSecondCall</code> (i.e. <code>onCall(1)</code>) and <code>onThirdCall</code> (i.e. <code>onCall(2)</code>).</p>
+<p>Without <code>onCall</code>, the server will use its current response configuration if <code>respondWith</code> have been used or fixture if <code>respondWithFixture</code> have been used. This also apply when request doesn&apos;t match a predefined count.</p>
+<p>For instance, let&apos;s say we want to simulate a timeout management.</p>
+<p>First request response must be delayed by 5s then a 504 error, second one must be immediate still with a 504 error and next ones from a fixture.</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import {Server} from &apos;fetch-mock-fixtures&apos;;
+
+const server = new Server();
+
+server
+    .start()
+
+    .onFirstCall() // Tells server to freeze response configuration at next respondWithXXX call and keep it for first response
+    .setDelay(5000)
+    .respondWithStatus(504) // Freeze the configuration at this step
+
+    .onSecondCall() // Tells server to freeze response configuration at next respondWithXXX call and keep it for second response
+    .setDelay(0) // Set back delay to 0
+    .respondWithStatus(504) // Freeze the actual configuration for the second request
+
+    .respondWithFixture(); // Default response for third and next requests</code>
+</code></pre>
+<p><strong>The default configuration must be provided at the very end of the chain.</strong></p>
 <h2 id="bugs-and-improvements">Bugs and improvements</h2><p>Any bugs and issues can be filed on the <a href="https://github.com/liqueurdetoile/fetch-mock-fixtures/issues">github repository</a>.</p>
 <p>You are free and very welcome to fork the project and submit any PR to fix or improve FMF.</p>
+<h2 id="changelog">Changelog</h2><ul>
+<li>1.0.1 : Add requests history and possibility to set up different responses based on requests order. Add delay as a response parameter into fixture.</li>
+</ul>
 </div>
 </div>
 

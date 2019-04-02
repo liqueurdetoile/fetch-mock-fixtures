@@ -56,6 +56,12 @@ export default class Fixture {
   body = null;
 
   /**
+   * Response delay in ms
+   * @type {Number}
+   */
+  delay = 0;
+
+  /**
    * Response status
    * @type {Number}
    */
@@ -71,7 +77,7 @@ export default class Fixture {
    * Response headers
    * @type {Headers}
    */
-  headers = null;
+  _headers = null;
 
   /**
    * Response wrapper
@@ -88,32 +94,45 @@ export default class Fixture {
   constructor(server, init) {
     this.server = server;
 
-    // Copy server wrap method
-    this.wrap = server.wrap;
-
+    this.delay = init.delay || server.delay;
     this.headers = init.headers || server.headers;
-    if (!(this.headers instanceof Headers)) this.headers = new Headers(this.headers);
     this.status = init.status || server.status;
     this.statusText = init.statusText || server.statusText;
     this.wrapper = init.wrapper || server.wrapper;
-    this.body = init.body;
+    this.body = init.body || null;
 
-    if (init.initialized) this.initialized = init.initialized;
-    if (init.destroyed) this.destroyed = init.destroyed;
+    if (init.initialized instanceof Function) this.initialized = init.initialized;
+    if (init.destroyed instanceof Function) this.destroyed = init.destroyed;
+  }
+
+  get headers() {
+    return this._headers;
+  }
+
+  set headers(headers = {}) {
+    if (headers instanceof Headers) {
+      this._headers = headers;
+      return this;
+    }
+
+    this._headers = new Headers(headers);
+    return this;
   }
 
   /**
-   * Returns the response object based on fixture properties
+   * Returns the response initialization object based on fixture properties
    * @version 1.0.0
    * @since   1.0.0
-   * @return  {response}  Response object
+   * @return  {Object}  Response init object
    */
-  get response() {
-    return new Response(this.wrap(this.body), {
+  get init() {
+    return {
+      delay: this.delay,
       headers: this.headers,
       status: this.status,
-      statusText: this.statusText
-    });
+      statusText: this.statusText,
+      wrapper: this.wrapper,
+    }
   }
 }
 </code></pre>

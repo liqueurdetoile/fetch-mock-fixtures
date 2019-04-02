@@ -7,11 +7,10 @@ describe('Mock Server core functionalities testing suite', function () {
 
   beforeEach(() => server.start());
   afterEach(() => {
-    server.stop();
-    server.reset();
+    server.reset().stop();
   });
 
-  describe('Testing initialize', function () {
+  describe('Testing initialize and running', function () {
     it('should initialize and respond 200 to a basic get request', async function () {
       server.respondWith();
       response = await fetch('/');
@@ -40,6 +39,12 @@ describe('Mock Server core functionalities testing suite', function () {
       data = await response.json();
       data.test.should.equal('ok');
     });
+
+    it('should return server running status', function() {
+      server.running.should.be.true;
+      server.stop();
+      server.running.should.be.false;
+    })
   });
 
   describe('Server response setup', function() {
@@ -69,6 +74,11 @@ describe('Mock Server core functionalities testing suite', function () {
       })
 
       server.delay.should.equal(2000);
+    })
+
+    it('should throw exception if server is not started and access to stub properties/methods', function() {
+      server.stop();
+      expect(server.getRequest.bind(server, 0)).to.throw();
     })
   })
 
@@ -109,20 +119,20 @@ describe('Mock Server core functionalities testing suite', function () {
     it('should expose url', async function() {
       await fetch('/test');
 
-      server.url.should.equal('/test');
+      server.url.pathname.should.equal('/test');
     });
 
     it('should expose url with request object', async function() {
       let request = new Request('/test');
 
       await fetch(request);
-      server.url.should.equal('/test');
+      server.url.pathname.should.equal('/test');
     });
 
     it('should expose query', async function() {
       await fetch('/test?t=a');
 
-      server.url.should.equal('/test');
+      server.url.pathname.should.equal('/test');
       expect(server.query).to.deep.equal({t: 'a'});
     });
 
@@ -130,12 +140,39 @@ describe('Mock Server core functionalities testing suite', function () {
       let request = new Request('/test?t=a');
 
       await fetch(request);
-      server.url.should.equal('/test');
+      server.url.pathname.should.equal('/test');
       expect(server.query).to.deep.equal({t: 'a'});
     });
   })
 
   describe('Response and status response', function () {
+    it('should respond with no data', async function() {
+      server.respondWithStatus(204);
+
+      let response = await fetch('/');
+
+      response.status.should.equal(204);
+    })
+
+    it('should respond and wrap null data', async function() {
+      server
+        .respondWithJSON(null, {
+          status: 200
+        })
+        .setWrapper(`{
+          "result":"success",
+          "success":true,
+          "data":%data%
+        }`);
+
+      let response = await fetch('/');
+
+      response.status.should.equal(200);
+      let data = await response.json();
+      expect(data.success).to.be.true;
+      expect(data.data).to.be.null;
+    })
+
     it('should respond and delay with params', async function () {
       server
         .setDelay(500)
@@ -153,7 +190,7 @@ describe('Mock Server core functionalities testing suite', function () {
       data.should.equal('test');
     });
 
-    it('should respond with response object', async function () {
+    it('should respond and delay with response object', async function () {
       let response = new Response('test');
 
       server
@@ -206,5 +243,15 @@ describe('Mock Server core functionalities testing suite', function () {
       response = await fetch('/');
       response.status.should.equal(200);
     });
+
+    it('should process body if provided as a callback', async function() {
+      server.respondWith(server => {
+        return server.url.pathname;
+      });
+
+      response = await fetch('/');
+      let t = await response.text();
+      expect(t).to.equal('/');
+    })
   });
 });
