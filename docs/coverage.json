@@ -1,45 +1,197 @@
 {
-  "coverage": "53.44%",
-  "expectCount": 58,
-  "actualCount": 31,
+  "coverage": "7.37%",
+  "expectCount": 122,
+  "actualCount": 9,
   "files": {
     "src/Fixture.js": {
-      "expectCount": 14,
-      "actualCount": 10,
+      "expectCount": 25,
+      "actualCount": 2,
       "undocumentLines": [
-        66,
-        67,
+        5,
+        12,
+        13,
+        20,
+        21,
+        23,
+        27,
+        37,
+        47,
+        51,
+        61,
+        65,
+        72,
+        79,
+        86,
+        93,
+        100,
+        108,
+        112,
+        128,
+        134,
+        142,
+        191
+      ]
+    },
+    "src/helpers/FMFRequest.js": {
+      "expectCount": 2,
+      "actualCount": 0,
+      "undocumentLines": [
+        3,
+        4
+      ]
+    },
+    "src/helpers/RequestMatcher.js": {
+      "expectCount": 12,
+      "actualCount": 0,
+      "undocumentLines": [
+        7,
+        8,
+        9,
+        16,
+        17,
+        20,
+        24,
+        28,
         70,
-        74
+        78,
+        86,
+        95
+      ]
+    },
+    "src/helpers/ResponseConfigurator.js": {
+      "expectCount": 21,
+      "actualCount": 1,
+      "undocumentLines": [
+        1,
+        2,
+        10,
+        12,
+        16,
+        20,
+        24,
+        28,
+        32,
+        36,
+        40,
+        56,
+        65,
+        74,
+        89,
+        98,
+        107,
+        116,
+        125,
+        138
+      ]
+    },
+    "src/helpers/ServerHistory.js": {
+      "expectCount": 12,
+      "actualCount": 0,
+      "undocumentLines": [
+        1,
+        2,
+        3,
+        5,
+        12,
+        17,
+        22,
+        26,
+        30,
+        34,
+        38,
+        44
+      ]
+    },
+    "src/Preset.js": {
+      "expectCount": 5,
+      "actualCount": 0,
+      "undocumentLines": [
+        3,
+        4,
+        8,
+        16,
+        17
+      ]
+    },
+    "src/processors/AbstractProcessor.js": {
+      "expectCount": 10,
+      "actualCount": 0,
+      "undocumentLines": [
+        3,
+        4,
+        5,
+        6,
+        8,
+        10,
+        13,
+        17,
+        23,
+        38
+      ]
+    },
+    "src/processors/BodyProcessor.js": {
+      "expectCount": 6,
+      "actualCount": 0,
+      "undocumentLines": [
+        4,
+        5,
+        6,
+        8,
+        14,
+        15
+      ]
+    },
+    "src/processors/BooleanProcessor.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        3
+      ]
+    },
+    "src/processors/HeadersProcessor.js": {
+      "expectCount": 5,
+      "actualCount": 0,
+      "undocumentLines": [
+        4,
+        5,
+        7,
+        12,
+        13
+      ]
+    },
+    "src/processors/QueryProcessor.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        3
+      ]
+    },
+    "src/processors/StringProcessor.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        3
       ]
     },
     "src/Server.js": {
-      "expectCount": 44,
-      "actualCount": 21,
+      "expectCount": 21,
+      "actualCount": 6,
       "undocumentLines": [
-        187,
-        191,
-        195,
-        199,
-        205,
-        209,
-        213,
-        236,
-        242,
-        248,
-        258,
-        264,
-        270,
-        278,
-        297,
-        301,
-        305,
-        351,
-        357,
-        364,
-        373,
-        399,
-        449
+        17,
+        18,
+        20,
+        22,
+        84,
+        100,
+        104,
+        114,
+        118,
+        131,
+        139,
+        143,
+        160,
+        175,
+        179
       ]
     }
   }

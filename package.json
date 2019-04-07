@@ -1,7 +1,7 @@
 {
   "name": "fetch-mock-fixtures",
-  "version": "0.0.0",
-  "description": "Mocker for fetch API with fixtures support",
+  "version": "2.0.0",
+  "description": "Fixtures based mocker for fetch API with BDD style configuration",
   "main": "dist/index.min.js",
   "scripts": {
     "build": "webpack --config webpack.conf/build.js -p",
@@ -10,11 +10,11 @@
     "test:all": "cross-env BABEL_ENV=test karma start --single-run --log-level error"
   },
   "devDependencies": {
-    "@babel/core": "^7.4.0",
+    "@babel/core": "^7.4.3",
     "@babel/plugin-proposal-class-properties": "^7.4.0",
-    "@babel/plugin-proposal-object-rest-spread": "^7.4.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.4.3",
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
-    "@babel/preset-env": "^7.4.2",
+    "@babel/preset-env": "^7.4.3",
     "babel-eslint": "^10.0.0",
     "babel-loader": "^8",
     "babel-plugin-istanbul": "^5.1.0",
@@ -46,7 +46,7 @@
     "semantic-release": "^15.13.3",
     "sinon": "^7.3.1",
     "webpack": "^4.29.6",
-    "webpack-bundle-analyzer": "^3.1.0",
+    "webpack-bundle-analyzer": "^3.2.0",
     "webpack-cli": "^3.3.0",
     "webpack-merge": "^4.2.1"
   },
@@ -57,7 +57,8 @@
   "keywords": [
     "fetch",
     "mock",
-    "fixtures"
+    "fixtures",
+    "bdd"
   ],
   "author": "Liqueur de Toile",
   "license": "MIT",
@@ -66,6 +67,7 @@
   },
   "homepage": "https://github.com/liqueurdetoile/fetch-mock-fixtures",
   "dependencies": {
+    "lodash.isequal": "^4.5.0",
     "path-to-regexp": "^3.0.0",
     "url-parse": "^1.4.4"
   },

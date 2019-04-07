@@ -8,7 +8,7 @@
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
   <script src="script/manual.js"></script>
-<meta name="description" content="Mocker for fetch API with fixtures support"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="fetch-mock-fixtures"><meta property="twitter:description" content="Mocker for fetch API with fixtures support"></head>
+<meta name="description" content="Fixtures based mocker for fetch API with BDD style configuration"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="fetch-mock-fixtures"><meta property="twitter:description" content="Fixtures based mocker for fetch API with BDD style configuration"></head>
 <body class="layout-container" data-ice="rootContainer">
 
 <header>
@@ -30,7 +30,18 @@
   <ul>
     
   <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Fixture.js~Fixture.html">Fixture</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Preset.js~Preset.html">Preset</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Server.js~Server.html">Server</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#helpers">helpers</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/FMFRequest.js~FMFRequest.html">FMFRequest</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/RequestMatcher.js~RequestMatcher.html">RequestMatcher</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html">ResponseConfigurator</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/ServerHistory.js~ServerHistory.html">ServerHistory</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#processors">processors</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/AbstractProcessor.js~AbstractProcessor.html">AbstractProcessor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/BodyProcessor.js~BodyProcessor.html">BodyProcessor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/BooleanProcessor.js~BooleanProcessor.html">BooleanProcessor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/HeadersProcessor.js~HeadersProcessor.html">HeadersProcessor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/QueryProcessor.js~QueryProcessor.html">QueryProcessor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/StringProcessor.js~StringProcessor.html">StringProcessor</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -53,28 +64,34 @@ that also provides this functionality, FMF provides an easy way to manage data f
 <li><a href="#installation">Installation</a></li>
 <li><a href="#usage-and-configuration-for-mocking-fetch-calls">Usage and configuration for mocking fetch calls</a><ul>
 <li><a href="#most-basic-example">Most basic example</a></li>
-<li><a href="#configuring-server-response">Configuring server response</a><ul>
-<li><a href="#setting-up-returned-data">Setting up returned data</a></li>
-<li><a href="#response-object-configuration">Response object configuration</a></li>
-<li><a href="#using-response-wrappers">Using response wrappers</a></li>
+<li><a href="#controlling-server">Controlling server</a></li>
+<li><a href="#accessing-requests-sent-to-server">Accessing request(s) sent to server</a></li>
+<li><a href="#setting-up-response">Setting up Response</a></li>
+<li><a href="#a-more-advanced-example-with-mocha">A more advanced example with Mocha</a></li>
+<li><a href="#response-configuration">Response configuration</a><ul>
+<li><a href="#data">Data</a></li>
+<li><a href="#response-init-parameters">Response init parameters</a></li>
 </ul>
 </li>
+<li><a href="#using-response-wrappers">Using response wrappers</a></li>
 </ul>
 </li>
 <li><a href="#fixtures-system">Fixtures system</a><ul>
 <li><a href="#basics">Basics</a></li>
 <li><a href="#fixture-lifecycle">Fixture lifecycle</a></li>
 <li><a href="#configuring-fixture-response-data">Configuring fixture response data</a></li>
-<li><a href="#file-location-resolution">File location resolution</a><ul>
-<li><a href="#setting-up-fixtures-folder">Setting up fixtures folder</a></li>
-<li><a href="#pure-filesystem-resolution">Pure filesystem resolution</a></li>
+<li><a href="#setting-up-fixtures-resolution">Setting up fixtures resolution</a></li>
+<li><a href="#using-webpack-and-fixtures-as-files">Using webpack and fixtures as files</a><ul>
+<li><a href="#pure-path-resolution">Pure path resolution</a></li>
 <li><a href="#pattern-resolution">Pattern resolution</a></li>
 </ul>
 </li>
 <li><a href="#fixture-on-the-fly">Fixture on-the-fly</a></li>
 </ul>
 </li>
+<li><a href="#setting-up-multiple-responses-based-on-call-count">Setting up multiple responses based on call count</a></li>
 <li><a href="#bugs-and-improvements">Bugs and improvements</a></li>
+<li><a href="#changelog">Changelog</a></li>
 </ul>
 <p><!-- /TOC -->
 </p>
@@ -183,9 +200,9 @@ server.stop();</code>
 <ol>
 <li><p>Sending a response based on the current configuration</p>
 </li>
-<li><p>Sending a response that can be changed and based on a call count (it can be pretty handy when dealing with functional tests that may performs several calls)</p>
+<li><p>Sending a response that can vary on a call count (it can be pretty handy when dealing with functional tests that may performs several calls)</p>
 </li>
-<li><p>Using fixtures (see below). Fixtures can be combined with call count</p>
+<li><p>Using fixtures (see below). Fixtures can be combined with ordered responses</p>
 </li>
 </ol>
 <h3 id="a-more-advanced-example-with-mocha">A more advanced example with Mocha</h3><p>In real world, you may use some frameworks for your tests. Here&apos;s a full real-like example with FMF and Mocha :</p>

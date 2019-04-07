@@ -1,8 +1,62 @@
 window.esdocSearchIndex = [
   [
+    "fetch-mock-fixtures/src/processors/abstractprocessor.js~abstractprocessor",
+    "class/src/processors/AbstractProcessor.js~AbstractProcessor.html",
+    "<span>AbstractProcessor</span> <span class=\"search-result-import-path\">fetch-mock-fixtures/src/processors/AbstractProcessor.js</span>",
+    "class"
+  ],
+  [
+    "fetch-mock-fixtures/src/processors/bodyprocessor.js~bodyprocessor",
+    "class/src/processors/BodyProcessor.js~BodyProcessor.html",
+    "<span>BodyProcessor</span> <span class=\"search-result-import-path\">fetch-mock-fixtures/src/processors/BodyProcessor.js</span>",
+    "class"
+  ],
+  [
+    "fetch-mock-fixtures/src/processors/booleanprocessor.js~booleanprocessor",
+    "class/src/processors/BooleanProcessor.js~BooleanProcessor.html",
+    "<span>BooleanProcessor</span> <span class=\"search-result-import-path\">fetch-mock-fixtures/src/processors/BooleanProcessor.js</span>",
+    "class"
+  ],
+  [
+    "fetch-mock-fixtures/src/helpers/fmfrequest.js~fmfrequest",
+    "class/src/helpers/FMFRequest.js~FMFRequest.html",
+    "<span>FMFRequest</span> <span class=\"search-result-import-path\">fetch-mock-fixtures/src/helpers/FMFRequest.js</span>",
+    "class"
+  ],
+  [
     "fetch-mock-fixtures/src/fixture.js~fixture",
     "class/src/Fixture.js~Fixture.html",
     "<span>Fixture</span> <span class=\"search-result-import-path\">fetch-mock-fixtures/src/Fixture.js</span>",
+    "class"
+  ],
+  [
+    "fetch-mock-fixtures/src/processors/headersprocessor.js~headersprocessor",
+    "class/src/processors/HeadersProcessor.js~HeadersProcessor.html",
+    "<span>HeadersProcessor</span> <span class=\"search-result-import-path\">fetch-mock-fixtures/src/processors/HeadersProcessor.js</span>",
+    "class"
+  ],
+  [
+    "fetch-mock-fixtures/src/preset.js~preset",
+    "class/src/Preset.js~Preset.html",
+    "<span>Preset</span> <span class=\"search-result-import-path\">fetch-mock-fixtures/src/Preset.js</span>",
+    "class"
+  ],
+  [
+    "fetch-mock-fixtures/src/processors/queryprocessor.js~queryprocessor",
+    "class/src/processors/QueryProcessor.js~QueryProcessor.html",
+    "<span>QueryProcessor</span> <span class=\"search-result-import-path\">fetch-mock-fixtures/src/processors/QueryProcessor.js</span>",
+    "class"
+  ],
+  [
+    "fetch-mock-fixtures/src/helpers/requestmatcher.js~requestmatcher",
+    "class/src/helpers/RequestMatcher.js~RequestMatcher.html",
+    "<span>RequestMatcher</span> <span class=\"search-result-import-path\">fetch-mock-fixtures/src/helpers/RequestMatcher.js</span>",
+    "class"
+  ],
+  [
+    "fetch-mock-fixtures/src/helpers/responseconfigurator.js~responseconfigurator",
+    "class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html",
+    "<span>ResponseConfigurator</span> <span class=\"search-result-import-path\">fetch-mock-fixtures/src/helpers/ResponseConfigurator.js</span>",
     "class"
   ],
   [
@@ -12,351 +66,279 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "fetch-mock-fixtures/src/helpers/serverhistory.js~serverhistory",
+    "class/src/helpers/ServerHistory.js~ServerHistory.html",
+    "<span>ServerHistory</span> <span class=\"search-result-import-path\">fetch-mock-fixtures/src/helpers/ServerHistory.js</span>",
+    "class"
+  ],
+  [
+    "fetch-mock-fixtures/src/processors/stringprocessor.js~stringprocessor",
+    "class/src/processors/StringProcessor.js~StringProcessor.html",
+    "<span>StringProcessor</span> <span class=\"search-result-import-path\">fetch-mock-fixtures/src/processors/StringProcessor.js</span>",
+    "class"
+  ],
+  [
     "",
-    "test-file/tests/fixtures.spec.js.html#lineNumber5",
-    "Fixtures testing suite",
+    "test-file/tests/units/extending.request.spec.js.html#lineNumber3",
+    "Extended request test suite",
     "test"
   ],
   [
     "",
-    "test-file/tests/fixtures.spec.js.html#lineNumber11",
-    "Fixtures testing suite Fixture errors",
+    "test-file/tests/units/extending.request.spec.js.html#lineNumber4",
+    "Extended request test suite should create Request from fetch params and expose parsed request properties",
     "test"
   ],
   [
     "",
-    "test-file/tests/fixtures.spec.js.html#lineNumber34",
-    "Fixtures testing suite Fixture errors should throw an exception if no arguments are provided to fetch",
+    "test-file/tests/units/extending.request.spec.js.html#lineNumber16",
+    "Extended request test suite should extend existing Request Object and expose parsed request properties",
     "test"
   ],
   [
     "",
-    "test-file/tests/fixtures.spec.js.html#lineNumber12",
-    "Fixtures testing suite Fixture errors should throw an exception if no loader have been set",
+    "test-file/tests/units/fixtures.spec.js.html#lineNumber6",
+    "Fixtures test suite",
     "test"
   ],
   [
     "",
-    "test-file/tests/fixtures.spec.js.html#lineNumber21",
-    "Fixtures testing suite Fixture errors should warn if old loader have been set",
+    "test-file/tests/units/fixtures.spec.js.html#lineNumber11",
+    "Fixtures test suite Fixture configuration",
     "test"
   ],
   [
     "",
-    "test-file/tests/fixtures.spec.js.html#lineNumber53",
-    "Fixtures testing suite Fixture loading",
+    "test-file/tests/units/fixtures.spec.js.html#lineNumber12",
+    "Fixtures test suite Fixture configuration should create a fixture",
     "test"
   ],
   [
     "",
-    "test-file/tests/fixtures.spec.js.html#lineNumber54",
-    "Fixtures testing suite Fixture loading should load fixture and GET",
+    "test-file/tests/units/fixtures.spec.js.html#lineNumber23",
+    "Fixtures test suite Fixture requests processing",
     "test"
   ],
   [
     "",
-    "test-file/tests/fixtures.spec.js.html#lineNumber78",
-    "Fixtures testing suite Fixture loading should load fixture and POST",
+    "test-file/tests/units/fixtures.spec.js.html#lineNumber24",
+    "Fixtures test suite Fixture requests processing should process fixture lifecyle",
     "test"
   ],
   [
     "",
-    "test-file/tests/fixtures.spec.js.html#lineNumber96",
-    "Fixtures testing suite Fixture loading should load fixture and fail",
+    "test-file/tests/units/history.spec.js.html#lineNumber5",
+    "History test suite",
     "test"
   ],
   [
     "",
-    "test-file/tests/fixtures.spec.js.html#lineNumber45",
-    "Fixtures testing suite Fixture path resolution",
+    "test-file/tests/units/history.spec.js.html#lineNumber18",
+    "History test suite should get last request and response",
     "test"
   ],
   [
     "",
-    "test-file/tests/fixtures.spec.js.html#lineNumber46",
-    "Fixtures testing suite Fixture path resolution should provide fixture path",
+    "test-file/tests/units/history.spec.js.html#lineNumber23",
+    "History test suite should have cloned response before body parsing",
     "test"
   ],
   [
     "",
-    "test-file/tests/fixtures.spec.js.html#lineNumber108",
-    "Fixtures testing suite On the fly fixture",
+    "test-file/tests/units/presets.spec.js.html#lineNumber38",
+    "Presets test suite",
     "test"
   ],
   [
     "",
-    "test-file/tests/fixtures.spec.js.html#lineNumber109",
-    "Fixtures testing suite On the fly fixture should use an on-the-fly fixture",
+    "test-file/tests/units/presets.spec.js.html#lineNumber43",
+    "Presets test suite should create a blank preset",
     "test"
   ],
   [
     "",
-    "test-file/tests/fixtures.spec.js.html#lineNumber135",
-    "Fixtures testing suite Pattern and database fixture",
+    "test-file/tests/units/presets.spec.js.html#lineNumber49",
+    "Presets test suite should create a configured preset",
     "test"
   ],
   [
     "",
-    "test-file/tests/fixtures.spec.js.html#lineNumber156",
-    "Fixtures testing suite Pattern and database fixture should use a pattern to extract path params and use database",
+    "test-file/tests/units/presets.spec.js.html#lineNumber57",
+    "Presets test suite should update preset",
     "test"
   ],
   [
     "",
-    "test-file/tests/core.spec.js.html#lineNumber5",
-    "Mock Server core functionalities testing suite",
+    "test-file/tests/units/request.configurator.spec.js.html#lineNumber7",
+    "Request configurator test suite",
     "test"
   ],
   [
     "",
-    "test-file/tests/core.spec.js.html#lineNumber85",
-    "Mock Server core functionalities testing suite Incoming request informations",
+    "test-file/tests/units/request.configurator.spec.js.html#lineNumber8",
+    "Request configurator test suite should create a matcher",
     "test"
   ],
   [
     "",
-    "test-file/tests/core.spec.js.html#lineNumber101",
-    "Mock Server core functionalities testing suite Incoming request informations should expose a cloned request object when initialized with a request object",
+    "test-file/tests/units/request.configurator.spec.js.html#lineNumber28",
+    "Request configurator test suite should process equal",
     "test"
   ],
   [
     "",
-    "test-file/tests/core.spec.js.html#lineNumber86",
-    "Mock Server core functionalities testing suite Incoming request informations should expose a request object when initialized with data and init object",
+    "test-file/tests/units/request.configurator.spec.js.html#lineNumber36",
+    "Request configurator test suite should process header",
     "test"
   ],
   [
     "",
-    "test-file/tests/core.spec.js.html#lineNumber132",
-    "Mock Server core functionalities testing suite Incoming request informations should expose query",
+    "test-file/tests/units/request.configurator.spec.js.html#lineNumber20",
+    "Request configurator test suite should return a processor",
     "test"
   ],
   [
     "",
-    "test-file/tests/core.spec.js.html#lineNumber139",
-    "Mock Server core functionalities testing suite Incoming request informations should expose query with request object",
+    "test-file/tests/units/request.configurator.spec.js.html#lineNumber14",
+    "Request configurator test suite should throw on unsupported FMFRequest property",
     "test"
   ],
   [
     "",
-    "test-file/tests/core.spec.js.html#lineNumber119",
-    "Mock Server core functionalities testing suite Incoming request informations should expose url",
+    "test-file/tests/functionals/requests.processing.spec.js.html#lineNumber5",
+    "Request processing test suite",
     "test"
   ],
   [
     "",
-    "test-file/tests/core.spec.js.html#lineNumber125",
-    "Mock Server core functionalities testing suite Incoming request informations should expose url with request object",
+    "test-file/tests/functionals/requests.processing.spec.js.html#lineNumber34",
+    "Request processing test suite Should reset between calls",
     "test"
   ],
   [
     "",
-    "test-file/tests/core.spec.js.html#lineNumber148",
-    "Mock Server core functionalities testing suite Response and status response",
+    "test-file/tests/functionals/requests.processing.spec.js.html#lineNumber75",
+    "Request processing test suite should parse body of request for matching",
     "test"
   ],
   [
     "",
-    "test-file/tests/core.spec.js.html#lineNumber238",
-    "Mock Server core functionalities testing suite Response and status response should mutate status",
+    "test-file/tests/functionals/requests.processing.spec.js.html#lineNumber60",
+    "Request processing test suite should return ordered responses",
     "test"
   ],
   [
     "",
-    "test-file/tests/core.spec.js.html#lineNumber247",
-    "Mock Server core functionalities testing suite Response and status response should process body if provided as a callback",
+    "test-file/tests/functionals/requests.processing.spec.js.html#lineNumber49",
+    "Request processing test suite should return response build from fixture",
     "test"
   ],
   [
     "",
-    "test-file/tests/core.spec.js.html#lineNumber176",
-    "Mock Server core functionalities testing suite Response and status response should respond and delay with params",
+    "test-file/tests/functionals/requests.processing.spec.js.html#lineNumber12",
+    "Request processing test suite should throw if no fixtures defined",
     "test"
   ],
   [
     "",
-    "test-file/tests/core.spec.js.html#lineNumber193",
-    "Mock Server core functionalities testing suite Response and status response should respond and delay with response object",
+    "test-file/tests/functionals/requests.processing.spec.js.html#lineNumber20",
+    "Request processing test suite should throw if no matching fixtures found",
     "test"
   ],
   [
     "",
-    "test-file/tests/core.spec.js.html#lineNumber157",
-    "Mock Server core functionalities testing suite Response and status response should respond and wrap null data",
+    "test-file/tests/units/respond.spec.js.html#lineNumber36",
+    "Respond test suite",
     "test"
   ],
   [
     "",
-    "test-file/tests/core.spec.js.html#lineNumber230",
-    "Mock Server core functionalities testing suite Response and status response should respond multiple times with status 401",
+    "test-file/tests/units/respond.spec.js.html#lineNumber58",
+    "Respond test suite should change default response again",
     "test"
   ],
   [
     "",
-    "test-file/tests/core.spec.js.html#lineNumber149",
-    "Mock Server core functionalities testing suite Response and status response should respond with no data",
+    "test-file/tests/units/respond.spec.js.html#lineNumber41",
+    "Respond test suite should create a blank fixture and register it",
     "test"
   ],
   [
     "",
-    "test-file/tests/core.spec.js.html#lineNumber212",
-    "Mock Server core functionalities testing suite Response and status response should respond with status 204",
+    "test-file/tests/units/respond.spec.js.html#lineNumber65",
+    "Respond test suite should register ordered responses with global call count",
     "test"
   ],
   [
     "",
-    "test-file/tests/core.spec.js.html#lineNumber218",
-    "Mock Server core functionalities testing suite Response and status response should respond with status 301",
+    "test-file/tests/units/respond.spec.js.html#lineNumber72",
+    "Respond test suite should register ordered responses with own call count",
     "test"
   ],
   [
     "",
-    "test-file/tests/core.spec.js.html#lineNumber224",
-    "Mock Server core functionalities testing suite Response and status response should respond with status 401",
+    "test-file/tests/units/respond.spec.js.html#lineNumber48",
+    "Respond test suite should set a default response",
     "test"
   ],
   [
     "",
-    "test-file/tests/core.spec.js.html#lineNumber50",
-    "Mock Server core functionalities testing suite Server response setup",
+    "test-file/tests/units/respond.spec.js.html#lineNumber53",
+    "Respond test suite should update default response",
     "test"
   ],
   [
     "",
-    "test-file/tests/core.spec.js.html#lineNumber51",
-    "Mock Server core functionalities testing suite Server response setup should initialize default global response parameters",
+    "test-file/tests/units/server.controls.spec.js.html#lineNumber3",
+    "Server control test suite",
     "test"
   ],
   [
     "",
-    "test-file/tests/core.spec.js.html#lineNumber58",
-    "Mock Server core functionalities testing suite Server response setup should initialize global response parameters with configure",
+    "test-file/tests/units/server.controls.spec.js.html#lineNumber4",
+    "Server control test suite should construct a server",
     "test"
   ],
   [
     "",
-    "test-file/tests/core.spec.js.html#lineNumber71",
-    "Mock Server core functionalities testing suite Server response setup should set a delay for response",
+    "test-file/tests/units/server.controls.spec.js.html#lineNumber22",
+    "Server control test suite should expose stub when running and throw when not running",
     "test"
   ],
   [
     "",
-    "test-file/tests/core.spec.js.html#lineNumber79",
-    "Mock Server core functionalities testing suite Server response setup should throw exception if server is not started and access to stub properties/methods",
+    "test-file/tests/units/server.controls.spec.js.html#lineNumber10",
+    "Server control test suite should start, reset and stop server",
     "test"
   ],
   [
     "",
-    "test-file/tests/core.spec.js.html#lineNumber13",
-    "Mock Server core functionalities testing suite Testing initialize and running",
+    "test-file/tests/examples/simple.setup.and.process.spec.js.html#lineNumber5",
+    "Simple setup and process",
     "test"
   ],
   [
     "",
-    "test-file/tests/core.spec.js.html#lineNumber14",
-    "Mock Server core functionalities testing suite Testing initialize and running should initialize and respond 200 to a basic get request",
+    "test-file/tests/examples/simple.setup.and.process.spec.js.html#lineNumber8",
+    "Simple setup and process Error management",
     "test"
   ],
   [
     "",
-    "test-file/tests/core.spec.js.html#lineNumber30",
-    "Mock Server core functionalities testing suite Testing initialize and running should initialize and respond 200 with data to a basic get request",
+    "test-file/tests/examples/webpack.dynamic.fixture.spec.js.html#lineNumber7",
+    "Webpack dynamic fixture example",
     "test"
   ],
   [
     "",
-    "test-file/tests/core.spec.js.html#lineNumber21",
-    "Mock Server core functionalities testing suite Testing initialize and running should initialize and respond 404 to a basic get request",
+    "test-file/tests/examples/webpack.dynamic.fixture.spec.js.html#lineNumber69",
+    "Webpack dynamic fixture example should load a fixture with pattern",
     "test"
   ],
   [
     "",
-    "test-file/tests/core.spec.js.html#lineNumber43",
-    "Mock Server core functionalities testing suite Testing initialize and running should return server running status",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/history.spec.js.html#lineNumber3",
-    "Requests history and successive calls test suite",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/history.spec.js.html#lineNumber14",
-    "Requests history and successive calls test suite Requests history",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/history.spec.js.html#lineNumber24",
-    "Requests history and successive calls test suite Requests history should return request history by index",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/history.spec.js.html#lineNumber15",
-    "Requests history and successive calls test suite Requests history should return the number of requests processed",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/history.spec.js.html#lineNumber40",
-    "Requests history and successive calls test suite Requests history should return whole requests history",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/history.spec.js.html#lineNumber55",
-    "Requests history and successive calls test suite Successive different responses",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/history.spec.js.html#lineNumber56",
-    "Requests history and successive calls test suite Successive different responses should chain responses",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/history.spec.js.html#lineNumber89",
-    "Requests history and successive calls test suite Successive different responses should chain responses and fixtures",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/history.spec.js.html#lineNumber118",
-    "Requests history and successive calls test suite Successive different responses should mutate/inherit params between responses",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/wrapper.spec.js.html#lineNumber3",
-    "Wrapper option testing suite",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/wrapper.spec.js.html#lineNumber54",
-    "Wrapper option testing suite should use a callback function as wrapper",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/wrapper.spec.js.html#lineNumber36",
-    "Wrapper option testing suite should wrap response with JSON data",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/wrapper.spec.js.html#lineNumber4",
-    "Wrapper option testing suite should wrap response with default slot",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/wrapper.spec.js.html#lineNumber19",
-    "Wrapper option testing suite should wrap response with named slots",
+    "test-file/tests/examples/webpack.dynamic.fixture.spec.js.html#lineNumber32",
+    "Webpack dynamic fixture example should load a fixture without pattern",
     "test"
   ],
   [
@@ -648,15 +630,57 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "src/fixture.js~fixture#_headers",
-    "class/src/Fixture.js~Fixture.html#instance-member-_headers",
-    "src/Fixture.js~Fixture#_headers",
+    "src/fixture.js~fixture#_any",
+    "class/src/Fixture.js~Fixture.html#instance-member-_any",
+    "src/Fixture.js~Fixture#_any",
     "member"
   ],
   [
-    "src/fixture.js~fixture#body",
-    "class/src/Fixture.js~Fixture.html#instance-member-body",
-    "src/Fixture.js~Fixture#body",
+    "src/fixture.js~fixture#_buildresponse",
+    "class/src/Fixture.js~Fixture.html#instance-method-_buildResponse",
+    "src/Fixture.js~Fixture#_buildResponse",
+    "method"
+  ],
+  [
+    "src/fixture.js~fixture#_callnum",
+    "class/src/Fixture.js~Fixture.html#instance-member-_callnum",
+    "src/Fixture.js~Fixture#_callnum",
+    "member"
+  ],
+  [
+    "src/fixture.js~fixture#_getcurrentresponseset",
+    "class/src/Fixture.js~Fixture.html#instance-method-_getCurrentResponseSet",
+    "src/Fixture.js~Fixture#_getCurrentResponseSet",
+    "method"
+  ],
+  [
+    "src/fixture.js~fixture#_matcher",
+    "class/src/Fixture.js~Fixture.html#instance-member-_matcher",
+    "src/Fixture.js~Fixture#_matcher",
+    "member"
+  ],
+  [
+    "src/fixture.js~fixture#_owncall",
+    "class/src/Fixture.js~Fixture.html#instance-member-_ownCall",
+    "src/Fixture.js~Fixture#_ownCall",
+    "member"
+  ],
+  [
+    "src/fixture.js~fixture#any",
+    "class/src/Fixture.js~Fixture.html#instance-get-any",
+    "src/Fixture.js~Fixture#any",
+    "member"
+  ],
+  [
+    "src/fixture.js~fixture#call",
+    "class/src/Fixture.js~Fixture.html#instance-method-call",
+    "src/Fixture.js~Fixture#call",
+    "method"
+  ],
+  [
+    "src/fixture.js~fixture#calls",
+    "class/src/Fixture.js~Fixture.html#instance-member-calls",
+    "src/Fixture.js~Fixture#calls",
     "member"
   ],
   [
@@ -666,63 +690,117 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "src/fixture.js~fixture#delay",
-    "class/src/Fixture.js~Fixture.html#instance-member-delay",
-    "src/Fixture.js~Fixture#delay",
+    "src/fixture.js~fixture#extractparams",
+    "class/src/Fixture.js~Fixture.html#instance-method-extractParams",
+    "src/Fixture.js~Fixture#extractParams",
+    "method"
+  ],
+  [
+    "src/fixture.js~fixture#firstcall",
+    "class/src/Fixture.js~Fixture.html#instance-method-firstCall",
+    "src/Fixture.js~Fixture#firstCall",
+    "method"
+  ],
+  [
+    "src/fixture.js~fixture#getpath",
+    "class/src/Fixture.js~Fixture.html#instance-method-getPath",
+    "src/Fixture.js~Fixture#getPath",
+    "method"
+  ],
+  [
+    "src/fixture.js~fixture#getresponse",
+    "class/src/Fixture.js~Fixture.html#instance-method-getResponse",
+    "src/Fixture.js~Fixture#getResponse",
+    "method"
+  ],
+  [
+    "src/fixture.js~fixture#globalcalls",
+    "class/src/Fixture.js~Fixture.html#instance-member-globalCalls",
+    "src/Fixture.js~Fixture#globalCalls",
     "member"
   ],
   [
-    "src/fixture.js~fixture#destroyed",
-    "class/src/Fixture.js~Fixture.html#instance-member-destroyed",
-    "src/Fixture.js~Fixture#destroyed",
+    "src/fixture.js~fixture#match",
+    "class/src/Fixture.js~Fixture.html#instance-method-match",
+    "src/Fixture.js~Fixture#match",
+    "method"
+  ],
+  [
+    "src/fixture.js~fixture#on",
+    "class/src/Fixture.js~Fixture.html#instance-get-on",
+    "src/Fixture.js~Fixture#on",
     "member"
   ],
   [
-    "src/fixture.js~fixture#headers",
-    "class/src/Fixture.js~Fixture.html#instance-get-headers",
-    "src/Fixture.js~Fixture#headers",
+    "src/fixture.js~fixture#owncalls",
+    "class/src/Fixture.js~Fixture.html#instance-member-ownCalls",
+    "src/Fixture.js~Fixture#ownCalls",
     "member"
   ],
   [
-    "src/fixture.js~fixture#headers",
-    "class/src/Fixture.js~Fixture.html#instance-set-headers",
-    "src/Fixture.js~Fixture#headers",
+    "src/fixture.js~fixture#preset",
+    "class/src/Fixture.js~Fixture.html#instance-method-preset",
+    "src/Fixture.js~Fixture#preset",
+    "method"
+  ],
+  [
+    "src/fixture.js~fixture#secondcall",
+    "class/src/Fixture.js~Fixture.html#instance-method-secondCall",
+    "src/Fixture.js~Fixture#secondCall",
+    "method"
+  ],
+  [
+    "src/fixture.js~fixture#sleep",
+    "class/src/Fixture.js~Fixture.html#instance-method-sleep",
+    "src/Fixture.js~Fixture#sleep",
+    "method"
+  ],
+  [
+    "src/fixture.js~fixture#thirdcall",
+    "class/src/Fixture.js~Fixture.html#instance-method-thirdCall",
+    "src/Fixture.js~Fixture#thirdCall",
+    "method"
+  ],
+  [
+    "src/fixture.js~fixture#to",
+    "class/src/Fixture.js~Fixture.html#instance-get-to",
+    "src/Fixture.js~Fixture#to",
     "member"
   ],
   [
-    "src/fixture.js~fixture#init",
-    "class/src/Fixture.js~Fixture.html#instance-get-init",
-    "src/Fixture.js~Fixture#init",
+    "src/fixture.js~fixture#wrap",
+    "class/src/Fixture.js~Fixture.html#instance-method-wrap",
+    "src/Fixture.js~Fixture#wrap",
+    "method"
+  ],
+  [
+    "src/preset.js",
+    "file/src/Preset.js.html",
+    "src/Preset.js",
+    "file"
+  ],
+  [
+    "src/preset.js~preset#_any",
+    "class/src/Preset.js~Preset.html#instance-member-_any",
+    "src/Preset.js~Preset#_any",
     "member"
   ],
   [
-    "src/fixture.js~fixture#initialized",
-    "class/src/Fixture.js~Fixture.html#instance-member-initialized",
-    "src/Fixture.js~Fixture#initialized",
-    "member"
+    "src/preset.js~preset#_getcurrentresponseset",
+    "class/src/Preset.js~Preset.html#instance-method-_getCurrentResponseSet",
+    "src/Preset.js~Preset#_getCurrentResponseSet",
+    "method"
   ],
   [
-    "src/fixture.js~fixture#server",
-    "class/src/Fixture.js~Fixture.html#instance-member-server",
-    "src/Fixture.js~Fixture#server",
-    "member"
+    "src/preset.js~preset#constructor",
+    "class/src/Preset.js~Preset.html#instance-constructor-constructor",
+    "src/Preset.js~Preset#constructor",
+    "method"
   ],
   [
-    "src/fixture.js~fixture#status",
-    "class/src/Fixture.js~Fixture.html#instance-member-status",
-    "src/Fixture.js~Fixture#status",
-    "member"
-  ],
-  [
-    "src/fixture.js~fixture#statustext",
-    "class/src/Fixture.js~Fixture.html#instance-member-statusText",
-    "src/Fixture.js~Fixture#statusText",
-    "member"
-  ],
-  [
-    "src/fixture.js~fixture#wrapper",
-    "class/src/Fixture.js~Fixture.html#instance-member-wrapper",
-    "src/Fixture.js~Fixture#wrapper",
+    "src/preset.js~preset#name",
+    "class/src/Preset.js~Preset.html#instance-member-name",
+    "src/Preset.js~Preset#name",
     "member"
   ],
   [
@@ -732,46 +810,46 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "src/server.js~server#_argstorequest",
-    "class/src/Server.js~Server.html#instance-method-_argsToRequest",
-    "src/Server.js~Server#_argsToRequest",
+    "src/server.js~server#_findfixture",
+    "class/src/Server.js~Server.html#instance-method-_findFixture",
+    "src/Server.js~Server#_findFixture",
     "method"
   ],
   [
-    "src/server.js~server#_call",
-    "class/src/Server.js~Server.html#instance-member-_call",
-    "src/Server.js~Server#_call",
+    "src/server.js~server#_fixtures",
+    "class/src/Server.js~Server.html#instance-member-_fixtures",
+    "src/Server.js~Server#_fixtures",
     "member"
   ],
   [
-    "src/server.js~server#_getresponse",
-    "class/src/Server.js~Server.html#instance-method-_getResponse",
-    "src/Server.js~Server#_getResponse",
+    "src/server.js~server#_getdefaultfixture",
+    "class/src/Server.js~Server.html#instance-method-_getDefaultFixture",
+    "src/Server.js~Server#_getDefaultFixture",
     "method"
   ],
   [
-    "src/server.js~server#_loadfixture",
-    "class/src/Server.js~Server.html#instance-method-_loadFixture",
-    "src/Server.js~Server#_loadFixture",
-    "method"
-  ],
-  [
-    "src/server.js~server#_stub",
-    "class/src/Server.js~Server.html#instance-member-_stub",
-    "src/Server.js~Server#_stub",
+    "src/server.js~server#_presets",
+    "class/src/Server.js~Server.html#instance-member-_presets",
+    "src/Server.js~Server#_presets",
     "member"
   ],
   [
-    "src/server.js~server#callcount",
-    "class/src/Server.js~Server.html#instance-get-callCount",
-    "src/Server.js~Server#callCount",
-    "member"
+    "src/server.js~server#_processrequest",
+    "class/src/Server.js~Server.html#instance-method-_processRequest",
+    "src/Server.js~Server#_processRequest",
+    "method"
   ],
   [
-    "src/server.js~server#configure",
-    "class/src/Server.js~Server.html#instance-method-configure",
-    "src/Server.js~Server#configure",
+    "src/server.js~server#_processrespond",
+    "class/src/Server.js~Server.html#instance-method-_processRespond",
+    "src/Server.js~Server#_processRespond",
     "method"
+  ],
+  [
+    "src/server.js~server#calls",
+    "class/src/Server.js~Server.html#instance-get-calls",
+    "src/Server.js~Server#calls",
+    "member"
   ],
   [
     "src/server.js~server#constructor",
@@ -780,76 +858,22 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "src/server.js~server#delay",
-    "class/src/Server.js~Server.html#instance-member-delay",
-    "src/Server.js~Server#delay",
+    "src/server.js~server#history",
+    "class/src/Server.js~Server.html#instance-member-history",
+    "src/Server.js~Server#history",
     "member"
   ],
   [
-    "src/server.js~server#fixture",
-    "class/src/Server.js~Server.html#instance-get-fixture",
-    "src/Server.js~Server#fixture",
+    "src/server.js~server#on",
+    "class/src/Server.js~Server.html#instance-get-on",
+    "src/Server.js~Server#on",
     "member"
   ],
   [
-    "src/server.js~server#getallrequests",
-    "class/src/Server.js~Server.html#instance-method-getAllRequests",
-    "src/Server.js~Server#getAllRequests",
+    "src/server.js~server#preset",
+    "class/src/Server.js~Server.html#instance-method-preset",
+    "src/Server.js~Server#preset",
     "method"
-  ],
-  [
-    "src/server.js~server#getfixtureparams",
-    "class/src/Server.js~Server.html#instance-method-getFixtureParams",
-    "src/Server.js~Server#getFixtureParams",
-    "method"
-  ],
-  [
-    "src/server.js~server#getrequest",
-    "class/src/Server.js~Server.html#instance-method-getRequest",
-    "src/Server.js~Server#getRequest",
-    "method"
-  ],
-  [
-    "src/server.js~server#headers",
-    "class/src/Server.js~Server.html#instance-member-headers",
-    "src/Server.js~Server#headers",
-    "member"
-  ],
-  [
-    "src/server.js~server#oncall",
-    "class/src/Server.js~Server.html#instance-method-onCall",
-    "src/Server.js~Server#onCall",
-    "method"
-  ],
-  [
-    "src/server.js~server#onfirstcall",
-    "class/src/Server.js~Server.html#instance-method-onFirstCall",
-    "src/Server.js~Server#onFirstCall",
-    "method"
-  ],
-  [
-    "src/server.js~server#onsecondcall",
-    "class/src/Server.js~Server.html#instance-method-onSecondCall",
-    "src/Server.js~Server#onSecondCall",
-    "method"
-  ],
-  [
-    "src/server.js~server#onthirdcall",
-    "class/src/Server.js~Server.html#instance-method-onThirdCall",
-    "src/Server.js~Server#onThirdCall",
-    "method"
-  ],
-  [
-    "src/server.js~server#pattern",
-    "class/src/Server.js~Server.html#instance-member-pattern",
-    "src/Server.js~Server#pattern",
-    "member"
-  ],
-  [
-    "src/server.js~server#query",
-    "class/src/Server.js~Server.html#instance-get-query",
-    "src/Server.js~Server#query",
-    "member"
   ],
   [
     "src/server.js~server#request",
@@ -858,40 +882,22 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
-    "src/server.js~server#requesttourl",
-    "class/src/Server.js~Server.html#instance-method-requestToUrl",
-    "src/Server.js~Server#requestToUrl",
-    "method"
-  ],
-  [
     "src/server.js~server#reset",
     "class/src/Server.js~Server.html#instance-method-reset",
     "src/Server.js~Server#reset",
     "method"
   ],
   [
-    "src/server.js~server#respondwith",
-    "class/src/Server.js~Server.html#instance-method-respondWith",
-    "src/Server.js~Server#respondWith",
-    "method"
+    "src/server.js~server#respond",
+    "class/src/Server.js~Server.html#instance-get-respond",
+    "src/Server.js~Server#respond",
+    "member"
   ],
   [
-    "src/server.js~server#respondwithfixture",
-    "class/src/Server.js~Server.html#instance-method-respondWithFixture",
-    "src/Server.js~Server#respondWithFixture",
-    "method"
-  ],
-  [
-    "src/server.js~server#respondwithjson",
-    "class/src/Server.js~Server.html#instance-method-respondWithJSON",
-    "src/Server.js~Server#respondWithJSON",
-    "method"
-  ],
-  [
-    "src/server.js~server#respondwithstatus",
-    "class/src/Server.js~Server.html#instance-method-respondWithStatus",
-    "src/Server.js~Server#respondWithStatus",
-    "method"
+    "src/server.js~server#response",
+    "class/src/Server.js~Server.html#instance-get-response",
+    "src/Server.js~Server#response",
+    "member"
   ],
   [
     "src/server.js~server#running",
@@ -900,64 +906,10 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
-    "src/server.js~server#setdelay",
-    "class/src/Server.js~Server.html#instance-method-setDelay",
-    "src/Server.js~Server#setDelay",
-    "method"
-  ],
-  [
-    "src/server.js~server#setfixturepattern",
-    "class/src/Server.js~Server.html#instance-method-setFixturePattern",
-    "src/Server.js~Server#setFixturePattern",
-    "method"
-  ],
-  [
-    "src/server.js~server#setheaders",
-    "class/src/Server.js~Server.html#instance-method-setHeaders",
-    "src/Server.js~Server#setHeaders",
-    "method"
-  ],
-  [
-    "src/server.js~server#setstatus",
-    "class/src/Server.js~Server.html#instance-method-setStatus",
-    "src/Server.js~Server#setStatus",
-    "method"
-  ],
-  [
-    "src/server.js~server#setstatustext",
-    "class/src/Server.js~Server.html#instance-method-setStatusText",
-    "src/Server.js~Server#setStatusText",
-    "method"
-  ],
-  [
-    "src/server.js~server#setwrapper",
-    "class/src/Server.js~Server.html#instance-method-setWrapper",
-    "src/Server.js~Server#setWrapper",
-    "method"
-  ],
-  [
-    "src/server.js~server#sleep",
-    "class/src/Server.js~Server.html#instance-method-sleep",
-    "src/Server.js~Server#sleep",
-    "method"
-  ],
-  [
     "src/server.js~server#start",
     "class/src/Server.js~Server.html#instance-method-start",
     "src/Server.js~Server#start",
     "method"
-  ],
-  [
-    "src/server.js~server#status",
-    "class/src/Server.js~Server.html#instance-member-status",
-    "src/Server.js~Server#status",
-    "member"
-  ],
-  [
-    "src/server.js~server#statustext",
-    "class/src/Server.js~Server.html#instance-member-statusText",
-    "src/Server.js~Server#statusText",
-    "member"
   ],
   [
     "src/server.js~server#stop",
@@ -972,21 +924,291 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
-    "src/server.js~server#url",
-    "class/src/Server.js~Server.html#instance-get-url",
-    "src/Server.js~Server#url",
+    "src/server.js~server#when",
+    "class/src/Server.js~Server.html#instance-get-when",
+    "src/Server.js~Server#when",
     "member"
   ],
   [
-    "src/server.js~server#wrap",
-    "class/src/Server.js~Server.html#instance-method-wrap",
-    "src/Server.js~Server#wrap",
+    "src/helpers/fmfrequest.js",
+    "file/src/helpers/FMFRequest.js.html",
+    "src/helpers/FMFRequest.js",
+    "file"
+  ],
+  [
+    "src/helpers/fmfrequest.js~fmfrequest#constructor",
+    "class/src/helpers/FMFRequest.js~FMFRequest.html#instance-constructor-constructor",
+    "src/helpers/FMFRequest.js~FMFRequest#constructor",
     "method"
   ],
   [
-    "src/server.js~server#wrapper",
-    "class/src/Server.js~Server.html#instance-member-wrapper",
-    "src/Server.js~Server#wrapper",
+    "src/helpers/requestmatcher.js",
+    "file/src/helpers/RequestMatcher.js.html",
+    "src/helpers/RequestMatcher.js",
+    "file"
+  ],
+  [
+    "src/helpers/requestmatcher.js~requestmatcher#_processors",
+    "class/src/helpers/RequestMatcher.js~RequestMatcher.html#instance-member-_processors",
+    "src/helpers/RequestMatcher.js~RequestMatcher#_processors",
+    "member"
+  ],
+  [
+    "src/helpers/requestmatcher.js~requestmatcher#_requestkeys",
+    "class/src/helpers/RequestMatcher.js~RequestMatcher.html#instance-member-_requestKeys",
+    "src/helpers/RequestMatcher.js~RequestMatcher#_requestKeys",
+    "member"
+  ],
+  [
+    "src/helpers/requestmatcher.js~requestmatcher#body",
+    "class/src/helpers/RequestMatcher.js~RequestMatcher.html#instance-method-body",
+    "src/helpers/RequestMatcher.js~RequestMatcher#body",
+    "method"
+  ],
+  [
+    "src/helpers/requestmatcher.js~requestmatcher#constructor",
+    "class/src/helpers/RequestMatcher.js~RequestMatcher.html#instance-constructor-constructor",
+    "src/helpers/RequestMatcher.js~RequestMatcher#constructor",
+    "method"
+  ],
+  [
+    "src/helpers/requestmatcher.js~requestmatcher#fixture",
+    "class/src/helpers/RequestMatcher.js~RequestMatcher.html#instance-member-fixture",
+    "src/helpers/RequestMatcher.js~RequestMatcher#fixture",
+    "member"
+  ],
+  [
+    "src/helpers/requestmatcher.js~requestmatcher#getprocessor",
+    "class/src/helpers/RequestMatcher.js~RequestMatcher.html#instance-method-getProcessor",
+    "src/helpers/RequestMatcher.js~RequestMatcher#getProcessor",
+    "method"
+  ],
+  [
+    "src/helpers/requestmatcher.js~requestmatcher#header",
+    "class/src/helpers/RequestMatcher.js~RequestMatcher.html#instance-method-header",
+    "src/helpers/RequestMatcher.js~RequestMatcher#header",
+    "method"
+  ],
+  [
+    "src/helpers/requestmatcher.js~requestmatcher#match",
+    "class/src/helpers/RequestMatcher.js~RequestMatcher.html#instance-method-match",
+    "src/helpers/RequestMatcher.js~RequestMatcher#match",
+    "method"
+  ],
+  [
+    "src/helpers/requestmatcher.js~requestmatcher#on",
+    "class/src/helpers/RequestMatcher.js~RequestMatcher.html#instance-get-on",
+    "src/helpers/RequestMatcher.js~RequestMatcher#on",
+    "member"
+  ],
+  [
+    "src/helpers/requestmatcher.js~requestmatcher#request",
+    "class/src/helpers/RequestMatcher.js~RequestMatcher.html#instance-method-request",
+    "src/helpers/RequestMatcher.js~RequestMatcher#request",
+    "method"
+  ],
+  [
+    "src/helpers/requestmatcher.js~requestmatcher#respond",
+    "class/src/helpers/RequestMatcher.js~RequestMatcher.html#instance-get-respond",
+    "src/helpers/RequestMatcher.js~RequestMatcher#respond",
+    "member"
+  ],
+  [
+    "src/helpers/responseconfigurator.js",
+    "file/src/helpers/ResponseConfigurator.js.html",
+    "src/helpers/ResponseConfigurator.js",
+    "file"
+  ],
+  [
+    "src/helpers/responseconfigurator.js~responseconfigurator#_any",
+    "class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html#instance-member-_any",
+    "src/helpers/ResponseConfigurator.js~ResponseConfigurator#_any",
+    "member"
+  ],
+  [
+    "src/helpers/responseconfigurator.js~responseconfigurator#_responsekeys",
+    "class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html#instance-member-_responseKeys",
+    "src/helpers/ResponseConfigurator.js~ResponseConfigurator#_responseKeys",
+    "member"
+  ],
+  [
+    "src/helpers/responseconfigurator.js~responseconfigurator#after",
+    "class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html#instance-method-after",
+    "src/helpers/ResponseConfigurator.js~ResponseConfigurator#after",
+    "method"
+  ],
+  [
+    "src/helpers/responseconfigurator.js~responseconfigurator#and",
+    "class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html#instance-get-and",
+    "src/helpers/ResponseConfigurator.js~ResponseConfigurator#and",
+    "member"
+  ],
+  [
+    "src/helpers/responseconfigurator.js~responseconfigurator#before",
+    "class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html#instance-method-before",
+    "src/helpers/ResponseConfigurator.js~ResponseConfigurator#before",
+    "method"
+  ],
+  [
+    "src/helpers/responseconfigurator.js~responseconfigurator#body",
+    "class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html#instance-method-body",
+    "src/helpers/ResponseConfigurator.js~ResponseConfigurator#body",
+    "method"
+  ],
+  [
+    "src/helpers/responseconfigurator.js~responseconfigurator#constructor",
+    "class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html#instance-constructor-constructor",
+    "src/helpers/ResponseConfigurator.js~ResponseConfigurator#constructor",
+    "method"
+  ],
+  [
+    "src/helpers/responseconfigurator.js~responseconfigurator#delay",
+    "class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html#instance-method-delay",
+    "src/helpers/ResponseConfigurator.js~ResponseConfigurator#delay",
+    "method"
+  ],
+  [
+    "src/helpers/responseconfigurator.js~responseconfigurator#headers",
+    "class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html#instance-method-headers",
+    "src/helpers/ResponseConfigurator.js~ResponseConfigurator#headers",
+    "method"
+  ],
+  [
+    "src/helpers/responseconfigurator.js~responseconfigurator#on",
+    "class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html#instance-get-on",
+    "src/helpers/ResponseConfigurator.js~ResponseConfigurator#on",
+    "member"
+  ],
+  [
+    "src/helpers/responseconfigurator.js~responseconfigurator#pattern",
+    "class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html#instance-method-pattern",
+    "src/helpers/ResponseConfigurator.js~ResponseConfigurator#pattern",
+    "method"
+  ],
+  [
+    "src/helpers/responseconfigurator.js~responseconfigurator#preset",
+    "class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html#instance-method-preset",
+    "src/helpers/ResponseConfigurator.js~ResponseConfigurator#preset",
+    "method"
+  ],
+  [
+    "src/helpers/responseconfigurator.js~responseconfigurator#respond",
+    "class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html#instance-get-respond",
+    "src/helpers/ResponseConfigurator.js~ResponseConfigurator#respond",
+    "member"
+  ],
+  [
+    "src/helpers/responseconfigurator.js~responseconfigurator#server",
+    "class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html#instance-member-server",
+    "src/helpers/ResponseConfigurator.js~ResponseConfigurator#server",
+    "member"
+  ],
+  [
+    "src/helpers/responseconfigurator.js~responseconfigurator#set",
+    "class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html#instance-method-set",
+    "src/helpers/ResponseConfigurator.js~ResponseConfigurator#set",
+    "method"
+  ],
+  [
+    "src/helpers/responseconfigurator.js~responseconfigurator#status",
+    "class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html#instance-method-status",
+    "src/helpers/ResponseConfigurator.js~ResponseConfigurator#status",
+    "method"
+  ],
+  [
+    "src/helpers/responseconfigurator.js~responseconfigurator#statustext",
+    "class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html#instance-method-statusText",
+    "src/helpers/ResponseConfigurator.js~ResponseConfigurator#statusText",
+    "method"
+  ],
+  [
+    "src/helpers/responseconfigurator.js~responseconfigurator#when",
+    "class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html#instance-get-when",
+    "src/helpers/ResponseConfigurator.js~ResponseConfigurator#when",
+    "member"
+  ],
+  [
+    "src/helpers/responseconfigurator.js~responseconfigurator#with",
+    "class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html#instance-get-with",
+    "src/helpers/ResponseConfigurator.js~ResponseConfigurator#with",
+    "member"
+  ],
+  [
+    "src/helpers/responseconfigurator.js~responseconfigurator#wrapper",
+    "class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html#instance-method-wrapper",
+    "src/helpers/ResponseConfigurator.js~ResponseConfigurator#wrapper",
+    "method"
+  ],
+  [
+    "src/helpers/serverhistory.js",
+    "file/src/helpers/ServerHistory.js.html",
+    "src/helpers/ServerHistory.js",
+    "file"
+  ],
+  [
+    "src/helpers/serverhistory.js~serverhistory#_history",
+    "class/src/helpers/ServerHistory.js~ServerHistory.html#instance-member-_history",
+    "src/helpers/ServerHistory.js~ServerHistory#_history",
+    "member"
+  ],
+  [
+    "src/helpers/serverhistory.js~serverhistory#_target",
+    "class/src/helpers/ServerHistory.js~ServerHistory.html#instance-member-_target",
+    "src/helpers/ServerHistory.js~ServerHistory#_target",
+    "member"
+  ],
+  [
+    "src/helpers/serverhistory.js~serverhistory#atcall",
+    "class/src/helpers/ServerHistory.js~ServerHistory.html#instance-method-atCall",
+    "src/helpers/ServerHistory.js~ServerHistory#atCall",
+    "method"
+  ],
+  [
+    "src/helpers/serverhistory.js~serverhistory#first",
+    "class/src/helpers/ServerHistory.js~ServerHistory.html#instance-get-first",
+    "src/helpers/ServerHistory.js~ServerHistory#first",
+    "member"
+  ],
+  [
+    "src/helpers/serverhistory.js~serverhistory#last",
+    "class/src/helpers/ServerHistory.js~ServerHistory.html#instance-get-last",
+    "src/helpers/ServerHistory.js~ServerHistory#last",
+    "member"
+  ],
+  [
+    "src/helpers/serverhistory.js~serverhistory#push",
+    "class/src/helpers/ServerHistory.js~ServerHistory.html#instance-method-push",
+    "src/helpers/ServerHistory.js~ServerHistory#push",
+    "method"
+  ],
+  [
+    "src/helpers/serverhistory.js~serverhistory#request",
+    "class/src/helpers/ServerHistory.js~ServerHistory.html#instance-get-request",
+    "src/helpers/ServerHistory.js~ServerHistory#request",
+    "member"
+  ],
+  [
+    "src/helpers/serverhistory.js~serverhistory#reset",
+    "class/src/helpers/ServerHistory.js~ServerHistory.html#instance-method-reset",
+    "src/helpers/ServerHistory.js~ServerHistory#reset",
+    "method"
+  ],
+  [
+    "src/helpers/serverhistory.js~serverhistory#response",
+    "class/src/helpers/ServerHistory.js~ServerHistory.html#instance-get-response",
+    "src/helpers/ServerHistory.js~ServerHistory#response",
+    "member"
+  ],
+  [
+    "src/helpers/serverhistory.js~serverhistory#second",
+    "class/src/helpers/ServerHistory.js~ServerHistory.html#instance-get-second",
+    "src/helpers/ServerHistory.js~ServerHistory#second",
+    "member"
+  ],
+  [
+    "src/helpers/serverhistory.js~serverhistory#third",
+    "class/src/helpers/ServerHistory.js~ServerHistory.html#instance-get-third",
+    "src/helpers/ServerHistory.js~ServerHistory#third",
     "member"
   ],
   [
@@ -996,27 +1218,213 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "tests/core.spec.js",
-    "test-file/tests/core.spec.js.html",
-    "tests/core.spec.js",
+    "src/presets.js",
+    "file/src/presets.js.html",
+    "src/presets.js",
+    "file"
+  ],
+  [
+    "src/processors/abstractprocessor.js",
+    "file/src/processors/AbstractProcessor.js.html",
+    "src/processors/AbstractProcessor.js",
+    "file"
+  ],
+  [
+    "src/processors/abstractprocessor.js~abstractprocessor#_key",
+    "class/src/processors/AbstractProcessor.js~AbstractProcessor.html#instance-member-_key",
+    "src/processors/AbstractProcessor.js~AbstractProcessor#_key",
+    "member"
+  ],
+  [
+    "src/processors/abstractprocessor.js~abstractprocessor#_matcher",
+    "class/src/processors/AbstractProcessor.js~AbstractProcessor.html#instance-member-_matcher",
+    "src/processors/AbstractProcessor.js~AbstractProcessor#_matcher",
+    "member"
+  ],
+  [
+    "src/processors/abstractprocessor.js~abstractprocessor#_not",
+    "class/src/processors/AbstractProcessor.js~AbstractProcessor.html#instance-member-_not",
+    "src/processors/AbstractProcessor.js~AbstractProcessor#_not",
+    "member"
+  ],
+  [
+    "src/processors/abstractprocessor.js~abstractprocessor#_test",
+    "class/src/processors/AbstractProcessor.js~AbstractProcessor.html#instance-member-_test",
+    "src/processors/AbstractProcessor.js~AbstractProcessor#_test",
+    "member"
+  ],
+  [
+    "src/processors/abstractprocessor.js~abstractprocessor#constructor",
+    "class/src/processors/AbstractProcessor.js~AbstractProcessor.html#instance-constructor-constructor",
+    "src/processors/AbstractProcessor.js~AbstractProcessor#constructor",
+    "method"
+  ],
+  [
+    "src/processors/abstractprocessor.js~abstractprocessor#equal",
+    "class/src/processors/AbstractProcessor.js~AbstractProcessor.html#instance-method-equal",
+    "src/processors/AbstractProcessor.js~AbstractProcessor#equal",
+    "method"
+  ],
+  [
+    "src/processors/abstractprocessor.js~abstractprocessor#is",
+    "class/src/processors/AbstractProcessor.js~AbstractProcessor.html#instance-get-is",
+    "src/processors/AbstractProcessor.js~AbstractProcessor#is",
+    "member"
+  ],
+  [
+    "src/processors/abstractprocessor.js~abstractprocessor#not",
+    "class/src/processors/AbstractProcessor.js~AbstractProcessor.html#instance-get-not",
+    "src/processors/AbstractProcessor.js~AbstractProcessor#not",
+    "member"
+  ],
+  [
+    "src/processors/abstractprocessor.js~abstractprocessor#process",
+    "class/src/processors/AbstractProcessor.js~AbstractProcessor.html#instance-method-process",
+    "src/processors/AbstractProcessor.js~AbstractProcessor#process",
+    "method"
+  ],
+  [
+    "src/processors/bodyprocessor.js",
+    "file/src/processors/BodyProcessor.js.html",
+    "src/processors/BodyProcessor.js",
+    "file"
+  ],
+  [
+    "src/processors/bodyprocessor.js~bodyprocessor#_test",
+    "class/src/processors/BodyProcessor.js~BodyProcessor.html#instance-member-_test",
+    "src/processors/BodyProcessor.js~BodyProcessor#_test",
+    "member"
+  ],
+  [
+    "src/processors/bodyprocessor.js~bodyprocessor#_type",
+    "class/src/processors/BodyProcessor.js~BodyProcessor.html#instance-member-_type",
+    "src/processors/BodyProcessor.js~BodyProcessor#_type",
+    "member"
+  ],
+  [
+    "src/processors/bodyprocessor.js~bodyprocessor#_warn",
+    "class/src/processors/BodyProcessor.js~BodyProcessor.html#instance-member-_warn",
+    "src/processors/BodyProcessor.js~BodyProcessor#_warn",
+    "member"
+  ],
+  [
+    "src/processors/bodyprocessor.js~bodyprocessor#constructor",
+    "class/src/processors/BodyProcessor.js~BodyProcessor.html#instance-constructor-constructor",
+    "src/processors/BodyProcessor.js~BodyProcessor#constructor",
+    "method"
+  ],
+  [
+    "src/processors/bodyprocessor.js~bodyprocessor#equal",
+    "class/src/processors/BodyProcessor.js~BodyProcessor.html#instance-method-equal",
+    "src/processors/BodyProcessor.js~BodyProcessor#equal",
+    "method"
+  ],
+  [
+    "src/processors/booleanprocessor.js",
+    "file/src/processors/BooleanProcessor.js.html",
+    "src/processors/BooleanProcessor.js",
+    "file"
+  ],
+  [
+    "src/processors/headersprocessor.js",
+    "file/src/processors/HeadersProcessor.js.html",
+    "src/processors/HeadersProcessor.js",
+    "file"
+  ],
+  [
+    "src/processors/headersprocessor.js~headersprocessor#_name",
+    "class/src/processors/HeadersProcessor.js~HeadersProcessor.html#instance-member-_name",
+    "src/processors/HeadersProcessor.js~HeadersProcessor#_name",
+    "member"
+  ],
+  [
+    "src/processors/headersprocessor.js~headersprocessor#_test",
+    "class/src/processors/HeadersProcessor.js~HeadersProcessor.html#instance-member-_test",
+    "src/processors/HeadersProcessor.js~HeadersProcessor#_test",
+    "member"
+  ],
+  [
+    "src/processors/headersprocessor.js~headersprocessor#constructor",
+    "class/src/processors/HeadersProcessor.js~HeadersProcessor.html#instance-constructor-constructor",
+    "src/processors/HeadersProcessor.js~HeadersProcessor#constructor",
+    "method"
+  ],
+  [
+    "src/processors/headersprocessor.js~headersprocessor#equal",
+    "class/src/processors/HeadersProcessor.js~HeadersProcessor.html#instance-method-equal",
+    "src/processors/HeadersProcessor.js~HeadersProcessor#equal",
+    "method"
+  ],
+  [
+    "src/processors/queryprocessor.js",
+    "file/src/processors/QueryProcessor.js.html",
+    "src/processors/QueryProcessor.js",
+    "file"
+  ],
+  [
+    "src/processors/stringprocessor.js",
+    "file/src/processors/StringProcessor.js.html",
+    "src/processors/StringProcessor.js",
+    "file"
+  ],
+  [
+    "tests/examples/simple.setup.and.process.spec.js",
+    "test-file/tests/examples/simple.setup.and.process.spec.js.html",
+    "tests/examples/simple.setup.and.process.spec.js",
     "testFile"
   ],
   [
-    "tests/fixtures.spec.js",
-    "test-file/tests/fixtures.spec.js.html",
-    "tests/fixtures.spec.js",
+    "tests/examples/webpack.dynamic.fixture.spec.js",
+    "test-file/tests/examples/webpack.dynamic.fixture.spec.js.html",
+    "tests/examples/webpack.dynamic.fixture.spec.js",
     "testFile"
   ],
   [
-    "tests/history.spec.js",
-    "test-file/tests/history.spec.js.html",
-    "tests/history.spec.js",
+    "tests/functionals/requests.processing.spec.js",
+    "test-file/tests/functionals/requests.processing.spec.js.html",
+    "tests/functionals/requests.processing.spec.js",
     "testFile"
   ],
   [
-    "tests/wrapper.spec.js",
-    "test-file/tests/wrapper.spec.js.html",
-    "tests/wrapper.spec.js",
+    "tests/units/extending.request.spec.js",
+    "test-file/tests/units/extending.request.spec.js.html",
+    "tests/units/extending.request.spec.js",
+    "testFile"
+  ],
+  [
+    "tests/units/fixtures.spec.js",
+    "test-file/tests/units/fixtures.spec.js.html",
+    "tests/units/fixtures.spec.js",
+    "testFile"
+  ],
+  [
+    "tests/units/history.spec.js",
+    "test-file/tests/units/history.spec.js.html",
+    "tests/units/history.spec.js",
+    "testFile"
+  ],
+  [
+    "tests/units/presets.spec.js",
+    "test-file/tests/units/presets.spec.js.html",
+    "tests/units/presets.spec.js",
+    "testFile"
+  ],
+  [
+    "tests/units/request.configurator.spec.js",
+    "test-file/tests/units/request.configurator.spec.js.html",
+    "tests/units/request.configurator.spec.js",
+    "testFile"
+  ],
+  [
+    "tests/units/respond.spec.js",
+    "test-file/tests/units/respond.spec.js.html",
+    "tests/units/respond.spec.js",
+    "testFile"
+  ],
+  [
+    "tests/units/server.controls.spec.js",
+    "test-file/tests/units/server.controls.spec.js.html",
+    "tests/units/server.controls.spec.js",
     "testFile"
   ]
 ]

@@ -8,7 +8,7 @@
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
   <script src="script/manual.js"></script>
-<meta name="description" content="Mocker for fetch API with fixtures support"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="fetch-mock-fixtures"><meta property="twitter:description" content="Mocker for fetch API with fixtures support"></head>
+<meta name="description" content="Fixtures based mocker for fetch API with BDD style configuration"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="fetch-mock-fixtures"><meta property="twitter:description" content="Fixtures based mocker for fetch API with BDD style configuration"></head>
 <body class="layout-container" data-ice="rootContainer">
 
 <header>
@@ -30,7 +30,18 @@
   <ul>
     
   <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Fixture.js~Fixture.html">Fixture</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Preset.js~Preset.html">Preset</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Server.js~Server.html">Server</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#helpers">helpers</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/FMFRequest.js~FMFRequest.html">FMFRequest</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/RequestMatcher.js~RequestMatcher.html">RequestMatcher</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html">ResponseConfigurator</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/ServerHistory.js~ServerHistory.html">ServerHistory</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#processors">processors</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/AbstractProcessor.js~AbstractProcessor.html">AbstractProcessor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/BodyProcessor.js~BodyProcessor.html">BodyProcessor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/BooleanProcessor.js~BooleanProcessor.html">BooleanProcessor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/HeadersProcessor.js~HeadersProcessor.html">HeadersProcessor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/QueryProcessor.js~QueryProcessor.html">QueryProcessor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/StringProcessor.js~StringProcessor.html">StringProcessor</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -45,349 +56,265 @@
   </thead>
 
   <tbody data-ice="tests"><tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="0">
-  <td data-ice="testDescription" style="padding-left: 10px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/tests/core.spec.js.html#lineNumber5"><p>Mock Server core functionalities testing suite</p>
+  <td data-ice="testDescription" style="padding-left: 10px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/tests/examples/simple.setup.and.process.spec.js.html#lineNumber5"><p>Simple setup and process</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/tests/core.spec.js.html#lineNumber13"><p>Testing initialize and running</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/core.spec.js.html#lineNumber14"><p>should initialize and respond 200 to a basic get request</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/core.spec.js.html#lineNumber21"><p>should initialize and respond 404 to a basic get request</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/core.spec.js.html#lineNumber30"><p>should initialize and respond 200 with data to a basic get request</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/core.spec.js.html#lineNumber43"><p>should return server running status</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/tests/core.spec.js.html#lineNumber50"><p>Server response setup</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/core.spec.js.html#lineNumber51"><p>should initialize default global response parameters</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/core.spec.js.html#lineNumber58"><p>should initialize global response parameters with configure</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/core.spec.js.html#lineNumber71"><p>should set a delay for response</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/core.spec.js.html#lineNumber79"><p>should throw exception if server is not started and access to stub properties/methods</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/tests/core.spec.js.html#lineNumber85"><p>Incoming request informations</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/core.spec.js.html#lineNumber86"><p>should expose a request object when initialized with data and init object</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/core.spec.js.html#lineNumber101"><p>should expose a cloned request object when initialized with a request object</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/core.spec.js.html#lineNumber119"><p>should expose url</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/core.spec.js.html#lineNumber125"><p>should expose url with request object</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/core.spec.js.html#lineNumber132"><p>should expose query</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/core.spec.js.html#lineNumber139"><p>should expose query with request object</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/tests/core.spec.js.html#lineNumber148"><p>Response and status response</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/core.spec.js.html#lineNumber149"><p>should respond with no data</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/core.spec.js.html#lineNumber157"><p>should respond and wrap null data</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/core.spec.js.html#lineNumber176"><p>should respond and delay with params</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/core.spec.js.html#lineNumber193"><p>should respond and delay with response object</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/core.spec.js.html#lineNumber212"><p>should respond with status 204</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/core.spec.js.html#lineNumber218"><p>should respond with status 301</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/core.spec.js.html#lineNumber224"><p>should respond with status 401</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/core.spec.js.html#lineNumber230"><p>should respond multiple times with status 401</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/core.spec.js.html#lineNumber238"><p>should mutate status</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/core.spec.js.html#lineNumber247"><p>should process body if provided as a callback</p>
+  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/tests/examples/simple.setup.and.process.spec.js.html#lineNumber8"><p>Error management</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="0">
-  <td data-ice="testDescription" style="padding-left: 10px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/tests/fixtures.spec.js.html#lineNumber5"><p>Fixtures testing suite</p>
+  <td data-ice="testDescription" style="padding-left: 10px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/tests/examples/webpack.dynamic.fixture.spec.js.html#lineNumber7"><p>Webpack dynamic fixture example</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/tests/fixtures.spec.js.html#lineNumber11"><p>Fixture errors</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/fixtures.spec.js.html#lineNumber12"><p>should throw an exception if no loader have been set</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/fixtures.spec.js.html#lineNumber21"><p>should warn if old loader have been set</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/fixtures.spec.js.html#lineNumber34"><p>should throw an exception if no arguments are provided to fetch</p>
+  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/tests/examples/webpack.dynamic.fixture.spec.js.html#lineNumber32"><p>should load a fixture without pattern</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/tests/fixtures.spec.js.html#lineNumber45"><p>Fixture path resolution</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/fixtures.spec.js.html#lineNumber46"><p>should provide fixture path</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/tests/fixtures.spec.js.html#lineNumber53"><p>Fixture loading</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/fixtures.spec.js.html#lineNumber54"><p>should load fixture and GET</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/fixtures.spec.js.html#lineNumber78"><p>should load fixture and POST</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/fixtures.spec.js.html#lineNumber96"><p>should load fixture and fail</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/tests/fixtures.spec.js.html#lineNumber108"><p>On the fly fixture</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/fixtures.spec.js.html#lineNumber109"><p>should use an on-the-fly fixture</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/tests/fixtures.spec.js.html#lineNumber135"><p>Pattern and database fixture</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/fixtures.spec.js.html#lineNumber156"><p>should use a pattern to extract path params and use database</p>
+  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/tests/examples/webpack.dynamic.fixture.spec.js.html#lineNumber69"><p>should load a fixture with pattern</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="0">
-  <td data-ice="testDescription" style="padding-left: 10px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/tests/history.spec.js.html#lineNumber3"><p>Requests history and successive calls test suite</p>
+  <td data-ice="testDescription" style="padding-left: 10px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/tests/functionals/requests.processing.spec.js.html#lineNumber5"><p>Request processing test suite</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/tests/history.spec.js.html#lineNumber14"><p>Requests history</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/history.spec.js.html#lineNumber15"><p>should return the number of requests processed</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/history.spec.js.html#lineNumber24"><p>should return request history by index</p>
-</a></span></td>
-  <td data-ice="testTarget" class="test-target">-</td>
-</tr>
-
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/history.spec.js.html#lineNumber40"><p>should return whole requests history</p>
+  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/tests/functionals/requests.processing.spec.js.html#lineNumber12"><p>should throw if no fixtures defined</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/tests/history.spec.js.html#lineNumber55"><p>Successive different responses</p>
+  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/tests/functionals/requests.processing.spec.js.html#lineNumber20"><p>should throw if no matching fixtures found</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/history.spec.js.html#lineNumber56"><p>should chain responses</p>
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
+  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/tests/functionals/requests.processing.spec.js.html#lineNumber34"><p>Should reset between calls</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/history.spec.js.html#lineNumber89"><p>should chain responses and fixtures</p>
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
+  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/tests/functionals/requests.processing.spec.js.html#lineNumber49"><p>should return response build from fixture</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
-<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/history.spec.js.html#lineNumber118"><p>should mutate/inherit params between responses</p>
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
+  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/tests/functionals/requests.processing.spec.js.html#lineNumber60"><p>should return ordered responses</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
+  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/tests/functionals/requests.processing.spec.js.html#lineNumber75"><p>should parse body of request for matching</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="0">
-  <td data-ice="testDescription" style="padding-left: 10px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/tests/wrapper.spec.js.html#lineNumber3"><p>Wrapper option testing suite</p>
+  <td data-ice="testDescription" style="padding-left: 10px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/tests/units/extending.request.spec.js.html#lineNumber3"><p>Extended request test suite</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/tests/wrapper.spec.js.html#lineNumber4"><p>should wrap response with default slot</p>
+  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/tests/units/extending.request.spec.js.html#lineNumber4"><p>should create Request from fetch params and expose parsed request properties</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/tests/wrapper.spec.js.html#lineNumber19"><p>should wrap response with named slots</p>
+  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/tests/units/extending.request.spec.js.html#lineNumber16"><p>should extend existing Request Object and expose parsed request properties</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="0">
+  <td data-ice="testDescription" style="padding-left: 10px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/tests/units/fixtures.spec.js.html#lineNumber6"><p>Fixtures test suite</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/tests/wrapper.spec.js.html#lineNumber36"><p>should wrap response with JSON data</p>
+  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/tests/units/fixtures.spec.js.html#lineNumber11"><p>Fixture configuration</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/units/fixtures.spec.js.html#lineNumber12"><p>should create a fixture</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/tests/wrapper.spec.js.html#lineNumber54"><p>should use a callback function as wrapper</p>
+  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/tests/units/fixtures.spec.js.html#lineNumber23"><p>Fixture requests processing</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/tests/units/fixtures.spec.js.html#lineNumber24"><p>should process fixture lifecyle</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="0">
+  <td data-ice="testDescription" style="padding-left: 10px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/tests/units/history.spec.js.html#lineNumber5"><p>History test suite</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
+  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/tests/units/history.spec.js.html#lineNumber18"><p>should get last request and response</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
+  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/tests/units/history.spec.js.html#lineNumber23"><p>should have cloned response before body parsing</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="0">
+  <td data-ice="testDescription" style="padding-left: 10px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/tests/units/presets.spec.js.html#lineNumber38"><p>Presets test suite</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
+  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/tests/units/presets.spec.js.html#lineNumber43"><p>should create a blank preset</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
+  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/tests/units/presets.spec.js.html#lineNumber49"><p>should create a configured preset</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
+  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/tests/units/presets.spec.js.html#lineNumber57"><p>should update preset</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="0">
+  <td data-ice="testDescription" style="padding-left: 10px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/tests/units/request.configurator.spec.js.html#lineNumber7"><p>Request configurator test suite</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
+  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/tests/units/request.configurator.spec.js.html#lineNumber8"><p>should create a matcher</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
+  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/tests/units/request.configurator.spec.js.html#lineNumber14"><p>should throw on unsupported FMFRequest property</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
+  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/tests/units/request.configurator.spec.js.html#lineNumber20"><p>should return a processor</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
+  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/tests/units/request.configurator.spec.js.html#lineNumber28"><p>should process equal</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
+  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/tests/units/request.configurator.spec.js.html#lineNumber36"><p>should process header</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="0">
+  <td data-ice="testDescription" style="padding-left: 10px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/tests/units/respond.spec.js.html#lineNumber36"><p>Respond test suite</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
+  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/tests/units/respond.spec.js.html#lineNumber41"><p>should create a blank fixture and register it</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
+  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/tests/units/respond.spec.js.html#lineNumber48"><p>should set a default response</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
+  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/tests/units/respond.spec.js.html#lineNumber53"><p>should update default response</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
+  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/tests/units/respond.spec.js.html#lineNumber58"><p>should change default response again</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
+  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/tests/units/respond.spec.js.html#lineNumber65"><p>should register ordered responses with global call count</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
+  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/tests/units/respond.spec.js.html#lineNumber72"><p>should register ordered responses with own call count</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="0">
+  <td data-ice="testDescription" style="padding-left: 10px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/tests/units/server.controls.spec.js.html#lineNumber3"><p>Server control test suite</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
+  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/tests/units/server.controls.spec.js.html#lineNumber4"><p>should construct a server</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
+  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/tests/units/server.controls.spec.js.html#lineNumber10"><p>should start, reset and stop server</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target">-</td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
+  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/tests/units/server.controls.spec.js.html#lineNumber22"><p>should expose stub when running and throw when not running</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>

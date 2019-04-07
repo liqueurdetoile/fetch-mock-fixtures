@@ -1,17 +1,27 @@
 import PouchDB from 'pouchdb';
 
 export default {
-  initialized: async function({id}) {
+  body: async function(params) {
     const db = new PouchDB('test');
+    const {id} = params;
 
-    try {
-      this.body = id ? await db.get(id) : await db.allDocs({
-        include_docs: true
-      }).rows.map(row => row.doc);
-      this.wrapper = body => JSON.stringify(body);
-      this.headers = new Headers({'content-type': 'application/json'});      
-    } catch (err) {
-      this.status = 404;
+    if (id) {
+      let doc = await db.get(id);
+
+      delete doc._id;
+      delete doc._rev;
+      return doc;
     }
+
+    let docs = await db.allDocs({
+      include_docs: true
+    });
+
+    return docs.rows.map(row => {
+      delete row.doc._id;
+      delete row.doc._rev;
+
+      return row.doc
+    });
   }
 }

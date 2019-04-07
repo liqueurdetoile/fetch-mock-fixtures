@@ -8,7 +8,7 @@
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
   <script src="script/manual.js"></script>
-<meta name="description" content="Mocker for fetch API with fixtures support"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="fetch-mock-fixtures"><meta property="twitter:description" content="Mocker for fetch API with fixtures support"></head>
+<meta name="description" content="Fixtures based mocker for fetch API with BDD style configuration"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="fetch-mock-fixtures"><meta property="twitter:description" content="Fixtures based mocker for fetch API with BDD style configuration"></head>
 <body class="layout-container" data-ice="rootContainer">
 
 <header>
@@ -30,12 +30,23 @@
   <ul>
     
   <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Fixture.js~Fixture.html">Fixture</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Preset.js~Preset.html">Preset</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Server.js~Server.html">Server</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#helpers">helpers</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/FMFRequest.js~FMFRequest.html">FMFRequest</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/RequestMatcher.js~RequestMatcher.html">RequestMatcher</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html">ResponseConfigurator</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/ServerHistory.js~ServerHistory.html">ServerHistory</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#processors">processors</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/AbstractProcessor.js~AbstractProcessor.html">AbstractProcessor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/BodyProcessor.js~BodyProcessor.html">BodyProcessor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/BooleanProcessor.js~BooleanProcessor.html">BooleanProcessor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/HeadersProcessor.js~HeadersProcessor.html">HeadersProcessor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/QueryProcessor.js~QueryProcessor.html">QueryProcessor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/StringProcessor.js~StringProcessor.html">StringProcessor</a></span></span></li>
 </ul>
 </div>
 </nav>
 
-<div class="content" data-ice="content"><h1>Source <img data-ice="coverageBadge" src="./badge.svg"><span data-ice="totalCoverageCount" class="total-coverage-count">31/58</span></h1>
+<div class="content" data-ice="content"><h1>Source <img data-ice="coverageBadge" src="./badge.svg"><span data-ice="totalCoverageCount" class="total-coverage-count">9/122</span></h1>
 
 <table class="files-summary" data-ice="files" data-use-coverage="true">
   <thead>
@@ -51,28 +62,124 @@
   <tbody>
     
   <tr data-ice="file">
-      <td data-ice="filePath"><span><a href="file/src/Fixture.js.html#errorLines=66,67,70,74">src/Fixture.js</a></span></td>
+      <td data-ice="filePath"><span><a href="file/src/Fixture.js.html#errorLines=100,108,112,12,128,13,134,142,191,20,21,23,27,37,47,5,51,61,65,72,79,86,93">src/Fixture.js</a></span></td>
       <td data-ice="identifier" class="identifiers"><span><a href="class/src/Fixture.js~Fixture.html">Fixture</a></span></td>
-      <td class="coverage"><span data-ice="coverage">71 %</span><span data-ice="coverageCount" class="coverage-count">10/14</span></td>
-      <td style="display: none;" data-ice="size">1917 byte</td>
-      <td style="display: none;" data-ice="lines">99</td>
-      <td style="display: none;" data-ice="updated">2019-04-02 22:36:05 (UTC)</td>
+      <td class="coverage"><span data-ice="coverage">8 %</span><span data-ice="coverageCount" class="coverage-count">2/25</span></td>
+      <td style="display: none;" data-ice="size">4733 byte</td>
+      <td style="display: none;" data-ice="lines">204</td>
+      <td style="display: none;" data-ice="updated">2019-04-01 11:29:43 (UTC)</td>
     </tr>
 <tr data-ice="file">
-      <td data-ice="filePath"><span><a href="file/src/Server.js.html#errorLines=187,191,195,199,205,209,213,236,242,248,258,264,270,278,297,301,305,351,357,364,373,399,449">src/Server.js</a></span></td>
+      <td data-ice="filePath"><span><a href="file/src/Preset.js.html#errorLines=16,17,3,4,8">src/Preset.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/src/Preset.js~Preset.html">Preset</a></span></td>
+      <td class="coverage"><span data-ice="coverage">0 %</span><span data-ice="coverageCount" class="coverage-count">0/5</span></td>
+      <td style="display: none;" data-ice="size">544 byte</td>
+      <td style="display: none;" data-ice="lines">22</td>
+      <td style="display: none;" data-ice="updated">2019-04-01 11:29:43 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/Server.js.html#errorLines=100,104,114,118,131,139,143,160,17,175,179,18,20,22,84">src/Server.js</a></span></td>
       <td data-ice="identifier" class="identifiers"><span><a href="class/src/Server.js~Server.html">Server</a></span></td>
-      <td class="coverage"><span data-ice="coverage">47 %</span><span data-ice="coverageCount" class="coverage-count">21/44</span></td>
-      <td style="display: none;" data-ice="size">10979 byte</td>
-      <td style="display: none;" data-ice="lines">475</td>
-      <td style="display: none;" data-ice="updated">2019-04-03 01:12:57 (UTC)</td>
+      <td class="coverage"><span data-ice="coverage">28 %</span><span data-ice="coverageCount" class="coverage-count">6/21</span></td>
+      <td style="display: none;" data-ice="size">4124 byte</td>
+      <td style="display: none;" data-ice="lines">184</td>
+      <td style="display: none;" data-ice="updated">2019-04-01 11:51:17 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/helpers/FMFRequest.js.html#errorLines=3,4">src/helpers/FMFRequest.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/src/helpers/FMFRequest.js~FMFRequest.html">FMFRequest</a></span></td>
+      <td class="coverage"><span data-ice="coverage">0 %</span><span data-ice="coverageCount" class="coverage-count">0/2</span></td>
+      <td style="display: none;" data-ice="size">321 byte</td>
+      <td style="display: none;" data-ice="lines">17</td>
+      <td style="display: none;" data-ice="updated">2019-04-01 11:33:26 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/helpers/RequestMatcher.js.html#errorLines=16,17,20,24,28,7,70,78,8,86,9,95">src/helpers/RequestMatcher.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/src/helpers/RequestMatcher.js~RequestMatcher.html">RequestMatcher</a></span></td>
+      <td class="coverage"><span data-ice="coverage">0 %</span><span data-ice="coverageCount" class="coverage-count">0/12</span></td>
+      <td style="display: none;" data-ice="size">2749 byte</td>
+      <td style="display: none;" data-ice="lines">112</td>
+      <td style="display: none;" data-ice="updated">2019-04-01 11:30:38 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/helpers/ResponseConfigurator.js.html#errorLines=1,10,107,116,12,125,138,16,2,20,24,28,32,36,40,56,65,74,89,98">src/helpers/ResponseConfigurator.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html">ResponseConfigurator</a></span></td>
+      <td class="coverage"><span data-ice="coverage">4 %</span><span data-ice="coverageCount" class="coverage-count">1/21</span></td>
+      <td style="display: none;" data-ice="size">3138 byte</td>
+      <td style="display: none;" data-ice="lines">152</td>
+      <td style="display: none;" data-ice="updated">2019-04-01 11:29:05 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/helpers/ServerHistory.js.html#errorLines=1,12,17,2,22,26,3,30,34,38,44,5">src/helpers/ServerHistory.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/src/helpers/ServerHistory.js~ServerHistory.html">ServerHistory</a></span></td>
+      <td class="coverage"><span data-ice="coverage">0 %</span><span data-ice="coverageCount" class="coverage-count">0/12</span></td>
+      <td style="display: none;" data-ice="size">742 byte</td>
+      <td style="display: none;" data-ice="lines">47</td>
+      <td style="display: none;" data-ice="updated">2019-04-01 11:46:47 (UTC)</td>
     </tr>
 <tr data-ice="file">
       <td data-ice="filePath"><span><a href="file/src/index.js.html">src/index.js</a></span></td>
       <td data-ice="identifier" class="identifiers">-</td>
       <td class="coverage"><span data-ice="coverage">-</span></td>
-      <td style="display: none;" data-ice="size">120 byte</td>
-      <td style="display: none;" data-ice="lines">9</td>
-      <td style="display: none;" data-ice="updated">2019-03-02 09:38:42 (UTC)</td>
+      <td style="display: none;" data-ice="size">222 byte</td>
+      <td style="display: none;" data-ice="lines">13</td>
+      <td style="display: none;" data-ice="updated">2019-04-01 11:33:35 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/presets.js.html">src/presets.js</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">1231 byte</td>
+      <td style="display: none;" data-ice="lines">69</td>
+      <td style="display: none;" data-ice="updated">2019-04-01 11:31:49 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/processors/AbstractProcessor.js.html#errorLines=10,13,17,23,3,38,4,5,6,8">src/processors/AbstractProcessor.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/src/processors/AbstractProcessor.js~AbstractProcessor.html">AbstractProcessor</a></span></td>
+      <td class="coverage"><span data-ice="coverage">0 %</span><span data-ice="coverageCount" class="coverage-count">0/10</span></td>
+      <td style="display: none;" data-ice="size">846 byte</td>
+      <td style="display: none;" data-ice="lines">43</td>
+      <td style="display: none;" data-ice="updated">2019-04-01 11:30:08 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/processors/BodyProcessor.js.html#errorLines=14,15,4,5,6,8">src/processors/BodyProcessor.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/src/processors/BodyProcessor.js~BodyProcessor.html">BodyProcessor</a></span></td>
+      <td class="coverage"><span data-ice="coverage">0 %</span><span data-ice="coverageCount" class="coverage-count">0/6</span></td>
+      <td style="display: none;" data-ice="size">1128 byte</td>
+      <td style="display: none;" data-ice="lines">40</td>
+      <td style="display: none;" data-ice="updated">2019-04-01 11:30:08 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/processors/BooleanProcessor.js.html#errorLines=3">src/processors/BooleanProcessor.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/src/processors/BooleanProcessor.js~BooleanProcessor.html">BooleanProcessor</a></span></td>
+      <td class="coverage"><span data-ice="coverage">0 %</span><span data-ice="coverageCount" class="coverage-count">0/1</span></td>
+      <td style="display: none;" data-ice="size">123 byte</td>
+      <td style="display: none;" data-ice="lines">5</td>
+      <td style="display: none;" data-ice="updated">2019-04-01 11:30:08 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/processors/HeadersProcessor.js.html#errorLines=12,13,4,5,7">src/processors/HeadersProcessor.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/src/processors/HeadersProcessor.js~HeadersProcessor.html">HeadersProcessor</a></span></td>
+      <td class="coverage"><span data-ice="coverage">0 %</span><span data-ice="coverageCount" class="coverage-count">0/5</span></td>
+      <td style="display: none;" data-ice="size">859 byte</td>
+      <td style="display: none;" data-ice="lines">30</td>
+      <td style="display: none;" data-ice="updated">2019-04-01 11:30:08 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/processors/QueryProcessor.js.html#errorLines=3">src/processors/QueryProcessor.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/src/processors/QueryProcessor.js~QueryProcessor.html">QueryProcessor</a></span></td>
+      <td class="coverage"><span data-ice="coverage">0 %</span><span data-ice="coverageCount" class="coverage-count">0/1</span></td>
+      <td style="display: none;" data-ice="size">121 byte</td>
+      <td style="display: none;" data-ice="lines">5</td>
+      <td style="display: none;" data-ice="updated">2019-04-01 11:30:08 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/processors/StringProcessor.js.html#errorLines=3">src/processors/StringProcessor.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/src/processors/StringProcessor.js~StringProcessor.html">StringProcessor</a></span></td>
+      <td class="coverage"><span data-ice="coverage">0 %</span><span data-ice="coverageCount" class="coverage-count">0/1</span></td>
+      <td style="display: none;" data-ice="size">124 byte</td>
+      <td style="display: none;" data-ice="lines">5</td>
+      <td style="display: none;" data-ice="updated">2019-04-01 11:30:08 (UTC)</td>
     </tr>
 </tbody>
 </table>
