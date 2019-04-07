@@ -12,6 +12,10 @@ export class FMFRequest extends Request {
       })
     }
   }
+
+  clone() {
+    return new FMFRequest(super.clone());
+  }
 }
 
 export default FMFRequest;

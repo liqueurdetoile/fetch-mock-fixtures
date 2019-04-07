@@ -59,7 +59,9 @@ describe('Presets test suite', function() {
 
     preset = server.preset('test', p1);
     preset._any.should.deep.equal(r1);
+    server._presets['test'].should.equal(preset);
     preset = server.preset('test', p2);
+    server._presets['test'].should.equal(preset);
     preset._any.should.deep.equal(r2);
   })
 });

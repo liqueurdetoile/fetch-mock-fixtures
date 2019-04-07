@@ -24,4 +24,10 @@ describe('Extended request test suite', function() {
       param2: 'test'
     });
   })
+
+  it('should return an FMF request as clone', function() {
+    let r = new FMFRequest('/');
+
+    r.clone().should.be.instanceof(FMFRequest);
+  })
 })

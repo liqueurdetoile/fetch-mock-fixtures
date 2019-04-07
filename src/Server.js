@@ -98,7 +98,7 @@ export class Server {
   }
 
   preset(name, preset = {}) {
-    if (this._presets[name]) return this._presets[name];
+    if (this._presets[name]) return this._presets[name].set(preset);
 
     let newPreset = new Preset(this, name, preset);
 
