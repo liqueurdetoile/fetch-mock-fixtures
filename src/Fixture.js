@@ -1,3 +1,4 @@
+import Preset from './Preset';
 import ResponseConfigurator from './helpers/ResponseConfigurator';
 import RequestMatcher from './helpers/RequestMatcher';
 import pathToRegexp from 'path-to-regexp';
@@ -139,17 +140,46 @@ export class Fixture extends ResponseConfigurator {
     return path.concat(filename).join('/');
   }
 
+  async _exceptionManagement(err, defaultMessage) {
+    if (err instanceof Response) {
+      return err;
+    }
+
+    if (err instanceof Preset) {
+      let {body, headers, status, statusText} = err._any;
+
+      return new Response(body, {headers, status, statusText});
+    }
+
+    if (err instanceof Error) {
+      return new Response(Error.captureStackTrace, {
+        headers: {'content-type': 'text/html'},
+        status: 500,
+        statusText: err.__proto__.name + (err.__proto__.message ? `- ${err.__proto__.message}` : '')
+      });
+    }
+
+    if (err instanceof Object) {
+      let {body, headers, status, statusText} = err;
+
+      return new Response(body, {headers, status, statusText});
+    }
+
+    return new Response(err.toString(), {
+      status: 500,
+      statusText: defaultMessage
+    });
+  }
+
   async _buildResponse(request, response) {
     // Process before hook and update response if one is returned
     if (response.before instanceof Function) {
       try {
         let responseReplacement = await response.before.call(this, this.server, request, response);
+
         if (responseReplacement) response = responseReplacement;
       } catch (err) {
-        return new Response(err.toString(), {
-          status: 500,
-          statusText: 'Unable to process before hook'
-        });
+        return this._exceptionManagement(err, 'Unable to process body callback');
       }
     }
 
@@ -163,20 +193,7 @@ export class Fixture extends ResponseConfigurator {
     try {
       if (body instanceof Function) body = await body(extras.params, request, this.server);
     } catch (err) {
-      if (err instanceof Response) {
-        return err;
-      }
-
-      if (err instanceof Object) {
-        let {body, headers, status, statusText} = err;
-
-        return new Response(body, {headers, status, statusText});
-      }
-
-      return new Response(err.toString(), {
-        status: 500,
-        statusText: 'Unable to process body callback'
-      });
+      return this._exceptionManagement(err, 'Unable to process body callback');
     }
 
     // Construct response
@@ -186,10 +203,7 @@ export class Fixture extends ResponseConfigurator {
     try {
       if (extras.after instanceof Function) await extras.after.call(this, this.server, responseObject);
     } catch (err) {
-      return new Response(err.toString(), {
-        status: 500,
-        statusText: 'Unable to process after hook'
-      });
+      return this._exceptionManagement(err, 'Unable to process body callback');
     }
 
     // Delay response

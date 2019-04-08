@@ -18,7 +18,7 @@ export default {
       try {
         newResponse = require(`fixtures/${path}.fixture.js`).default;
       } catch (err) {
-        return {status:404}
+        throw server.preset(404);
       }
 
       newResponse = Object.assign({}, response, newResponse)

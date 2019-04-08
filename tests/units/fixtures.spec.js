@@ -42,5 +42,75 @@ describe('Fixtures test suite', function() {
       body.calledOnceWithExactly({id: '1'}, request, server).should.true;
       after.calledOnceWithExactly(server, responseObject).should.be.true;
     })
+
+    it('should alter response from before response callback', async function() {
+      server.respond.with.preset('default');
+
+      let response = await fetch('/api/v1/users/1');
+      response.status.should.equal(200);
+
+      server.respond.before(() => ({
+        status: 404
+      }));
+
+      response = await fetch('/api/v1/users/1');
+      response.status.should.equal(404);
+    })
+
+    it('should use a preset if one is thrown in fixture lifecycle', async function() {
+      server.respond
+        .with.preset('default')
+        .before(server => {
+          throw server.preset(404)
+        });
+
+      let response = await fetch('/api/v1/users/1');
+      response.status.should.equal(404);
+    })
+
+    it('should use a Response instance if one is thrown in fixture lifecycle', async function() {
+      server.respond
+        .with.preset('default')
+        .body(() => {
+          throw new Response(null, {status: 404});
+        });
+
+      let response = await fetch('/api/v1/users/1');
+      response.status.should.equal(404);
+    })
+
+    it('should use a response object descriptor if one is thrown in fixture lifecycle', async function() {
+      server.respond
+        .with.preset('default')
+        .after(() => {
+          throw {status: 404}
+        });
+
+      let response = await fetch('/api/v1/users/1');
+      response.status.should.equal(404);
+    })
+
+    it('should return a 500 error for Error throws', async function() {
+      server.respond
+        .with.preset('default')
+        .before(() => {
+          throw new TypeError()
+        });
+
+      let response = await fetch('/api/v1/users/1');
+      response.status.should.equal(500);
+      response.statusText.should.equal('TypeError');
+    })
+
+    it('should return a 500 error for other throws', async function() {
+      server.respond
+        .with.preset('default')
+        .before(() => {
+          throw 'thing'
+        });
+
+      let response = await fetch('/api/v1/users/1');
+      response.status.should.equal(500);
+    })
   })
 })
