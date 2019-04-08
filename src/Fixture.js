@@ -157,12 +157,22 @@ export class Fixture extends ResponseConfigurator {
     let {body, headers, status, statusText, ...extras} = response;
 
     // Extract params if a pattern have been set
-    extras.params = extras.pattern ? this.extractParams(request.pathname, extras.pattern) : {};    
+    extras.params = extras.pattern ? this.extractParams(request.pathname, extras.pattern) : {};
 
     // Process body callback
     try {
       if (body instanceof Function) body = await body(extras.params, request, this.server);
     } catch (err) {
+      if (err instanceof Response) {
+        return err;
+      }
+
+      if (err instanceof Object) {
+        let {body, headers, status, statusText} = err;
+
+        return new Response(body, {headers, status, statusText});
+      }
+
       return new Response(err.toString(), {
         status: 500,
         statusText: 'Unable to process body callback'

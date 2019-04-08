@@ -7,51 +7,32 @@
 
 # Fetch-mock-fixtures (FMF)
 
-FMF provides an easy way to mock fetch calls through Sinon stub. Unlike other modules
-that also provides this functionality, FMF provides an easy way to manage data fixtures.
+Since v2, FMF is meant to :
+- offers a BDD style syntax to configure responses in more readable-friendly way
+- provide an easy way to configure response on-the-fly
+- provide a powerful responses preset and fixtures system to avoid writing the same things again and again and ease functional tests
 
-Fixtures can be generated on the fly, stored as a file tree or grabbed in an external data source.
+While most of mockers for fetch are only meant to intercept and define the next response content, FMF goes far beyond and offers a wide range of tools.
 
-The main goal is to provide an easy way to perform API functional testing client side without the boring of running a server.
-
-**FMF is internally relying on Promise and the fetch API and linked objects (Request, Headers and Response). Be sure to use that the browser(s) used for testing implements these or is/are polyfilled.**
-
-<!-- TOC depthFrom:2 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
-
-- [Installation](#installation)
-- [Usage and configuration for mocking fetch calls](#usage-and-configuration-for-mocking-fetch-calls)
-	- [Most basic example](#most-basic-example)
-	- [Controlling server](#controlling-server)
-	- [Accessing request(s) sent to server](#accessing-requests-sent-to-server)
-	- [Setting up Response](#setting-up-response)
-	- [A more advanced example with Mocha](#a-more-advanced-example-with-mocha)
-	- [Response configuration](#response-configuration)
-		- [Data](#data)
-		- [Response init parameters](#response-init-parameters)
-	- [Using response wrappers](#using-response-wrappers)
-- [Fixtures system](#fixtures-system)
-	- [Basics](#basics)
-	- [Fixture lifecycle](#fixture-lifecycle)
-	- [Configuring fixture response data](#configuring-fixture-response-data)
-	- [Setting up fixtures resolution](#setting-up-fixtures-resolution)
-	- [Using webpack and fixtures as files](#using-webpack-and-fixtures-as-files)
-		- [Pure path resolution](#pure-path-resolution)
-		- [Pattern resolution](#pattern-resolution)
-	- [Fixture on-the-fly](#fixture-on-the-fly)
-- [Setting up multiple responses based on call count](#setting-up-multiple-responses-based-on-call-count)
-- [Bugs and improvements](#bugs-and-improvements)
-- [Changelog](#changelog)
-
-<!-- /TOC -->
+FMF will give its best with any testing framework (Mocha, Jasmine, Junit...) that allows to automate operations between each tests.
 
 ## Installation
-Installation can easily be done through NPM or Yarn. Sinon is required by FMF but not included as a dependency and must be also loaded if not already installed :
+
+Installation can easily be done through NPM or Yarn. Sinon is required by FMF to stub `fetch` but is not included in the bundle. It must be installed as well if not already present.
+
 ```bash
 npm install sinon fetch-mock-fixtures --save-dev
 
 yarn add sinon fetch-mock-fixtures --dev
 ```
-FMF aims to ease API testing, therefore it should be included as a dev dependency in projects.
+FMF should be installed as a dev dependency. It is not meant to be used as an in-app offline mode feature.
+
+**Note** : FMF is built upon Promise, Proxy and fetch API (Request, Headers, Response) that are available in all modern browsers. If you intend to run tests on older browsers (IE) or versions, you may need to polyfill them. Here's some available tools you can use :
+- Promise: [ES6-Promise](https://www.npmjs.com/package/es6-promise)
+- Fetch API : [window.fetch polyfill](https://www.npmjs.com/package/whatwg-fetch)
+- Proxy: [proxy-polyfill](https://www.npmjs.com/package/proxy-polyfill)
+
+
 
 ## Usage and configuration for mocking fetch calls
 ### Most basic example

@@ -92,5 +92,8 @@ describe('Webpack dynamic fixture example', function() {
       id: 1,
       name: 'foo'
     });
+
+    response = await fetch('/api2/users/5');
+    response.status.should.equal(404);
   })
 })
