@@ -36,11 +36,11 @@ describe('Fixtures test suite', function() {
 
       f.respond.set(response)
 
-      const responseObject = await f.getResponse(request);
+      await f.getResponse(request);
 
-      before.calledOnceWithExactly(server, request, response).should.be.true;
-      body.calledOnceWithExactly({id: '1'}, request, server).should.true;
-      after.calledOnceWithExactly(server, responseObject).should.be.true;
+      before.calledOnce.should.be.true;
+      body.calledOnce.should.true;
+      after.calledOnce.should.be.true;
     })
 
     it('should alter response from before response callback', async function() {
@@ -90,8 +90,26 @@ describe('Fixtures test suite', function() {
       response.status.should.equal(404);
     })
 
+    it('should throw by default for Error throws', async function() {
+      server
+        .respond
+        .with.preset('default')
+        .before(() => {
+          throw new TypeError()
+        });
+
+      try {
+        await fetch('/api/v1/users/1');
+        expect.fail();
+      } catch (err) {
+        err.should.be.instanceof(TypeError);
+      }
+    })
+
     it('should return a 500 error for Error throws', async function() {
-      server.respond
+      server
+        .throwOnError(false)
+        .respond
         .with.preset('default')
         .before(() => {
           throw new TypeError()
@@ -102,8 +120,26 @@ describe('Fixtures test suite', function() {
       response.statusText.should.equal('TypeError');
     })
 
+    it('should throw by default for other throws', async function() {
+      server
+        .respond
+        .with.preset('default')
+        .before(() => {
+          throw 'thing'
+        });
+
+      try {
+        await fetch('/api/v1/users/1');
+        expect.fail();
+      } catch (err) {
+        err.should.equal('thing');
+      }
+    })
+
     it('should return a 500 error for other throws', async function() {
-      server.respond
+      server
+        .throwOnError(false)
+        .respond
         .with.preset('default')
         .before(() => {
           throw 'thing'

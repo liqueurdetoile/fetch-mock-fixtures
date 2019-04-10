@@ -1,12 +1,12 @@
 import {Server} from '@';
 
-let server;
+const server = new Server();
 
 describe('Request processing test suite', function() {
   beforeEach(() => {
-    server = new Server()
     server.start();
   })
+
   afterEach(() => server.reset().stop());
 
   it('should throw if no fixtures defined', async function() {
@@ -61,14 +61,20 @@ describe('Request processing test suite', function() {
     server
       .respond
       .to.firstCall().with.body('first global call').and.status(201)
-      .to.call(2).with.body('Second global call. ** overriden by local call ** ').and.status(202)
+      .to.call(2).with.body('Second global call. ** never see. Overriden by local call ** ').and.status(202)
       .to.secondCall(true).with.body('Second local call').and.status(203)
       .to.any.with.body('Other calls').and.status(206);
 
-    (await fetch('/')).status.should.equal(201);
-    (await fetch('/')).status.should.equal(203);
-    (await fetch('/')).status.should.equal(206);
-    (await fetch('/')).status.should.equal(206);
+    let response;
+
+    response = await fetch('/');
+    response.status.should.equal(201);
+    response = await fetch('/');
+    response.status.should.equal(203);
+    response = await fetch('/');
+    response.status.should.equal(206);
+    response = await fetch('/');
+    response.status.should.equal(206);
   })
 
   it('should parse body of request for matching', async function() {
@@ -77,29 +83,31 @@ describe('Request processing test suite', function() {
       .respond.with.status('200')
       .on.body('json', false).equal({test: true})
       .respond.with.status('201')
-      .on.body('formData').equal(body => body instanceof FormData)
+      .on.body('formData', false).equal(data => data && data.get('test') === 'true')
       .respond.with.status('202')
-      .on.body('blob').equal(body => body instanceof Blob)
+      .on.body('blob').equal(blob => blob.type === 'application/x-binary')
       .respond.with.status('203');
 
     let response;
 
-    response = await fetch('/', {method: 'POST', body: 'test'});
+    response = await fetch('/text', {method: 'POST', body: 'test'});
     response.status.should.equal(200);
 
-    response = await fetch('/', {method: 'POST', body: JSON.stringify({test: true})});
+    response = await fetch('/json', {method: 'POST', body: JSON.stringify({test: true})});
     response.status.should.equal(201);
 
-    response = await fetch('/', {
+    let body = new FormData()
+    body.set('test', true)
+
+    response = await fetch('/formdata', {
       method: 'POST',
-      headers: {'content-type': 'application/x-www-form-urlencoded'},
-      body: new FormData()
+      body
     });
     response.status.should.equal(202);
 
-    response = await fetch('/', {
+    response = await fetch('/blob', {
       method: 'POST',
-      headers: {'content-type': 'image/png'},
+      headers: {'content-type': 'application/x-binary'},
       body: new Blob()
     });
     response.status.should.equal(203);

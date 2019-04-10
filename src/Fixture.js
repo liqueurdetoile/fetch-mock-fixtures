@@ -152,7 +152,9 @@ export class Fixture extends ResponseConfigurator {
     }
 
     if (err instanceof Error) {
-      return new Response(Error.captureStackTrace, {
+      if (this.server._onError === 'throw') throw err;
+      
+      return new Response(err.stack, {
         headers: {'content-type': 'text/html'},
         status: 500,
         statusText: err.__proto__.name + (err.__proto__.message ? `- ${err.__proto__.message}` : '')
@@ -164,6 +166,8 @@ export class Fixture extends ResponseConfigurator {
 
       return new Response(body, {headers, status, statusText});
     }
+
+    if (this.server._onError === 'throw') throw err;
 
     return new Response(err.toString(), {
       status: 500,
@@ -183,31 +187,34 @@ export class Fixture extends ResponseConfigurator {
       }
     }
 
-    // Destructure response
-    let {body, headers, status, statusText, ...extras} = response;
-
     // Extract params if a pattern have been set
-    extras.params = extras.pattern ? this.extractParams(request.pathname, extras.pattern) : {};
+    let params = response.pattern ? this.extractParams(request.pathname, response.pattern) : {};
 
     // Process body callback
     try {
-      if (body instanceof Function) body = await body(extras.params, request, this.server);
+      if (response.body instanceof Function) response.body = await response.body.call(this, params, {
+        request,
+        response,
+        server: this.server
+      });
     } catch (err) {
       return this._exceptionManagement(err, 'Unable to process body callback');
     }
 
     // Construct response
-    const responseObject = new Response(this.wrap(body, extras.wrapper), {headers, status, statusText});
+    let {body, headers, status, statusText, wrapper} = response;
+
+    const responseObject = new Response(this.wrap(body, wrapper), {headers, status, statusText});
 
     // Process after hook
     try {
-      if (extras.after instanceof Function) await extras.after.call(this, this.server, responseObject);
+      if (response.after instanceof Function) await response.after.call(this, this.server, responseObject);
     } catch (err) {
       return this._exceptionManagement(err, 'Unable to process after callback');
     }
 
     // Delay response
-    if (extras.delay) await this.sleep(extras.delay);
+    if (response.delay) await this.sleep(response.delay);
 
     return responseObject;
   }
