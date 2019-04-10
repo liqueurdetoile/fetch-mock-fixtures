@@ -2,7 +2,6 @@ const webpack = require('webpack');
 const path = require('path');
 const merge = require('webpack-merge');
 const base = require('./base.js');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = merge(base, {
@@ -14,7 +13,6 @@ module.exports = merge(base, {
   },
   plugins: [
     new webpack.IgnorePlugin(/fixtures/),
-    new CleanWebpackPlugin(['dist/**/*'], {root: path.resolve('./')}),
     new webpack.optimize.ModuleConcatenationPlugin(),
   //  new BundleAnalyzerPlugin()
   ]

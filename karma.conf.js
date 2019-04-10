@@ -51,12 +51,6 @@ module.exports = function (config) {
       ]
     },
 
-    coverageIstanbulReporter: {
-      reports: ['html', 'lcovonly', 'text-summary'],
-      dir: './coverage',
-      fixWebpackSourcePaths: true
-    },
-
     // web server port
     port: 9876,
 
