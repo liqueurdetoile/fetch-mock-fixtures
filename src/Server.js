@@ -14,8 +14,9 @@ import sinon from 'sinon';
  * @author Liqueur de Toile <contact@liqueurdetoile.com>
  */
 export class Server {
-  _presets = {};
   _fixtures = [];
+  _onError = 'throw';
+  _presets = {};
 
   history = new ServerHistory();
 
@@ -67,6 +68,13 @@ export class Server {
     if (this.running && resetStub) this.stub.resetHistory();
     this.history.reset();
     this._fixtures = [];
+    this.throwOnError(true);
+
+    return this;
+  }
+
+  throwOnError(throwOnError) {
+    this._onError = throwOnError ? 'throw' : 'fail500';
 
     return this;
   }
@@ -152,30 +160,50 @@ export class Server {
     if (!this._fixtures.length) throw new Error('No fixtures defined to respond to request');
 
     for (let fixture of this._fixtures) {
+      // Do not register fallback fixture
+      if (fixture._matcher === null) continue;
       if (await fixture.match(request)) matches.push(fixture);
     }
 
-    if (!matches.length) throw new Error('Unable to find a matching fixture for the current request');
-    if (matches.length === 1) return matches[0];
-    // Disambiguate default from others and returns the first
-    for (let fixture of matches) {
-      if (fixture._matcher !== null) return fixture;
+    if (!matches.length) {
+      const index = this._fixtures.findIndex(f => f._matcher === null);
+
+      if (index >= 0) return this._fixtures[index];
+
+      throw new Error('Unable to find a matching fixture for the current request and no fixture is set as fallback');
     }
+
+    if (matches.length > 1) {
+      console.warn(`FMF : Server found ${matches.length} fixtures matching the request "${request.url}". Using the first one.`); // eslint-disable-line
+    }
+
+    return matches[0];
   }
 
   async _processRequest(request, init) {
-    // Build FMFRequest object
-    request = new FMFRequest(request, init);
+    try {
+      // Build FMFRequest object
+      request = new FMFRequest(request, init);
 
-    // Locate matching fixture
-    let fixture = await this._findFixture(request);
+      // Locate matching fixture
+      let fixture = await this._findFixture(request);
 
-    let response = await fixture.getResponse(request);
+      // Prepare response
+      let response = await fixture.getResponse(request);
 
-    // Store request in history
-    this.history.push(request.clone(), response.clone());
+      // Store request in history
+      this.history.push(request.clone(), response.clone());
 
-    return response;
+      return response;
+    } catch (err) {
+      if (this._onError === 'throw') throw err;
+
+      return new Response(err.toString(), {
+        'content-type': 'text/html',
+        status: 500,
+        statusText: 'FMF error'
+      })
+    }
   }
 
   get request() {
