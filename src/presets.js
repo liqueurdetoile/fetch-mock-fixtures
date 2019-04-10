@@ -12,25 +12,6 @@ export default {
     wrapper: body => JSON.stringify(body)
   },
 
-  webpack: {
-    before: function(server, request, response) {
-      let path = this.getPath(request, response), newResponse;
-      try {
-        newResponse = require(`fixtures/${path}.fixture.js`).default;
-      } catch (err) {
-        throw server.preset(404);
-      }
-
-      newResponse = Object.assign({}, response, newResponse)
-
-      return {
-        ...newResponse,
-        headers: {'content-type': 'application/json'},
-        wrapper: body => JSON.stringify(body)
-      }
-    }
-  },
-
   204: {
     body: null,
     headers: {'content-type': 'text/html'},
