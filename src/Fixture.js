@@ -179,7 +179,7 @@ export class Fixture extends ResponseConfigurator {
 
         if (responseReplacement) response = responseReplacement;
       } catch (err) {
-        return this._exceptionManagement(err, 'Unable to process body callback');
+        return this._exceptionManagement(err, 'Unable to process before callback');
       }
     }
 
@@ -203,7 +203,7 @@ export class Fixture extends ResponseConfigurator {
     try {
       if (extras.after instanceof Function) await extras.after.call(this, this.server, responseObject);
     } catch (err) {
-      return this._exceptionManagement(err, 'Unable to process body callback');
+      return this._exceptionManagement(err, 'Unable to process after callback');
     }
 
     // Delay response
