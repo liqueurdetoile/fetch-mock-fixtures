@@ -3,17 +3,17 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl" href="../../">
-  <title data-ice="title">src/Server.js | fetch-mock-fixtures</title>
+  <title data-ice="title">src/Server.js | Fetch-mock-fixtures | Fetch API for testing</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
   <script src="script/manual.js"></script>
-<meta name="description" content="Fixtures based mocker for fetch API with BDD style configuration"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="fetch-mock-fixtures"><meta property="twitter:description" content="Fixtures based mocker for fetch API with BDD style configuration"></head>
+<link rel="stylesheet" href="./inject/css/0-styles.css"><script src="./inject/script/0-docs.js"></script><meta name="description" content="Fixtures based mocker for fetch API with BDD style configuration"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="Fetch-mock-fixtures | Fetch API for testing"><meta property="twitter:description" content="Fixtures based mocker for fetch API with BDD style configuration"></head>
 <body class="layout-container" data-ice="rootContainer">
 
 <header>
-  <a href="./">Home</a>
-  
+  <a href="./" style="display: flex; align-items: center;"><img src="./image/brand_logo.png" style="width:34px;"></a>
+  <a href="./manual/index.html" data-ice="manualHeaderLink">Manual</a>
   <a href="identifiers.html">Reference</a>
   <a href="source.html">Source</a>
   <a href="test.html" data-ice="testLink">Test</a>
@@ -63,8 +63,9 @@ import sinon from &apos;sinon&apos;;
  * @author Liqueur de Toile &lt;contact@liqueurdetoile.com&gt;
  */
 export class Server {
-  _presets = {};
   _fixtures = [];
+  _onError = &apos;throw&apos;;
+  _presets = {};
 
   history = new ServerHistory();
 
@@ -116,6 +117,13 @@ export class Server {
     if (this.running &amp;&amp; resetStub) this.stub.resetHistory();
     this.history.reset();
     this._fixtures = [];
+    this.throwOnError(true);
+
+    return this;
+  }
+
+  throwOnError(throwOnError) {
+    this._onError = throwOnError ? &apos;throw&apos; : &apos;fail500&apos;;
 
     return this;
   }
@@ -147,7 +155,13 @@ export class Server {
   }
 
   preset(name, preset = {}) {
-    return this._presets[name] || new Preset(this, name, preset);
+    if (this._presets[name]) return this._presets[name].set(preset);
+
+    let newPreset = new Preset(this, name, preset);
+
+    this._presets[name] = newPreset;
+
+    return newPreset;
   }
 
   get on() {
@@ -195,30 +209,51 @@ export class Server {
     if (!this._fixtures.length) throw new Error(&apos;No fixtures defined to respond to request&apos;);
 
     for (let fixture of this._fixtures) {
+      // Do not register fallback fixture
+      if (fixture._matcher === null) continue;
       if (await fixture.match(request)) matches.push(fixture);
     }
 
-    if (!matches.length) throw new Error(&apos;Unable to find a matching fixture for the current request&apos;);
-    if (matches.length === 1) return matches[0];
-    // Disambiguate default from others and returns the first
-    for (let fixture of matches) {
-      if (fixture._matcher !== null) return fixture;
+    if (!matches.length) {
+      const index = this._fixtures.findIndex(f =&gt; f._matcher === null);
+
+      if (index &gt;= 0) return this._fixtures[index];
+
+      throw new Error(&apos;Unable to find a matching fixture for the current request and no fixture is set as fallback&apos;);
     }
+
+    if (matches.length &gt; 1) {
+      console.warn(`FMF : Server found ${matches.length} fixtures matching the request &quot;${request.url}&quot;. Using the first one.`); // eslint-disable-line
+    }
+
+    return matches[0];
   }
 
   async _processRequest(request, init) {
-    // Build FMFRequest object
-    request = new FMFRequest(request, init);
+    try {
+      // Build FMFRequest object
+      request = new FMFRequest(request, init);
 
-    // Locate matching fixture
-    let fixture = await this._findFixture(request);
+      // Locate matching fixture
+      let fixture = await this._findFixture(request.clone());
 
-    let response = await fixture.getResponse(request);
+      // Prepare response
+      let response = await fixture.getResponse(request.clone());
 
-    // Store request in history
-    this.history.push(request.clone(), response.clone());
+      // Store request in history
+      this.history.push(request.clone(), response.clone());
 
-    return response;
+      return response;
+    } catch (err) {
+      if (this._onError === &apos;throw&apos;) throw err;
+      if (this._onError instanceof Function) return this._onError(err);
+
+      return new Response(err.toString(), {
+        &apos;content-type&apos;: &apos;text/html&apos;,
+        status: 500,
+        statusText: &apos;FMF error&apos;
+      })
+    }
   }
 
   get request() {

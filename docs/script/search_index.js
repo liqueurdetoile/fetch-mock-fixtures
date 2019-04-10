@@ -79,6 +79,30 @@ window.esdocSearchIndex = [
   ],
   [
     "",
+    "test-file/tests/units/errors.spec.js.html#lineNumber5",
+    "Errors management",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/units/errors.spec.js.html#lineNumber10",
+    "Errors management Server errors",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/units/errors.spec.js.html#lineNumber20",
+    "Errors management Server errors should be set to respond with 500 error when failing",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/units/errors.spec.js.html#lineNumber11",
+    "Errors management Server errors should be set to throw on error by default",
+    "test"
+  ],
+  [
+    "",
     "test-file/tests/units/extending.request.spec.js.html#lineNumber3",
     "Extended request test suite",
     "test"
@@ -93,6 +117,12 @@ window.esdocSearchIndex = [
     "",
     "test-file/tests/units/extending.request.spec.js.html#lineNumber16",
     "Extended request test suite should extend existing Request Object and expose parsed request properties",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/units/extending.request.spec.js.html#lineNumber28",
+    "Extended request test suite should return an FMF request as clone",
     "test"
   ],
   [
@@ -121,8 +151,44 @@ window.esdocSearchIndex = [
   ],
   [
     "",
+    "test-file/tests/units/fixtures.spec.js.html#lineNumber46",
+    "Fixtures test suite Fixture requests processing should alter response from before response callback",
+    "test"
+  ],
+  [
+    "",
     "test-file/tests/units/fixtures.spec.js.html#lineNumber24",
     "Fixtures test suite Fixture requests processing should process fixture lifecyle",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/units/fixtures.spec.js.html#lineNumber93",
+    "Fixtures test suite Fixture requests processing should return a 500 error for Error throws",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/units/fixtures.spec.js.html#lineNumber105",
+    "Fixtures test suite Fixture requests processing should return a 500 error for other throws",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/units/fixtures.spec.js.html#lineNumber71",
+    "Fixtures test suite Fixture requests processing should use a Response instance if one is thrown in fixture lifecycle",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/units/fixtures.spec.js.html#lineNumber60",
+    "Fixtures test suite Fixture requests processing should use a preset if one is thrown in fixture lifecycle",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/units/fixtures.spec.js.html#lineNumber82",
+    "Fixtures test suite Fixture requests processing should use a response object descriptor if one is thrown in fixture lifecycle",
     "test"
   ],
   [
@@ -217,7 +283,7 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/tests/functionals/requests.processing.spec.js.html#lineNumber75",
+    "test-file/tests/functionals/requests.processing.spec.js.html#lineNumber80",
     "Request processing test suite should parse body of request for matching",
     "test"
   ],
@@ -319,25 +385,25 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/tests/examples/simple.setup.and.process.spec.js.html#lineNumber8",
+    "test-file/tests/examples/simple.setup.and.process.spec.js.html#lineNumber10",
     "Simple setup and process Error management",
     "test"
   ],
   [
     "",
-    "test-file/tests/examples/webpack.dynamic.fixture.spec.js.html#lineNumber7",
+    "test-file/tests/examples/webpack.dynamic.fixture.spec.js.html#lineNumber24",
     "Webpack dynamic fixture example",
     "test"
   ],
   [
     "",
-    "test-file/tests/examples/webpack.dynamic.fixture.spec.js.html#lineNumber69",
+    "test-file/tests/examples/webpack.dynamic.fixture.spec.js.html#lineNumber86",
     "Webpack dynamic fixture example should load a fixture with pattern",
     "test"
   ],
   [
     "",
-    "test-file/tests/examples/webpack.dynamic.fixture.spec.js.html#lineNumber32",
+    "test-file/tests/examples/webpack.dynamic.fixture.spec.js.html#lineNumber49",
     "Webpack dynamic fixture example should load a fixture without pattern",
     "test"
   ],
@@ -648,6 +714,12 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "src/fixture.js~fixture#_exceptionmanagement",
+    "class/src/Fixture.js~Fixture.html#instance-method-_exceptionManagement",
+    "src/Fixture.js~Fixture#_exceptionManagement",
+    "method"
+  ],
+  [
     "src/fixture.js~fixture#_getcurrentresponseset",
     "class/src/Fixture.js~Fixture.html#instance-method-_getCurrentResponseSet",
     "src/Fixture.js~Fixture#_getCurrentResponseSet",
@@ -828,6 +900,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/server.js~server#_onerror",
+    "class/src/Server.js~Server.html#instance-member-_onError",
+    "src/Server.js~Server#_onError",
+    "member"
+  ],
+  [
     "src/server.js~server#_presets",
     "class/src/Server.js~Server.html#instance-member-_presets",
     "src/Server.js~Server#_presets",
@@ -924,6 +1002,12 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "src/server.js~server#throwonerror",
+    "class/src/Server.js~Server.html#instance-method-throwOnError",
+    "src/Server.js~Server#throwOnError",
+    "method"
+  ],
+  [
     "src/server.js~server#when",
     "class/src/Server.js~Server.html#instance-get-when",
     "src/Server.js~Server#when",
@@ -934,6 +1018,12 @@ window.esdocSearchIndex = [
     "file/src/helpers/FMFRequest.js.html",
     "src/helpers/FMFRequest.js",
     "file"
+  ],
+  [
+    "src/helpers/fmfrequest.js~fmfrequest#clone",
+    "class/src/helpers/FMFRequest.js~FMFRequest.html#instance-method-clone",
+    "src/helpers/FMFRequest.js~FMFRequest#clone",
+    "method"
   ],
   [
     "src/helpers/fmfrequest.js~fmfrequest#constructor",
@@ -1383,6 +1473,12 @@ window.esdocSearchIndex = [
     "tests/functionals/requests.processing.spec.js",
     "test-file/tests/functionals/requests.processing.spec.js.html",
     "tests/functionals/requests.processing.spec.js",
+    "testFile"
+  ],
+  [
+    "tests/units/errors.spec.js",
+    "test-file/tests/units/errors.spec.js.html",
+    "tests/units/errors.spec.js",
     "testFile"
   ],
   [

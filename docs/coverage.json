@@ -1,43 +1,45 @@
 {
-  "coverage": "7.37%",
-  "expectCount": 122,
+  "coverage": "7.14%",
+  "expectCount": 126,
   "actualCount": 9,
   "files": {
     "src/Fixture.js": {
-      "expectCount": 25,
+      "expectCount": 26,
       "actualCount": 2,
       "undocumentLines": [
-        5,
-        12,
+        6,
         13,
-        20,
+        14,
         21,
-        23,
-        27,
-        37,
-        47,
-        51,
-        61,
-        65,
-        72,
-        79,
-        86,
-        93,
-        100,
-        108,
-        112,
-        128,
-        134,
-        142,
-        191
+        22,
+        24,
+        28,
+        38,
+        48,
+        52,
+        62,
+        66,
+        73,
+        80,
+        87,
+        94,
+        101,
+        109,
+        113,
+        129,
+        135,
+        143,
+        174,
+        215
       ]
     },
     "src/helpers/FMFRequest.js": {
-      "expectCount": 2,
+      "expectCount": 3,
       "actualCount": 0,
       "undocumentLines": [
         3,
-        4
+        4,
+        16
       ]
     },
     "src/helpers/RequestMatcher.js": {
@@ -174,24 +176,26 @@
       ]
     },
     "src/Server.js": {
-      "expectCount": 21,
+      "expectCount": 23,
       "actualCount": 6,
       "undocumentLines": [
         17,
         18,
-        20,
-        22,
-        84,
-        100,
-        104,
-        114,
+        19,
+        21,
+        23,
+        76,
+        92,
+        108,
         118,
-        131,
-        139,
-        143,
-        160,
-        175,
-        179
+        128,
+        132,
+        145,
+        153,
+        157,
+        183,
+        210,
+        214
       ]
     }
   }

@@ -3,17 +3,17 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl" href="../../">
-  <title data-ice="title">src/Fixture.js | fetch-mock-fixtures</title>
+  <title data-ice="title">src/Fixture.js | Fetch-mock-fixtures | Fetch API for testing</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
   <script src="script/manual.js"></script>
-<meta name="description" content="Fixtures based mocker for fetch API with BDD style configuration"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="fetch-mock-fixtures"><meta property="twitter:description" content="Fixtures based mocker for fetch API with BDD style configuration"></head>
+<link rel="stylesheet" href="./inject/css/0-styles.css"><script src="./inject/script/0-docs.js"></script><meta name="description" content="Fixtures based mocker for fetch API with BDD style configuration"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="Fetch-mock-fixtures | Fetch API for testing"><meta property="twitter:description" content="Fixtures based mocker for fetch API with BDD style configuration"></head>
 <body class="layout-container" data-ice="rootContainer">
 
 <header>
-  <a href="./">Home</a>
-  
+  <a href="./" style="display: flex; align-items: center;"><img src="./image/brand_logo.png" style="width:34px;"></a>
+  <a href="./manual/index.html" data-ice="manualHeaderLink">Manual</a>
   <a href="identifiers.html">Reference</a>
   <a href="source.html">Source</a>
   <a href="test.html" data-ice="testLink">Test</a>
@@ -47,7 +47,8 @@
 </nav>
 
 <div class="content" data-ice="content"><h1 data-ice="title">src/Fixture.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import ResponseConfigurator from &apos;./helpers/ResponseConfigurator&apos;;
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import Preset from &apos;./Preset&apos;;
+import ResponseConfigurator from &apos;./helpers/ResponseConfigurator&apos;;
 import RequestMatcher from &apos;./helpers/RequestMatcher&apos;;
 import pathToRegexp from &apos;path-to-regexp&apos;;
 
@@ -133,7 +134,7 @@ export class Fixture extends ResponseConfigurator {
   }
 
   call(n, own) {
-    this._callnum = parseInt(n, 10) - 1;
+    this._callnum = parseInt(n, 10);
     this._ownCall = own;
 
     return this;
@@ -188,17 +189,46 @@ export class Fixture extends ResponseConfigurator {
     return path.concat(filename).join(&apos;/&apos;);
   }
 
+  async _exceptionManagement(err, defaultMessage) {
+    if (err instanceof Response) {
+      return err;
+    }
+
+    if (err instanceof Preset) {
+      let {body, headers, status, statusText} = err._any;
+
+      return new Response(body, {headers, status, statusText});
+    }
+
+    if (err instanceof Error) {
+      return new Response(Error.captureStackTrace, {
+        headers: {&apos;content-type&apos;: &apos;text/html&apos;},
+        status: 500,
+        statusText: err.__proto__.name + (err.__proto__.message ? `- ${err.__proto__.message}` : &apos;&apos;)
+      });
+    }
+
+    if (err instanceof Object) {
+      let {body, headers, status, statusText} = err;
+
+      return new Response(body, {headers, status, statusText});
+    }
+
+    return new Response(err.toString(), {
+      status: 500,
+      statusText: defaultMessage
+    });
+  }
+
   async _buildResponse(request, response) {
     // Process before hook and update response if one is returned
     if (response.before instanceof Function) {
       try {
         let responseReplacement = await response.before.call(this, this.server, request, response);
+
         if (responseReplacement) response = responseReplacement;
       } catch (err) {
-        return new Response(err.toString(), {
-          status: 500,
-          statusText: &apos;Unable to process before hook&apos;
-        });
+        return this._exceptionManagement(err, &apos;Unable to process before callback&apos;);
       }
     }
 
@@ -206,16 +236,13 @@ export class Fixture extends ResponseConfigurator {
     let {body, headers, status, statusText, ...extras} = response;
 
     // Extract params if a pattern have been set
-    extras.params = extras.pattern ? this.extractParams(request.pathname, extras.pattern) : {};    
+    extras.params = extras.pattern ? this.extractParams(request.pathname, extras.pattern) : {};
 
     // Process body callback
     try {
       if (body instanceof Function) body = await body(extras.params, request, this.server);
     } catch (err) {
-      return new Response(err.toString(), {
-        status: 500,
-        statusText: &apos;Unable to process body callback&apos;
-      });
+      return this._exceptionManagement(err, &apos;Unable to process body callback&apos;);
     }
 
     // Construct response
@@ -225,10 +252,7 @@ export class Fixture extends ResponseConfigurator {
     try {
       if (extras.after instanceof Function) await extras.after.call(this, this.server, responseObject);
     } catch (err) {
-      return new Response(err.toString(), {
-        status: 500,
-        statusText: &apos;Unable to process after hook&apos;
-      });
+      return this._exceptionManagement(err, &apos;Unable to process after callback&apos;);
     }
 
     // Delay response

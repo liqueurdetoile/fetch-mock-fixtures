@@ -3,17 +3,17 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl" href="../../">
-  <title data-ice="title">src/presets.js | fetch-mock-fixtures</title>
+  <title data-ice="title">src/presets.js | Fetch-mock-fixtures | Fetch API for testing</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
   <script src="script/manual.js"></script>
-<meta name="description" content="Fixtures based mocker for fetch API with BDD style configuration"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="fetch-mock-fixtures"><meta property="twitter:description" content="Fixtures based mocker for fetch API with BDD style configuration"></head>
+<link rel="stylesheet" href="./inject/css/0-styles.css"><script src="./inject/script/0-docs.js"></script><meta name="description" content="Fixtures based mocker for fetch API with BDD style configuration"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="Fetch-mock-fixtures | Fetch API for testing"><meta property="twitter:description" content="Fixtures based mocker for fetch API with BDD style configuration"></head>
 <body class="layout-container" data-ice="rootContainer">
 
 <header>
-  <a href="./">Home</a>
-  
+  <a href="./" style="display: flex; align-items: center;"><img src="./image/brand_logo.png" style="width:34px;"></a>
+  <a href="./manual/index.html" data-ice="manualHeaderLink">Manual</a>
   <a href="identifiers.html">Reference</a>
   <a href="source.html">Source</a>
   <a href="test.html" data-ice="testLink">Test</a>
@@ -61,57 +61,44 @@
     wrapper: body =&gt; JSON.stringify(body)
   },
 
-  webpack: {
-    before: function(server, request, response) {
-      let path = this.getPath(request, response), newResponse;
-      try {
-        newResponse = require(`fixtures/${path}.fixture.js`).default;
-      } catch (err) {
-        return {status:404}
-      }
-
-      newResponse = Object.assign({}, response, newResponse)
-
-      return {
-        ...newResponse,
-        headers: {&apos;content-type&apos;: &apos;application/json&apos;},
-        wrapper: body =&gt; JSON.stringify(body)
-      }
-    }
-  },
-
   204: {
     body: null,
+    headers: {&apos;content-type&apos;: &apos;text/html&apos;},
     status: 204,
     statusText: &apos;No Content&apos;
   },
 
   400: {
     body: null,
+    headers: {&apos;content-type&apos;: &apos;text/html&apos;},
     status: 400,
     statusText: &apos;Bad Request&apos;
   },
 
   401: {
     body: null,
+    headers: {&apos;content-type&apos;: &apos;text/html&apos;},
     status: 401,
     statusText: &apos;Unauthorized&apos;
   },
 
   403: {
     body: null,
+    headers: {&apos;content-type&apos;: &apos;text/html&apos;},
     status: 403,
     statusText: &apos;Forbidden&apos;
   },
 
   404: {
     body: null,
+    headers: {&apos;content-type&apos;: &apos;text/html&apos;},
     status: 404,
     statusText: &apos;Not found&apos;
   },
 
   500: {
     body: null,
+    headers: {&apos;content-type&apos;: &apos;text/html&apos;},
     status: 500,
     statusText: &apos;Internal Server Error&apos;
   }

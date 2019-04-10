@@ -3,17 +3,17 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl">
-  <title data-ice="title">Home | fetch-mock-fixtures</title>
+  <title data-ice="title">Home | Fetch-mock-fixtures | Fetch API for testing</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
   <script src="script/manual.js"></script>
-<meta name="description" content="Fixtures based mocker for fetch API with BDD style configuration"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="fetch-mock-fixtures"><meta property="twitter:description" content="Fixtures based mocker for fetch API with BDD style configuration"></head>
+<link rel="stylesheet" href="./inject/css/0-styles.css"><script src="./inject/script/0-docs.js"></script><meta name="description" content="Fixtures based mocker for fetch API with BDD style configuration"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="Fetch-mock-fixtures | Fetch API for testing"><meta property="twitter:description" content="Fixtures based mocker for fetch API with BDD style configuration"></head>
 <body class="layout-container" data-ice="rootContainer">
 
 <header>
-  <a href="./">Home</a>
-  
+  <a href="./" style="display: flex; align-items: center;"><img src="./image/brand_logo.png" style="width:34px;"></a>
+  <a href="./manual/index.html" data-ice="manualHeaderLink">Manual</a>
   <a href="identifiers.html">Reference</a>
   <a href="source.html">Source</a>
   <a href="test.html" data-ice="testLink">Test</a>
@@ -49,58 +49,30 @@
 <div class="content" data-ice="content"><div data-ice="index" class="github-markdown"><p><a href="https://travis-ci.org/liqueurdetoile/fetch-mock-fixtures"><img src="https://travis-ci.org/liqueurdetoile/fetch-mock-fixtures.svg?branch=master" alt="Build Status"></a>
 <a href="https://coveralls.io/github/liqueurdetoile/fetch-mock-fixtures?branch=master"><img src="https://coveralls.io/repos/github/liqueurdetoile/fetch-mock-fixtures/badge.svg?branch=master" alt="Coverage Status"></a>
 <a href="https://github.com/semantic-release/semantic-release"><img src="https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg" alt="semantic-release"></a>
-<a href="https://liqueurdetoile.github.io/fetch-mock-fixtures/"><img src="https://liqueurdetoile.github.io/fetch-mock-fixtures/badge.svg" alt="Documentation"></a></p>
+<a href="https://liqueurdetoile.github.io/fetch-mock-fixtures/"><img src="https://liqueurdetoile.github.io/fetch-mock-fixtures/badge.svg" alt="Documentation"></a> <a href="https://greenkeeper.io/"><img src="https://badges.greenkeeper.io/liqueurdetoile/fetch-mock-fixtures.svg" alt="Greenkeeper badge"></a></p>
 <p></p><p><a href="https://liqueurdetoile.com" target="\_blank"><img src="https://hosting.liqueurdetoile.com/logo_lqdt.png"></a></p>
 
 <p></p>
-<h1 id="fetch-mock-fixtures--fmf-">Fetch-mock-fixtures (FMF)</h1><p>FMF provides an easy way to mock fetch calls through Sinon stub. Unlike other modules
-that also provides this functionality, FMF provides an easy way to manage data fixtures.</p>
-<p>Fixtures can be generated on the fly, stored as a file tree or grabbed in an external data source.</p>
-<p>The main goal is to provide an easy way to perform API functional testing client side without the boring of running a server.</p>
-<p><strong>FMF is internally relying on Promise and the fetch API and linked objects (Request, Headers and Response). Be sure to use that the browser(s) used for testing implements these or is/are polyfilled.</strong></p>
-<p><!-- TOC depthFrom:2 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
-</p>
+<h1 id="fetch-mock-fixtures--fmf-">Fetch-mock-fixtures (FMF)</h1><p>Since v2, FMF is meant to :</p>
 <ul>
-<li><a href="#installation">Installation</a></li>
-<li><a href="#usage-and-configuration-for-mocking-fetch-calls">Usage and configuration for mocking fetch calls</a><ul>
-<li><a href="#most-basic-example">Most basic example</a></li>
-<li><a href="#controlling-server">Controlling server</a></li>
-<li><a href="#accessing-requests-sent-to-server">Accessing request(s) sent to server</a></li>
-<li><a href="#setting-up-response">Setting up Response</a></li>
-<li><a href="#a-more-advanced-example-with-mocha">A more advanced example with Mocha</a></li>
-<li><a href="#response-configuration">Response configuration</a><ul>
-<li><a href="#data">Data</a></li>
-<li><a href="#response-init-parameters">Response init parameters</a></li>
+<li>offers a BDD style syntax to configure responses in more readable-friendly way</li>
+<li>provide an easy way to configure response on-the-fly</li>
+<li>provide a powerful responses preset and fixtures system to avoid writing the same things again and again and ease functional tests</li>
 </ul>
-</li>
-<li><a href="#using-response-wrappers">Using response wrappers</a></li>
-</ul>
-</li>
-<li><a href="#fixtures-system">Fixtures system</a><ul>
-<li><a href="#basics">Basics</a></li>
-<li><a href="#fixture-lifecycle">Fixture lifecycle</a></li>
-<li><a href="#configuring-fixture-response-data">Configuring fixture response data</a></li>
-<li><a href="#setting-up-fixtures-resolution">Setting up fixtures resolution</a></li>
-<li><a href="#using-webpack-and-fixtures-as-files">Using webpack and fixtures as files</a><ul>
-<li><a href="#pure-path-resolution">Pure path resolution</a></li>
-<li><a href="#pattern-resolution">Pattern resolution</a></li>
-</ul>
-</li>
-<li><a href="#fixture-on-the-fly">Fixture on-the-fly</a></li>
-</ul>
-</li>
-<li><a href="#setting-up-multiple-responses-based-on-call-count">Setting up multiple responses based on call count</a></li>
-<li><a href="#bugs-and-improvements">Bugs and improvements</a></li>
-<li><a href="#changelog">Changelog</a></li>
-</ul>
-<p><!-- /TOC -->
-</p>
-<h2 id="installation">Installation</h2><p>Installation can easily be done through NPM or Yarn. Sinon is required by FMF but not included as a dependency and must be also loaded if not already installed :</p>
+<p>While most of mockers for fetch are only meant to intercept and define the next response content, FMF goes far beyond and offers a wide range of tools.</p>
+<p>FMF will give its best with any testing framework (Mocha, Jasmine, Junit...) that allows to automate operations between each tests.</p>
+<h2 id="installation">Installation</h2><p>Installation can easily be done through NPM or Yarn. Sinon is required by FMF to stub <code>fetch</code> but is not included in the bundle. It must be installed as well if not already present.</p>
 <pre><code class="lang-bash"><code class="source-code prettyprint">npm install sinon fetch-mock-fixtures --save-dev
 
 yarn add sinon fetch-mock-fixtures --dev</code>
 </code></pre>
-<p>FMF aims to ease API testing, therefore it should be included as a dev dependency in projects.</p>
+<p>FMF should be installed as a dev dependency. It is not meant to be used as an in-app offline mode feature.</p>
+<p><strong>Note</strong> : FMF is built upon Promise, Proxy and fetch API (Request, Headers, Response) that are available in all modern browsers. If you intend to run tests on older browsers (IE) or versions, you may need to polyfill them. Here&apos;s some available tools you can use :</p>
+<ul>
+<li>Promise: <a href="https://www.npmjs.com/package/es6-promise">ES6-Promise</a></li>
+<li>Fetch API : <a href="https://www.npmjs.com/package/whatwg-fetch">window.fetch polyfill</a></li>
+<li>Proxy: <a href="https://www.npmjs.com/package/proxy-polyfill">proxy-polyfill</a></li>
+</ul>
 <h2 id="usage-and-configuration-for-mocking-fetch-calls">Usage and configuration for mocking fetch calls</h2><h3 id="most-basic-example">Most basic example</h3><pre><code class="lang-javascript"><code class="source-code prettyprint">// Create a server
 import {Server} from &apos;fetch-mock-fixtures&apos;;
 

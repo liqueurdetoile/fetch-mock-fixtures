@@ -3,17 +3,17 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl" href="../../../">
-  <title data-ice="title">tests/functionals/requests.processing.spec.js | fetch-mock-fixtures</title>
+  <title data-ice="title">tests/functionals/requests.processing.spec.js | Fetch-mock-fixtures | Fetch API for testing</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
   <script src="script/manual.js"></script>
-<meta name="description" content="Fixtures based mocker for fetch API with BDD style configuration"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="fetch-mock-fixtures"><meta property="twitter:description" content="Fixtures based mocker for fetch API with BDD style configuration"></head>
+<link rel="stylesheet" href="./inject/css/0-styles.css"><script src="./inject/script/0-docs.js"></script><meta name="description" content="Fixtures based mocker for fetch API with BDD style configuration"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="Fetch-mock-fixtures | Fetch API for testing"><meta property="twitter:description" content="Fixtures based mocker for fetch API with BDD style configuration"></head>
 <body class="layout-container" data-ice="rootContainer">
 
 <header>
-  <a href="./">Home</a>
-  
+  <a href="./" style="display: flex; align-items: center;"><img src="./image/brand_logo.png" style="width:34px;"></a>
+  <a href="./manual/index.html" data-ice="manualHeaderLink">Manual</a>
   <a href="identifiers.html">Reference</a>
   <a href="source.html">Source</a>
   <a href="test.html" data-ice="testLink">Test</a>
@@ -49,14 +49,14 @@
 <div class="content" data-ice="content"><h1 data-ice="title">tests/functionals/requests.processing.spec.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import {Server} from &apos;@&apos;;
 
-let server;
+const server = new Server();
 
 describe(&apos;Request processing test suite&apos;, function() {
   beforeEach(() =&gt; {
-    server = new Server()
     server.start();
   })
-  afterEach(() =&gt; server.stop());
+
+  afterEach(() =&gt; server.reset().stop());
 
   it(&apos;should throw if no fixtures defined&apos;, async function() {
     try {
@@ -108,17 +108,22 @@ describe(&apos;Request processing test suite&apos;, function() {
 
   it(&apos;should return ordered responses&apos;, async function() {
     server
-      .respond.to.firstCall().with.body(&apos;first global call&apos;)
-      .respond.to.call(2).with.body(&apos;Second global call. ** Will never see ** &apos;)
-      .respond.to.secondCall(true).with.body(&apos;Second local call&apos;)
-      .respond.with.body(&apos;Other calls&apos;);
+      .respond
+      .to.firstCall().with.body(&apos;first global call&apos;).and.status(201)
+      .to.call(2).with.body(&apos;Second global call. ** never see. Overriden by local call ** &apos;).and.status(202)
+      .to.secondCall(true).with.body(&apos;Second local call&apos;).and.status(203)
+      .to.any.with.body(&apos;Other calls&apos;).and.status(206);
 
-    await fetch(&apos;/&apos;);
-    await fetch(&apos;/&apos;);
-    await fetch(&apos;/&apos;);
-    await fetch(&apos;/&apos;);
+    let response;
 
-
+    response = await fetch(&apos;/&apos;);
+    response.status.should.equal(201);
+    response = await fetch(&apos;/&apos;);
+    response.status.should.equal(203);
+    response = await fetch(&apos;/&apos;);
+    response.status.should.equal(206);
+    response = await fetch(&apos;/&apos;);
+    response.status.should.equal(206);
   })
 
   it(&apos;should parse body of request for matching&apos;, async function() {
@@ -127,29 +132,31 @@ describe(&apos;Request processing test suite&apos;, function() {
       .respond.with.status(&apos;200&apos;)
       .on.body(&apos;json&apos;, false).equal({test: true})
       .respond.with.status(&apos;201&apos;)
-      .on.body(&apos;formData&apos;).equal(body =&gt; body instanceof FormData)
+      .on.body(&apos;formData&apos;, false).equal(data =&gt; data &amp;&amp; data.get(&apos;test&apos;) === &apos;true&apos;)
       .respond.with.status(&apos;202&apos;)
-      .on.body(&apos;blob&apos;).equal(body =&gt; body instanceof Blob)
+      .on.body(&apos;blob&apos;).equal(blob =&gt; blob.type === &apos;application/x-binary&apos;)
       .respond.with.status(&apos;203&apos;);
 
     let response;
 
-    response = await fetch(&apos;/&apos;, {method: &apos;POST&apos;, body: &apos;test&apos;});
+    response = await fetch(&apos;/text&apos;, {method: &apos;POST&apos;, body: &apos;test&apos;});
     response.status.should.equal(200);
 
-    response = await fetch(&apos;/&apos;, {method: &apos;POST&apos;, body: JSON.stringify({test: true})});
+    response = await fetch(&apos;/json&apos;, {method: &apos;POST&apos;, body: JSON.stringify({test: true})});
     response.status.should.equal(201);
 
-    response = await fetch(&apos;/&apos;, {
+    let body = new FormData()
+    body.set(&apos;test&apos;, true)
+
+    response = await fetch(&apos;/formdata&apos;, {
       method: &apos;POST&apos;,
-      headers: {&apos;content-type&apos;: &apos;application/x-www-form-urlencoded&apos;},
-      body: new FormData()
+      body
     });
     response.status.should.equal(202);
 
-    response = await fetch(&apos;/&apos;, {
+    response = await fetch(&apos;/blob&apos;, {
       method: &apos;POST&apos;,
-      headers: {&apos;content-type&apos;: &apos;image/png&apos;},
+      headers: {&apos;content-type&apos;: &apos;application/x-binary&apos;},
       body: new Blob()
     });
     response.status.should.equal(203);
