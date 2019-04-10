@@ -7,7 +7,7 @@ describe('Request processing test suite', function() {
     server = new Server()
     server.start();
   })
-  afterEach(() => server.stop());
+  afterEach(() => server.reset().stop());
 
   it('should throw if no fixtures defined', async function() {
     try {
@@ -59,17 +59,16 @@ describe('Request processing test suite', function() {
 
   it('should return ordered responses', async function() {
     server
-      .respond.to.firstCall().with.body('first global call')
-      .respond.to.call(2).with.body('Second global call. ** Will never see ** ')
-      .respond.to.secondCall(true).with.body('Second local call')
-      .respond.with.body('Other calls');
+      .respond
+      .to.firstCall().with.body('first global call').and.status(201)
+      .to.call(2).with.body('Second global call. ** overriden by local call ** ').and.status(202)
+      .to.secondCall(true).with.body('Second local call').and.status(203)
+      .to.any.with.body('Other calls').and.status(206);
 
-    await fetch('/');
-    await fetch('/');
-    await fetch('/');
-    await fetch('/');
-
-
+    (await fetch('/')).status.should.equal(201);
+    (await fetch('/')).status.should.equal(203);
+    (await fetch('/')).status.should.equal(206);
+    (await fetch('/')).status.should.equal(206);
   })
 
   it('should parse body of request for matching', async function() {

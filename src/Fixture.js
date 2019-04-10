@@ -85,7 +85,7 @@ export class Fixture extends ResponseConfigurator {
   }
 
   call(n, own) {
-    this._callnum = parseInt(n, 10) - 1;
+    this._callnum = parseInt(n, 10);
     this._ownCall = own;
 
     return this;
