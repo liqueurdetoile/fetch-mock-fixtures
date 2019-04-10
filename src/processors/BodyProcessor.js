@@ -16,16 +16,41 @@ export default class BodyProcessor extends AbstractProcessor {
       let requestValue, passed = false;
 
       // Try to decode body
-      try {
-        requestValue = await request.clone()[this._type]();
-      } catch (err) {
-        if (this.warn) {
-          console.warn( //eslint-disable-line
-            'Unable to decode body.\nThis should be harmless if using different decoder between fixtures in the same run.\n',
-            `Failed decoding method: ${this._type}\n`,
-            err
-          );
-        }
+      switch (this._type.toLowerCase()) {
+        case 'text':
+          try {
+            requestValue = await request.clone().text();
+          } catch (err) {
+            if(this._warn) console.warn('Unable to parse body as blob'); // eslint-disable-line
+            return false;
+          }
+          break;
+        case 'json':
+          try {
+            requestValue = await request.clone().json();
+          } catch (err) {
+            if(this._warn) console.warn('Unable to parse body as JSON'); // eslint-disable-line
+            return false;
+          }
+          break;
+        case 'formdata':
+          try {
+            requestValue = await request.clone().formData();
+          } catch (err) {
+            if(this._warn) console.warn('Unable to parse body as FormData'); // eslint-disable-line
+            return false;
+          }
+          break;
+        case 'blob':
+          try {
+            requestValue = await request.clone().blob();
+          } catch (err) {
+            if(this._warn) console.warn('Unable to parse body as Blob'); // eslint-disable-line
+            return false;
+          }
+          break;
+        default:
+          throw new Error('Unknown body decoder callback')
       }
 
       if (expected instanceof Function) passed = await expected(requestValue, this._key, request);
