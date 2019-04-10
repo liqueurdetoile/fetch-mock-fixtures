@@ -186,10 +186,10 @@ export class Server {
       request = new FMFRequest(request, init);
 
       // Locate matching fixture
-      let fixture = await this._findFixture(request);
+      let fixture = await this._findFixture(request.clone());
 
       // Prepare response
-      let response = await fixture.getResponse(request);
+      let response = await fixture.getResponse(request.clone());
 
       // Store request in history
       this.history.push(request.clone(), response.clone());
@@ -197,6 +197,7 @@ export class Server {
       return response;
     } catch (err) {
       if (this._onError === 'throw') throw err;
+      if (this._onError instanceof Function) return this._onError(err);
 
       return new Response(err.toString(), {
         'content-type': 'text/html',
