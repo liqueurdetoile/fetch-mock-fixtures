@@ -1,32 +1,34 @@
 import Server from '@';
-import PouchDB from 'pouchdb';
 
 const server = new Server();
-let db;
 
-describe('Webpack dynamic fixture example', function() {
-  before(async () => {
-    // Create data set
-    db = new PouchDB('test');
+// Callback to dynamically fetch fixture file based on path
+const fetchFixture = function(server, request, response) {
+  const path = this.getPath(request, response)
+  let newResponse;
 
-    await db.put({
-      _id: '1',
-      id: 1,
-      name: 'foo'
-    });
+  try {
+    newResponse = require(`fixtures/${path}.fixture.js`).default;
+  } catch (err) {
+    throw server.preset(404);
+  }
 
-    await db.put({
-      _id: '2',
-      id: 2,
-      name: 'bar'
-    });
+  newResponse = Object.assign({}, response, newResponse)
 
-    server.start().respond.with.preset('webpack');
+  return {
+    ...newResponse,
+    headers: {'content-type': 'application/json'},
+    wrapper: body => JSON.stringify(body)
+  }
+}
+
+describe('Webpack require dynamic fixture example', function() {
+  before(() => {
+    server.start().respond.before(fetchFixture);
   })
 
   after(() => {
     server.stop();
-    db.destroy();
   })
 
   it('should load a fixture without pattern', async function() {
