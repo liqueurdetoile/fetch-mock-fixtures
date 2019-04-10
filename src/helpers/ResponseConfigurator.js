@@ -18,7 +18,7 @@ export class ResponseConfigurator {
   }
 
   get on() {
-    return this.server.on;
+    return this.server ? this.server.on : this;
   }
 
   get when() {
@@ -26,7 +26,7 @@ export class ResponseConfigurator {
   }
 
   get respond() {
-    return this.server._processRespond(this);
+    return this.server ? this.server._processRespond(this) : this;
   }
 
   get with() {
