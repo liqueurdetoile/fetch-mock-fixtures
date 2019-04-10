@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/liqueurdetoile/fetch-mock-fixtures.svg?branch=master)](https://travis-ci.org/liqueurdetoile/fetch-mock-fixtures)
 [![Coverage Status](https://coveralls.io/repos/github/liqueurdetoile/fetch-mock-fixtures/badge.svg?branch=master)](https://coveralls.io/github/liqueurdetoile/fetch-mock-fixtures?branch=master)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
-[![Documentation](https://liqueurdetoile.github.io/fetch-mock-fixtures/badge.svg)](https://liqueurdetoile.github.io/fetch-mock-fixtures/)
+[![Documentation](https://liqueurdetoile.github.io/fetch-mock-fixtures/badge.svg)](https://liqueurdetoile.github.io/fetch-mock-fixtures/) [![Greenkeeper badge](https://badges.greenkeeper.io/liqueurdetoile/fetch-mock-fixtures.svg)](https://greenkeeper.io/)
 
 <p align="center"><a href="https://liqueurdetoile.com" target="\_blank"><img src="https://hosting.liqueurdetoile.com/logo_lqdt.png" alt="Liqueur de Toile"></a></p>
 
