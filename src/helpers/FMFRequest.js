@@ -8,6 +8,7 @@ export class FMFRequest extends Request {
 
     for (let key in parts) {
       Object.defineProperty(this, key, {
+        enumerable: true,
         value: parts[key]
       })
     }

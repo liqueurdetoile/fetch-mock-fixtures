@@ -62,10 +62,7 @@ const fetchFixture = async function(params, {request, response, server}) {
       doc = await db.get(_id);
     } catch (err) {
       if (err.status === 404) {
-        doc = {
-          _id,
-          ...data
-        }
+        doc = Object.assign({_id}, data);
       } else throw server.preset(err.status);
     }
 

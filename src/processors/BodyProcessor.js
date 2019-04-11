@@ -41,6 +41,14 @@ export default class BodyProcessor extends AbstractProcessor {
             return false;
           }
           break;
+        case 'arraybuffer':
+          try {
+            requestValue = await request.clone().arrayBuffer();
+          } catch (err) {
+            if(this._warn) console.warn('Unable to parse body as Blob'); // eslint-disable-line
+            return false;
+          }
+          break;
         case 'blob':
           try {
             requestValue = await request.clone().blob();

@@ -153,7 +153,7 @@ export class Fixture extends ResponseConfigurator {
 
     if (err instanceof Error) {
       if (this.server._onError === 'throw') throw err;
-      
+
       return new Response(err.stack, {
         headers: {'content-type': 'text/html'},
         status: 500,

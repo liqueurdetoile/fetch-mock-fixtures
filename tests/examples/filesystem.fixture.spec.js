@@ -13,13 +13,17 @@ const fetchFixture = function(server, request, response) {
     throw server.preset(404);
   }
 
-  newResponse = Object.assign({}, response, newResponse)
+  newResponse = Object.assign(
+    {},
+    response,
+    newResponse,
+    {
+      headers: {'content-type': 'application/json'},
+      wrapper: body => JSON.stringify(body)
+    }
+  );
 
-  return {
-    ...newResponse,
-    headers: {'content-type': 'application/json'},
-    wrapper: body => JSON.stringify(body)
-  }
+  return newResponse;
 }
 
 describe('Webpack require dynamic fixture example', function() {

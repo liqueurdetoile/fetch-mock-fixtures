@@ -97,7 +97,7 @@ describe('Request processing test suite', function() {
     response.status.should.equal(201);
 
     let body = new FormData()
-    body.set('test', true)
+    body.append('test', true)
 
     response = await fetch('/formdata', {
       method: 'POST',
