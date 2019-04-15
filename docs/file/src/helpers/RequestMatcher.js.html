@@ -32,11 +32,12 @@
   <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Fixture.js~Fixture.html">Fixture</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Preset.js~Preset.html">Preset</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Server.js~Server.html">Server</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#helpers">helpers</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/FMFRequest.js~FMFRequest.html">FMFRequest</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#helpers">helpers</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/FMFException.js~FMFException.html">FMFException</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/FMFRequest.js~FMFRequest.html">FMFRequest</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/RequestMatcher.js~RequestMatcher.html">RequestMatcher</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html">ResponseConfigurator</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/ServerHistory.js~ServerHistory.html">ServerHistory</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#processors">processors</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/AbstractProcessor.js~AbstractProcessor.html">AbstractProcessor</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#processors">processors</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/BaseProcessor.js~BaseProcessor.html">BaseProcessor</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/BodyProcessor.js~BodyProcessor.html">BodyProcessor</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/BooleanProcessor.js~BooleanProcessor.html">BooleanProcessor</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/HeadersProcessor.js~HeadersProcessor.html">HeadersProcessor</a></span></span></li>
@@ -52,6 +53,7 @@ import BodyProcessor from &apos;@/processors/BodyProcessor&apos;;
 import HeadersProcessor from &apos;@/processors/HeadersProcessor&apos;;
 import QueryProcessor from &apos;@/processors/QueryProcessor&apos;;
 import StringProcessor from &apos;@/processors/StringProcessor&apos;;
+import FMFException from &apos;@/helpers/FMFException&apos;;
 
 export class RequestMatcher {
   _processors = [];
@@ -68,6 +70,10 @@ export class RequestMatcher {
 
   get on() {
     return this.fixture.on;
+  }
+
+  get and() {
+    return this;
   }
 
   get respond() {
@@ -96,9 +102,11 @@ export class RequestMatcher {
       case &apos;host&apos;:
       case &apos;hostname&apos;:
       case &apos;integrity&apos;:
+      case &apos;mode&apos;:
       case &apos;method&apos;:
       case &apos;password&apos;:
       case &apos;pathname&apos;:
+      case &apos;port&apos;:
       case &apos;protocol&apos;:
       case &apos;redirect&apos;:
       case &apos;referrer&apos;:
@@ -108,7 +116,7 @@ export class RequestMatcher {
         processor = new StringProcessor(key, this)
         break;
       default:
-        throw new Error(&apos;Unsupported request parameter to check&apos;);
+        throw new FMFException(`Unsupported request parameter &quot;${key}&quot; to check`);
     }
 
     this._processors.push(processor);
@@ -116,8 +124,8 @@ export class RequestMatcher {
     return processor;
   }
 
-  body(type = &apos;text&apos;, warn = true) {
-    const processor = new BodyProcessor(&apos;headers&apos;, this, type, warn);
+  body(type = &apos;text&apos;) {
+    const processor = new BodyProcessor(&apos;headers&apos;, this, type);
 
     this._processors.push(processor);
 
@@ -132,22 +140,20 @@ export class RequestMatcher {
     return processor;
   }
 
-  async match(request) {
+  async match(request, server) {
     for (let processor of this._processors) {
-      let passed = await processor.process(request);
-      if (!passed) return false;
+      if (!(await processor.process(request, server))) return false;
     }
 
     return true;
   }
 
-  request(conditions) {
+  equal(conditions) {
     if (!(conditions instanceof Object)) throw new Error(&apos;Request conditions set must be an object&apos;);
 
     for (let key in conditions) {
       if (!this._requestKeys.includes(key)) {
-        console.warn(`Invalid key &quot;${key}&quot; for request conditions configuration`); //eslint-disable-line
-        continue;
+        throw new FMFException(`Invalid key &quot;${key}&quot; for request conditions configuration`);
       }
 
       // Run setters

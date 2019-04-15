@@ -32,11 +32,12 @@
   <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Fixture.js~Fixture.html">Fixture</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Preset.js~Preset.html">Preset</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Server.js~Server.html">Server</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#helpers">helpers</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/FMFRequest.js~FMFRequest.html">FMFRequest</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#helpers">helpers</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/FMFException.js~FMFException.html">FMFException</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/FMFRequest.js~FMFRequest.html">FMFRequest</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/RequestMatcher.js~RequestMatcher.html">RequestMatcher</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html">ResponseConfigurator</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/ServerHistory.js~ServerHistory.html">ServerHistory</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#processors">processors</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/AbstractProcessor.js~AbstractProcessor.html">AbstractProcessor</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#processors">processors</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/BaseProcessor.js~BaseProcessor.html">BaseProcessor</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/BodyProcessor.js~BodyProcessor.html">BodyProcessor</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/BooleanProcessor.js~BooleanProcessor.html">BooleanProcessor</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/HeadersProcessor.js~HeadersProcessor.html">HeadersProcessor</a></span></span></li>
@@ -47,7 +48,7 @@
 </nav>
 
 <div class="content" data-ice="content"><h1 data-ice="title">tests/units/history.spec.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import Server from &apos;@&apos;;
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import {FMFRequest, Server} from &apos;@&apos;;
 
 const server = new Server();
 
@@ -65,13 +66,33 @@ describe(&apos;History test suite&apos;, function() {
   after(() =&gt; server.stop())
 
   it(&apos;should get last request and response&apos;, function() {
-    server.request.should.be.instanceof(Request);
+    server.request.should.be.instanceof(FMFRequest);
+    server.request.pathname.should.equal(&apos;/5&apos;);
     server.response.should.be.instanceof(Response);
+  })
+
+  it(&apos;should get nth request&apos;, function() {
+    server.history.first.request.pathname.should.equal(&apos;/1&apos;);
+    server.history.second.request.pathname.should.equal(&apos;/2&apos;);
+    server.history.third.request.pathname.should.equal(&apos;/3&apos;);
+    server.history.request.atCall(4).pathname.should.equal(&apos;/4&apos;);
   })
 
   it(&apos;should have cloned response before body parsing&apos;, function() {
     server.history.response.first.should.be.instanceof(Response);
     server.history.response.first.bodyUsed.should.be.false;
+  })
+
+  it(&apos;should return all history, all requests or all responses&apos;, function() {
+    server.history.all().length.should.equal(5);
+    server.history.all()[0].request.should.exist;
+    server.history.all()[0].response.should.exist;
+
+    server.history.request.all().length.should.equal(5);
+    server.history.request.all()[0].should.be.instanceof(FMFRequest);
+
+    server.history.response.all().length.should.equal(5);
+    server.history.response.all()[0].should.be.instanceof(Response);
   })
 })
 </code></pre>

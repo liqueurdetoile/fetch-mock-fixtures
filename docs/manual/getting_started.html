@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../">
+  <title data-ice="title">Manual | Fetch-mock-fixtures | Fetch API for testing</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<link rel="stylesheet" href="./inject/css/0-styles.css"><script src="./inject/script/0-docs.js"></script><meta name="description" content="Fixtures based mocker for fetch API with BDD style configuration"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="Fetch-mock-fixtures | Fetch API for testing"><meta property="twitter:description" content="Fixtures based mocker for fetch API with BDD style configuration"></head>
+<body class="layout-container manual-root" data-ice="rootContainer">
+
+<header>
+  <a href="./" style="display: flex; align-items: center;"><img src="./image/brand_logo.png" style="width:34px;"></a>
+  <a href="./manual/index.html" data-ice="manualHeaderLink">Manual</a>
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  <a href="test.html" data-ice="testLink">Test</a>
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/liqueurdetoile/fetch-mock-fixtures.git"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div class="manual-toc-root">
+  
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/getting_started.html"><a href="manual/getting_started.html" data-ice="link">Getting started</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/server.html"><a href="manual/server.html" data-ice="link">Server control, configuration and history</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/server.html"><a href="manual/server.html#server-control" data-ice="link">Server control</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/server.html"><a href="manual/server.html#adding-fixtures-to-server" data-ice="link">Adding fixtures to server</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/server.html"><a href="manual/server.html#error-management" data-ice="link">Error management</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/server.html"><a href="manual/server.html#server--39-s-history" data-ice="link">Server&apos;s history</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/response-configuration.html"><a href="manual/response-configuration.html" data-ice="link">Response configuration</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/response-configuration.html"><a href="manual/response-configuration.html#configure-response" data-ice="link">Configure response</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/response-configuration.html"><a href="manual/response-configuration.html#default-response-values" data-ice="link">Default response values</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/response-configuration.html"><a href="manual/response-configuration.html#response-configuration-persistence" data-ice="link">Response configuration persistence</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/response-configuration.html"><a href="manual/response-configuration.html#available-response-options" data-ice="link">Available response options</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/response-configuration.html"><a href="manual/response-configuration.html#using-wrappers" data-ice="link">Using wrappers</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/response-configuration.html"><a href="manual/response-configuration.html#using-patterns" data-ice="link">Using patterns</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/presets.html"><a href="manual/presets.html" data-ice="link">Presets</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/presets.html"><a href="manual/presets.html#using-presets" data-ice="link">Using presets</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/presets.html"><a href="manual/presets.html#adding-editing-a-preset" data-ice="link">adding/editing a preset</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/presets.html"><a href="manual/presets.html#preset-scope" data-ice="link">Preset scope</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/presets.html"><a href="manual/presets.html#built-in-presets" data-ice="link">Built-in presets</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/fixtures.html"><a href="manual/fixtures.html" data-ice="link">Fixture in-depth</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/fixtures.html"><a href="manual/fixtures.html#request-processing" data-ice="link">Request processing</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/fixtures.html"><a href="manual/fixtures.html#fixture-lifecycle" data-ice="link">Fixture lifecycle</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/fixtures.html"><a href="manual/fixtures.html#fixture-hooks-and-body-callback" data-ice="link">Fixture hooks and body callback</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/fixtures.html"><a href="manual/fixtures.html#-code-before--code--hook" data-ice="link">before hook</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/fixtures.html"><a href="manual/fixtures.html#body-callback" data-ice="link">Body callback</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/fixtures.html"><a href="manual/fixtures.html#-code-after--code--hook" data-ice="link">after hook</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/fixtures.html"><a href="manual/fixtures.html#hooks-scope" data-ice="link">Hooks scope</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/fixtures.html"><a href="manual/fixtures.html#adding-fixtures-to-server" data-ice="link">Adding fixtures to server</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/requests-matcher.html"><a href="manual/requests-matcher.html" data-ice="link">Requests matcher</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/requests-matcher.html"><a href="manual/requests-matcher.html#matching-request-properties" data-ice="link">Matching request properties</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/requests-matcher.html"><a href="manual/requests-matcher.html#matching-calls-count" data-ice="link">Matching calls count</a></li>
+</ul>
+  </div>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><div class="github-markdown" data-ice="content"><h1 id="getting-started">Getting started</h1><p><strong> For installation tips, please consult <a href="./manual/index.html#installation">documentation home</a>. </strong></p>
+<p><strong> Note on ES6 syntax : </strong> In all examples here, we&apos;re using ES6 modules import and, sometimes, the new spread operator. We&apos;re also using async/await syntax for asynchronous calls. All are supported natively by modern browsers.</p>
+<p>FMF itself have been transpiled with Babel to support only alive browsers that share more than 5% of the market. It means that FMF is really not designed to test apps which are willing to support really old browsers as it will certainly be unsupported by them when testing. Nevertheless, you can still try to tweak the build to increase browsers coverage but with no guarantee.</p>
+<p>At its most basic intend, FMF can be simply used as a convenient way to trap a remote <code>fetch</code> call and send a given response. For this to work, the server must have been started and provided with the response. At the end, the server must be stopped in order to resume on native <code>fetch</code> API.</p>
+<p>Here&apos;s a simple example :</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Server from &apos;fetch-mock-fixtures&apos;;
+
+const server = new Server();
+
+server.start();
+
+server.respond.with.body(&apos;Hello world !&apos;);
+
+let response = await fetch(/** can have any arguments */);
+let data = await response.text();
+
+console.log(data); // will output Hello world !
+
+// What about the next call ?
+response = await fetch(/** can have any arguments */);
+data = await response.text();
+
+console.log(data); // will output Hello world again !
+
+server.stop();</code>
+</code></pre>
+<p>Nothing too fancy here : we&apos;re starting the server, setting it to respond with &apos;Hello world !&apos;, running fetch twice and stop the server.</p>
+<p>Behind the scene, we have :</p>
+<ul>
+<li>overridden <code>window.fetch</code> to intercept calls</li>
+<li>Set up a single fixture to the server that matches all incoming requests</li>
+<li>restored <code>window.fetch</code> to its native state</li>
+</ul>
+<p>Please read other parts of the documentation for a more advanced usage.</p>
+</div>
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

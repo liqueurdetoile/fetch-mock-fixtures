@@ -32,11 +32,12 @@
   <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Fixture.js~Fixture.html">Fixture</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Preset.js~Preset.html">Preset</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Server.js~Server.html">Server</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#helpers">helpers</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/FMFRequest.js~FMFRequest.html">FMFRequest</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#helpers">helpers</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/FMFException.js~FMFException.html">FMFException</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/FMFRequest.js~FMFRequest.html">FMFRequest</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/RequestMatcher.js~RequestMatcher.html">RequestMatcher</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html">ResponseConfigurator</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/ServerHistory.js~ServerHistory.html">ServerHistory</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#processors">processors</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/AbstractProcessor.js~AbstractProcessor.html">AbstractProcessor</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#processors">processors</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/BaseProcessor.js~BaseProcessor.html">BaseProcessor</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/BodyProcessor.js~BodyProcessor.html">BodyProcessor</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/BooleanProcessor.js~BooleanProcessor.html">BooleanProcessor</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/HeadersProcessor.js~HeadersProcessor.html">HeadersProcessor</a></span></span></li>
@@ -47,13 +48,13 @@
 </nav>
 
 <div class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {ResponseConfigurator} from &apos;<span><a href="file/src/helpers/ResponseConfigurator.js.html#lineNumber1">fetch-mock-fixtures/src/helpers/ResponseConfigurator.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {ResponseConfigurator} from &apos;<span><a href="file/src/helpers/ResponseConfigurator.js.html#lineNumber16">fetch-mock-fixtures/src/helpers/ResponseConfigurator.js</a></span>&apos;</code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
-  
-  
-  <span data-ice="source">| <span><a href="file/src/helpers/ResponseConfigurator.js.html#lineNumber1">source</a></span></span>
+  <span data-ice="version">| version 1.0.0</span>
+  <span data-ice="since">| since 2.0.0</span>
+  <span data-ice="source">| <span><a href="file/src/helpers/ResponseConfigurator.js.html#lineNumber16">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -73,7 +74,13 @@
 
   
   
-  
+  <div class="description" data-ice="description"><p>The response configurator class is common to fixtures and presets and offers a set
+of tools to configure response content and behavior.</p>
+<p>This class should be seen as an abstract class as it uses <code>_getCurrentResponseSet</code> of its
+child to locate the response to configure</p>
+<p><strong> Note : </strong> The response configurator does not contain logic to follow
+calls count.</p>
+</div>
   
 
   
@@ -105,18 +112,19 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">()</span>
+          <span class="code" data-ice="name"><span><a href="class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">(server: <span><a href="class/src/Server.js~Server.html">Server</a></span>)</span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>Response configurator constructor</p>
+</div>
       </div>
     </td>
     <td>
-      
-      
+      <span class="version" data-ice="version">version 1.0.0</span>
+      <span class="since" data-ice="since">since   2.0.0</span>
     </td>
   </tr>
 </tbody>
@@ -140,18 +148,48 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html#instance-get-and">and</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html#instance-get-and">and</a></span></span><span class="code" data-ice="signature">: <span><a href="class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html">ResponseConfigurator</a></span>: <span>*</span></span>
         </p>
       </div>
       <div>
         
         
+        <div data-ice="description"><p>Sugar for chaining</p>
+</div>
+      </div>
+    </td>
+    <td>
+      <span class="version" data-ice="version">version 1.0.0</span>
+      <span class="since" data-ice="since">since   2.0.0</span>
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html#instance-member-server">server</a></span></span><span class="code" data-ice="signature">: <span><a href="class/src/Server.js~Server.html">Server</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null">null</a></span></span>
+        </p>
+      </div>
+      <div>
         
+        
+        <div data-ice="description"><p>Stores the server instance</p>
+</div>
       </div>
     </td>
     <td>
       
-      
+      <span class="since" data-ice="since">since 2.0.0</span>
     </td>
   </tr>
 <tr data-ice="target">
@@ -168,130 +206,19 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html#instance-get-on">on</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html#instance-get-with">with</a></span></span><span class="code" data-ice="signature">: <span><a href="class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html">ResponseConfigurator</a></span>: <span>*</span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>Sugar for chaining</p>
+</div>
       </div>
     </td>
     <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      <span class="kind" data-ice="kind">get</span>
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          
-          <span class="code" data-ice="name"><span><a href="class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html#instance-get-respond">respond</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          
-          <span class="code" data-ice="name"><span><a href="class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html#instance-member-server">server</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      <span class="kind" data-ice="kind">get</span>
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          
-          <span class="code" data-ice="name"><span><a href="class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html#instance-get-when">when</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      <span class="kind" data-ice="kind">get</span>
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          
-          <span class="code" data-ice="name"><span><a href="class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html#instance-get-with">with</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        
-      </div>
-    </td>
-    <td>
-      
-      
+      <span class="version" data-ice="version">version 1.0.0</span>
+      <span class="since" data-ice="since">since   2.0.0</span>
     </td>
   </tr>
 </tbody>
@@ -320,13 +247,13 @@
       <div>
         
         
-        <div data-ice="description"><p>Ordered independent response for fixture.</p>
+        <div data-ice="description"><p>Default response for fixture or preset.</p>
 </div>
       </div>
     </td>
     <td>
       
-      
+      <span class="since" data-ice="since">since 2.0.0</span>
     </td>
   </tr>
 <tr data-ice="target">
@@ -343,18 +270,19 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html#instance-member-_responseKeys">_responseKeys</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html#instance-member-_responseKeys">_responseKeys</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>Allowed response keys</p>
+</div>
       </div>
     </td>
     <td>
       
-      
+      <span class="since" data-ice="since">since 2.0.0</span>
     </td>
   </tr>
 </tbody>
@@ -434,18 +362,19 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html#instance-method-body">body</a></span></span><span class="code" data-ice="signature">(body: <span>*</span>): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html#instance-method-body">body</a></span></span><span class="code" data-ice="signature">(body: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">Function</a></span>): <span><a href="class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html">ResponseConfigurator</a></span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>Set the response body</p>
+</div>
       </div>
     </td>
     <td>
-      
-      
+      <span class="version" data-ice="version">version 1.0.0</span>
+      <span class="since" data-ice="since">since   2.0.0</span>
     </td>
   </tr>
 <tr data-ice="target">
@@ -462,18 +391,19 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html#instance-method-delay">delay</a></span></span><span class="code" data-ice="signature">(delay: <span>*</span>): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html#instance-method-delay">delay</a></span></span><span class="code" data-ice="signature">(delay: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span>): <span><a href="class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html">ResponseConfigurator</a></span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>Set the time the server will wait before sending back response</p>
+</div>
       </div>
     </td>
     <td>
-      
-      
+      <span class="version" data-ice="version">version 1.0.0</span>
+      <span class="since" data-ice="since">since   2.0.0</span>
     </td>
   </tr>
 <tr data-ice="target">
@@ -546,46 +476,19 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html#instance-method-preset">preset</a></span></span><span class="code" data-ice="signature">(name: <span>*</span>, preset: <span>*</span>): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html#instance-method-set">set</a></span></span><span class="code" data-ice="signature">(params: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>): <span>*</span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>Set the response parameters based on the object provided</p>
+</div>
       </div>
     </td>
     <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          
-          <span class="code" data-ice="name"><span><a href="class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html#instance-method-set">set</a></span></span><span class="code" data-ice="signature">(response: {}): <span>*</span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        
-      </div>
-    </td>
-    <td>
-      
-      
+      <span class="version" data-ice="version">version 1.0.0</span>
+      <span class="since" data-ice="since">since   2.0.0</span>
     </td>
   </tr>
 <tr data-ice="target">
@@ -690,22 +593,41 @@
     
     
     
-    <span class="code" data-ice="name">constructor</span><span class="code" data-ice="signature">()</span>
+    <span class="code" data-ice="name">constructor</span><span class="code" data-ice="signature">(server: <span><a href="class/src/Server.js~Server.html">Server</a></span>)</span>
     <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/helpers/ResponseConfigurator.js.html#lineNumber12">source</a></span></span>
+      <span class="version" data-ice="version">version 1.0.0</span>
+      <span class="since" data-ice="since">since   2.0.0</span>
+      <span data-ice="source"><span><a href="file/src/helpers/ResponseConfigurator.js.html#lineNumber45">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Response configurator constructor</p>
+</div>
 
   
 
-  <div data-ice="properties">
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">server</td>
+      <td data-ice="type" class="code"><span><a href="class/src/Server.js~Server.html">Server</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: null</li></ul></td>
+      <td data-ice="description"><p>Server instance</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
 </div>
 
   
@@ -736,111 +658,39 @@
     
     
     
-    <span class="code" data-ice="name">and</span><span class="code" data-ice="signature">: <span>*</span></span>
+    <span class="code" data-ice="name">and</span><span class="code" data-ice="signature">: <span><a href="class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html">ResponseConfigurator</a></span>: <span>*</span></span>
     <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/helpers/ResponseConfigurator.js.html#lineNumber36">source</a></span></span>
+      <span class="version" data-ice="version">version 1.0.0</span>
+      <span class="since" data-ice="since">since   2.0.0</span>
+      <span data-ice="source"><span><a href="file/src/helpers/ResponseConfigurator.js.html#lineNumber65">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Sugar for chaining</p>
+</div>
 
   
 
   <div data-ice="properties">
 </div>
 
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html">ResponseConfigurator</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>this</p>
+</td>
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
 </div>
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-get-on">
-    <span class="access" data-ice="access">public</span>
-    
-    <span class="kind" data-ice="kind">get</span>
-    
-    
-    
-    <span class="code" data-ice="name">on</span><span class="code" data-ice="signature">: <span>*</span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/helpers/ResponseConfigurator.js.html#lineNumber20">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  
-
-  
-
-  <div data-ice="properties">
-</div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-get-respond">
-    <span class="access" data-ice="access">public</span>
-    
-    <span class="kind" data-ice="kind">get</span>
-    
-    
-    
-    <span class="code" data-ice="name">respond</span><span class="code" data-ice="signature">: <span>*</span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/helpers/ResponseConfigurator.js.html#lineNumber28">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  
-
-  
-
-  <div data-ice="properties">
-</div>
-
-  
+  </div>
 
   
 
@@ -865,61 +715,19 @@
     
     
     
-    <span class="code" data-ice="name">server</span><span class="code" data-ice="signature">: <span>*</span></span>
+    <span class="code" data-ice="name">server</span><span class="code" data-ice="signature">: <span><a href="class/src/Server.js~Server.html">Server</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null">null</a></span></span>
     <span class="right-info">
       
-      
-      <span data-ice="source"><span><a href="file/src/helpers/ResponseConfigurator.js.html#lineNumber2">source</a></span></span>
+      <span class="since" data-ice="since">since 2.0.0</span>
+      <span data-ice="source"><span><a href="file/src/helpers/ResponseConfigurator.js.html#lineNumber22">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
-
-  
-
-  <div data-ice="properties">
+  <div data-ice="description"><p>Stores the server instance</p>
 </div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-get-when">
-    <span class="access" data-ice="access">public</span>
-    
-    <span class="kind" data-ice="kind">get</span>
-    
-    
-    
-    <span class="code" data-ice="name">when</span><span class="code" data-ice="signature">: <span>*</span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/helpers/ResponseConfigurator.js.html#lineNumber24">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  
 
   
 
@@ -951,25 +759,39 @@
     
     
     
-    <span class="code" data-ice="name">with</span><span class="code" data-ice="signature">: <span>*</span></span>
+    <span class="code" data-ice="name">with</span><span class="code" data-ice="signature">: <span><a href="class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html">ResponseConfigurator</a></span>: <span>*</span></span>
     <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/helpers/ResponseConfigurator.js.html#lineNumber32">source</a></span></span>
+      <span class="version" data-ice="version">version 1.0.0</span>
+      <span class="since" data-ice="since">since   2.0.0</span>
+      <span data-ice="source"><span><a href="file/src/helpers/ResponseConfigurator.js.html#lineNumber55">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Sugar for chaining</p>
+</div>
 
   
 
   <div data-ice="properties">
 </div>
 
-  
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html">ResponseConfigurator</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>this</p>
+</td>
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
 
   
 
@@ -999,16 +821,16 @@
     <span class="code" data-ice="name">_any</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
     <span class="right-info">
       
-      
-      <span data-ice="source"><span><a href="file/src/helpers/ResponseConfigurator.js.html#lineNumber9">source</a></span></span>
+      <span class="since" data-ice="since">since 2.0.0</span>
+      <span data-ice="source"><span><a href="file/src/helpers/ResponseConfigurator.js.html#lineNumber30">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  <div data-ice="description"><p>Ordered independent response for fixture. It will be used
-when ordered responses are not matching current call count.</p>
+  <div data-ice="description"><p>Default response for fixture or preset. For fixture, it will be used
+when ordered responses are not matching defined call counts.</p>
 </div>
 
   
@@ -1041,18 +863,19 @@ when ordered responses are not matching current call count.</p>
     
     
     
-    <span class="code" data-ice="name">_responseKeys</span><span class="code" data-ice="signature">: <span>*</span></span>
+    <span class="code" data-ice="name">_responseKeys</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span></span>
     <span class="right-info">
       
-      
-      <span data-ice="source"><span><a href="file/src/helpers/ResponseConfigurator.js.html#lineNumber10">source</a></span></span>
+      <span class="since" data-ice="since">since 2.0.0</span>
+      <span data-ice="source"><span><a href="file/src/helpers/ResponseConfigurator.js.html#lineNumber37">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Allowed response keys</p>
+</div>
 
   
 
@@ -1091,7 +914,7 @@ when ordered responses are not matching current call count.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/helpers/ResponseConfigurator.js.html#lineNumber138">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/helpers/ResponseConfigurator.js.html#lineNumber189">source</a></span></span>
     </span>
   </h3>
 
@@ -1162,7 +985,7 @@ when ordered responses are not matching current call count.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/helpers/ResponseConfigurator.js.html#lineNumber125">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/helpers/ResponseConfigurator.js.html#lineNumber176">source</a></span></span>
     </span>
   </h3>
 
@@ -1229,18 +1052,19 @@ when ordered responses are not matching current call count.</p>
     
     
     
-    <span class="code" data-ice="name">body</span><span class="code" data-ice="signature">(body: <span>*</span>): <span>*</span></span>
+    <span class="code" data-ice="name">body</span><span class="code" data-ice="signature">(body: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">Function</a></span>): <span><a href="class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html">ResponseConfigurator</a></span></span>
     <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/helpers/ResponseConfigurator.js.html#lineNumber56">source</a></span></span>
+      <span class="version" data-ice="version">version 1.0.0</span>
+      <span class="since" data-ice="since">since   2.0.0</span>
+      <span data-ice="source"><span><a href="file/src/helpers/ResponseConfigurator.js.html#lineNumber99">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Set the response body</p>
+</div>
 
   
 
@@ -1254,9 +1078,10 @@ when ordered responses are not matching current call count.</p>
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">body</td>
-      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">Function</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>[description]</p>
+</td>
     </tr>
 </tbody>
   </table>
@@ -1268,8 +1093,9 @@ when ordered responses are not matching current call count.</p>
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
-          
+          <td class="return-type code" data-ice="returnType"><span><a href="class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html">ResponseConfigurator</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>this</p>
+</td>
         </tr>
       </tbody>
     </table>
@@ -1300,18 +1126,19 @@ when ordered responses are not matching current call count.</p>
     
     
     
-    <span class="code" data-ice="name">delay</span><span class="code" data-ice="signature">(delay: <span>*</span>): <span>*</span></span>
+    <span class="code" data-ice="name">delay</span><span class="code" data-ice="signature">(delay: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span>): <span><a href="class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html">ResponseConfigurator</a></span></span>
     <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/helpers/ResponseConfigurator.js.html#lineNumber65">source</a></span></span>
+      <span class="version" data-ice="version">version 1.0.0</span>
+      <span class="since" data-ice="since">since   2.0.0</span>
+      <span data-ice="source"><span><a href="file/src/helpers/ResponseConfigurator.js.html#lineNumber116">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Set the time the server will wait before sending back response</p>
+</div>
 
   
 
@@ -1325,9 +1152,10 @@ when ordered responses are not matching current call count.</p>
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">delay</td>
-      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>Delay in ms</p>
+</td>
     </tr>
 </tbody>
   </table>
@@ -1339,8 +1167,9 @@ when ordered responses are not matching current call count.</p>
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
-          
+          <td class="return-type code" data-ice="returnType"><span><a href="class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html">ResponseConfigurator</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>this</p>
+</td>
         </tr>
       </tbody>
     </table>
@@ -1360,7 +1189,7 @@ when ordered responses are not matching current call count.</p>
 
   
 
-  
+  <div data-ice="see"><h4>See:</h4><ul><li><span><span><a href="class/src/Fixture.js~Fixture.html#instance-method-sleep">Fixture#sleep</a></span></span></li></ul></div>
   
 </div>
 <div class="detail" data-ice="detail">
@@ -1375,7 +1204,7 @@ when ordered responses are not matching current call count.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/helpers/ResponseConfigurator.js.html#lineNumber74">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/helpers/ResponseConfigurator.js.html#lineNumber125">source</a></span></span>
     </span>
   </h3>
 
@@ -1446,7 +1275,7 @@ when ordered responses are not matching current call count.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/helpers/ResponseConfigurator.js.html#lineNumber116">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/helpers/ResponseConfigurator.js.html#lineNumber167">source</a></span></span>
     </span>
   </h3>
 
@@ -1506,83 +1335,6 @@ when ordered responses are not matching current call count.</p>
   
 </div>
 <div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-method-preset">
-    <span class="access" data-ice="access">public</span>
-    
-    
-    
-    
-    
-    <span class="code" data-ice="name">preset</span><span class="code" data-ice="signature">(name: <span>*</span>, preset: <span>*</span>): <span>*</span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/helpers/ResponseConfigurator.js.html#lineNumber16">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  
-
-  
-
-  <div data-ice="properties"><div data-ice="properties">
-  <h4 data-ice="title">Params:</h4>
-  <table class="params">
-    <thead>
-    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
-    </thead>
-    <tbody>
-    
-    <tr data-ice="property" data-depth="0">
-      <td data-ice="name" class="code" data-depth="0">name</td>
-      <td data-ice="type" class="code"><span>*</span></td>
-      <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
-    </tr>
-<tr data-ice="property" data-depth="0">
-      <td data-ice="name" class="code" data-depth="0">preset</td>
-      <td data-ice="type" class="code"><span>*</span></td>
-      <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
-    </tr>
-</tbody>
-  </table>
-</div>
-</div>
-
-  <div class="return-params" data-ice="returnParams">
-    <h4>Return:</h4>
-    <table>
-      <tbody>
-        <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
-          
-        </tr>
-      </tbody>
-    </table>
-    <div data-ice="returnProperties">
-</div>
-  </div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
-<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="instance-method-set">
     <span class="access" data-ice="access">public</span>
     
@@ -1590,18 +1342,19 @@ when ordered responses are not matching current call count.</p>
     
     
     
-    <span class="code" data-ice="name">set</span><span class="code" data-ice="signature">(response: {}): <span>*</span></span>
+    <span class="code" data-ice="name">set</span><span class="code" data-ice="signature">(params: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>): <span>*</span></span>
     <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/helpers/ResponseConfigurator.js.html#lineNumber40">source</a></span></span>
+      <span class="version" data-ice="version">version 1.0.0</span>
+      <span class="since" data-ice="since">since   2.0.0</span>
+      <span data-ice="source"><span><a href="file/src/helpers/ResponseConfigurator.js.html#lineNumber77">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Set the response parameters based on the object provided</p>
+</div>
 
   
 
@@ -1614,11 +1367,12 @@ when ordered responses are not matching current call count.</p>
     <tbody>
     
     <tr data-ice="property" data-depth="0">
-      <td data-ice="name" class="code" data-depth="0">response</td>
-      <td data-ice="type" class="code">{}</td>
+      <td data-ice="name" class="code" data-depth="0">params</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
       <td data-ice="appendix"><ul><li>optional</li>
 <li>default: {}</li></ul></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>Parameters</p>
+</td>
     </tr>
 </tbody>
   </table>
@@ -1651,7 +1405,7 @@ when ordered responses are not matching current call count.</p>
 
   
 
-  
+  <div data-ice="see"><h4>See:</h4><ul><li><span><span><a href="class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html#instance-member-_responseKeys">ResponseConfigurator#_responseKeys</a></span> for available keys</span></li></ul></div>
   
 </div>
 <div class="detail" data-ice="detail">
@@ -1666,7 +1420,7 @@ when ordered responses are not matching current call count.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/helpers/ResponseConfigurator.js.html#lineNumber89">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/helpers/ResponseConfigurator.js.html#lineNumber140">source</a></span></span>
     </span>
   </h3>
 
@@ -1737,7 +1491,7 @@ when ordered responses are not matching current call count.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/helpers/ResponseConfigurator.js.html#lineNumber98">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/helpers/ResponseConfigurator.js.html#lineNumber149">source</a></span></span>
     </span>
   </h3>
 
@@ -1808,7 +1562,7 @@ when ordered responses are not matching current call count.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/helpers/ResponseConfigurator.js.html#lineNumber107">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/helpers/ResponseConfigurator.js.html#lineNumber158">source</a></span></span>
     </span>
   </h3>
 

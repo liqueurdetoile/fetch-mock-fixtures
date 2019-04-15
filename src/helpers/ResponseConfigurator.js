@@ -1,58 +1,101 @@
+import FMFException from '@/helpers/FMFException';
+
+/**
+ * The response configurator class is common to fixtures and presets and offers a set
+ * of tools to configure response content and behavior.
+ *
+ * This class should be seen as an abstract class as it uses `_getCurrentResponseSet` of its
+ * child to locate the response to configure
+ *
+ * ** Note : ** The response configurator does not contain logic to follow
+ * calls count.
+ *
+ * @version 1.0.0
+ * @since 2.0.0
+ */
 export class ResponseConfigurator {
+  /**
+   * Stores the server instance
+   * @type {Server|null}
+   * @since 2.0.0
+   */
   server = null;
 
   /**
-   * Ordered independent response for fixture. It will be used
-   * when ordered responses are not matching current call count.
+   * Default response for fixture or preset. For fixture, it will be used
+   * when ordered responses are not matching defined call counts.
    * @type {Object}
+   * @since 2.0.0
    */
   _any = {};
+
+  /**
+   * Allowed response keys
+   * @type {Array}
+   * @since 2.0.0
+   */
   _responseKeys = ['body', 'delay', 'headers', 'status', 'statusText', 'wrapper', 'pattern', 'before', 'after'];
 
-  constructor(server) {
+  /**
+   * Response configurator constructor
+   * @version 1.0.0
+   * @since   2.0.0
+   * @param   {Server}  [server=null] Server instance
+   */
+  constructor(server = null) {
     this.server = server;
   }
 
-  preset(name, preset) {
-    return this.server.preset(name, preset);
-  }
-
-  get on() {
-    return this.server ? this.server.on : this;
-  }
-
-  get when() {
-    return this.server.on;
-  }
-
-  get respond() {
-    return this.server ? this.server._processRespond(this) : this;
-  }
-
+  /**
+   * Sugar for chaining
+   * @version 1.0.0
+   * @since   2.0.0
+   * @return  {ResponseConfigurator}  this
+   */
   get with() {
     return this;
   }
 
+  /**
+   * Sugar for chaining
+   * @version 1.0.0
+   * @since   2.0.0
+   * @return  {ResponseConfigurator}  this
+   */
   get and() {
     return this;
   }
 
-  set(response = {}) {
-    if (!(response instanceof Object)) throw new Error('Response set must be an object');
+  /**
+   * Set the response parameters based on the object provided
+   * @version 1.0.0
+   * @since   2.0.0
+   * @param   {Object}  [params={}] Parameters
+   * @see {@link ResponseConfigurator#_responseKeys} for available keys
+   * @throw {FMFException} If a key is not valid
+   */
+  set(params = {}) {
+    if (!(params instanceof Object)) throw new Error('Response set must be an object');
 
-    for (let key in response) {
+    for (let key in params) {
       if (!this._responseKeys.includes(key)) {
-        console.warn(`Invalid key "${key}" for response set configuration`); //eslint-disable-line
-        continue;
+        throw new FMFException(`Invalid key "${key}" for response set configuration`);
       }
 
       // Run setters
-      this[key](response[key]);
+      this[key](params[key]);
     }
 
     return this;
   }
 
+  /**
+   * Set the response body
+   * @version 1.0.0
+   * @since   2.0.0
+   * @param   {String|Function}  body [description]
+   * @return  {ResponseConfigurator}  this
+   */
   body(body) {
     let response = this._getCurrentResponseSet();
 
@@ -62,6 +105,14 @@ export class ResponseConfigurator {
     return this;
   }
 
+  /**
+   * Set the time the server will wait before sending back response
+   * @version 1.0.0
+   * @since   2.0.0
+   * @param   {Number}  delay Delay in ms
+   * @return  {ResponseConfigurator}  this
+   * @see {@link Fixture#sleep}
+   */
   delay(delay) {
     let response = this._getCurrentResponseSet();
 
@@ -80,8 +131,8 @@ export class ResponseConfigurator {
 
     let response = this._getCurrentResponseSet();
 
-    if (headers) response.headers = headers;
-    else delete response.headers;
+    if (headers === false) delete response.headers;
+    else response.headers = headers;
 
     return this;
   }
@@ -98,8 +149,8 @@ export class ResponseConfigurator {
   statusText(text) {
     let response = this._getCurrentResponseSet();
 
-    if (text) response.statusText = text;
-    else delete response.statusText;
+    if (text === false) delete response.statusText;
+    else response.statusText = text;
 
     return this;
   }
@@ -107,8 +158,8 @@ export class ResponseConfigurator {
   wrapper(wrapper) {
     let response = this._getCurrentResponseSet();
 
-    if (wrapper) response.wrapper = wrapper;
-    else delete response.wrapper;
+    if (wrapper === false) delete response.wrapper;
+    else response.wrapper = wrapper;
 
     return this;
   }
@@ -116,8 +167,8 @@ export class ResponseConfigurator {
   pattern(pattern) {
     let response = this._getCurrentResponseSet();
 
-    if (pattern) response.pattern = pattern;
-    else delete response.pattern;
+    if (pattern === false) delete response.pattern;
+    else response.pattern = pattern;
 
     return this;
   }
@@ -129,8 +180,8 @@ export class ResponseConfigurator {
 
     let response = this._getCurrentResponseSet();
 
-    if (cb) response.before = cb;
-    else delete response.before;
+    if (cb === false) delete response.before;
+    else response.before = cb;
 
     return this;
   }
@@ -142,8 +193,8 @@ export class ResponseConfigurator {
 
     let response = this._getCurrentResponseSet();
 
-    if (cb) response.after = cb;
-    else delete response.after;
+    if (cb === false) delete response.after;
+    else response.after = cb;
 
     return this;
   }

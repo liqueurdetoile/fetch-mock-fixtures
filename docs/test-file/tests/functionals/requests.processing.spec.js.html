@@ -32,11 +32,12 @@
   <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Fixture.js~Fixture.html">Fixture</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Preset.js~Preset.html">Preset</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Server.js~Server.html">Server</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#helpers">helpers</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/FMFRequest.js~FMFRequest.html">FMFRequest</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#helpers">helpers</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/FMFException.js~FMFException.html">FMFException</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/FMFRequest.js~FMFRequest.html">FMFRequest</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/RequestMatcher.js~RequestMatcher.html">RequestMatcher</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html">ResponseConfigurator</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/ServerHistory.js~ServerHistory.html">ServerHistory</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#processors">processors</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/AbstractProcessor.js~AbstractProcessor.html">AbstractProcessor</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#processors">processors</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/BaseProcessor.js~BaseProcessor.html">BaseProcessor</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/BodyProcessor.js~BodyProcessor.html">BodyProcessor</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/BooleanProcessor.js~BooleanProcessor.html">BooleanProcessor</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/HeadersProcessor.js~HeadersProcessor.html">HeadersProcessor</a></span></span></li>
@@ -52,14 +53,17 @@
 const server = new Server();
 
 describe(&apos;Request processing test suite&apos;, function() {
-  beforeEach(() =&gt; {
+  before(() =&gt; {
     server.start();
   })
 
-  afterEach(() =&gt; server.reset().stop());
+  afterEach(() =&gt; server.reset());
+
+  after(() =&gt; server.stop());
 
   it(&apos;should throw if no fixtures defined&apos;, async function() {
     try {
+      server.warnOnError(false);
       await fetch(&apos;/&apos;);
     } catch (err) {
       err.should.be.instanceof(Error);
@@ -128,14 +132,22 @@ describe(&apos;Request processing test suite&apos;, function() {
 
   it(&apos;should parse body of request for matching&apos;, async function() {
     server
-      .on.body(&apos;text&apos;).equal(&apos;test&apos;)
+      .when.pathname.equal(&apos;/text&apos;)
+      .and.body(&apos;text&apos;).equal(&apos;test&apos;)
       .respond.with.status(&apos;200&apos;)
-      .on.body(&apos;json&apos;, false).equal({test: true})
-      .respond.with.status(&apos;201&apos;)
-      .on.body(&apos;formData&apos;, false).equal(data =&gt; data &amp;&amp; data.get(&apos;test&apos;) === &apos;true&apos;)
-      .respond.with.status(&apos;202&apos;)
-      .on.body(&apos;blob&apos;).equal(blob =&gt; blob.type === &apos;application/x-binary&apos;)
-      .respond.with.status(&apos;203&apos;);
+      .when.pathname.equal(&apos;/json&apos;)
+      .and.body(&apos;json&apos;).equal({test: true})
+      .respond.with.status(&apos;200&apos;)
+      .when.pathname.equal(&apos;/formdata&apos;)
+      .and.body(&apos;formData&apos;).equal(data =&gt; data instanceof FormData)
+      .respond.with.status(&apos;200&apos;)
+      .when.pathname.equal(&apos;/blob&apos;)
+      .and.body(&apos;blob&apos;).equal(blob =&gt; blob instanceof Blob)
+      .respond.with.status(&apos;200&apos;)
+      .when.pathname.equal(&apos;/arraybuffer&apos;)
+      .and.body(&apos;arrayBuffer&apos;).equal(ab =&gt; ab instanceof ArrayBuffer)
+      .respond.with.status(&apos;200&apos;)
+      .fallback.to.preset(400);
 
     let response;
 
@@ -143,23 +155,27 @@ describe(&apos;Request processing test suite&apos;, function() {
     response.status.should.equal(200);
 
     response = await fetch(&apos;/json&apos;, {method: &apos;POST&apos;, body: JSON.stringify({test: true})});
-    response.status.should.equal(201);
+    response.status.should.equal(200);
 
-    let body = new FormData()
-    body.set(&apos;test&apos;, true)
-
+    let body = new FormData();
+    body.append(&apos;test&apos;, true);
     response = await fetch(&apos;/formdata&apos;, {
       method: &apos;POST&apos;,
       body
     });
-    response.status.should.equal(202);
+    response.status.should.equal(200);
 
     response = await fetch(&apos;/blob&apos;, {
       method: &apos;POST&apos;,
-      headers: {&apos;content-type&apos;: &apos;application/x-binary&apos;},
       body: new Blob()
     });
-    response.status.should.equal(203);
+    response.status.should.equal(200);
+
+    response = await fetch(&apos;/arraybuffer&apos;, {
+      method: &apos;POST&apos;,
+      body: new ArrayBuffer()
+    });
+    response.status.should.equal(200);
   })
 })
 </code></pre>

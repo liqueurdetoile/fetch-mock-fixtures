@@ -32,11 +32,12 @@
   <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Fixture.js~Fixture.html">Fixture</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Preset.js~Preset.html">Preset</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Server.js~Server.html">Server</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#helpers">helpers</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/FMFRequest.js~FMFRequest.html">FMFRequest</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#helpers">helpers</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/FMFException.js~FMFException.html">FMFException</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/FMFRequest.js~FMFRequest.html">FMFRequest</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/RequestMatcher.js~RequestMatcher.html">RequestMatcher</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html">ResponseConfigurator</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/ServerHistory.js~ServerHistory.html">ServerHistory</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#processors">processors</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/AbstractProcessor.js~AbstractProcessor.html">AbstractProcessor</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#processors">processors</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/BaseProcessor.js~BaseProcessor.html">BaseProcessor</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/BodyProcessor.js~BodyProcessor.html">BodyProcessor</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/BooleanProcessor.js~BooleanProcessor.html">BooleanProcessor</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/HeadersProcessor.js~HeadersProcessor.html">HeadersProcessor</a></span></span></li>
@@ -47,13 +48,13 @@
 </nav>
 
 <div class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {RequestMatcher} from &apos;<span><a href="file/src/helpers/RequestMatcher.js.html#lineNumber7">fetch-mock-fixtures/src/helpers/RequestMatcher.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {RequestMatcher} from &apos;<span><a href="file/src/helpers/RequestMatcher.js.html#lineNumber8">fetch-mock-fixtures/src/helpers/RequestMatcher.js</a></span>&apos;</code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
   
   
-  <span data-ice="source">| <span><a href="file/src/helpers/RequestMatcher.js.html#lineNumber7">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/helpers/RequestMatcher.js.html#lineNumber8">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -127,6 +128,34 @@
   <tbody>
   
   <tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      <span class="kind" data-ice="kind">get</span>
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/helpers/RequestMatcher.js~RequestMatcher.html#instance-get-and">and</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
     <td>
       <span class="access" data-ice="access">public</span>
       
@@ -293,7 +322,35 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/helpers/RequestMatcher.js~RequestMatcher.html#instance-method-body">body</a></span></span><span class="code" data-ice="signature">(type: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, warn: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span>): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/helpers/RequestMatcher.js~RequestMatcher.html#instance-method-body">body</a></span></span><span class="code" data-ice="signature">(type: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span>*</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/helpers/RequestMatcher.js~RequestMatcher.html#instance-method-equal">equal</a></span></span><span class="code" data-ice="signature">(conditions: <span>*</span>): <span>*</span></span>
         </p>
       </div>
       <div>
@@ -377,35 +434,7 @@
           
           <span data-ice="async">async</span>
           
-          <span class="code" data-ice="name"><span><a href="class/src/helpers/RequestMatcher.js~RequestMatcher.html#instance-method-match">match</a></span></span><span class="code" data-ice="signature">(request: <span>*</span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          
-          <span class="code" data-ice="name"><span><a href="class/src/helpers/RequestMatcher.js~RequestMatcher.html#instance-method-request">request</a></span></span><span class="code" data-ice="signature">(conditions: <span>*</span>): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/helpers/RequestMatcher.js~RequestMatcher.html#instance-method-match">match</a></span></span><span class="code" data-ice="signature">(request: <span>*</span>, server: <span>*</span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
         </p>
       </div>
       <div>
@@ -441,7 +470,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/helpers/RequestMatcher.js.html#lineNumber16">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/helpers/RequestMatcher.js.html#lineNumber17">source</a></span></span>
     </span>
   </h3>
 
@@ -476,6 +505,49 @@
 <div data-ice="memberDetails"><h2 data-ice="title">Public Members</h2>
 
 <div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-get-and">
+    <span class="access" data-ice="access">public</span>
+    
+    <span class="kind" data-ice="kind">get</span>
+    
+    
+    
+    <span class="code" data-ice="name">and</span><span class="code" data-ice="signature">: <span>*</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/helpers/RequestMatcher.js.html#lineNumber25">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="instance-member-fixture">
     <span class="access" data-ice="access">public</span>
     
@@ -487,7 +559,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/helpers/RequestMatcher.js.html#lineNumber17">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/helpers/RequestMatcher.js.html#lineNumber18">source</a></span></span>
     </span>
   </h3>
 
@@ -530,7 +602,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/helpers/RequestMatcher.js.html#lineNumber20">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/helpers/RequestMatcher.js.html#lineNumber21">source</a></span></span>
     </span>
   </h3>
 
@@ -573,7 +645,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/helpers/RequestMatcher.js.html#lineNumber24">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/helpers/RequestMatcher.js.html#lineNumber29">source</a></span></span>
     </span>
   </h3>
 
@@ -618,7 +690,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/helpers/RequestMatcher.js.html#lineNumber8">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/helpers/RequestMatcher.js.html#lineNumber9">source</a></span></span>
     </span>
   </h3>
 
@@ -661,7 +733,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/helpers/RequestMatcher.js.html#lineNumber9">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/helpers/RequestMatcher.js.html#lineNumber10">source</a></span></span>
     </span>
   </h3>
 
@@ -703,11 +775,11 @@
     
     
     
-    <span class="code" data-ice="name">body</span><span class="code" data-ice="signature">(type: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, warn: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span>): <span>*</span></span>
+    <span class="code" data-ice="name">body</span><span class="code" data-ice="signature">(type: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span>*</span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/helpers/RequestMatcher.js.html#lineNumber70">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/helpers/RequestMatcher.js.html#lineNumber77">source</a></span></span>
     </span>
   </h3>
 
@@ -733,11 +805,75 @@
 <li>default: text</li></ul></td>
       <td data-ice="description"></td>
     </tr>
-<tr data-ice="property" data-depth="0">
-      <td data-ice="name" class="code" data-depth="0">warn</td>
-      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></td>
-      <td data-ice="appendix"><ul><li>optional</li>
-<li>default: true</li></ul></td>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span>*</span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-equal">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">equal</span><span class="code" data-ice="signature">(conditions: <span>*</span>): <span>*</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/helpers/RequestMatcher.js.html#lineNumber101">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">conditions</td>
+      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="appendix"></td>
       <td data-ice="description"></td>
     </tr>
 </tbody>
@@ -786,7 +922,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/helpers/RequestMatcher.js.html#lineNumber28">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/helpers/RequestMatcher.js.html#lineNumber33">source</a></span></span>
     </span>
   </h3>
 
@@ -857,7 +993,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/helpers/RequestMatcher.js.html#lineNumber78">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/helpers/RequestMatcher.js.html#lineNumber85">source</a></span></span>
     </span>
   </h3>
 
@@ -924,11 +1060,11 @@
     
     <span data-ice="async">async</span>
     
-    <span class="code" data-ice="name">match</span><span class="code" data-ice="signature">(request: <span>*</span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
+    <span class="code" data-ice="name">match</span><span class="code" data-ice="signature">(request: <span>*</span>, server: <span>*</span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/helpers/RequestMatcher.js.html#lineNumber86">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/helpers/RequestMatcher.js.html#lineNumber93">source</a></span></span>
     </span>
   </h3>
 
@@ -953,73 +1089,8 @@
       <td data-ice="appendix"></td>
       <td data-ice="description"></td>
     </tr>
-</tbody>
-  </table>
-</div>
-</div>
-
-  <div class="return-params" data-ice="returnParams">
-    <h4>Return:</h4>
-    <table>
-      <tbody>
-        <tr>
-          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></td>
-          
-        </tr>
-      </tbody>
-    </table>
-    <div data-ice="returnProperties">
-</div>
-  </div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-method-request">
-    <span class="access" data-ice="access">public</span>
-    
-    
-    
-    
-    
-    <span class="code" data-ice="name">request</span><span class="code" data-ice="signature">(conditions: <span>*</span>): <span>*</span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/helpers/RequestMatcher.js.html#lineNumber95">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  
-
-  
-
-  <div data-ice="properties"><div data-ice="properties">
-  <h4 data-ice="title">Params:</h4>
-  <table class="params">
-    <thead>
-    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
-    </thead>
-    <tbody>
-    
-    <tr data-ice="property" data-depth="0">
-      <td data-ice="name" class="code" data-depth="0">conditions</td>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">server</td>
       <td data-ice="type" class="code"><span>*</span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"></td>
@@ -1034,7 +1105,7 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></td>
           
         </tr>
       </tbody>

@@ -1,5 +1,6 @@
 export default class ServerHistory {
   _history = [];
+  _call = null;
   _target = null;
 
   push(request, response) {
@@ -10,11 +11,25 @@ export default class ServerHistory {
   }
 
   get request() {
+    if (this._call) {
+      const entry = this._history[this._call - 1].request;
+
+      this._call = null;
+      return entry;
+    }
+
     this._target = 'request';
     return this;
   }
 
   get response() {
+    if (this._call) {
+      const entry = this._history[this._call - 1].response;
+
+      this._call = null;
+      return entry;
+    }
+
     this._target = 'response';
     return this;
   }
@@ -24,11 +39,11 @@ export default class ServerHistory {
   }
 
   get second() {
-    return this.atCall(1);
+    return this.atCall(2);
   }
 
   get third() {
-    return this.atCall(1);
+    return this.atCall(3);
   }
 
   get last() {
@@ -36,12 +51,29 @@ export default class ServerHistory {
   }
 
   atCall(n) {
-    if (!this._target) throw new Error('You must select request or response target before selecting call number')
+    if (this._target) {
+      const entry = this._history[n-1][this._target];
 
-    return this._history[n-1][this._target];
+      this._target = null;
+      return entry;
+    }
+
+    this._call = n;
+    return this;
+  }
+
+  all() {
+    if (this._target) {
+      const entries = this._history.map(entry => entry[this._target]);
+      this._target = null;
+      return entries;
+    }
+    return this._history;
   }
 
   reset() {
     this._history = [];
+    this._call = null;
+    this._target = null;
   }
 }

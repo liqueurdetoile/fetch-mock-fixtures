@@ -1,5 +1,5 @@
-import AbstractProcessor from './AbstractProcessor';
+import BaseProcessor from './BaseProcessor';
 
-export default class BooleanProcessor extends AbstractProcessor {
+export default class BooleanProcessor extends BaseProcessor {
 
 }

@@ -1,4 +1,4 @@
-import {Preset, Server} from '@';
+import {Preset, Server, presets} from '@';
 
 const p1 = {
   body: null,
@@ -63,5 +63,28 @@ describe('Presets test suite', function() {
     preset = server.preset('test', p2);
     server._presets['test'].should.equal(preset);
     preset._any.should.deep.equal(r2);
+  })
+
+  it('should configure preset with BDD style', function() {
+    let preset = server.preset('test').delay(5000);
+
+    preset._any.delay.should.equal(5000);
+  })
+
+  it('should throw if name is not provided', function() {
+    expect(server.preset.bind(server)).to.throw();
+  })
+
+  it('should throw if params are not an object', function() {
+    expect(server.preset.bind(server, 'test', 'foo')).to.throw();
+  })
+
+  it('should override presets app-wide', function() {
+    presets.apisuccess = {
+      status: 201
+    };
+
+    const server = new Server();
+    server._presets.apisuccess.should.exist;
   })
 });

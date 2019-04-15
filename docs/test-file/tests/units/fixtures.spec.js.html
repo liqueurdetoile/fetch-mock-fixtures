@@ -32,11 +32,12 @@
   <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Fixture.js~Fixture.html">Fixture</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Preset.js~Preset.html">Preset</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Server.js~Server.html">Server</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#helpers">helpers</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/FMFRequest.js~FMFRequest.html">FMFRequest</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#helpers">helpers</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/FMFException.js~FMFException.html">FMFException</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/FMFRequest.js~FMFRequest.html">FMFRequest</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/RequestMatcher.js~RequestMatcher.html">RequestMatcher</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html">ResponseConfigurator</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/ServerHistory.js~ServerHistory.html">ServerHistory</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#processors">processors</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/AbstractProcessor.js~AbstractProcessor.html">AbstractProcessor</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#processors">processors</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/BaseProcessor.js~BaseProcessor.html">BaseProcessor</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/BodyProcessor.js~BodyProcessor.html">BodyProcessor</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/BooleanProcessor.js~BooleanProcessor.html">BooleanProcessor</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/HeadersProcessor.js~HeadersProcessor.html">HeadersProcessor</a></span></span></li>
@@ -85,11 +86,11 @@ describe(&apos;Fixtures test suite&apos;, function() {
 
       f.respond.set(response)
 
-      const responseObject = await f.getResponse(request);
+      await f.getResponse(request);
 
-      before.calledOnceWithExactly(server, request, response).should.be.true;
-      body.calledOnceWithExactly({id: &apos;1&apos;}, request, server).should.true;
-      after.calledOnceWithExactly(server, responseObject).should.be.true;
+      before.calledOnce.should.be.true;
+      body.calledOnce.should.true;
+      after.calledOnce.should.be.true;
     })
 
     it(&apos;should alter response from before response callback&apos;, async function() {
@@ -139,8 +140,32 @@ describe(&apos;Fixtures test suite&apos;, function() {
       response.status.should.equal(404);
     })
 
+    it(&apos;should throw on Error&apos;, async function() {
+      let response;
+
+      server
+        .warnOnError(false)
+        .throwOnError(true)
+        .respond
+        .with.preset(&apos;default&apos;)
+        .before(() =&gt; {
+          throw new TypeError()
+        });
+
+      try {
+        response = await fetch(&apos;/api/v1/users/1&apos;);
+      } catch (err) {
+        err.should.be.instanceof(Error);
+        err.previous.should.be.instanceof(TypeError);
+      }
+
+      expect(response).to.be.undefined;
+    })
+
     it(&apos;should return a 500 error for Error throws&apos;, async function() {
-      server.respond
+      server
+        .throwOnError(false)
+        .respond
         .with.preset(&apos;default&apos;)
         .before(() =&gt; {
           throw new TypeError()
@@ -148,14 +173,37 @@ describe(&apos;Fixtures test suite&apos;, function() {
 
       let response = await fetch(&apos;/api/v1/users/1&apos;);
       response.status.should.equal(500);
-      response.statusText.should.equal(&apos;TypeError&apos;);
+      response.statusText.should.equal(&apos;FMF error: Unable to process before callback&apos;);
+    })
+
+    it(&apos;should throw by default for other throws&apos;, async function() {
+      let response;
+
+      server
+        .throwOnError(true)
+        .respond
+        .with.preset(&apos;default&apos;)
+        .before(() =&gt; {
+          throw &apos;My custom error&apos;
+        });
+
+      try {
+        response = await fetch(&apos;/api/v1/users/1&apos;);
+      } catch (err) {
+        err.toString().should.equal(&apos;FMF error: Unable to process before callback&apos;);
+        err.previous.should.equal(&apos;My custom error&apos;);
+      }
+
+      expect(response).to.be.undefined;
     })
 
     it(&apos;should return a 500 error for other throws&apos;, async function() {
-      server.respond
+      server
+        .throwOnError(false)
+        .respond
         .with.preset(&apos;default&apos;)
         .before(() =&gt; {
-          throw &apos;thing&apos;
+          throw &apos;My custom error&apos;
         });
 
       let response = await fetch(&apos;/api/v1/users/1&apos;);

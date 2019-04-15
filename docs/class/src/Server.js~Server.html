@@ -32,11 +32,12 @@
   <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Fixture.js~Fixture.html">Fixture</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Preset.js~Preset.html">Preset</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Server.js~Server.html">Server</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#helpers">helpers</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/FMFRequest.js~FMFRequest.html">FMFRequest</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#helpers">helpers</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/FMFException.js~FMFException.html">FMFException</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/FMFRequest.js~FMFRequest.html">FMFRequest</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/RequestMatcher.js~RequestMatcher.html">RequestMatcher</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html">ResponseConfigurator</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/ServerHistory.js~ServerHistory.html">ServerHistory</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#processors">processors</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/AbstractProcessor.js~AbstractProcessor.html">AbstractProcessor</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#processors">processors</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/BaseProcessor.js~BaseProcessor.html">BaseProcessor</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/BodyProcessor.js~BodyProcessor.html">BodyProcessor</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/BooleanProcessor.js~BooleanProcessor.html">BooleanProcessor</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/HeadersProcessor.js~HeadersProcessor.html">HeadersProcessor</a></span></span></li>
@@ -47,13 +48,13 @@
 </nav>
 
 <div class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {Server} from &apos;<span><a href="file/src/Server.js.html#lineNumber16">fetch-mock-fixtures/src/Server.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {Server} from &apos;<span><a href="file/src/Server.js.html#lineNumber20">fetch-mock-fixtures/src/Server.js</a></span>&apos;</code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
   <span data-ice="version">| version 1.0.0</span>
   <span data-ice="since">| since 1.0.0</span>
-  <span data-ice="source">| <span><a href="file/src/Server.js.html#lineNumber16">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/Server.js.html#lineNumber20">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -73,8 +74,12 @@
 
   
   
-  <div class="description" data-ice="description"><p>Build a mock server to respond to fetch calls. It stubs
-window.fetch</p>
+  <div class="description" data-ice="description"><p>Build a mock server to respond to any fetch calls. It replaces
+<code>window.fetch</code> with a <a href="https://sinonjs.org/releases/latest/stubs/">Sinon stub</a>. Therefore,
+all functionnalities provided by stub are available</p>
+<p><strong>Note :</strong> All the server data is stored in the current instance. That may have
+unattended side effects when using the same instance through many test without
+resetting it each time</p>
 </div>
   
 
@@ -113,12 +118,13 @@ window.fetch</p>
       <div>
         
         
-        
+        <div data-ice="description"><p>Import the default presets into server</p>
+</div>
       </div>
     </td>
     <td>
-      
-      
+      <span class="version" data-ice="version">version 2.0.0</span>
+      <span class="since" data-ice="since">since   1.0.0</span>
     </td>
   </tr>
 </tbody>
@@ -142,46 +148,19 @@ window.fetch</p>
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/Server.js~Server.html#instance-get-calls">calls</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/Server.js~Server.html#instance-get-calls">calls</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span>: <span>*</span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>Returs the number of calls made to server since start or last reset</p>
+</div>
       </div>
     </td>
     <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          
-          <span class="code" data-ice="name"><span><a href="class/src/Server.js~Server.html#instance-member-history">history</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        
-      </div>
-    </td>
-    <td>
-      
-      
+      <span class="version" data-ice="version">version 1.0.0</span>
+      <span class="since" data-ice="since">since   2.0.0</span>
     </td>
   </tr>
 <tr data-ice="target">
@@ -198,18 +177,49 @@ window.fetch</p>
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/Server.js~Server.html#instance-get-on">on</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/Server.js~Server.html#instance-get-fallback">fallback</a></span></span><span class="code" data-ice="signature">: <span><a href="class/src/Fixture.js~Fixture.html">Fixture</a></span>: <span>*</span></span>
         </p>
       </div>
       <div>
         
         
+        <div data-ice="description"><p>Returns the existing registered on the server or create and register a new fallback fixture
+to configure</p>
+</div>
+      </div>
+    </td>
+    <td>
+      <span class="version" data-ice="version">version 1.0.0</span>
+      <span class="since" data-ice="since">since   2.0.0</span>
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/Server.js~Server.html#instance-member-history">history</a></span></span><span class="code" data-ice="signature">: <span><a href="class/src/helpers/ServerHistory.js~ServerHistory.html">ServerHistory</a></span></span>
+        </p>
+      </div>
+      <div>
         
+        
+        <div data-ice="description"><p>Store the server history</p>
+</div>
       </div>
     </td>
     <td>
       
-      
+      <span class="since" data-ice="since">since 2.0.0</span>
     </td>
   </tr>
 <tr data-ice="target">
@@ -226,18 +236,19 @@ window.fetch</p>
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/Server.js~Server.html#instance-get-request">request</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/Server.js~Server.html#instance-get-on">on</a></span></span><span class="code" data-ice="signature">: <span><a href="class/src/Fixture.js~Fixture.html">Fixture</a></span>: <span>*</span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>This getter is used when configuring a fixture in-the-fly.</p>
+</div>
       </div>
     </td>
     <td>
-      
-      
+      <span class="version" data-ice="version">version 1.0.0</span>
+      <span class="since" data-ice="since">since   2.0.0</span>
     </td>
   </tr>
 <tr data-ice="target">
@@ -254,18 +265,19 @@ window.fetch</p>
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/Server.js~Server.html#instance-get-respond">respond</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/Server.js~Server.html#instance-get-request">request</a></span></span><span class="code" data-ice="signature">: <span><a href="class/src/helpers/FMFRequest.js~FMFRequest.html">FMFRequest</a></span>: <span>*</span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>Returns the last request received by the server</p>
+</div>
       </div>
     </td>
     <td>
-      
-      
+      <span class="version" data-ice="version">version 1.0.0</span>
+      <span class="since" data-ice="since">since   2.0.0</span>
     </td>
   </tr>
 <tr data-ice="target">
@@ -282,18 +294,48 @@ window.fetch</p>
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/Server.js~Server.html#instance-get-response">response</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/Server.js~Server.html#instance-get-respond">respond</a></span></span><span class="code" data-ice="signature">: <span><a href="class/src/Fixture.js~Fixture.html">Fixture</a></span>: <span>*</span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>Getter used when configuring fixture on-the-fly</p>
+</div>
       </div>
     </td>
     <td>
+      <span class="version" data-ice="version">version 1.0.0</span>
+      <span class="since" data-ice="since">since   2.0.0</span>
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
       
+      <span class="kind" data-ice="kind">get</span>
       
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/Server.js~Server.html#instance-get-response">response</a></span></span><span class="code" data-ice="signature">: <span><a href="class/src/helpers/FMFRequest.js~FMFRequest.html">FMFRequest</a></span>: <span>*</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Returns the last response received by the server</p>
+</div>
+      </div>
+    </td>
+    <td>
+      <span class="version" data-ice="version">version 1.0.0</span>
+      <span class="since" data-ice="since">since   2.0.0</span>
     </td>
   </tr>
 <tr data-ice="target">
@@ -316,7 +358,7 @@ window.fetch</p>
       <div>
         
         
-        <div data-ice="description"><p>Check if server is running by trying to access a stub property</p>
+        <div data-ice="description"><p>Check if server is currently running by trying to access a stub property</p>
 </div>
       </div>
     </td>
@@ -368,18 +410,19 @@ window.fetch</p>
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/Server.js~Server.html#instance-get-when">when</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/Server.js~Server.html#instance-get-when">when</a></span></span><span class="code" data-ice="signature">: <span><a href="class/src/Fixture.js~Fixture.html">Fixture</a></span>: <span>*</span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>Alias for <span><a href="class/src/Server.js~Server.html#instance-get-on">Server#on</a></span></p>
+</div>
       </div>
     </td>
     <td>
-      
-      
+      <span class="version" data-ice="version">version 1.0.0</span>
+      <span class="since" data-ice="since">since   2.0.0</span>
     </td>
   </tr>
 </tbody>
@@ -402,18 +445,19 @@ window.fetch</p>
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/Server.js~Server.html#instance-member-_fixtures">_fixtures</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/Server.js~Server.html#instance-member-_fixtures">_fixtures</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>Store the fixtures loaded into the server or created on-the-fly</p>
+</div>
       </div>
     </td>
     <td>
       
-      
+      <span class="since" data-ice="since">since 2.0.0</span>
     </td>
   </tr>
 <tr data-ice="target">
@@ -430,18 +474,19 @@ window.fetch</p>
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/Server.js~Server.html#instance-member-_onError">_onError</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/Server.js~Server.html#instance-member-_presets">_presets</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>Store the loaded presets and those created on-the-fly</p>
+</div>
       </div>
     </td>
     <td>
       
-      
+      <span class="since" data-ice="since">since 2.0.0</span>
     </td>
   </tr>
 <tr data-ice="target">
@@ -458,18 +503,48 @@ window.fetch</p>
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/Server.js~Server.html#instance-member-_presets">_presets</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/Server.js~Server.html#instance-member-_throwOnError">_throwOnError</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>Store wether FMF shoud throw or send a 500 HTTP response when an error is raised</p>
+</div>
       </div>
     </td>
     <td>
       
+      <span class="since" data-ice="since">since 2.0.0</span>
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">private</span>
       
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/Server.js~Server.html#instance-member-_warnOnError">_warnOnError</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Store wether FMF shoud display a warning message in console when an error is raised</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      <span class="since" data-ice="since">since 2.0.0</span>
     </td>
   </tr>
 </tbody>
@@ -493,18 +568,19 @@ window.fetch</p>
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/Server.js~Server.html#instance-method-preset">preset</a></span></span><span class="code" data-ice="signature">(name: <span>*</span>, preset: {}): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/Server.js~Server.html#instance-method-import">import</a></span></span><span class="code" data-ice="signature">(fixtures: <span><a href="class/src/Fixture.js~Fixture.html">Fixture</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>): <span><a href="class/src/Server.js~Server.html">Server</a></span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>Import a fixture into the server pool.</p>
+</div>
       </div>
     </td>
     <td>
-      
-      
+      <span class="version" data-ice="version">version 1.0.0</span>
+      <span class="since" data-ice="since">since   2.0.0</span>
     </td>
   </tr>
 <tr data-ice="target">
@@ -521,19 +597,47 @@ window.fetch</p>
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/Server.js~Server.html#instance-method-reset">reset</a></span></span><span class="code" data-ice="signature">(resetStub: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span>): <span><a href="class/src/Server.js~Server.html">Server</a></span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/Server.js~Server.html#instance-method-preset">preset</a></span></span><span class="code" data-ice="signature">(name: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>, preset: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>): <span><a href="class/src/Preset.js~Preset.html">Preset</a></span></span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description"><p>Reset the server configuration to default and
-clear stub overrides and server history</p>
+        <div data-ice="description"><p>Returns the selected preset or a new one based on name resolution.</p>
 </div>
       </div>
     </td>
     <td>
-      <span class="version" data-ice="version">version 1.1.0</span>
+      <span class="version" data-ice="version">version 1.0.0</span>
+      <span class="since" data-ice="since">since   2.0.0</span>
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/Server.js~Server.html#instance-method-reset">reset</a></span></span><span class="code" data-ice="signature">(resetStub: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span>): <span><a href="class/src/Server.js~Server.html">Server</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Reset the server configuration to default, clear server history and stub history</p>
+</div>
+      </div>
+    </td>
+    <td>
+      <span class="version" data-ice="version">version 2.0.0</span>
       <span class="since" data-ice="since">since   1.0.0</span>
     </td>
   </tr>
@@ -562,7 +666,7 @@ clear stub overrides and server history</p>
       </div>
     </td>
     <td>
-      <span class="version" data-ice="version">version 1.0.0</span>
+      <span class="version" data-ice="version">version 2.0.0</span>
       <span class="since" data-ice="since">since   1.0.0</span>
     </td>
   </tr>
@@ -580,19 +684,48 @@ clear stub overrides and server history</p>
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/Server.js~Server.html#instance-method-stop">stop</a></span></span><span class="code" data-ice="signature">(resetServer: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span>): <span><a href="class/src/Server.js~Server.html">Server</a></span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/Server.js~Server.html#instance-method-stop">stop</a></span></span><span class="code" data-ice="signature">(resetServer: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span>): <span><a href="class/src/Server.js~Server.html">Server</a></span></span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description"><p>Stop the server</p>
+        <div data-ice="description"><p>Stop the server and, optionnally reset it</p>
+</div>
+      </div>
+    </td>
+    <td>
+      <span class="version" data-ice="version">version 2.0.0</span>
+      <span class="since" data-ice="since">since   1.0.0</span>
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/Server.js~Server.html#instance-method-throwOnError">throwOnError</a></span></span><span class="code" data-ice="signature">(throwOnError: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span>): <span><a href="class/src/Server.js~Server.html">Server</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Set the behavior of the server when an Error is thrown.</p>
 </div>
       </div>
     </td>
     <td>
       <span class="version" data-ice="version">version 1.0.0</span>
-      <span class="since" data-ice="since">since   1.0.0</span>
+      <span class="since" data-ice="since">since   2.0.0</span>
     </td>
   </tr>
 <tr data-ice="target">
@@ -609,18 +742,49 @@ clear stub overrides and server history</p>
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/Server.js~Server.html#instance-method-throwOnError">throwOnError</a></span></span><span class="code" data-ice="signature">(throwOnError: <span>*</span>): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/Server.js~Server.html#instance-method-warn">warn</a></span></span><span class="code" data-ice="signature">(error: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a></span>)</span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>Displays a warning message in console.</p>
+</div>
       </div>
     </td>
     <td>
+      <span class="version" data-ice="version">version 1.0.0</span>
+      <span class="since" data-ice="since">since   2.0.0</span>
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
       
       
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/Server.js~Server.html#instance-method-warnOnError">warnOnError</a></span></span><span class="code" data-ice="signature">(warnOnError: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span>): <span><a href="class/src/Server.js~Server.html">Server</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Tells the server to display a warning in console when an error is raised or when
+something seems to went wrong in configuration.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      <span class="version" data-ice="version">version 1.0.0</span>
+      <span class="since" data-ice="since">since   2.0.0</span>
     </td>
   </tr>
 </tbody>
@@ -643,18 +807,19 @@ clear stub overrides and server history</p>
           
           <span data-ice="async">async</span>
           
-          <span class="code" data-ice="name"><span><a href="class/src/Server.js~Server.html#instance-method-_findFixture">_findFixture</a></span></span><span class="code" data-ice="signature">(request: <span>*</span>): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/Server.js~Server.html#instance-method-_findFixture">_findFixture</a></span></span><span class="code" data-ice="signature">(request: <span><a href="class/src/helpers/FMFRequest.js~FMFRequest.html">FMFRequest</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>Seeks for matching fixtures when processing a request</p>
+</div>
       </div>
     </td>
     <td>
-      
-      
+      <span class="version" data-ice="version">version 1.0.0</span>
+      <span class="since" data-ice="since">since   2.0.0</span>
     </td>
   </tr>
 <tr data-ice="target">
@@ -671,18 +836,20 @@ clear stub overrides and server history</p>
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/Server.js~Server.html#instance-method-_getDefaultFixture">_getDefaultFixture</a></span></span><span class="code" data-ice="signature">(): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/Server.js~Server.html#instance-method-_getDefaultFixture">_getDefaultFixture</a></span></span><span class="code" data-ice="signature">(): <span><a href="class/src/Fixture.js~Fixture.html">Fixture</a></span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>Returns the existing registered on the server or create a new fallback fixture
+to configure</p>
+</div>
       </div>
     </td>
     <td>
-      
-      
+      <span class="version" data-ice="version">version 1.0.0</span>
+      <span class="since" data-ice="since">since   2.0.0</span>
     </td>
   </tr>
 <tr data-ice="target">
@@ -699,18 +866,19 @@ clear stub overrides and server history</p>
           
           <span data-ice="async">async</span>
           
-          <span class="code" data-ice="name"><span><a href="class/src/Server.js~Server.html#instance-method-_processRequest">_processRequest</a></span></span><span class="code" data-ice="signature">(request: <span>*</span>, init: <span>*</span>): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/Server.js~Server.html#instance-method-_processRequest">_processRequest</a></span></span><span class="code" data-ice="signature">(request: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span> | <span>Request</span>, init: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>Process the incoming request and update history</p>
+</div>
       </div>
     </td>
     <td>
-      
-      
+      <span class="version" data-ice="version">version 1.0.0</span>
+      <span class="since" data-ice="since">since   2.0.0</span>
     </td>
   </tr>
 <tr data-ice="target">
@@ -727,18 +895,20 @@ clear stub overrides and server history</p>
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/Server.js~Server.html#instance-method-_processRespond">_processRespond</a></span></span><span class="code" data-ice="signature">(fixture: {}): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/Server.js~Server.html#instance-method-_processRespond">_processRespond</a></span></span><span class="code" data-ice="signature">(fixture: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>): <span><a href="class/src/Fixture.js~Fixture.html">Fixture</a></span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>Process the respond call when called from a fixture to allow chainable
+fixtures on-the-fly configuration</p>
+</div>
       </div>
     </td>
     <td>
-      
-      
+      <span class="version" data-ice="version">version 1.0.0</span>
+      <span class="since" data-ice="since">since   2.0.0</span>
     </td>
   </tr>
 </tbody>
@@ -761,16 +931,17 @@ clear stub overrides and server history</p>
     
     <span class="code" data-ice="name">constructor</span><span class="code" data-ice="signature">()</span>
     <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/Server.js.html#lineNumber23">source</a></span></span>
+      <span class="version" data-ice="version">version 2.0.0</span>
+      <span class="since" data-ice="since">since   1.0.0</span>
+      <span data-ice="source"><span><a href="file/src/Server.js.html#lineNumber67">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Import the default presets into server</p>
+</div>
 
   
 
@@ -805,25 +976,39 @@ clear stub overrides and server history</p>
     
     
     
-    <span class="code" data-ice="name">calls</span><span class="code" data-ice="signature">: <span>*</span></span>
+    <span class="code" data-ice="name">calls</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span>: <span>*</span></span>
     <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/Server.js.html#lineNumber92">source</a></span></span>
+      <span class="version" data-ice="version">version 1.0.0</span>
+      <span class="since" data-ice="since">since   2.0.0</span>
+      <span data-ice="source"><span><a href="file/src/Server.js.html#lineNumber419">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Returs the number of calls made to server since start or last reset</p>
+</div>
 
   
 
   <div data-ice="properties">
 </div>
 
-  
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>Number of requests received</p>
+</td>
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
 
   
 
@@ -841,6 +1026,64 @@ clear stub overrides and server history</p>
   
 </div>
 <div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-get-fallback">
+    <span class="access" data-ice="access">public</span>
+    
+    <span class="kind" data-ice="kind">get</span>
+    
+    
+    
+    <span class="code" data-ice="name">fallback</span><span class="code" data-ice="signature">: <span><a href="class/src/Fixture.js~Fixture.html">Fixture</a></span>: <span>*</span></span>
+    <span class="right-info">
+      <span class="version" data-ice="version">version 1.0.0</span>
+      <span class="since" data-ice="since">since   2.0.0</span>
+      <span data-ice="source"><span><a href="file/src/Server.js.html#lineNumber285">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Returns the existing registered on the server or create and register a new fallback fixture
+to configure</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="class/src/Fixture.js~Fixture.html">Fixture</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>Fallback fixture</p>
+</td>
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="see"><h4>See:</h4><ul><li><span><span><a href="class/src/Server.js~Server.html#instance-method-_getDefaultFixture">Server#_getDefaultFixture</a></span></span></li></ul></div>
+  
+</div>
+<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="instance-member-history">
     <span class="access" data-ice="access">public</span>
     
@@ -848,18 +1091,19 @@ clear stub overrides and server history</p>
     
     
     
-    <span class="code" data-ice="name">history</span><span class="code" data-ice="signature">: <span>*</span></span>
+    <span class="code" data-ice="name">history</span><span class="code" data-ice="signature">: <span><a href="class/src/helpers/ServerHistory.js~ServerHistory.html">ServerHistory</a></span></span>
     <span class="right-info">
       
-      
-      <span data-ice="source"><span><a href="file/src/Server.js.html#lineNumber21">source</a></span></span>
+      <span class="since" data-ice="since">since 2.0.0</span>
+      <span data-ice="source"><span><a href="file/src/Server.js.html#lineNumber59">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Store the server history</p>
+</div>
 
   
 
@@ -891,25 +1135,40 @@ clear stub overrides and server history</p>
     
     
     
-    <span class="code" data-ice="name">on</span><span class="code" data-ice="signature">: <span>*</span></span>
+    <span class="code" data-ice="name">on</span><span class="code" data-ice="signature">: <span><a href="class/src/Fixture.js~Fixture.html">Fixture</a></span>: <span>*</span></span>
     <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/Server.js.html#lineNumber118">source</a></span></span>
+      <span class="version" data-ice="version">version 1.0.0</span>
+      <span class="since" data-ice="since">since   2.0.0</span>
+      <span data-ice="source"><span><a href="file/src/Server.js.html#lineNumber257">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>This getter is used when configuring a fixture in-the-fly. It will return
+and register a new Fixture and set it to <code>matching</code> mode</p>
+</div>
 
   
 
   <div data-ice="properties">
 </div>
 
-  
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="class/src/Fixture.js~Fixture.html">Fixture</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>New Fixture</p>
+</td>
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
 
   
 
@@ -934,25 +1193,38 @@ clear stub overrides and server history</p>
     
     
     
-    <span class="code" data-ice="name">request</span><span class="code" data-ice="signature">: <span>*</span></span>
+    <span class="code" data-ice="name">request</span><span class="code" data-ice="signature">: <span><a href="class/src/helpers/FMFRequest.js~FMFRequest.html">FMFRequest</a></span>: <span>*</span></span>
     <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/Server.js.html#lineNumber210">source</a></span></span>
+      <span class="version" data-ice="version">version 1.0.0</span>
+      <span class="since" data-ice="since">since   2.0.0</span>
+      <span data-ice="source"><span><a href="file/src/Server.js.html#lineNumber430">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Returns the last request received by the server</p>
+</div>
 
   
 
   <div data-ice="properties">
 </div>
 
-  
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="class/src/helpers/FMFRequest.js~FMFRequest.html">FMFRequest</a></span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
 
   
 
@@ -966,7 +1238,7 @@ clear stub overrides and server history</p>
 
   
 
-  
+  <div data-ice="see"><h4>See:</h4><ul><li><span><span><a href="class/src/helpers/ServerHistory.js~ServerHistory.html">ServerHistory</a></span></span></li></ul></div>
   
 </div>
 <div class="detail" data-ice="detail">
@@ -977,25 +1249,39 @@ clear stub overrides and server history</p>
     
     
     
-    <span class="code" data-ice="name">respond</span><span class="code" data-ice="signature">: <span>*</span></span>
+    <span class="code" data-ice="name">respond</span><span class="code" data-ice="signature">: <span><a href="class/src/Fixture.js~Fixture.html">Fixture</a></span>: <span>*</span></span>
     <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/Server.js.html#lineNumber153">source</a></span></span>
+      <span class="version" data-ice="version">version 1.0.0</span>
+      <span class="since" data-ice="since">since   2.0.0</span>
+      <span data-ice="source"><span><a href="file/src/Server.js.html#lineNumber332">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Getter used when configuring fixture on-the-fly</p>
+</div>
 
   
 
   <div data-ice="properties">
 </div>
 
-  
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="class/src/Fixture.js~Fixture.html">Fixture</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>Return either the default fixture or set the current to <code>respond</code> mode</p>
+</td>
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
 
   
 
@@ -1009,7 +1295,7 @@ clear stub overrides and server history</p>
 
   
 
-  
+  <div data-ice="see"><h4>See:</h4><ul><li><span><span><a href="class/src/Server.js~Server.html#instance-method-_processRespond">Server#_processRespond</a></span></span></li></ul></div>
   
 </div>
 <div class="detail" data-ice="detail">
@@ -1020,25 +1306,38 @@ clear stub overrides and server history</p>
     
     
     
-    <span class="code" data-ice="name">response</span><span class="code" data-ice="signature">: <span>*</span></span>
+    <span class="code" data-ice="name">response</span><span class="code" data-ice="signature">: <span><a href="class/src/helpers/FMFRequest.js~FMFRequest.html">FMFRequest</a></span>: <span>*</span></span>
     <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/Server.js.html#lineNumber214">source</a></span></span>
+      <span class="version" data-ice="version">version 1.0.0</span>
+      <span class="since" data-ice="since">since   2.0.0</span>
+      <span data-ice="source"><span><a href="file/src/Server.js.html#lineNumber442">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Returns the last response received by the server</p>
+</div>
 
   
 
   <div data-ice="properties">
 </div>
 
-  
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="class/src/helpers/FMFRequest.js~FMFRequest.html">FMFRequest</a></span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
 
   
 
@@ -1052,7 +1351,7 @@ clear stub overrides and server history</p>
 
   
 
-  
+  <div data-ice="see"><h4>See:</h4><ul><li><span><span><a href="class/src/helpers/ServerHistory.js~ServerHistory.html">ServerHistory</a></span></span></li></ul></div>
   
 </div>
 <div class="detail" data-ice="detail">
@@ -1067,14 +1366,14 @@ clear stub overrides and server history</p>
     <span class="right-info">
       <span class="version" data-ice="version">version 1.0.0</span>
       <span class="since" data-ice="since">since   1.1.0</span>
-      <span data-ice="source"><span><a href="file/src/Server.js.html#lineNumber88">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Server.js.html#lineNumber176">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  <div data-ice="description"><p>Check if server is running by trying to access a stub property</p>
+  <div data-ice="description"><p>Check if server is currently running by trying to access a stub property</p>
 </div>
 
   
@@ -1123,7 +1422,7 @@ clear stub overrides and server history</p>
     <span class="right-info">
       <span class="version" data-ice="version">version 1.0.0</span>
       <span class="since" data-ice="since">since   1.1.0</span>
-      <span data-ice="source"><span><a href="file/src/Server.js.html#lineNumber102">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Server.js.html#lineNumber186">source</a></span></span>
     </span>
   </h3>
 
@@ -1176,25 +1475,39 @@ clear stub overrides and server history</p>
     
     
     
-    <span class="code" data-ice="name">when</span><span class="code" data-ice="signature">: <span>*</span></span>
+    <span class="code" data-ice="name">when</span><span class="code" data-ice="signature">: <span><a href="class/src/Fixture.js~Fixture.html">Fixture</a></span>: <span>*</span></span>
     <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/Server.js.html#lineNumber128">source</a></span></span>
+      <span class="version" data-ice="version">version 1.0.0</span>
+      <span class="since" data-ice="since">since   2.0.0</span>
+      <span data-ice="source"><span><a href="file/src/Server.js.html#lineNumber273">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Alias for <span><a href="class/src/Server.js~Server.html#instance-get-on">Server#on</a></span></p>
+</div>
 
   
 
   <div data-ice="properties">
 </div>
 
-  
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="class/src/Fixture.js~Fixture.html">Fixture</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>New fixture</p>
+</td>
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
 
   
 
@@ -1221,18 +1534,19 @@ clear stub overrides and server history</p>
     
     
     
-    <span class="code" data-ice="name">_fixtures</span><span class="code" data-ice="signature">: <span>*</span></span>
+    <span class="code" data-ice="name">_fixtures</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span></span>
     <span class="right-info">
       
-      
-      <span data-ice="source"><span><a href="file/src/Server.js.html#lineNumber17">source</a></span></span>
+      <span class="since" data-ice="since">since 2.0.0</span>
+      <span data-ice="source"><span><a href="file/src/Server.js.html#lineNumber27">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Store the fixtures loaded into the server or created on-the-fly</p>
+</div>
 
   
 
@@ -1253,50 +1567,7 @@ clear stub overrides and server history</p>
 
   
 
-  
-  
-</div>
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-member-_onError">
-    <span class="access" data-ice="access">private</span>
-    
-    
-    
-    
-    
-    <span class="code" data-ice="name">_onError</span><span class="code" data-ice="signature">: <span>*</span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/Server.js.html#lineNumber18">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  
-
-  
-
-  <div data-ice="properties">
-</div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
+  <div data-ice="see"><h4>See:</h4><ul><li><span><span><a href="class/src/Fixture.js~Fixture.html">Fixture</a></span></span></li></ul></div>
   
 </div>
 <div class="detail" data-ice="detail">
@@ -1307,18 +1578,19 @@ clear stub overrides and server history</p>
     
     
     
-    <span class="code" data-ice="name">_presets</span><span class="code" data-ice="signature">: <span>*</span></span>
+    <span class="code" data-ice="name">_presets</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
     <span class="right-info">
       
-      
-      <span data-ice="source"><span><a href="file/src/Server.js.html#lineNumber19">source</a></span></span>
+      <span class="since" data-ice="since">since 2.0.0</span>
+      <span data-ice="source"><span><a href="file/src/Server.js.html#lineNumber52">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Store the loaded presets and those created on-the-fly</p>
+</div>
 
   
 
@@ -1342,9 +1614,186 @@ clear stub overrides and server history</p>
   
   
 </div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-member-_throwOnError">
+    <span class="access" data-ice="access">private</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">_throwOnError</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span></span>
+    <span class="right-info">
+      
+      <span class="since" data-ice="since">since 2.0.0</span>
+      <span data-ice="source"><span><a href="file/src/Server.js.html#lineNumber36">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Store wether FMF shoud throw or send a 500 HTTP response when an error is raised</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="see"><h4>See:</h4><ul><li><span><span><a href="class/src/Server.js~Server.html#instance-method-throwOnError">Server#throwOnError</a></span></span></li>
+<li><span><span><a href="class/src/Server.js~Server.html#instance-method-warnOnError">Server#warnOnError</a></span></span></li></ul></div>
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-member-_warnOnError">
+    <span class="access" data-ice="access">private</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">_warnOnError</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span></span>
+    <span class="right-info">
+      
+      <span class="since" data-ice="since">since 2.0.0</span>
+      <span data-ice="source"><span><a href="file/src/Server.js.html#lineNumber45">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Store wether FMF shoud display a warning message in console when an error is raised</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="see"><h4>See:</h4><ul><li><span><span><a href="class/src/Server.js~Server.html#instance-method-throwOnError">Server#throwOnError</a></span></span></li>
+<li><span><span><a href="class/src/Server.js~Server.html#instance-method-warnOnError">Server#warnOnError</a></span></span></li></ul></div>
+  
+</div>
 </div>
 <div data-ice="methodDetails"><h2 data-ice="title">Public Methods</h2>
 
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-import">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">import</span><span class="code" data-ice="signature">(fixtures: <span><a href="class/src/Fixture.js~Fixture.html">Fixture</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>): <span><a href="class/src/Server.js~Server.html">Server</a></span></span>
+    <span class="right-info">
+      <span class="version" data-ice="version">version 1.0.0</span>
+      <span class="since" data-ice="since">since   2.0.0</span>
+      <span data-ice="source"><span><a href="file/src/Server.js.html#lineNumber225">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Import a fixture into the server pool. Fixture can be provided as a
+fixture instance or as a configuration object</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">fixtures</td>
+      <td data-ice="type" class="code"><span><a href="class/src/Fixture.js~Fixture.html">Fixture</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Fixture(s) to import</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="class/src/Server.js~Server.html">Server</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>Server instance</p>
+</td>
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  <div data-ice="throwWrap">
+    <h4>Throw:</h4>
+    <table>
+      <tbody>
+      
+      <tr class="throw" data-ice="throw">
+        <td><p data-ice="throwName"><span><a href="class/src/helpers/FMFException.js~FMFException.html">FMFException</a></span></p></td>
+        <td data-ice="throwDesc"><p>If fixture cannot be parsed</p>
+</td>
+      </tr>
+</tbody>
+    </table>
+  </div>
+
+  
+
+  
+
+  
+
+  
+  
+</div>
 <div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="instance-method-preset">
     <span class="access" data-ice="access">public</span>
@@ -1353,18 +1802,22 @@ clear stub overrides and server history</p>
     
     
     
-    <span class="code" data-ice="name">preset</span><span class="code" data-ice="signature">(name: <span>*</span>, preset: {}): <span>*</span></span>
+    <span class="code" data-ice="name">preset</span><span class="code" data-ice="signature">(name: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>, preset: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>): <span><a href="class/src/Preset.js~Preset.html">Preset</a></span></span>
     <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/Server.js.html#lineNumber108">source</a></span></span>
+      <span class="version" data-ice="version">version 1.0.0</span>
+      <span class="since" data-ice="since">since   2.0.0</span>
+      <span data-ice="source"><span><a href="file/src/Server.js.html#lineNumber206">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Returns the selected preset or a new one based on name resolution.</p>
+<p>It allow a quick preset creation or edition that can be configured at once
+through the object provided within this call or with the classic
+ResponseConfigurator</p>
+</div>
 
   
 
@@ -1378,16 +1831,18 @@ clear stub overrides and server history</p>
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">name</td>
-      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>Preset name</p>
+</td>
     </tr>
 <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">preset</td>
-      <td data-ice="type" class="code">{}</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
       <td data-ice="appendix"><ul><li>optional</li>
 <li>default: {}</li></ul></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>Preset content</p>
+</td>
     </tr>
 </tbody>
   </table>
@@ -1399,7 +1854,7 @@ clear stub overrides and server history</p>
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
+          <td class="return-type code" data-ice="returnType"><span><a href="class/src/Preset.js~Preset.html">Preset</a></span></td>
           
         </tr>
       </tbody>
@@ -1420,7 +1875,7 @@ clear stub overrides and server history</p>
 
   
 
-  
+  <div data-ice="see"><h4>See:</h4><ul><li><span><span><a href="class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html">ResponseConfigurator</a></span></span></li></ul></div>
   
 </div>
 <div class="detail" data-ice="detail">
@@ -1431,19 +1886,18 @@ clear stub overrides and server history</p>
     
     
     
-    <span class="code" data-ice="name">reset</span><span class="code" data-ice="signature">(resetStub: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span>): <span><a href="class/src/Server.js~Server.html">Server</a></span></span>
+    <span class="code" data-ice="name">reset</span><span class="code" data-ice="signature">(resetStub: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span>): <span><a href="class/src/Server.js~Server.html">Server</a></span></span>
     <span class="right-info">
-      <span class="version" data-ice="version">version 1.1.0</span>
+      <span class="version" data-ice="version">version 2.0.0</span>
       <span class="since" data-ice="since">since   1.0.0</span>
-      <span data-ice="source"><span><a href="file/src/Server.js.html#lineNumber67">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Server.js.html#lineNumber112">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  <div data-ice="description"><p>Reset the server configuration to default and
-clear stub overrides and server history</p>
+  <div data-ice="description"><p>Reset the server configuration to default, clear server history and stub history</p>
 </div>
 
   
@@ -1458,10 +1912,11 @@ clear stub overrides and server history</p>
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">resetStub</td>
-      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span></td>
       <td data-ice="appendix"><ul><li>optional</li>
 <li>default: true</li></ul></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>If <code>true</code>, the stub history will also be resetted</p>
+</td>
     </tr>
 </tbody>
   </table>
@@ -1508,9 +1963,9 @@ clear stub overrides and server history</p>
     
     <span class="code" data-ice="name">start</span><span class="code" data-ice="signature">(): <span><a href="class/src/Server.js~Server.html">Server</a></span></span>
     <span class="right-info">
-      <span class="version" data-ice="version">version 1.0.0</span>
+      <span class="version" data-ice="version">version 2.0.0</span>
       <span class="since" data-ice="since">since   1.0.0</span>
-      <span data-ice="source"><span><a href="file/src/Server.js.html#lineNumber36">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Server.js.html#lineNumber80">source</a></span></span>
     </span>
   </h3>
 
@@ -1563,18 +2018,18 @@ clear stub overrides and server history</p>
     
     
     
-    <span class="code" data-ice="name">stop</span><span class="code" data-ice="signature">(resetServer: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span>): <span><a href="class/src/Server.js~Server.html">Server</a></span></span>
+    <span class="code" data-ice="name">stop</span><span class="code" data-ice="signature">(resetServer: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span>): <span><a href="class/src/Server.js~Server.html">Server</a></span></span>
     <span class="right-info">
-      <span class="version" data-ice="version">version 1.0.0</span>
+      <span class="version" data-ice="version">version 2.0.0</span>
       <span class="since" data-ice="since">since   1.0.0</span>
-      <span data-ice="source"><span><a href="file/src/Server.js.html#lineNumber52">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Server.js.html#lineNumber97">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  <div data-ice="description"><p>Stop the server</p>
+  <div data-ice="description"><p>Stop the server and, optionnally reset it</p>
 </div>
 
   
@@ -1589,10 +2044,11 @@ clear stub overrides and server history</p>
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">resetServer</td>
-      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span></td>
       <td data-ice="appendix"><ul><li>optional</li>
 <li>default: false</li></ul></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>If <code>true</code>, <code>stop</code> will also reset server (see <span><a href="class/src/Server.js~Server.html#instance-method-reset">Server#reset</a></span>)</p>
+</td>
     </tr>
 </tbody>
   </table>
@@ -1637,18 +2093,24 @@ clear stub overrides and server history</p>
     
     
     
-    <span class="code" data-ice="name">throwOnError</span><span class="code" data-ice="signature">(throwOnError: <span>*</span>): <span>*</span></span>
+    <span class="code" data-ice="name">throwOnError</span><span class="code" data-ice="signature">(throwOnError: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span>): <span><a href="class/src/Server.js~Server.html">Server</a></span></span>
     <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/Server.js.html#lineNumber76">source</a></span></span>
+      <span class="version" data-ice="version">version 1.0.0</span>
+      <span class="since" data-ice="since">since   2.0.0</span>
+      <span data-ice="source"><span><a href="file/src/Server.js.html#lineNumber153">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Set the behavior of the server when an Error is thrown. If set to <code>true</code>, the server will
+also throw the error at runtime. If set to false, it will respond with a 500 HTTP error</p>
+<p>At default, the server is set to throw on error that will usually be
+the most suitable behavior when running tests to discard FMF failures.</p>
+<p><strong>note</strong> Only errors thrown during requests processing are affected by this parameter.
+Errors that occured on settings processing will always be raised</p>
+</div>
 
   
 
@@ -1662,9 +2124,10 @@ clear stub overrides and server history</p>
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">throwOnError</td>
-      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>If <code>true</code> server will throw</p>
+</td>
     </tr>
 </tbody>
   </table>
@@ -1676,8 +2139,147 @@ clear stub overrides and server history</p>
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
-          
+          <td class="return-type code" data-ice="returnType"><span><a href="class/src/Server.js~Server.html">Server</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>Server instance</p>
+</td>
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="see"><h4>See:</h4><ul><li><span><span>Server#_onError</span></span></li></ul></div>
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-warn">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">warn</span><span class="code" data-ice="signature">(error: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a></span>)</span>
+    <span class="right-info">
+      <span class="version" data-ice="version">version 1.0.0</span>
+      <span class="since" data-ice="since">since   2.0.0</span>
+      <span data-ice="source"><span><a href="file/src/Server.js.html#lineNumber166">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Displays a warning message in console. It can be overridden
+to swap to another notification system</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">error</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Error description</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-warnOnError">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">warnOnError</span><span class="code" data-ice="signature">(warnOnError: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span>): <span><a href="class/src/Server.js~Server.html">Server</a></span></span>
+    <span class="right-info">
+      <span class="version" data-ice="version">version 1.0.0</span>
+      <span class="since" data-ice="since">since   2.0.0</span>
+      <span data-ice="source"><span><a href="file/src/Server.js.html#lineNumber131">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Tells the server to display a warning in console when an error is raised or when
+something seems to went wrong in configuration.</p>
+<p>Default settings is true</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">warnOnError</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p><code>true</code> will display warnings</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="class/src/Server.js~Server.html">Server</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>Server instance</p>
+</td>
         </tr>
       </tbody>
     </table>
@@ -1710,18 +2312,22 @@ clear stub overrides and server history</p>
     
     <span data-ice="async">async</span>
     
-    <span class="code" data-ice="name">_findFixture</span><span class="code" data-ice="signature">(request: <span>*</span>): <span>*</span></span>
+    <span class="code" data-ice="name">_findFixture</span><span class="code" data-ice="signature">(request: <span><a href="class/src/helpers/FMFRequest.js~FMFRequest.html">FMFRequest</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
     <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/Server.js.html#lineNumber157">source</a></span></span>
+      <span class="version" data-ice="version">version 1.0.0</span>
+      <span class="since" data-ice="since">since   2.0.0</span>
+      <span data-ice="source"><span><a href="file/src/Server.js.html#lineNumber350">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Seeks for matching fixtures when processing a request</p>
+<p>An error will be raised if no fixtures have been set or if no matching fixtures have been
+found.</p>
+<p>FMF will also send a warning to the console</p>
+</div>
 
   
 
@@ -1735,9 +2341,10 @@ clear stub overrides and server history</p>
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">request</td>
-      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="type" class="code"><span><a href="class/src/helpers/FMFRequest.js~FMFRequest.html">FMFRequest</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>Request</p>
+</td>
     </tr>
 </tbody>
   </table>
@@ -1749,8 +2356,9 @@ clear stub overrides and server history</p>
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
-          
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>Resolved in fixture instance</p>
+</td>
         </tr>
       </tbody>
     </table>
@@ -1762,7 +2370,19 @@ clear stub overrides and server history</p>
 
   
 
-  
+  <div data-ice="throwWrap">
+    <h4>Throw:</h4>
+    <table>
+      <tbody>
+      
+      <tr class="throw" data-ice="throw">
+        <td><p data-ice="throwName"><span><a href="class/src/helpers/FMFException.js~FMFException.html">FMFException</a></span></p></td>
+        <td data-ice="throwDesc"><p>If no fixtures are defined or no matching fixtures found</p>
+</td>
+      </tr>
+</tbody>
+    </table>
+  </div>
 
   
 
@@ -1781,18 +2401,20 @@ clear stub overrides and server history</p>
     
     
     
-    <span class="code" data-ice="name">_getDefaultFixture</span><span class="code" data-ice="signature">(): <span>*</span></span>
+    <span class="code" data-ice="name">_getDefaultFixture</span><span class="code" data-ice="signature">(): <span><a href="class/src/Fixture.js~Fixture.html">Fixture</a></span></span>
     <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/Server.js.html#lineNumber132">source</a></span></span>
+      <span class="version" data-ice="version">version 1.0.0</span>
+      <span class="since" data-ice="since">since   2.0.0</span>
+      <span data-ice="source"><span><a href="file/src/Server.js.html#lineNumber296">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Returns the existing registered on the server or create a new fallback fixture
+to configure</p>
+</div>
 
   
 
@@ -1804,8 +2426,9 @@ clear stub overrides and server history</p>
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
-          
+          <td class="return-type code" data-ice="returnType"><span><a href="class/src/Fixture.js~Fixture.html">Fixture</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>Fallback fixture</p>
+</td>
         </tr>
       </tbody>
     </table>
@@ -1836,18 +2459,19 @@ clear stub overrides and server history</p>
     
     <span data-ice="async">async</span>
     
-    <span class="code" data-ice="name">_processRequest</span><span class="code" data-ice="signature">(request: <span>*</span>, init: <span>*</span>): <span>*</span></span>
+    <span class="code" data-ice="name">_processRequest</span><span class="code" data-ice="signature">(request: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span> | <span>Request</span>, init: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
     <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/Server.js.html#lineNumber183">source</a></span></span>
+      <span class="version" data-ice="version">version 1.0.0</span>
+      <span class="since" data-ice="since">since   2.0.0</span>
+      <span data-ice="source"><span><a href="file/src/Server.js.html#lineNumber386">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Process the incoming request and update history</p>
+</div>
 
   
 
@@ -1861,15 +2485,17 @@ clear stub overrides and server history</p>
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">request</td>
-      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span> | <span>Request</span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>Incoming request</p>
+</td>
     </tr>
 <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">init</td>
-      <td data-ice="type" class="code"><span>*</span></td>
-      <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>request options</p>
+</td>
     </tr>
 </tbody>
   </table>
@@ -1881,8 +2507,9 @@ clear stub overrides and server history</p>
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
-          
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>Response</p>
+</td>
         </tr>
       </tbody>
     </table>
@@ -1894,7 +2521,19 @@ clear stub overrides and server history</p>
 
   
 
-  
+  <div data-ice="throwWrap">
+    <h4>Throw:</h4>
+    <table>
+      <tbody>
+      
+      <tr class="throw" data-ice="throw">
+        <td><p data-ice="throwName"><span><a href="class/src/helpers/FMFException.js~FMFException.html">FMFException</a></span></p></td>
+        <td data-ice="throwDesc"><p>If request processing have failed</p>
+</td>
+      </tr>
+</tbody>
+    </table>
+  </div>
 
   
 
@@ -1913,18 +2552,20 @@ clear stub overrides and server history</p>
     
     
     
-    <span class="code" data-ice="name">_processRespond</span><span class="code" data-ice="signature">(fixture: {}): <span>*</span></span>
+    <span class="code" data-ice="name">_processRespond</span><span class="code" data-ice="signature">(fixture: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>): <span><a href="class/src/Fixture.js~Fixture.html">Fixture</a></span></span>
     <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/Server.js.html#lineNumber145">source</a></span></span>
+      <span class="version" data-ice="version">version 1.0.0</span>
+      <span class="since" data-ice="since">since   2.0.0</span>
+      <span data-ice="source"><span><a href="file/src/Server.js.html#lineNumber317">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Process the respond call when called from a fixture to allow chainable
+fixtures on-the-fly configuration</p>
+</div>
 
   
 
@@ -1938,10 +2579,11 @@ clear stub overrides and server history</p>
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">fixture</td>
-      <td data-ice="type" class="code">{}</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
       <td data-ice="appendix"><ul><li>optional</li>
 <li>default: {}</li></ul></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>Calling fixture or void object if not called from a fixture</p>
+</td>
     </tr>
 </tbody>
   </table>
@@ -1953,8 +2595,9 @@ clear stub overrides and server history</p>
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
-          
+          <td class="return-type code" data-ice="returnType"><span><a href="class/src/Fixture.js~Fixture.html">Fixture</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>Return either the default fixture or set the current to <code>respond</code> mode</p>
+</td>
         </tr>
       </tbody>
     </table>

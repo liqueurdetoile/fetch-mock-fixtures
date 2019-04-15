@@ -35,11 +35,10 @@
   margin: 0 auto;
   width:60%;
   max-width: 1200px;
-  min-width: 320px;
 }
 
-.navigation {  
-  overflow-y: scroll;  
+.navigation {
+  overflow-y: scroll;
   left:auto;
   background-color: #fff
 }
@@ -48,16 +47,40 @@
   white-space: normal
 }
 
+.content {
+  min-width: 320px;
+  font-size: 1.1em;
+}
+
+@media screen and (max-width: 480px) {
+  .content-wrapper {
+    margin-top: 3rem
+    width: 100%
+  }
+
+  .navigation {
+    position: relative;
+    width: 100%;
+    height: auto;
+    box-shadow: none;
+    border-right: none;
+    padding: 1rem;
+    margin: 0;
+    margin-bottom: 2rem
+  }
+
+  .content {
+    margin: 1rem;
+    width: 100%
+  }
+}
+
 .content .detail > div {
     margin-left: 0;
 }
 
-.content {
-  font-size: 1.1em;
-}
-
 .content h1, h2, h3, h4 {
-  font-weight: bold;  
+  font-weight: bold;
 }
 
 .content h2 {
@@ -124,7 +147,7 @@ h3 .right-info {
 }
 
 .manual-root .content-wrapper {
-  width: 80%  
+  width: 80%
 }
 
 .manual-root .navigation {
@@ -136,7 +159,7 @@ h3 .right-info {
 }
 
 .manual-toc {
-  font-size:0.85em;  
+  font-size:0.85em;
 }
 
 /*! Color themes for Google Code Prettify | MIT License | github.com/jmblog/color-themes-for-google-code-prettify */
@@ -144,14 +167,14 @@ pre.prettyprint,
 pre.raw-source-code > code,
 pre > code {
   background:#1d1f21;
-  padding: 1em;
   line-height: 1.5;
-  font-size: 0.9em
+  font-size: 0.85rem !important
+  overflow: auto;
 }
 
 pre.source-code li {
   background:#1d1f21;
-  font-size: 0.8em
+  font-size: 0.8rem
 }
 
 pre.source-code.line-number li.active {
@@ -159,7 +182,43 @@ pre.source-code.line-number li.active {
 }
 
 .code {
-  font-size: 0.9em
+  font-size: 0.9rem
 }
 
-.prettyprint{background:#1d1f21;font-family:Menlo,Bitstream Vera Sans Mono,DejaVu Sans Mono,Monaco,Consolas,monospace;border:0!important}.pln{color:#c5c8c6}ol.linenums{margin-top:0;margin-bottom:0;color:#969896}li.L0,li.L1,li.L2,li.L3,li.L4,li.L5,li.L6,li.L7,li.L8,li.L9{padding-left:1em;background-color:#1d1f21;list-style-type:decimal}@media screen{.str{color:#b5bd68}.kwd{color:#b294bb}.com{color:#969896}.typ{color:#81a2be}.lit{color:#de935f}.pun{color:#c5c8c6}.opn{color:#c5c8c6}.clo{color:#c5c8c6}.tag{color:#c66}.atn{color:#de935f}.atv{color:#8abeb7}.dec{color:#de935f}.var{color:#c66}.fun{color:#81a2be}}
+.prettyprint{
+  margin: 1rem;
+  display: block;
+  background:#1d1f21;
+  font-family:Menlo,Bitstream Vera Sans Mono,DejaVu Sans Mono,Monaco,Consolas,monospace;
+  border:0!important
+}
+.pln{
+  color:#c5c8c6
+}
+
+ol.linenums{
+  margin-top:0;margin-bottom:0;color:#969896
+}
+
+li.L0,li.L1,li.L2,li.L3,li.L4,li.L5,li.L6,li.L7,li.L8,li.L9  {
+  padding-left:1em;
+  background-color:#1d1f21;
+  list-style-type:decimal
+}
+
+@media screen{
+  .str{color:#b5bd68}
+  .kwd{color:#b294bb}
+  .com{color:#969896}
+  .typ{color:#81a2be}
+  .lit{color:#de935f}
+  .pun{color:#c5c8c6}
+  .opn{color:#c5c8c6}
+  .clo{color:#c5c8c6}
+  .tag{color:#c66}
+  .atn{color:#de935f}
+  .atv{color:#8abeb7}
+  .dec{color:#de935f}
+  .var{color:#c66}
+  .fun{color:#81a2be}
+}

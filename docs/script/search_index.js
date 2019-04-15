@@ -1,8 +1,8 @@
 window.esdocSearchIndex = [
   [
-    "fetch-mock-fixtures/src/processors/abstractprocessor.js~abstractprocessor",
-    "class/src/processors/AbstractProcessor.js~AbstractProcessor.html",
-    "<span>AbstractProcessor</span> <span class=\"search-result-import-path\">fetch-mock-fixtures/src/processors/AbstractProcessor.js</span>",
+    "fetch-mock-fixtures/src/processors/baseprocessor.js~baseprocessor",
+    "class/src/processors/BaseProcessor.js~BaseProcessor.html",
+    "<span>BaseProcessor</span> <span class=\"search-result-import-path\">fetch-mock-fixtures/src/processors/BaseProcessor.js</span>",
     "class"
   ],
   [
@@ -15,6 +15,12 @@ window.esdocSearchIndex = [
     "fetch-mock-fixtures/src/processors/booleanprocessor.js~booleanprocessor",
     "class/src/processors/BooleanProcessor.js~BooleanProcessor.html",
     "<span>BooleanProcessor</span> <span class=\"search-result-import-path\">fetch-mock-fixtures/src/processors/BooleanProcessor.js</span>",
+    "class"
+  ],
+  [
+    "fetch-mock-fixtures/src/helpers/fmfexception.js~fmfexception",
+    "class/src/helpers/FMFException.js~FMFException.html",
+    "<span>FMFException</span> <span class=\"search-result-import-path\">fetch-mock-fixtures/src/helpers/FMFException.js</span>",
     "class"
   ],
   [
@@ -79,49 +85,91 @@ window.esdocSearchIndex = [
   ],
   [
     "",
+    "test-file/tests/examples/pouchdb.fixture.spec.js.html#lineNumber85",
+    "Dynamic fixture from database",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/examples/pouchdb.fixture.spec.js.html#lineNumber116",
+    "Dynamic fixture from database should create a new record",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/examples/pouchdb.fixture.spec.js.html#lineNumber102",
+    "Dynamic fixture from database should fetch all rows from a model",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/examples/pouchdb.fixture.spec.js.html#lineNumber109",
+    "Dynamic fixture from database should fetch once record from a model",
+    "test"
+  ],
+  [
+    "",
     "test-file/tests/units/errors.spec.js.html#lineNumber5",
     "Errors management",
     "test"
   ],
   [
     "",
-    "test-file/tests/units/errors.spec.js.html#lineNumber10",
+    "test-file/tests/units/errors.spec.js.html#lineNumber26",
     "Errors management Server errors",
     "test"
   ],
   [
     "",
-    "test-file/tests/units/errors.spec.js.html#lineNumber20",
-    "Errors management Server errors should be set to respond with 500 error when failing",
+    "test-file/tests/units/errors.spec.js.html#lineNumber33",
+    "Errors management Server errors should be set to throw on error",
     "test"
   ],
   [
     "",
-    "test-file/tests/units/errors.spec.js.html#lineNumber11",
-    "Errors management Server errors should be set to throw on error by default",
+    "test-file/tests/units/errors.spec.js.html#lineNumber27",
+    "Errors management Server errors should respond with 500 error when process failing",
     "test"
   ],
   [
     "",
-    "test-file/tests/units/extending.request.spec.js.html#lineNumber3",
+    "test-file/tests/units/errors.spec.js.html#lineNumber10",
+    "Errors management Server warnings",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/units/errors.spec.js.html#lineNumber19",
+    "Errors management Server warnings should be set to not warn on error",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/units/errors.spec.js.html#lineNumber14",
+    "Errors management Server warnings should warn on error by default",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/units/FMFRequest.spec.js.html#lineNumber3",
     "Extended request test suite",
     "test"
   ],
   [
     "",
-    "test-file/tests/units/extending.request.spec.js.html#lineNumber4",
+    "test-file/tests/units/FMFRequest.spec.js.html#lineNumber4",
     "Extended request test suite should create Request from fetch params and expose parsed request properties",
     "test"
   ],
   [
     "",
-    "test-file/tests/units/extending.request.spec.js.html#lineNumber16",
+    "test-file/tests/units/FMFRequest.spec.js.html#lineNumber16",
     "Extended request test suite should extend existing Request Object and expose parsed request properties",
     "test"
   ],
   [
     "",
-    "test-file/tests/units/extending.request.spec.js.html#lineNumber28",
+    "test-file/tests/units/FMFRequest.spec.js.html#lineNumber28",
     "Extended request test suite should return an FMF request as clone",
     "test"
   ],
@@ -163,14 +211,26 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/tests/units/fixtures.spec.js.html#lineNumber93",
+    "test-file/tests/units/fixtures.spec.js.html#lineNumber115",
     "Fixtures test suite Fixture requests processing should return a 500 error for Error throws",
     "test"
   ],
   [
     "",
-    "test-file/tests/units/fixtures.spec.js.html#lineNumber105",
+    "test-file/tests/units/fixtures.spec.js.html#lineNumber150",
     "Fixtures test suite Fixture requests processing should return a 500 error for other throws",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/units/fixtures.spec.js.html#lineNumber129",
+    "Fixtures test suite Fixture requests processing should throw by default for other throws",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/units/fixtures.spec.js.html#lineNumber93",
+    "Fixtures test suite Fixture requests processing should throw on Error",
     "test"
   ],
   [
@@ -205,14 +265,32 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/tests/units/history.spec.js.html#lineNumber23",
+    "test-file/tests/units/history.spec.js.html#lineNumber24",
+    "History test suite should get nth request",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/units/history.spec.js.html#lineNumber31",
     "History test suite should have cloned response before body parsing",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/units/history.spec.js.html#lineNumber36",
+    "History test suite should return all history, all requests or all responses",
     "test"
   ],
   [
     "",
     "test-file/tests/units/presets.spec.js.html#lineNumber38",
     "Presets test suite",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/units/presets.spec.js.html#lineNumber68",
+    "Presets test suite should configure preset with BDD style",
     "test"
   ],
   [
@@ -229,85 +307,187 @@ window.esdocSearchIndex = [
   ],
   [
     "",
+    "test-file/tests/units/presets.spec.js.html#lineNumber82",
+    "Presets test suite should override presets app-wide",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/units/presets.spec.js.html#lineNumber74",
+    "Presets test suite should throw if name is not provided",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/units/presets.spec.js.html#lineNumber78",
+    "Presets test suite should throw if params are not an object",
+    "test"
+  ],
+  [
+    "",
     "test-file/tests/units/presets.spec.js.html#lineNumber57",
     "Presets test suite should update preset",
     "test"
   ],
   [
     "",
-    "test-file/tests/units/request.configurator.spec.js.html#lineNumber7",
+    "test-file/tests/units/processors/base.spec.js.html#lineNumber3",
+    "Processors test suite",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/units/processors/base.spec.js.html#lineNumber4",
+    "Processors test suite Base processor evaluation methods",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/units/processors/base.spec.js.html#lineNumber7",
+    "Processors test suite Base processor evaluation methods Equality",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/units/processors/base.spec.js.html#lineNumber22",
+    "Processors test suite Base processor evaluation methods Equality should evaluate equality of booleans",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/units/processors/base.spec.js.html#lineNumber15",
+    "Processors test suite Base processor evaluation methods Equality should evaluate equality of numbers",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/units/processors/base.spec.js.html#lineNumber8",
+    "Processors test suite Base processor evaluation methods Equality should evaluate equality of strings",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/units/processors/base.spec.js.html#lineNumber43",
+    "Processors test suite Base processor evaluation methods Equality should execute async callback",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/units/processors/base.spec.js.html#lineNumber36",
+    "Processors test suite Base processor evaluation methods Equality should execute callback",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/units/processors/base.spec.js.html#lineNumber29",
+    "Processors test suite Base processor evaluation methods Equality should execute reg exp",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/units/RequestMatcher.spec.js.html#lineNumber11",
     "Request configurator test suite",
     "test"
   ],
   [
     "",
-    "test-file/tests/units/request.configurator.spec.js.html#lineNumber8",
+    "test-file/tests/units/RequestMatcher.spec.js.html#lineNumber12",
     "Request configurator test suite should create a matcher",
     "test"
   ],
   [
     "",
-    "test-file/tests/units/request.configurator.spec.js.html#lineNumber28",
+    "test-file/tests/units/RequestMatcher.spec.js.html#lineNumber34",
     "Request configurator test suite should process equal",
     "test"
   ],
   [
     "",
-    "test-file/tests/units/request.configurator.spec.js.html#lineNumber36",
+    "test-file/tests/units/RequestMatcher.spec.js.html#lineNumber42",
     "Request configurator test suite should process header",
     "test"
   ],
   [
     "",
-    "test-file/tests/units/request.configurator.spec.js.html#lineNumber20",
+    "test-file/tests/units/RequestMatcher.spec.js.html#lineNumber50",
+    "Request configurator test suite should provide the right processor",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/units/RequestMatcher.spec.js.html#lineNumber26",
     "Request configurator test suite should return a processor",
     "test"
   ],
   [
     "",
-    "test-file/tests/units/request.configurator.spec.js.html#lineNumber14",
+    "test-file/tests/units/RequestMatcher.spec.js.html#lineNumber68",
+    "Request configurator test suite should throw is equal argument is not and object when called on matcher",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/units/RequestMatcher.spec.js.html#lineNumber74",
+    "Request configurator test suite should throw is with invalid key when called on matcher",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/units/RequestMatcher.spec.js.html#lineNumber19",
     "Request configurator test suite should throw on unsupported FMFRequest property",
     "test"
   ],
   [
     "",
-    "test-file/tests/functionals/requests.processing.spec.js.html#lineNumber5",
+    "test-file/tests/units/requests.processing.spec.js.html#lineNumber5",
     "Request processing test suite",
     "test"
   ],
   [
     "",
-    "test-file/tests/functionals/requests.processing.spec.js.html#lineNumber34",
+    "test-file/tests/units/requests.processing.spec.js.html#lineNumber37",
     "Request processing test suite Should reset between calls",
     "test"
   ],
   [
     "",
-    "test-file/tests/functionals/requests.processing.spec.js.html#lineNumber80",
+    "test-file/tests/units/requests.processing.spec.js.html#lineNumber138",
+    "Request processing test suite should delay response",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/units/requests.processing.spec.js.html#lineNumber150",
+    "Request processing test suite should negate request matching",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/units/requests.processing.spec.js.html#lineNumber84",
     "Request processing test suite should parse body of request for matching",
     "test"
   ],
   [
     "",
-    "test-file/tests/functionals/requests.processing.spec.js.html#lineNumber60",
+    "test-file/tests/units/requests.processing.spec.js.html#lineNumber63",
     "Request processing test suite should return ordered responses",
     "test"
   ],
   [
     "",
-    "test-file/tests/functionals/requests.processing.spec.js.html#lineNumber49",
+    "test-file/tests/units/requests.processing.spec.js.html#lineNumber52",
     "Request processing test suite should return response build from fixture",
     "test"
   ],
   [
     "",
-    "test-file/tests/functionals/requests.processing.spec.js.html#lineNumber12",
+    "test-file/tests/units/requests.processing.spec.js.html#lineNumber14",
     "Request processing test suite should throw if no fixtures defined",
     "test"
   ],
   [
     "",
-    "test-file/tests/functionals/requests.processing.spec.js.html#lineNumber20",
+    "test-file/tests/units/requests.processing.spec.js.html#lineNumber23",
     "Request processing test suite should throw if no matching fixtures found",
     "test"
   ],
@@ -355,6 +535,42 @@ window.esdocSearchIndex = [
   ],
   [
     "",
+    "test-file/tests/units/ResponseConfigurator.spec.js.html#lineNumber3",
+    "Response configurator test suite",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/units/ResponseConfigurator.spec.js.html#lineNumber4",
+    "Response configurator test suite should set/unset a response from object",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/units/ResponseConfigurator.spec.js.html#lineNumber57",
+    "Response configurator test suite should throw if before and after are not callbacks",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/units/ResponseConfigurator.spec.js.html#lineNumber51",
+    "Response configurator test suite should throw if headers are not valid",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/units/ResponseConfigurator.spec.js.html#lineNumber39",
+    "Response configurator test suite should throw with set if argument is not an object",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/units/ResponseConfigurator.spec.js.html#lineNumber45",
+    "Response configurator test suite should throw with set if key is not allowed",
+    "test"
+  ],
+  [
+    "",
     "test-file/tests/units/server.controls.spec.js.html#lineNumber3",
     "Server control test suite",
     "test"
@@ -367,8 +583,20 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/tests/units/server.controls.spec.js.html#lineNumber22",
+    "test-file/tests/units/server.controls.spec.js.html#lineNumber27",
     "Server control test suite should expose stub when running and throw when not running",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/units/server.controls.spec.js.html#lineNumber36",
+    "Server control test suite should import fixtures",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/units/server.controls.spec.js.html#lineNumber70",
+    "Server control test suite should manage import errors",
     "test"
   ],
   [
@@ -379,32 +607,20 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/tests/examples/simple.setup.and.process.spec.js.html#lineNumber5",
-    "Simple setup and process",
+    "test-file/tests/examples/filesystem.fixture.spec.js.html#lineNumber29",
+    "Webpack require dynamic fixture example",
     "test"
   ],
   [
     "",
-    "test-file/tests/examples/simple.setup.and.process.spec.js.html#lineNumber10",
-    "Simple setup and process Error management",
+    "test-file/tests/examples/filesystem.fixture.spec.js.html#lineNumber75",
+    "Webpack require dynamic fixture example should load a fixture with pattern",
     "test"
   ],
   [
     "",
-    "test-file/tests/examples/webpack.dynamic.fixture.spec.js.html#lineNumber24",
-    "Webpack dynamic fixture example",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/examples/webpack.dynamic.fixture.spec.js.html#lineNumber86",
-    "Webpack dynamic fixture example should load a fixture with pattern",
-    "test"
-  ],
-  [
-    "",
-    "test-file/tests/examples/webpack.dynamic.fixture.spec.js.html#lineNumber49",
-    "Webpack dynamic fixture example should load a fixture without pattern",
+    "test-file/tests/examples/filesystem.fixture.spec.js.html#lineNumber38",
+    "Webpack require dynamic fixture example should load a fixture without pattern",
     "test"
   ],
   [
@@ -738,6 +954,12 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "src/fixture.js~fixture#_responsekeys",
+    "class/src/Fixture.js~Fixture.html#instance-member-_responseKeys",
+    "src/Fixture.js~Fixture#_responseKeys",
+    "member"
+  ],
+  [
     "src/fixture.js~fixture#any",
     "class/src/Fixture.js~Fixture.html#instance-get-any",
     "src/Fixture.js~Fixture#any",
@@ -766,6 +988,12 @@ window.esdocSearchIndex = [
     "class/src/Fixture.js~Fixture.html#instance-method-extractParams",
     "src/Fixture.js~Fixture#extractParams",
     "method"
+  ],
+  [
+    "src/fixture.js~fixture#fallback",
+    "class/src/Fixture.js~Fixture.html#instance-get-fallback",
+    "src/Fixture.js~Fixture#fallback",
+    "member"
   ],
   [
     "src/fixture.js~fixture#firstcall",
@@ -816,6 +1044,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/fixture.js~fixture#respond",
+    "class/src/Fixture.js~Fixture.html#instance-get-respond",
+    "src/Fixture.js~Fixture#respond",
+    "member"
+  ],
+  [
     "src/fixture.js~fixture#secondcall",
     "class/src/Fixture.js~Fixture.html#instance-method-secondCall",
     "src/Fixture.js~Fixture#secondCall",
@@ -840,6 +1074,12 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "src/fixture.js~fixture#when",
+    "class/src/Fixture.js~Fixture.html#instance-get-when",
+    "src/Fixture.js~Fixture#when",
+    "member"
+  ],
+  [
     "src/fixture.js~fixture#wrap",
     "class/src/Fixture.js~Fixture.html#instance-method-wrap",
     "src/Fixture.js~Fixture#wrap",
@@ -850,12 +1090,6 @@ window.esdocSearchIndex = [
     "file/src/Preset.js.html",
     "src/Preset.js",
     "file"
-  ],
-  [
-    "src/preset.js~preset#_any",
-    "class/src/Preset.js~Preset.html#instance-member-_any",
-    "src/Preset.js~Preset#_any",
-    "member"
   ],
   [
     "src/preset.js~preset#_getcurrentresponseset",
@@ -900,12 +1134,6 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "src/server.js~server#_onerror",
-    "class/src/Server.js~Server.html#instance-member-_onError",
-    "src/Server.js~Server#_onError",
-    "member"
-  ],
-  [
     "src/server.js~server#_presets",
     "class/src/Server.js~Server.html#instance-member-_presets",
     "src/Server.js~Server#_presets",
@@ -924,6 +1152,18 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/server.js~server#_throwonerror",
+    "class/src/Server.js~Server.html#instance-member-_throwOnError",
+    "src/Server.js~Server#_throwOnError",
+    "member"
+  ],
+  [
+    "src/server.js~server#_warnonerror",
+    "class/src/Server.js~Server.html#instance-member-_warnOnError",
+    "src/Server.js~Server#_warnOnError",
+    "member"
+  ],
+  [
     "src/server.js~server#calls",
     "class/src/Server.js~Server.html#instance-get-calls",
     "src/Server.js~Server#calls",
@@ -936,10 +1176,22 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/server.js~server#fallback",
+    "class/src/Server.js~Server.html#instance-get-fallback",
+    "src/Server.js~Server#fallback",
+    "member"
+  ],
+  [
     "src/server.js~server#history",
     "class/src/Server.js~Server.html#instance-member-history",
     "src/Server.js~Server#history",
     "member"
+  ],
+  [
+    "src/server.js~server#import",
+    "class/src/Server.js~Server.html#instance-method-import",
+    "src/Server.js~Server#import",
+    "method"
   ],
   [
     "src/server.js~server#on",
@@ -1008,10 +1260,46 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/server.js~server#warn",
+    "class/src/Server.js~Server.html#instance-method-warn",
+    "src/Server.js~Server#warn",
+    "method"
+  ],
+  [
+    "src/server.js~server#warnonerror",
+    "class/src/Server.js~Server.html#instance-method-warnOnError",
+    "src/Server.js~Server#warnOnError",
+    "method"
+  ],
+  [
     "src/server.js~server#when",
     "class/src/Server.js~Server.html#instance-get-when",
     "src/Server.js~Server#when",
     "member"
+  ],
+  [
+    "src/helpers/fmfexception.js",
+    "file/src/helpers/FMFException.js.html",
+    "src/helpers/FMFException.js",
+    "file"
+  ],
+  [
+    "src/helpers/fmfexception.js~fmfexception#constructor",
+    "class/src/helpers/FMFException.js~FMFException.html#instance-constructor-constructor",
+    "src/helpers/FMFException.js~FMFException#constructor",
+    "method"
+  ],
+  [
+    "src/helpers/fmfexception.js~fmfexception#previous",
+    "class/src/helpers/FMFException.js~FMFException.html#instance-member-previous",
+    "src/helpers/FMFException.js~FMFException#previous",
+    "member"
+  ],
+  [
+    "src/helpers/fmfexception.js~fmfexception#tostring",
+    "class/src/helpers/FMFException.js~FMFException.html#instance-method-toString",
+    "src/helpers/FMFException.js~FMFException#toString",
+    "method"
   ],
   [
     "src/helpers/fmfrequest.js",
@@ -1050,6 +1338,12 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "src/helpers/requestmatcher.js~requestmatcher#and",
+    "class/src/helpers/RequestMatcher.js~RequestMatcher.html#instance-get-and",
+    "src/helpers/RequestMatcher.js~RequestMatcher#and",
+    "member"
+  ],
+  [
     "src/helpers/requestmatcher.js~requestmatcher#body",
     "class/src/helpers/RequestMatcher.js~RequestMatcher.html#instance-method-body",
     "src/helpers/RequestMatcher.js~RequestMatcher#body",
@@ -1059,6 +1353,12 @@ window.esdocSearchIndex = [
     "src/helpers/requestmatcher.js~requestmatcher#constructor",
     "class/src/helpers/RequestMatcher.js~RequestMatcher.html#instance-constructor-constructor",
     "src/helpers/RequestMatcher.js~RequestMatcher#constructor",
+    "method"
+  ],
+  [
+    "src/helpers/requestmatcher.js~requestmatcher#equal",
+    "class/src/helpers/RequestMatcher.js~RequestMatcher.html#instance-method-equal",
+    "src/helpers/RequestMatcher.js~RequestMatcher#equal",
     "method"
   ],
   [
@@ -1090,12 +1390,6 @@ window.esdocSearchIndex = [
     "class/src/helpers/RequestMatcher.js~RequestMatcher.html#instance-get-on",
     "src/helpers/RequestMatcher.js~RequestMatcher#on",
     "member"
-  ],
-  [
-    "src/helpers/requestmatcher.js~requestmatcher#request",
-    "class/src/helpers/RequestMatcher.js~RequestMatcher.html#instance-method-request",
-    "src/helpers/RequestMatcher.js~RequestMatcher#request",
-    "method"
   ],
   [
     "src/helpers/requestmatcher.js~requestmatcher#respond",
@@ -1164,28 +1458,10 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "src/helpers/responseconfigurator.js~responseconfigurator#on",
-    "class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html#instance-get-on",
-    "src/helpers/ResponseConfigurator.js~ResponseConfigurator#on",
-    "member"
-  ],
-  [
     "src/helpers/responseconfigurator.js~responseconfigurator#pattern",
     "class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html#instance-method-pattern",
     "src/helpers/ResponseConfigurator.js~ResponseConfigurator#pattern",
     "method"
-  ],
-  [
-    "src/helpers/responseconfigurator.js~responseconfigurator#preset",
-    "class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html#instance-method-preset",
-    "src/helpers/ResponseConfigurator.js~ResponseConfigurator#preset",
-    "method"
-  ],
-  [
-    "src/helpers/responseconfigurator.js~responseconfigurator#respond",
-    "class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html#instance-get-respond",
-    "src/helpers/ResponseConfigurator.js~ResponseConfigurator#respond",
-    "member"
   ],
   [
     "src/helpers/responseconfigurator.js~responseconfigurator#server",
@@ -1212,12 +1488,6 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "src/helpers/responseconfigurator.js~responseconfigurator#when",
-    "class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html#instance-get-when",
-    "src/helpers/ResponseConfigurator.js~ResponseConfigurator#when",
-    "member"
-  ],
-  [
     "src/helpers/responseconfigurator.js~responseconfigurator#with",
     "class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html#instance-get-with",
     "src/helpers/ResponseConfigurator.js~ResponseConfigurator#with",
@@ -1236,6 +1506,12 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "src/helpers/serverhistory.js~serverhistory#_call",
+    "class/src/helpers/ServerHistory.js~ServerHistory.html#instance-member-_call",
+    "src/helpers/ServerHistory.js~ServerHistory#_call",
+    "member"
+  ],
+  [
     "src/helpers/serverhistory.js~serverhistory#_history",
     "class/src/helpers/ServerHistory.js~ServerHistory.html#instance-member-_history",
     "src/helpers/ServerHistory.js~ServerHistory#_history",
@@ -1246,6 +1522,12 @@ window.esdocSearchIndex = [
     "class/src/helpers/ServerHistory.js~ServerHistory.html#instance-member-_target",
     "src/helpers/ServerHistory.js~ServerHistory#_target",
     "member"
+  ],
+  [
+    "src/helpers/serverhistory.js~serverhistory#all",
+    "class/src/helpers/ServerHistory.js~ServerHistory.html#instance-method-all",
+    "src/helpers/ServerHistory.js~ServerHistory#all",
+    "method"
   ],
   [
     "src/helpers/serverhistory.js~serverhistory#atcall",
@@ -1314,63 +1596,69 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "src/processors/abstractprocessor.js",
-    "file/src/processors/AbstractProcessor.js.html",
-    "src/processors/AbstractProcessor.js",
+    "src/processors/baseprocessor.js",
+    "file/src/processors/BaseProcessor.js.html",
+    "src/processors/BaseProcessor.js",
     "file"
   ],
   [
-    "src/processors/abstractprocessor.js~abstractprocessor#_key",
-    "class/src/processors/AbstractProcessor.js~AbstractProcessor.html#instance-member-_key",
-    "src/processors/AbstractProcessor.js~AbstractProcessor#_key",
-    "member"
-  ],
-  [
-    "src/processors/abstractprocessor.js~abstractprocessor#_matcher",
-    "class/src/processors/AbstractProcessor.js~AbstractProcessor.html#instance-member-_matcher",
-    "src/processors/AbstractProcessor.js~AbstractProcessor#_matcher",
-    "member"
-  ],
-  [
-    "src/processors/abstractprocessor.js~abstractprocessor#_not",
-    "class/src/processors/AbstractProcessor.js~AbstractProcessor.html#instance-member-_not",
-    "src/processors/AbstractProcessor.js~AbstractProcessor#_not",
-    "member"
-  ],
-  [
-    "src/processors/abstractprocessor.js~abstractprocessor#_test",
-    "class/src/processors/AbstractProcessor.js~AbstractProcessor.html#instance-member-_test",
-    "src/processors/AbstractProcessor.js~AbstractProcessor#_test",
-    "member"
-  ],
-  [
-    "src/processors/abstractprocessor.js~abstractprocessor#constructor",
-    "class/src/processors/AbstractProcessor.js~AbstractProcessor.html#instance-constructor-constructor",
-    "src/processors/AbstractProcessor.js~AbstractProcessor#constructor",
+    "src/processors/baseprocessor.js~baseprocessor#_equal",
+    "class/src/processors/BaseProcessor.js~BaseProcessor.html#instance-method-_equal",
+    "src/processors/BaseProcessor.js~BaseProcessor#_equal",
     "method"
   ],
   [
-    "src/processors/abstractprocessor.js~abstractprocessor#equal",
-    "class/src/processors/AbstractProcessor.js~AbstractProcessor.html#instance-method-equal",
-    "src/processors/AbstractProcessor.js~AbstractProcessor#equal",
+    "src/processors/baseprocessor.js~baseprocessor#_evaluate",
+    "class/src/processors/BaseProcessor.js~BaseProcessor.html#instance-member-_evaluate",
+    "src/processors/BaseProcessor.js~BaseProcessor#_evaluate",
+    "member"
+  ],
+  [
+    "src/processors/baseprocessor.js~baseprocessor#_key",
+    "class/src/processors/BaseProcessor.js~BaseProcessor.html#instance-member-_key",
+    "src/processors/BaseProcessor.js~BaseProcessor#_key",
+    "member"
+  ],
+  [
+    "src/processors/baseprocessor.js~baseprocessor#_matcher",
+    "class/src/processors/BaseProcessor.js~BaseProcessor.html#instance-member-_matcher",
+    "src/processors/BaseProcessor.js~BaseProcessor#_matcher",
+    "member"
+  ],
+  [
+    "src/processors/baseprocessor.js~baseprocessor#_not",
+    "class/src/processors/BaseProcessor.js~BaseProcessor.html#instance-member-_not",
+    "src/processors/BaseProcessor.js~BaseProcessor#_not",
+    "member"
+  ],
+  [
+    "src/processors/baseprocessor.js~baseprocessor#constructor",
+    "class/src/processors/BaseProcessor.js~BaseProcessor.html#instance-constructor-constructor",
+    "src/processors/BaseProcessor.js~BaseProcessor#constructor",
     "method"
   ],
   [
-    "src/processors/abstractprocessor.js~abstractprocessor#is",
-    "class/src/processors/AbstractProcessor.js~AbstractProcessor.html#instance-get-is",
-    "src/processors/AbstractProcessor.js~AbstractProcessor#is",
+    "src/processors/baseprocessor.js~baseprocessor#equal",
+    "class/src/processors/BaseProcessor.js~BaseProcessor.html#instance-method-equal",
+    "src/processors/BaseProcessor.js~BaseProcessor#equal",
+    "method"
+  ],
+  [
+    "src/processors/baseprocessor.js~baseprocessor#is",
+    "class/src/processors/BaseProcessor.js~BaseProcessor.html#instance-get-is",
+    "src/processors/BaseProcessor.js~BaseProcessor#is",
     "member"
   ],
   [
-    "src/processors/abstractprocessor.js~abstractprocessor#not",
-    "class/src/processors/AbstractProcessor.js~AbstractProcessor.html#instance-get-not",
-    "src/processors/AbstractProcessor.js~AbstractProcessor#not",
+    "src/processors/baseprocessor.js~baseprocessor#not",
+    "class/src/processors/BaseProcessor.js~BaseProcessor.html#instance-get-not",
+    "src/processors/BaseProcessor.js~BaseProcessor#not",
     "member"
   ],
   [
-    "src/processors/abstractprocessor.js~abstractprocessor#process",
-    "class/src/processors/AbstractProcessor.js~AbstractProcessor.html#instance-method-process",
-    "src/processors/AbstractProcessor.js~AbstractProcessor#process",
+    "src/processors/baseprocessor.js~baseprocessor#process",
+    "class/src/processors/BaseProcessor.js~BaseProcessor.html#instance-method-process",
+    "src/processors/BaseProcessor.js~BaseProcessor#process",
     "method"
   ],
   [
@@ -1380,21 +1668,21 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "src/processors/bodyprocessor.js~bodyprocessor#_test",
-    "class/src/processors/BodyProcessor.js~BodyProcessor.html#instance-member-_test",
-    "src/processors/BodyProcessor.js~BodyProcessor#_test",
+    "src/processors/bodyprocessor.js~bodyprocessor#_evaluate",
+    "class/src/processors/BodyProcessor.js~BodyProcessor.html#instance-member-_evaluate",
+    "src/processors/BodyProcessor.js~BodyProcessor#_evaluate",
     "member"
+  ],
+  [
+    "src/processors/bodyprocessor.js~bodyprocessor#_processbody",
+    "class/src/processors/BodyProcessor.js~BodyProcessor.html#instance-method-_processBody",
+    "src/processors/BodyProcessor.js~BodyProcessor#_processBody",
+    "method"
   ],
   [
     "src/processors/bodyprocessor.js~bodyprocessor#_type",
     "class/src/processors/BodyProcessor.js~BodyProcessor.html#instance-member-_type",
     "src/processors/BodyProcessor.js~BodyProcessor#_type",
-    "member"
-  ],
-  [
-    "src/processors/bodyprocessor.js~bodyprocessor#_warn",
-    "class/src/processors/BodyProcessor.js~BodyProcessor.html#instance-member-_warn",
-    "src/processors/BodyProcessor.js~BodyProcessor#_warn",
     "member"
   ],
   [
@@ -1422,15 +1710,15 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "src/processors/headersprocessor.js~headersprocessor#_name",
-    "class/src/processors/HeadersProcessor.js~HeadersProcessor.html#instance-member-_name",
-    "src/processors/HeadersProcessor.js~HeadersProcessor#_name",
+    "src/processors/headersprocessor.js~headersprocessor#_evaluate",
+    "class/src/processors/HeadersProcessor.js~HeadersProcessor.html#instance-member-_evaluate",
+    "src/processors/HeadersProcessor.js~HeadersProcessor#_evaluate",
     "member"
   ],
   [
-    "src/processors/headersprocessor.js~headersprocessor#_test",
-    "class/src/processors/HeadersProcessor.js~HeadersProcessor.html#instance-member-_test",
-    "src/processors/HeadersProcessor.js~HeadersProcessor#_test",
+    "src/processors/headersprocessor.js~headersprocessor#_name",
+    "class/src/processors/HeadersProcessor.js~HeadersProcessor.html#instance-member-_name",
+    "src/processors/HeadersProcessor.js~HeadersProcessor#_name",
     "member"
   ],
   [
@@ -1458,33 +1746,39 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "tests/examples/simple.setup.and.process.spec.js",
-    "test-file/tests/examples/simple.setup.and.process.spec.js.html",
-    "tests/examples/simple.setup.and.process.spec.js",
+    "tests/examples/filesystem.fixture.spec.js",
+    "test-file/tests/examples/filesystem.fixture.spec.js.html",
+    "tests/examples/filesystem.fixture.spec.js",
     "testFile"
   ],
   [
-    "tests/examples/webpack.dynamic.fixture.spec.js",
-    "test-file/tests/examples/webpack.dynamic.fixture.spec.js.html",
-    "tests/examples/webpack.dynamic.fixture.spec.js",
+    "tests/examples/pouchdb.fixture.spec.js",
+    "test-file/tests/examples/pouchdb.fixture.spec.js.html",
+    "tests/examples/pouchdb.fixture.spec.js",
     "testFile"
   ],
   [
-    "tests/functionals/requests.processing.spec.js",
-    "test-file/tests/functionals/requests.processing.spec.js.html",
-    "tests/functionals/requests.processing.spec.js",
+    "tests/units/fmfrequest.spec.js",
+    "test-file/tests/units/FMFRequest.spec.js.html",
+    "tests/units/FMFRequest.spec.js",
+    "testFile"
+  ],
+  [
+    "tests/units/requestmatcher.spec.js",
+    "test-file/tests/units/RequestMatcher.spec.js.html",
+    "tests/units/RequestMatcher.spec.js",
+    "testFile"
+  ],
+  [
+    "tests/units/responseconfigurator.spec.js",
+    "test-file/tests/units/ResponseConfigurator.spec.js.html",
+    "tests/units/ResponseConfigurator.spec.js",
     "testFile"
   ],
   [
     "tests/units/errors.spec.js",
     "test-file/tests/units/errors.spec.js.html",
     "tests/units/errors.spec.js",
-    "testFile"
-  ],
-  [
-    "tests/units/extending.request.spec.js",
-    "test-file/tests/units/extending.request.spec.js.html",
-    "tests/units/extending.request.spec.js",
     "testFile"
   ],
   [
@@ -1506,9 +1800,15 @@ window.esdocSearchIndex = [
     "testFile"
   ],
   [
-    "tests/units/request.configurator.spec.js",
-    "test-file/tests/units/request.configurator.spec.js.html",
-    "tests/units/request.configurator.spec.js",
+    "tests/units/processors/base.spec.js",
+    "test-file/tests/units/processors/base.spec.js.html",
+    "tests/units/processors/base.spec.js",
+    "testFile"
+  ],
+  [
+    "tests/units/requests.processing.spec.js",
+    "test-file/tests/units/requests.processing.spec.js.html",
+    "tests/units/requests.processing.spec.js",
     "testFile"
   ],
   [

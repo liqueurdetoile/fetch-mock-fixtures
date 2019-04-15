@@ -1,7 +1,7 @@
 {
   "type": "File",
   "start": 0,
-  "end": 121,
+  "end": 109,
   "loc": {
     "start": {
       "line": 1,
@@ -15,7 +15,7 @@
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 121,
+    "end": 109,
     "loc": {
       "start": {
         "line": 1,
@@ -31,7 +31,7 @@
       {
         "type": "ImportDeclaration",
         "start": 0,
-        "end": 52,
+        "end": 44,
         "loc": {
           "start": {
             "line": 1,
@@ -39,14 +39,14 @@
           },
           "end": {
             "line": 1,
-            "column": 52
+            "column": 44
           }
         },
         "specifiers": [
           {
             "type": "ImportDefaultSpecifier",
             "start": 7,
-            "end": 24,
+            "end": 20,
             "loc": {
               "start": {
                 "line": 1,
@@ -54,13 +54,13 @@
               },
               "end": {
                 "line": 1,
-                "column": 24
+                "column": 20
               }
             },
             "local": {
               "type": "Identifier",
               "start": 7,
-              "end": 24,
+              "end": 20,
               "loc": {
                 "start": {
                   "line": 1,
@@ -68,39 +68,39 @@
                 },
                 "end": {
                   "line": 1,
-                  "column": 24
+                  "column": 20
                 },
-                "identifierName": "AbstractProcessor"
+                "identifierName": "BaseProcessor"
               },
-              "name": "AbstractProcessor"
+              "name": "BaseProcessor"
             }
           }
         ],
         "source": {
           "type": "StringLiteral",
-          "start": 30,
-          "end": 51,
+          "start": 26,
+          "end": 43,
           "loc": {
             "start": {
               "line": 1,
-              "column": 30
+              "column": 26
             },
             "end": {
               "line": 1,
-              "column": 51
+              "column": 43
             }
           },
           "extra": {
-            "rawValue": "./AbstractProcessor",
-            "raw": "'./AbstractProcessor'"
+            "rawValue": "./BaseProcessor",
+            "raw": "'./BaseProcessor'"
           },
-          "value": "./AbstractProcessor"
+          "value": "./BaseProcessor"
         }
       },
       {
         "type": "ExportDefaultDeclaration",
-        "start": 54,
-        "end": 120,
+        "start": 46,
+        "end": 108,
         "loc": {
           "start": {
             "line": 3,
@@ -113,8 +113,8 @@
         },
         "declaration": {
           "type": "ClassDeclaration",
-          "start": 69,
-          "end": 120,
+          "start": 61,
+          "end": 108,
           "loc": {
             "start": {
               "line": 3,
@@ -127,8 +127,8 @@
           },
           "id": {
             "type": "Identifier",
-            "start": 75,
-            "end": 89,
+            "start": 67,
+            "end": 81,
             "loc": {
               "start": {
                 "line": 3,
@@ -144,8 +144,8 @@
           },
           "superClass": {
             "type": "Identifier",
-            "start": 98,
-            "end": 115,
+            "start": 90,
+            "end": 103,
             "loc": {
               "start": {
                 "line": 3,
@@ -153,20 +153,20 @@
               },
               "end": {
                 "line": 3,
-                "column": 61
+                "column": 57
               },
-              "identifierName": "AbstractProcessor"
+              "identifierName": "BaseProcessor"
             },
-            "name": "AbstractProcessor"
+            "name": "BaseProcessor"
           },
           "body": {
             "type": "ClassBody",
-            "start": 116,
-            "end": 120,
+            "start": 104,
+            "end": 108,
             "loc": {
               "start": {
                 "line": 3,
-                "column": 62
+                "column": 58
               },
               "end": {
                 "line": 5,
@@ -224,9 +224,9 @@
         "postfix": false,
         "binop": null
       },
-      "value": "AbstractProcessor",
+      "value": "BaseProcessor",
       "start": 7,
-      "end": 24,
+      "end": 20,
       "loc": {
         "start": {
           "line": 1,
@@ -234,7 +234,7 @@
         },
         "end": {
           "line": 1,
-          "column": 24
+          "column": 20
         }
       }
     },
@@ -251,16 +251,16 @@
         "binop": null
       },
       "value": "from",
-      "start": 25,
-      "end": 29,
+      "start": 21,
+      "end": 25,
       "loc": {
         "start": {
           "line": 1,
-          "column": 25
+          "column": 21
         },
         "end": {
           "line": 1,
-          "column": 29
+          "column": 25
         }
       }
     },
@@ -277,17 +277,17 @@
         "binop": null,
         "updateContext": null
       },
-      "value": "./AbstractProcessor",
-      "start": 30,
-      "end": 51,
+      "value": "./BaseProcessor",
+      "start": 26,
+      "end": 43,
       "loc": {
         "start": {
           "line": 1,
-          "column": 30
+          "column": 26
         },
         "end": {
           "line": 1,
-          "column": 51
+          "column": 43
         }
       }
     },
@@ -304,16 +304,16 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 51,
-      "end": 52,
+      "start": 43,
+      "end": 44,
       "loc": {
         "start": {
           "line": 1,
-          "column": 51
+          "column": 43
         },
         "end": {
           "line": 1,
-          "column": 52
+          "column": 44
         }
       }
     },
@@ -332,8 +332,8 @@
         "updateContext": null
       },
       "value": "export",
-      "start": 54,
-      "end": 60,
+      "start": 46,
+      "end": 52,
       "loc": {
         "start": {
           "line": 3,
@@ -360,8 +360,8 @@
         "updateContext": null
       },
       "value": "default",
-      "start": 61,
-      "end": 68,
+      "start": 53,
+      "end": 60,
       "loc": {
         "start": {
           "line": 3,
@@ -388,8 +388,8 @@
         "updateContext": null
       },
       "value": "class",
-      "start": 69,
-      "end": 74,
+      "start": 61,
+      "end": 66,
       "loc": {
         "start": {
           "line": 3,
@@ -414,8 +414,8 @@
         "binop": null
       },
       "value": "QueryProcessor",
-      "start": 75,
-      "end": 89,
+      "start": 67,
+      "end": 81,
       "loc": {
         "start": {
           "line": 3,
@@ -442,8 +442,8 @@
         "updateContext": null
       },
       "value": "extends",
-      "start": 90,
-      "end": 97,
+      "start": 82,
+      "end": 89,
       "loc": {
         "start": {
           "line": 3,
@@ -467,9 +467,9 @@
         "postfix": false,
         "binop": null
       },
-      "value": "AbstractProcessor",
-      "start": 98,
-      "end": 115,
+      "value": "BaseProcessor",
+      "start": 90,
+      "end": 103,
       "loc": {
         "start": {
           "line": 3,
@@ -477,7 +477,7 @@
         },
         "end": {
           "line": 3,
-          "column": 61
+          "column": 57
         }
       }
     },
@@ -493,16 +493,16 @@
         "postfix": false,
         "binop": null
       },
-      "start": 116,
-      "end": 117,
+      "start": 104,
+      "end": 105,
       "loc": {
         "start": {
           "line": 3,
-          "column": 62
+          "column": 58
         },
         "end": {
           "line": 3,
-          "column": 63
+          "column": 59
         }
       }
     },
@@ -518,8 +518,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 119,
-      "end": 120,
+      "start": 107,
+      "end": 108,
       "loc": {
         "start": {
           "line": 5,
@@ -544,8 +544,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 121,
-      "end": 121,
+      "start": 109,
+      "end": 109,
       "loc": {
         "start": {
           "line": 6,

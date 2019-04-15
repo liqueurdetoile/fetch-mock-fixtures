@@ -32,11 +32,12 @@
   <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Fixture.js~Fixture.html">Fixture</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Preset.js~Preset.html">Preset</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Server.js~Server.html">Server</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#helpers">helpers</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/FMFRequest.js~FMFRequest.html">FMFRequest</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#helpers">helpers</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/FMFException.js~FMFException.html">FMFException</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/FMFRequest.js~FMFRequest.html">FMFRequest</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/RequestMatcher.js~RequestMatcher.html">RequestMatcher</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html">ResponseConfigurator</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/ServerHistory.js~ServerHistory.html">ServerHistory</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#processors">processors</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/AbstractProcessor.js~AbstractProcessor.html">AbstractProcessor</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#processors">processors</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/BaseProcessor.js~BaseProcessor.html">BaseProcessor</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/BodyProcessor.js~BodyProcessor.html">BodyProcessor</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/BooleanProcessor.js~BooleanProcessor.html">BooleanProcessor</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/HeadersProcessor.js~HeadersProcessor.html">HeadersProcessor</a></span></span></li>
@@ -47,66 +48,75 @@
 </nav>
 
 <div class="content" data-ice="content"><h1 data-ice="title">src/processors/BodyProcessor.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import AbstractProcessor from &apos;./AbstractProcessor&apos;;
-import _isEqual from &apos;lodash.isequal&apos;;
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import BaseProcessor from &apos;@/processors/BaseProcessor&apos;;
+import FMFException from &apos;@/helpers/FMFException&apos;;
 
-export default class BodyProcessor extends AbstractProcessor {
+export default class BodyProcessor extends BaseProcessor {
   _type = null;
-  _warn = true;
 
-  constructor(key, matcher, type, warn = true) {
+  constructor(key, matcher, type) {
     super(key, matcher);
     this._type = type;
-    this._warn = warn;
+  }
+
+  async _processBody(request) {
+    let current;
+
+    // Try to decode body
+    switch (this._type.toLowerCase()) {
+      case &apos;text&apos;:
+        try {
+          current = await request.clone().text();
+        } catch (err) {
+          /* istanbul ignore next */
+          throw new FMFException(&apos;Unable to parse body as blob&apos;, err);
+        }
+        break;
+      case &apos;json&apos;:
+        try {
+          current = await request.clone().json();
+        } catch (err) {
+          /* istanbul ignore next */
+          throw new FMFException(&apos;Unable to parse body as JSON&apos;, err);
+        }
+        break;
+      case &apos;formdata&apos;:
+        try {
+          current = await request.clone().formData();
+        } catch (err) {
+          /* istanbul ignore next */
+          throw new FMFException(&apos;Unable to parse body as FormData&apos;, err);
+        }
+        break;
+      case &apos;arraybuffer&apos;:
+        try {
+          current = await request.clone().arrayBuffer();
+        } catch (err) {
+          /* istanbul ignore next */
+          throw new FMFException(&apos;Unable to parse body as Blob&apos;, err);
+        }
+        break;
+      case &apos;blob&apos;:
+        try {
+          current = await request.clone().blob();
+        } catch (err) {
+          /* istanbul ignore next */
+          throw new FMFException(&apos;Unable to parse body as Blob&apos;, err);
+        }
+        break;
+      /* istanbul ignore next */
+      default:
+        throw new FMFException(&apos;Unknown body decoder callback&apos;)
+    }
+
+    return current;
   }
 
   equal(expected) {
-    this._test = async request =&gt; {
-      let requestValue, passed = false;
+    this._evaluate = async request =&gt; {
+      const current = await this._processBody(request);
 
-      // Try to decode body
-      switch (this._type.toLowerCase()) {
-        case &apos;text&apos;:
-          try {
-            requestValue = await request.clone().text();
-          } catch (err) {
-            if(this._warn) console.warn(&apos;Unable to parse body as blob&apos;); // eslint-disable-line
-            return false;
-          }
-          break;
-        case &apos;json&apos;:
-          try {
-            requestValue = await request.clone().json();
-          } catch (err) {
-            if(this._warn) console.warn(&apos;Unable to parse body as JSON&apos;); // eslint-disable-line
-            return false;
-          }
-          break;
-        case &apos;formdata&apos;:
-          try {
-            requestValue = await request.clone().formData();
-          } catch (err) {
-            if(this._warn) console.warn(&apos;Unable to parse body as FormData&apos;); // eslint-disable-line
-            return false;
-          }
-          break;
-        case &apos;blob&apos;:
-          try {
-            requestValue = await request.clone().blob();
-          } catch (err) {
-            if(this._warn) console.warn(&apos;Unable to parse body as Blob&apos;); // eslint-disable-line
-            return false;
-          }
-          break;
-        default:
-          throw new Error(&apos;Unknown body decoder callback&apos;)
-      }
-
-      if (expected instanceof Function) passed = await expected(requestValue, this._key, request);
-      else if (expected instanceof RegExp) passed = expected.test(requestValue);
-      else passed = _isEqual(requestValue, expected);
-
-      return passed;
+      return await this._equal(current, expected, request);
     }
 
     return this._matcher;

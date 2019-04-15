@@ -1,4 +1,14 @@
+function setResponsiveHeaders() {
+  var meta = document.createElement('meta');
+
+  meta.name = "viewport";
+  meta.content = "width=device-width, initial-scale=1";
+  document.getElementsByTagName('head')[0].appendChild(meta);
+}
+
 function wrap() {
+  setResponsiveHeaders();
+
   var w = document.createElement('section');
 
   w.className = 'content-wrapper';

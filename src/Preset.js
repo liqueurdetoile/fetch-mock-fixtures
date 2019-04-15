@@ -14,7 +14,6 @@ export class Preset extends ResponseConfigurator {
   }
 
   _getCurrentResponseSet() {
-    this._any = this._any || {};
     return this._any;
   }
 }

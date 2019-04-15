@@ -1,7 +1,7 @@
-import AbstractProcessor from './AbstractProcessor';
-import _isEqual from 'lodash.isequal';
+import BaseProcessor from './BaseProcessor';
+import FMFException from '@/helpers/FMFException';
 
-export default class HeadersProcessor extends AbstractProcessor {
+export default class HeadersProcessor extends BaseProcessor {
   _name = null;
 
   constructor(key, matcher, name) {
@@ -10,19 +10,13 @@ export default class HeadersProcessor extends AbstractProcessor {
   }
 
   equal(expected) {
-    this._test = async request => {
+    this._evaluate = async request => {
       const headers = request.headers;
 
-      if (!(headers instanceof Headers)) throw new Error('Unable to extract headers from request');
+      /* istanbul ignore if */
+      if (!(headers instanceof Headers)) throw new FMFException('Unable to extract headers from request');
 
-      const requestValue = this._name ? headers.get(this._name) : headers;
-      let passed = false;
-
-      if (expected instanceof Function) passed = await expected(requestValue, this._key, request);
-      else if (expected instanceof RegExp) passed = expected.test(requestValue);
-      else passed = _isEqual(requestValue, expected);
-
-      return passed;
+      return await this._equal(this._name ? headers.get(this._name) : headers, expected);
     }
 
     return this._matcher;

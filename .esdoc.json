@@ -16,7 +16,12 @@
           "manual": {
             "index": "./readme.md",
             "files": [
-              "./manual/pages/installation.md"
+              "./manual/pages/getting_started.md",
+              "./manual/pages/server.md",
+              "./manual/pages/response-configuration.md",
+              "./manual/pages/presets.md",
+              "./manual/pages/fixtures.md",
+              "./manual/pages/requests-matcher.md"
             ]
           }
       }

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../">
+  <title data-ice="title">Manual | Fetch-mock-fixtures | Fetch API for testing</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<link rel="stylesheet" href="./inject/css/0-styles.css"><script src="./inject/script/0-docs.js"></script><meta name="description" content="Fixtures based mocker for fetch API with BDD style configuration"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="Fetch-mock-fixtures | Fetch API for testing"><meta property="twitter:description" content="Fixtures based mocker for fetch API with BDD style configuration"></head>
+<body class="layout-container manual-root" data-ice="rootContainer">
+
+<header>
+  <a href="./" style="display: flex; align-items: center;"><img src="./image/brand_logo.png" style="width:34px;"></a>
+  <a href="./manual/index.html" data-ice="manualHeaderLink">Manual</a>
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  <a href="test.html" data-ice="testLink">Test</a>
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/liqueurdetoile/fetch-mock-fixtures.git"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div class="manual-toc-root">
+  
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/getting_started.html"><a href="manual/getting_started.html" data-ice="link">Getting started</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/server.html"><a href="manual/server.html" data-ice="link">Server control, configuration and history</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/server.html"><a href="manual/server.html#server-control" data-ice="link">Server control</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/server.html"><a href="manual/server.html#adding-fixtures-to-server" data-ice="link">Adding fixtures to server</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/server.html"><a href="manual/server.html#error-management" data-ice="link">Error management</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/server.html"><a href="manual/server.html#server--39-s-history" data-ice="link">Server&apos;s history</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/response-configuration.html"><a href="manual/response-configuration.html" data-ice="link">Response configuration</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/response-configuration.html"><a href="manual/response-configuration.html#configure-response" data-ice="link">Configure response</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/response-configuration.html"><a href="manual/response-configuration.html#default-response-values" data-ice="link">Default response values</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/response-configuration.html"><a href="manual/response-configuration.html#response-configuration-persistence" data-ice="link">Response configuration persistence</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/response-configuration.html"><a href="manual/response-configuration.html#available-response-options" data-ice="link">Available response options</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/response-configuration.html"><a href="manual/response-configuration.html#using-wrappers" data-ice="link">Using wrappers</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/response-configuration.html"><a href="manual/response-configuration.html#using-patterns" data-ice="link">Using patterns</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/presets.html"><a href="manual/presets.html" data-ice="link">Presets</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/presets.html"><a href="manual/presets.html#using-presets" data-ice="link">Using presets</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/presets.html"><a href="manual/presets.html#adding-editing-a-preset" data-ice="link">adding/editing a preset</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/presets.html"><a href="manual/presets.html#preset-scope" data-ice="link">Preset scope</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/presets.html"><a href="manual/presets.html#built-in-presets" data-ice="link">Built-in presets</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/fixtures.html"><a href="manual/fixtures.html" data-ice="link">Fixture in-depth</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/fixtures.html"><a href="manual/fixtures.html#request-processing" data-ice="link">Request processing</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/fixtures.html"><a href="manual/fixtures.html#fixture-lifecycle" data-ice="link">Fixture lifecycle</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/fixtures.html"><a href="manual/fixtures.html#fixture-hooks-and-body-callback" data-ice="link">Fixture hooks and body callback</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/fixtures.html"><a href="manual/fixtures.html#-code-before--code--hook" data-ice="link">before hook</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/fixtures.html"><a href="manual/fixtures.html#body-callback" data-ice="link">Body callback</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/fixtures.html"><a href="manual/fixtures.html#-code-after--code--hook" data-ice="link">after hook</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/fixtures.html"><a href="manual/fixtures.html#hooks-scope" data-ice="link">Hooks scope</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/fixtures.html"><a href="manual/fixtures.html#adding-fixtures-to-server" data-ice="link">Adding fixtures to server</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/requests-matcher.html"><a href="manual/requests-matcher.html" data-ice="link">Requests matcher</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/requests-matcher.html"><a href="manual/requests-matcher.html#matching-request-properties" data-ice="link">Matching request properties</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/requests-matcher.html"><a href="manual/requests-matcher.html#matching-calls-count" data-ice="link">Matching calls count</a></li>
+</ul>
+  </div>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><div class="github-markdown" data-ice="content"><h1 id="fixture-in-depth">Fixture in-depth</h1><p>The fixture is the heart of FMF. Basically, a fixture organizes :</p>
+<ul>
+<li>the response content (body, headers, status, statusText) and additional options (delay, wrapper, pattern, before and after hooks)</li>
+<li>Optionally, the conditions that the request must match to allow use of the fixture</li>
+</ul>
+<h2 id="request-processing">Request processing</h2><p>When the server receives a request, it :</p>
+<ol>
+<li>tries to find a fixture with conditions that are matching explicitly the request. If multiple fixtures are found, it uses the first one. If none is found, it uses the fallback fixture if available or raise and error,</li>
+<li>passes the request to the fixture and await the response that triggers the fixture lifecycle,</li>
+<li>send back the response or an error if a problem occurred (see <a href="./manual/server.html#Error_management">server error management</a>).</li>
+</ol>
+<h2 id="fixture-lifecycle">Fixture lifecycle</h2><p>When provided with the request, the fixture will :</p>
+<ol>
+<li>Process the <code>before</code> hook is one have been set,</li>
+<li>Extract parameters from the url if a pattern have been set,</li>
+<li>Process the body callback or get the body value,</li>
+<li>Finalize the response setup from preset (if one have been used) and its own response configuration,</li>
+<li>Apply wrapper to body if one is set</li>
+<li>Construct a Response instance from response configuration</li>
+<li>Process the <code>after</code> hook if one have been set,</li>
+<li>Delay the response if asked to,</li>
+<li>Return the response to the server instance.</li>
+</ol>
+<p>You can use any of hooks and body callback to amend response content or even cut the lifecycle by throwing another response or error.</p>
+<h2 id="fixture-hooks-and-body-callback">Fixture hooks and body callback</h2><p>In each hooks and callbacks, you can throw to stop fixture processing. If you throw :</p>
+<ul>
+<li>A Response instance, it will be send back to the client immediately</li>
+<li>A Preset instance, it will be used to send back a response (useful for an HTTP error for instance)</li>
+<li>An error, it will used accordingly to server error management configuration</li>
+</ul>
+<h3 id="-code-before--code--hook"><code>before</code> hook</h3><p>It occurs at the very start of the fixture request processing. It receives the server instance, the request and the actual response configuration of the fixture as arguments.</p>
+<p>You can return an updated response object that will be used for the rest of the lifecycle.</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import {Server} from &apos;fetch-mock-fixtures&apos;
+
+const server = new Server();
+
+server.respond.before((server, request, response) =&gt; {
+  // Detect multiple identical requests
+  if(request.url === server.request.url) throw new Error(&apos;Duplicate requests&apos;);
+})</code>
+</code></pre>
+<h3 id="body-callback">Body callback</h3><p>The body callback is provided with two arguments :</p>
+<ul>
+<li>The params parsed from the request url as a key/value object</li>
+<li>An object exposing request, response and server as properties</li>
+</ul>
+<p>This is the best place for building <a href="./manual/../test-file/tests/examples/filesystem.fixture.spec.js.html">dynamic fixtures</a> as parameterss are directly provided to the callback.</p>
+<h3 id="-code-after--code--hook"><code>after</code> hook</h3><p>The after hook is ran at the very end and is provided with the server instance and Response instance as arguments.</p>
+<p>It is most likely the place to do some cleanings or data resets between calls.</p>
+<h3 id="hooks-scope">Hooks scope</h3><p>The hooks are called within the scope of the fixture and <code>this</code> will refer to the fixture instance <strong>only if using regular function declaration</strong>. The scope of an arrow function is where the function have been declared, usually your test suite. For instance, to extract parameters from the <code>before</code> hook :</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import {Server} from &apos;fetch-mock-fixtures&apos;
+
+const server = new Server();
+
+// Won&apos;t work - Scope problem
+server.respond.before((server, request, response) =&gt; {
+  const params = this.extractParams(request.pathname, response.pattern);
+})
+
+// This will work
+server.respond.before(function(server, request, response) {
+  const params = this.extractParams(request.pathname, response.pattern);
+})</code>
+</code></pre>
+<h2 id="adding-fixtures-to-server">Adding fixtures to server</h2><p>As soon as you have some sample data you are using in many tests, it may be appropriate to stop adding fixtures on-the-fly to the server instance.</p>
+<p>For simple datasets, a bunch of presets may be handful but if you&apos;re going on using calls count (see <a href="./manual/requests_matcher.html">requests matcher</a>), you can simply declare all your fixtures in one file that you can import/require into your test script. Then, you can simply add fixtures to the server by importing them :</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import {Server} from &apos;fetch-mock-fixtures&apos;
+import fixtures from &apos;../myfixtures&apos;;
+
+const server = new Server();
+server.import(fixtures);</code>
+</code></pre>
+<p>The fixtures can be response configuration object or fixtures instance.</p>
+</div>
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

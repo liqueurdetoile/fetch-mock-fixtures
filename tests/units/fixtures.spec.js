@@ -90,8 +90,12 @@ describe('Fixtures test suite', function() {
       response.status.should.equal(404);
     })
 
-    it('should throw by default for Error throws', async function() {
+    it('should throw on Error', async function() {
+      let response;
+
       server
+        .warnOnError(false)
+        .throwOnError(true)
         .respond
         .with.preset('default')
         .before(() => {
@@ -99,11 +103,13 @@ describe('Fixtures test suite', function() {
         });
 
       try {
-        await fetch('/api/v1/users/1');
-        expect.fail();
+        response = await fetch('/api/v1/users/1');
       } catch (err) {
-        err.should.be.instanceof(TypeError);
+        err.should.be.instanceof(Error);
+        err.previous.should.be.instanceof(TypeError);
       }
+
+      expect(response).to.be.undefined;
     })
 
     it('should return a 500 error for Error throws', async function() {
@@ -117,23 +123,28 @@ describe('Fixtures test suite', function() {
 
       let response = await fetch('/api/v1/users/1');
       response.status.should.equal(500);
-      response.statusText.should.equal('TypeError');
+      response.statusText.should.equal('FMF error: Unable to process before callback');
     })
 
     it('should throw by default for other throws', async function() {
+      let response;
+
       server
+        .throwOnError(true)
         .respond
         .with.preset('default')
         .before(() => {
-          throw 'thing'
+          throw 'My custom error'
         });
 
       try {
-        await fetch('/api/v1/users/1');
-        expect.fail();
+        response = await fetch('/api/v1/users/1');
       } catch (err) {
-        err.should.equal('thing');
+        err.toString().should.equal('FMF error: Unable to process before callback');
+        err.previous.should.equal('My custom error');
       }
+
+      expect(response).to.be.undefined;
     })
 
     it('should return a 500 error for other throws', async function() {
@@ -142,7 +153,7 @@ describe('Fixtures test suite', function() {
         .respond
         .with.preset('default')
         .before(() => {
-          throw 'thing'
+          throw 'My custom error'
         });
 
       let response = await fetch('/api/v1/users/1');

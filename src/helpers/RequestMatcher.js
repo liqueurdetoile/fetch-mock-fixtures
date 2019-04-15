@@ -3,6 +3,7 @@ import BodyProcessor from '@/processors/BodyProcessor';
 import HeadersProcessor from '@/processors/HeadersProcessor';
 import QueryProcessor from '@/processors/QueryProcessor';
 import StringProcessor from '@/processors/StringProcessor';
+import FMFException from '@/helpers/FMFException';
 
 export class RequestMatcher {
   _processors = [];
@@ -19,6 +20,10 @@ export class RequestMatcher {
 
   get on() {
     return this.fixture.on;
+  }
+
+  get and() {
+    return this;
   }
 
   get respond() {
@@ -47,9 +52,11 @@ export class RequestMatcher {
       case 'host':
       case 'hostname':
       case 'integrity':
+      case 'mode':
       case 'method':
       case 'password':
       case 'pathname':
+      case 'port':
       case 'protocol':
       case 'redirect':
       case 'referrer':
@@ -59,7 +66,7 @@ export class RequestMatcher {
         processor = new StringProcessor(key, this)
         break;
       default:
-        throw new Error('Unsupported request parameter to check');
+        throw new FMFException(`Unsupported request parameter "${key}" to check`);
     }
 
     this._processors.push(processor);
@@ -67,8 +74,8 @@ export class RequestMatcher {
     return processor;
   }
 
-  body(type = 'text', warn = true) {
-    const processor = new BodyProcessor('headers', this, type, warn);
+  body(type = 'text') {
+    const processor = new BodyProcessor('headers', this, type);
 
     this._processors.push(processor);
 
@@ -83,22 +90,20 @@ export class RequestMatcher {
     return processor;
   }
 
-  async match(request) {
+  async match(request, server) {
     for (let processor of this._processors) {
-      let passed = await processor.process(request);
-      if (!passed) return false;
+      if (!(await processor.process(request, server))) return false;
     }
 
     return true;
   }
 
-  request(conditions) {
+  equal(conditions) {
     if (!(conditions instanceof Object)) throw new Error('Request conditions set must be an object');
 
     for (let key in conditions) {
       if (!this._requestKeys.includes(key)) {
-        console.warn(`Invalid key "${key}" for request conditions configuration`); //eslint-disable-line
-        continue;
+        throw new FMFException(`Invalid key "${key}" for request conditions configuration`);
       }
 
       // Run setters

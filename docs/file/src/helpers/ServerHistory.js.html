@@ -32,11 +32,12 @@
   <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Fixture.js~Fixture.html">Fixture</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Preset.js~Preset.html">Preset</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Server.js~Server.html">Server</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#helpers">helpers</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/FMFRequest.js~FMFRequest.html">FMFRequest</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#helpers">helpers</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/FMFException.js~FMFException.html">FMFException</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/FMFRequest.js~FMFRequest.html">FMFRequest</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/RequestMatcher.js~RequestMatcher.html">RequestMatcher</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html">ResponseConfigurator</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/ServerHistory.js~ServerHistory.html">ServerHistory</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#processors">processors</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/AbstractProcessor.js~AbstractProcessor.html">AbstractProcessor</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#processors">processors</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/BaseProcessor.js~BaseProcessor.html">BaseProcessor</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/BodyProcessor.js~BodyProcessor.html">BodyProcessor</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/BooleanProcessor.js~BooleanProcessor.html">BooleanProcessor</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/HeadersProcessor.js~HeadersProcessor.html">HeadersProcessor</a></span></span></li>
@@ -49,6 +50,7 @@
 <div class="content" data-ice="content"><h1 data-ice="title">src/helpers/ServerHistory.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">export default class ServerHistory {
   _history = [];
+  _call = null;
   _target = null;
 
   push(request, response) {
@@ -59,11 +61,25 @@
   }
 
   get request() {
+    if (this._call) {
+      const entry = this._history[this._call - 1].request;
+
+      this._call = null;
+      return entry;
+    }
+
     this._target = &apos;request&apos;;
     return this;
   }
 
   get response() {
+    if (this._call) {
+      const entry = this._history[this._call - 1].response;
+
+      this._call = null;
+      return entry;
+    }
+
     this._target = &apos;response&apos;;
     return this;
   }
@@ -73,11 +89,11 @@
   }
 
   get second() {
-    return this.atCall(1);
+    return this.atCall(2);
   }
 
   get third() {
-    return this.atCall(1);
+    return this.atCall(3);
   }
 
   get last() {
@@ -85,13 +101,30 @@
   }
 
   atCall(n) {
-    if (!this._target) throw new Error(&apos;You must select request or response target before selecting call number&apos;)
+    if (this._target) {
+      const entry = this._history[n-1][this._target];
 
-    return this._history[n-1][this._target];
+      this._target = null;
+      return entry;
+    }
+
+    this._call = n;
+    return this;
+  }
+
+  all() {
+    if (this._target) {
+      const entries = this._history.map(entry =&gt; entry[this._target]);
+      this._target = null;
+      return entries;
+    }
+    return this._history;
   }
 
   reset() {
     this._history = [];
+    this._call = null;
+    this._target = null;
   }
 }
 </code></pre>
