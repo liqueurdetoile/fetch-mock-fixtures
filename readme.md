@@ -45,13 +45,13 @@ describe('Headers test', function() {
   })
 })
 ```
-** How FMF can ease API outgoing requests unit tests ? **
+**How FMF can ease API outgoing requests unit tests ?**
 
 FMF enables really quick response configuration that allows testing the outgoing request to set up different responses (see above example). You only have to check a response property (like status) instead of manually parsing request built by your app to validate it.
 
 Furthermore, you can use the `before` and `after` hooks or `body` as a callback to alter response on very precise expectations.
 
-** How FMF can ease functional tests ? **
+**How FMF can ease functional tests ?**
 
 In real life, scripts are often sending multiple requests to do their job. FMF removes the pain of handling multiple responses by easing their management. Let's see this example with a two steps authentication login. A bit verbose for what is actually doing but it aims to illustrate things :
 
