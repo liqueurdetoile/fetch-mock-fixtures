@@ -1,6 +1,6 @@
 {
   "name": "fetch-mock-fixtures",
-  "version": "2.0.0",
+  "version": "0.0.0",
   "description": "Fixtures based mocker for fetch API with BDD style configuration",
   "main": "dist/index.min.js",
   "keywords": [
