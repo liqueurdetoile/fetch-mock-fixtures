@@ -1,7 +1,7 @@
 {
   "type": "File",
   "start": 0,
-  "end": 109,
+  "end": 114,
   "loc": {
     "start": {
       "line": 1,
@@ -15,7 +15,7 @@
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 109,
+    "end": 114,
     "loc": {
       "start": {
         "line": 1,
@@ -99,8 +99,8 @@
       },
       {
         "type": "ExportDefaultDeclaration",
-        "start": 46,
-        "end": 108,
+        "start": 48,
+        "end": 112,
         "loc": {
           "start": {
             "line": 3,
@@ -113,8 +113,8 @@
         },
         "declaration": {
           "type": "ClassDeclaration",
-          "start": 61,
-          "end": 108,
+          "start": 63,
+          "end": 112,
           "loc": {
             "start": {
               "line": 3,
@@ -127,8 +127,8 @@
           },
           "id": {
             "type": "Identifier",
-            "start": 67,
-            "end": 81,
+            "start": 69,
+            "end": 83,
             "loc": {
               "start": {
                 "line": 3,
@@ -144,8 +144,8 @@
           },
           "superClass": {
             "type": "Identifier",
-            "start": 90,
-            "end": 103,
+            "start": 92,
+            "end": 105,
             "loc": {
               "start": {
                 "line": 3,
@@ -161,8 +161,8 @@
           },
           "body": {
             "type": "ClassBody",
-            "start": 104,
-            "end": 108,
+            "start": 106,
+            "end": 112,
             "loc": {
               "start": {
                 "line": 3,
@@ -332,8 +332,8 @@
         "updateContext": null
       },
       "value": "export",
-      "start": 46,
-      "end": 52,
+      "start": 48,
+      "end": 54,
       "loc": {
         "start": {
           "line": 3,
@@ -360,8 +360,8 @@
         "updateContext": null
       },
       "value": "default",
-      "start": 53,
-      "end": 60,
+      "start": 55,
+      "end": 62,
       "loc": {
         "start": {
           "line": 3,
@@ -388,8 +388,8 @@
         "updateContext": null
       },
       "value": "class",
-      "start": 61,
-      "end": 66,
+      "start": 63,
+      "end": 68,
       "loc": {
         "start": {
           "line": 3,
@@ -414,8 +414,8 @@
         "binop": null
       },
       "value": "QueryProcessor",
-      "start": 67,
-      "end": 81,
+      "start": 69,
+      "end": 83,
       "loc": {
         "start": {
           "line": 3,
@@ -442,8 +442,8 @@
         "updateContext": null
       },
       "value": "extends",
-      "start": 82,
-      "end": 89,
+      "start": 84,
+      "end": 91,
       "loc": {
         "start": {
           "line": 3,
@@ -468,8 +468,8 @@
         "binop": null
       },
       "value": "BaseProcessor",
-      "start": 90,
-      "end": 103,
+      "start": 92,
+      "end": 105,
       "loc": {
         "start": {
           "line": 3,
@@ -493,8 +493,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 104,
-      "end": 105,
+      "start": 106,
+      "end": 107,
       "loc": {
         "start": {
           "line": 3,
@@ -518,8 +518,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 107,
-      "end": 108,
+      "start": 111,
+      "end": 112,
       "loc": {
         "start": {
           "line": 5,
@@ -544,8 +544,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 109,
-      "end": 109,
+      "start": 114,
+      "end": 114,
       "loc": {
         "start": {
           "line": 6,
