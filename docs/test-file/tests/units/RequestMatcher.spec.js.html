@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">tests/units/RequestMatcher.spec.js | Fetch-mock-fixtures | Fetch API for testing</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<link rel="stylesheet" href="./inject/css/0-styles.css"><script src="./inject/script/0-docs.js"></script><meta name="description" content="Fixtures based mocker for fetch API with BDD style configuration"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="Fetch-mock-fixtures | Fetch API for testing"><meta property="twitter:description" content="Fixtures based mocker for fetch API with BDD style configuration"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./" style="display: flex; align-items: center;"><img src="./image/brand_logo.png" style="width:34px;"></a>
+  <a href="./manual/index.html" data-ice="manualHeaderLink">Manual</a>
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  <a href="test.html" data-ice="testLink">Test</a>
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/liqueurdetoile/fetch-mock-fixtures.git"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Fixture.js~Fixture.html">Fixture</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Preset.js~Preset.html">Preset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Server.js~Server.html">Server</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#helpers">helpers</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/FMFException.js~FMFException.html">FMFException</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/FMFRequest.js~FMFRequest.html">FMFRequest</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/RequestMatcher.js~RequestMatcher.html">RequestMatcher</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html">ResponseConfigurator</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/ServerHistory.js~ServerHistory.html">ServerHistory</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#processors">processors</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/BaseProcessor.js~BaseProcessor.html">BaseProcessor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/BodyProcessor.js~BodyProcessor.html">BodyProcessor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/BooleanProcessor.js~BooleanProcessor.html">BooleanProcessor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/HeadersProcessor.js~HeadersProcessor.html">HeadersProcessor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/QueryProcessor.js~QueryProcessor.html">QueryProcessor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/StringProcessor.js~StringProcessor.html">StringProcessor</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">tests/units/RequestMatcher.spec.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import FMFRequest from &apos;@/helpers/FMFRequest&apos;;
+import Fixture from &apos;@/Fixture&apos;;
+import RequestMatcher from &apos;@/helpers/RequestMatcher&apos;;
+import BaseProcessor from &apos;@/processors/BaseProcessor&apos;;
+import BooleanProcessor from &apos;@/processors/BooleanProcessor&apos;;
+import BodyProcessor from &apos;@/processors/BodyProcessor&apos;;
+import HeadersProcessor from &apos;@/processors/HeadersProcessor&apos;;
+import QueryProcessor from &apos;@/processors/QueryProcessor&apos;;
+import StringProcessor from &apos;@/processors/StringProcessor&apos;;
+
+describe(&apos;Request configurator test suite&apos;, function() {
+  it(&apos;should create a matcher&apos;, function() {
+    const f = new Fixture();
+
+    f.on.should.be.instanceof(RequestMatcher);
+    f.on.on.should.deep.equal(f._matcher);
+  })
+
+  it(&apos;should throw on unsupported FMFRequest property&apos;, function() {
+    const f = new Fixture();
+
+    expect(() =&gt; f.on.bugsy).to.throw();
+    expect(() =&gt; f.on.equal({bugsy: true})).to.throw();
+  })
+
+  it(&apos;should return a processor&apos;, function() {
+    const f = new Fixture();
+
+    f.on.method.should.be.instanceof(BaseProcessor);
+    f.on._processors.length.should.equal(1);
+    f.on._processors[0].should.be.instanceof(StringProcessor);
+  })
+
+  it(&apos;should process equal&apos;, async function () {
+    const f = new Fixture();
+    const r = new FMFRequest(&apos;/&apos;);
+
+    f.on.method.equal(&apos;GET&apos;).should.deep.equal(f._matcher);
+    (await f.match(r)).should.be.true;
+  })
+
+  it(&apos;should process header&apos;, async function () {
+    const f = new Fixture();
+    const r = new FMFRequest(&apos;/&apos;, {headers: {&apos;content-type&apos;: &apos;application/json&apos;}});
+
+    f.on.header(&apos;content-type&apos;).equal(/json/).should.deep.equal(f._matcher);
+    (await f.match(r)).should.be.true;
+  })
+
+  it(&apos;should provide the right processor&apos;, function() {
+    const f = new Fixture();
+
+    f.on.equal({}).should.deep.equal(f._matcher);
+    f.on.body().should.be.instanceof(BodyProcessor);
+    f.on.headers.should.be.instanceof(HeadersProcessor);
+    f.on.header().should.be.instanceof(HeadersProcessor);
+    f.on.query.should.be.instanceof(QueryProcessor);
+    f.on.slashes.should.be.instanceof(BooleanProcessor);
+
+    [
+      &apos;method&apos;, &apos;url&apos;, &apos;destination&apos;, &apos;referrer&apos;, &apos;referrerPolicy&apos;, &apos;mode&apos;,
+      &apos;credentials&apos;, &apos;redirect&apos;, &apos;integrity&apos;, &apos;cache&apos;,
+      &apos;protocol&apos;, &apos;auth&apos;, &apos;username&apos;, &apos;password&apos;, &apos;host&apos;, &apos;hostname&apos;, &apos;port&apos;,
+      &apos;pathname&apos;, &apos;hash&apos;, &apos;href&apos;, &apos;method&apos;
+    ].forEach(key =&gt; f.on[key].should.be.instanceof(StringProcessor));
+  })
+
+  it(&apos;should throw is equal argument is not and object when called on matcher&apos;, function() {
+    const f = new Fixture();
+
+    expect(f.on.equal.bind(f, null)).to.throw();
+  })
+
+  it(&apos;should throw is with invalid key when called on matcher&apos;, function() {
+    const f = new Fixture();
+
+    expect(f.on.equal.bind(f, {foo: &apos;bar&apos;})).to.throw();
+  })
+})
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

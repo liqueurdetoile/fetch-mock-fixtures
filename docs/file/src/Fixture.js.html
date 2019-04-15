@@ -3,17 +3,17 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl" href="../../">
-  <title data-ice="title">src/Fixture.js | fetch-mock-fixtures</title>
+  <title data-ice="title">src/Fixture.js | Fetch-mock-fixtures | Fetch API for testing</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
   <script src="script/manual.js"></script>
-<meta name="description" content="Mocker for fetch API with fixtures support"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="fetch-mock-fixtures"><meta property="twitter:description" content="Mocker for fetch API with fixtures support"></head>
+<link rel="stylesheet" href="./inject/css/0-styles.css"><script src="./inject/script/0-docs.js"></script><meta name="description" content="Fixtures based mocker for fetch API with BDD style configuration"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="Fetch-mock-fixtures | Fetch API for testing"><meta property="twitter:description" content="Fixtures based mocker for fetch API with BDD style configuration"></head>
 <body class="layout-container" data-ice="rootContainer">
 
 <header>
-  <a href="./">Home</a>
-  
+  <a href="./" style="display: flex; align-items: center;"><img src="./image/brand_logo.png" style="width:34px;"></a>
+  <a href="./manual/index.html" data-ice="manualHeaderLink">Manual</a>
   <a href="identifiers.html">Reference</a>
   <a href="source.html">Source</a>
   <a href="test.html" data-ice="testLink">Test</a>
@@ -30,111 +30,351 @@
   <ul>
     
   <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Fixture.js~Fixture.html">Fixture</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Preset.js~Preset.html">Preset</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Server.js~Server.html">Server</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#helpers">helpers</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/FMFException.js~FMFException.html">FMFException</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/FMFRequest.js~FMFRequest.html">FMFRequest</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/RequestMatcher.js~RequestMatcher.html">RequestMatcher</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html">ResponseConfigurator</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/ServerHistory.js~ServerHistory.html">ServerHistory</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#processors">processors</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/BaseProcessor.js~BaseProcessor.html">BaseProcessor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/BodyProcessor.js~BodyProcessor.html">BodyProcessor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/BooleanProcessor.js~BooleanProcessor.html">BooleanProcessor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/HeadersProcessor.js~HeadersProcessor.html">HeadersProcessor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/QueryProcessor.js~QueryProcessor.html">QueryProcessor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/StringProcessor.js~StringProcessor.html">StringProcessor</a></span></span></li>
 </ul>
 </div>
 </nav>
 
 <div class="content" data-ice="content"><h1 data-ice="title">src/Fixture.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/**
- * Main fixture constructor
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import Preset from &apos;./Preset&apos;;
+import ResponseConfigurator from &apos;./helpers/ResponseConfigurator&apos;;
+import RequestMatcher from &apos;./helpers/RequestMatcher&apos;;
+import FMFException from &apos;./helpers/FMFException&apos;;
+import pathToRegexp from &apos;path-to-regexp&apos;;
+
+/**
+ * A fixture contains all the needed informations to find
+ * out wich request can be matched and wich response
+ * must be sent back
  * @version 1.0.0
- * @since 1.0.0
- * @author Liqueur de Toile &lt;contact@liqueurdetoile.com&gt;
+ * @since 2.0.0
  */
-export default class Fixture {
+export class Fixture extends ResponseConfigurator {
   /**
-   * Server instance
-   * @type {Server}
-   */
-  server = null;
-
-  /**
-   * Response body
-   * @type {mixed}
-   */
-  body = null;
-
-  /**
-   * Response delay in ms
+   * Stores the number of responses generated by this fixture
    * @type {Number}
+   * @since 2.0.0
    */
-  delay = 0;
+  calls = 0;
 
   /**
-   * Response status
-   * @type {Number}
+   * Stores the response which are specific to own call count
+   * @type {Array}
+   * @since 2.0.0
    */
-  status = null;
+  ownCalls = [];
 
   /**
-   * Response status text
-   * @type {String}
+   * Stores the response which are specific to global call count
+   * @type {Array}
+   * @since 2.0.0
    */
-  statusText = null;
+  globalCalls = [];
 
   /**
-   * Response headers
-   * @type {Headers}
+   * Flag for response configuration
+   * @type {null|Number}
+   * @since 2.0.0
    */
-  _headers = null;
+  _callnum = null;
 
   /**
-   * Response wrapper
-   * @type {Boolean|String|Function}
+   * Request matcher instance
+   * @type {null|RequestMatcher}
+   * @since 2.0.0
    */
-  wrapper = false;
+  _matcher = null;
 
   /**
-   * Fixture constructor
+   * Flag for call count configuration
+   * @type {Boolean}
+   * @since 2.0.0
+   */
+  _ownCall = false;
+
+  /**
+   * Allow response key for configuration
+   * @type {Array}
+   * @since 2.0.0
+   */
+  _responseKeys = [&apos;body&apos;, &apos;delay&apos;, &apos;headers&apos;, &apos;status&apos;, &apos;statusText&apos;, &apos;wrapper&apos;, &apos;pattern&apos;, &apos;before&apos;, &apos;after&apos;, &apos;preset&apos;];
+
+  /**
+   * Initialize the ResponseConfigurator helper
    * @version 1.0.0
-   * @since   1.0.0
-   * @param   {Server}  server Server instance
+   * @since   2.0.0
+   * @param   {Server}  [server] Server instance
    */
-  constructor(server, init) {
-    this.server = server;
-
-    this.delay = init.delay || server.delay;
-    this.headers = init.headers || server.headers;
-    this.status = init.status || server.status;
-    this.statusText = init.statusText || server.statusText;
-    this.wrapper = init.wrapper || server.wrapper;
-    this.body = init.body || null;
-
-    if (init.initialized instanceof Function) this.initialized = init.initialized;
-    if (init.destroyed instanceof Function) this.destroyed = init.destroyed;
+  constructor(server) {
+    super(server);
   }
 
-  get headers() {
-    return this._headers;
+  /**
+   * Set the fixture in request matching mode. The matcher is
+   * behing a proxy to allow quick property mapping
+   *
+   * @version 1.0.0
+   * @since   2.0.0
+   * @return  {RequestMatcher}  Request matcher
+   */
+  get on() {
+    if (this._mode === &apos;respond&apos;) return this.server.on;
+
+    this._matcher = this._matcher || new RequestMatcher(this);
+
+    return new Proxy(this._matcher, {
+      get: (obj, prop) =&gt; prop in obj ? obj[prop] : obj.getProcessor(prop)
+    });
   }
 
-  set headers(headers = {}) {
-    if (headers instanceof Headers) {
-      this._headers = headers;
-      return this;
+  /**
+   * Alias for `on`
+   * @version 1.0.0
+   * @since   2.0.0
+   * @return  {RequestMatcher}  Request matcher
+   */
+  get when() {
+    return this.on;
+  }
+
+  /**
+   * Ask server to process the respond. If the fixture is already in response
+   * mode, a new fixture will be returned. Otherwise, it will be the same fixture
+   * @version 1.0.0
+   * @since   2.0.0
+   * @return  {Fixture}  Fixture
+   */
+  get respond() {
+    return this.server ? this.server._processRespond(this) : this;
+  }
+
+  /**
+   * Target the current response set based on call count configuration
+   * @version 1.0.0
+   * @since   2.0.0
+   * @return  {Object}  Response configuration object
+   */
+  _getCurrentResponseSet() {
+    if (this._callnum !== null) {
+      if (this._ownCall) {
+        this.ownCalls[this._callnum] = this.ownCalls[this._callnum] || {}
+        return this.ownCalls[this._callnum];
+      }
+      this.globalCalls[this._callnum] = this.globalCalls[this._callnum] || {}
+      return this.globalCalls[this._callnum];
     }
 
-    this._headers = new Headers(headers);
+    this._any = this._any;
+    return this._any;
+  }
+
+  /**
+   * Syntax sugar for human readability
+   * @version 1.0.0
+   * @since   1.0.0
+   * @return  {Fixture}
+   */
+  get to() {
     return this;
   }
 
   /**
-   * Returns the response initialization object based on fixture properties
+   * Alias for respond that always return the fallback fixture
    * @version 1.0.0
-   * @since   1.0.0
-   * @return  {Object}  Response init object
+   * @since   2.0.0
+   * @return  {Fixture}  Fallback fixture
    */
-  get init() {
-    return {
-      delay: this.delay,
-      headers: this.headers,
-      status: this.status,
-      statusText: this.statusText,
-      wrapper: this.wrapper,
+  get fallback() {
+    return this.server.fallback;
+  }
+
+  firstCall(own = false) {
+    this._callnum = 1;
+    this._ownCall = own;
+
+    return this;
+  }
+
+  secondCall(own = false) {
+    this._callnum = 2;
+    this._ownCall = own;
+
+    return this;
+  }
+
+  thirdCall(own = false) {
+    this._callnum = 3;
+    this._ownCall = own;
+
+    return this;
+  }
+
+  call(n, own) {
+    this._callnum = parseInt(n, 10);
+    this._ownCall = own;
+
+    return this;
+  }
+
+  get any() {
+    this._callnum = null;
+    this._ownCall = false;
+
+    return this;
+  }
+
+  preset(name) {
+    let response = this._getCurrentResponseSet();
+
+    if (name) response.preset = name;
+    else delete response.preset;
+
+    return this;
+  }
+
+  async match(request, server) {
+    /* istanbul ignore if */
+    if (!this._matcher) return true;
+
+    return await this._matcher.match(request, server);
+  }
+
+  async sleep(delay) {
+    await new Promise(resolve =&gt; setTimeout(resolve, delay));
+  }
+
+  extractParams(pathname, pattern) {
+    const params = {};
+    const keys = [];
+    const re = pathToRegexp(pattern, keys);
+    const parsed = re.exec(pathname);
+
+    for (let i = 0; i &lt; keys.length; i++) {
+      let name = keys[i].name;
+      let value = parsed[i+1];
+
+      params[name] = value;
+    }
+
+    return params;
+  }
+
+  wrap(body, wrapper) {
+    if (wrapper instanceof Function) return wrapper(body);
+
+    return body || null;
+  }
+
+  getPath(request, response) {
+    let url = response.pattern || request.pathname;
+    let path = url.split(&apos;/&apos;).filter(p =&gt; p &amp;&amp; p.indexOf(&apos;:&apos;) &lt; 0);
+    let filename = request.method.toLowerCase();
+
+    return path.concat(filename).join(&apos;/&apos;);
+  }
+
+  _exceptionManagement(err, message) {
+    if (err instanceof Error || typeof err === &apos;string&apos;) {
+      throw new FMFException(message, err);
+    }
+
+    if (err instanceof Response) {
+      return err;
+    }
+
+    if (err instanceof Preset) {
+      let {body, headers, status, statusText} = err._any;
+
+      return new Response(body, {headers, status, statusText});
+    }
+
+    /* istanbul ignore else */
+    if (err instanceof Object) {
+      let {body, headers, status, statusText} = err;
+
+      return new Response(body, {headers, status, statusText});
     }
   }
+
+  async _buildResponse(request, response) {
+    // Process before hook and update response if one is returned
+    if (response.before instanceof Function) {
+      try {
+        let responseReplacement = await response.before.call(this, this.server, request, response);
+
+        if (responseReplacement) response = responseReplacement;
+      } catch (err) {
+        return this._exceptionManagement(err, &apos;Unable to process before callback&apos;);
+      }
+    }
+
+    // Extract params if a pattern have been set
+    let params = response.pattern ? this.extractParams(request.pathname, response.pattern) : {};
+
+    // Process body callback
+    try {
+      if (response.body instanceof Function) response.body = await response.body.call(this, params, {
+        request,
+        response,
+        server: this.server
+      });
+    } catch (err) {
+      return this._exceptionManagement(err, &apos;Unable to process body callback&apos;);
+    }
+
+    // Apply preset
+    if (response.preset) {
+      let preset = this.server._presets[response.preset];
+
+      /* istanbul ignore if */
+      if (!preset) throw new FMFException(`Unable to apply preset. Preset ${response.preset} is not defined`);
+      response = Object.assign(response, preset._any);
+    }
+
+    // Construct response
+    let {body, headers, status, statusText, wrapper} = response;
+
+    const responseObject = new Response(this.wrap(body, wrapper), {headers, status, statusText});
+
+    // Process after hook
+    try {
+      if (response.after instanceof Function) await response.after.call(this, this.server, responseObject);
+    } catch (err) {
+      return this._exceptionManagement(err, &apos;Unable to process after callback&apos;);
+    }
+
+    // Delay response
+    if (response.delay) await this.sleep(response.delay);
+
+    return responseObject;
+  }
+
+  getResponse(request) {
+    const localCalls = ++this.calls;
+    const globalCalls = this.server.calls;
+
+    // Match local calls first
+    return this._buildResponse(request,
+      this.ownCalls[localCalls] ||
+      this.globalCalls[globalCalls] ||
+      this._any
+    );
+  }
 }
+
+export default Fixture;
 </code></pre>
 
 </div>

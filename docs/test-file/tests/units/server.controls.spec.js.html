@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">tests/units/server.controls.spec.js | Fetch-mock-fixtures | Fetch API for testing</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<link rel="stylesheet" href="./inject/css/0-styles.css"><script src="./inject/script/0-docs.js"></script><meta name="description" content="Fixtures based mocker for fetch API with BDD style configuration"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="Fetch-mock-fixtures | Fetch API for testing"><meta property="twitter:description" content="Fixtures based mocker for fetch API with BDD style configuration"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./" style="display: flex; align-items: center;"><img src="./image/brand_logo.png" style="width:34px;"></a>
+  <a href="./manual/index.html" data-ice="manualHeaderLink">Manual</a>
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  <a href="test.html" data-ice="testLink">Test</a>
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/liqueurdetoile/fetch-mock-fixtures.git"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Fixture.js~Fixture.html">Fixture</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Preset.js~Preset.html">Preset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Server.js~Server.html">Server</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#helpers">helpers</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/FMFException.js~FMFException.html">FMFException</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/FMFRequest.js~FMFRequest.html">FMFRequest</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/RequestMatcher.js~RequestMatcher.html">RequestMatcher</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html">ResponseConfigurator</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/ServerHistory.js~ServerHistory.html">ServerHistory</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#processors">processors</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/BaseProcessor.js~BaseProcessor.html">BaseProcessor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/BodyProcessor.js~BodyProcessor.html">BodyProcessor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/BooleanProcessor.js~BooleanProcessor.html">BooleanProcessor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/HeadersProcessor.js~HeadersProcessor.html">HeadersProcessor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/QueryProcessor.js~QueryProcessor.html">QueryProcessor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/StringProcessor.js~StringProcessor.html">StringProcessor</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">tests/units/server.controls.spec.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import {Server, Fixture} from &apos;@&apos;;
+
+describe(&apos;Server control test suite&apos;, function() {
+  it(&apos;should construct a server&apos;, function() {
+    const server = new Server();
+
+    server.should.be.instanceof(Server);
+  })
+
+  it(&apos;should start, reset and stop server&apos;, function() {
+    const server = new Server();
+    sinon.spy(server, &apos;reset&apos;);
+
+    server.running.should.be.false;
+    server.start().should.deep.equal(server);
+    server.running.should.be.true;
+    server.reset().should.deep.equal(server);
+    server.reset.calledOnce.should.be.true;
+    server.running.should.be.true;
+    server.stop().should.deep.equal(server);
+    server.running.should.be.false;
+    server.reset.calledTwice.should.be.false;
+    server.stop(true).should.deep.equal(server);
+    server.reset.calledTwice.should.be.true;
+  })
+
+  it(&apos;should expose stub when running and throw when not running&apos;, function() {
+    const server = new Server();
+
+    expect(() =&gt; server.stub).to.throw();
+    server.start();
+    server.stub.should.be.instanceof(Function);
+    server.stop();
+  })
+
+  it(&apos;should import fixtures&apos;, async function() {
+    const server = new Server();
+    const f1 = new Fixture();
+    const f2 = {
+      on: {
+        headers: headers =&gt; !headers.has(&apos;x-device&apos;)
+      },
+      respond: {
+        preset: 400
+      }
+    }
+    let response;
+
+    f1
+      .on.equal({
+        headers: headers =&gt; headers.has(&apos;x-device&apos;)
+      })
+      .respond.set({
+        status: 200
+      })
+
+    server.import(f1);
+    server.import([f2]);
+
+    server._fixtures.length.should.equal(2);
+
+    server.start().throwOnError(true);
+    response = await fetch(&apos;/&apos;);
+    response.status.should.equal(400);
+    response = await fetch(&apos;/&apos;, {headers: {&apos;x-device&apos;: &quot;123&quot;}});
+    response.status.should.equal(200);
+    server.stop();
+  })
+
+  it(&apos;should manage import errors&apos;, function() {
+    const server = new Server();
+
+    expect(server.import.bind(server, &apos;foo&apos;)).to.throw();
+    expect(server.import.bind(server, {status: 200})).to.throw();
+  })
+})
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

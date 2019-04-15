@@ -1,17 +1,23 @@
-import PouchDB from 'pouchdb';
+const users = [
+  {
+    id: 1,
+    name: 'foo'
+  },
+  {
+    id: 2,
+    name: 'bar'
+  }
+];
 
 export default {
-  initialized: async function({id}) {
-    const db = new PouchDB('test');
+  body: async function({id}, {server}) {
+    if (id) {
+      let user = users.find(user => user.id === Number(id));
 
-    try {
-      this.body = id ? await db.get(id) : await db.allDocs({
-        include_docs: true
-      }).rows.map(row => row.doc);
-      this.wrapper = body => JSON.stringify(body);
-      this.headers = new Headers({'content-type': 'application/json'});      
-    } catch (err) {
-      this.status = 404;
+      if (user) return user;
+      throw server.preset(404);
     }
+
+    return users;
   }
 }

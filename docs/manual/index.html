@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../">
+  <title data-ice="title">Manual | Fetch-mock-fixtures | Fetch API for testing</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<link rel="stylesheet" href="./inject/css/0-styles.css"><script src="./inject/script/0-docs.js"></script><meta name="description" content="Fixtures based mocker for fetch API with BDD style configuration"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="Fetch-mock-fixtures | Fetch API for testing"><meta property="twitter:description" content="Fixtures based mocker for fetch API with BDD style configuration"></head>
+<body class="layout-container manual-root manual-index" data-ice="rootContainer">
+
+<header>
+  <a href="./" style="display: flex; align-items: center;"><img src="./image/brand_logo.png" style="width:34px;"></a>
+  <a href="./manual/index.html" data-ice="manualHeaderLink">Manual</a>
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  <a href="test.html" data-ice="testLink">Test</a>
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/liqueurdetoile/fetch-mock-fixtures.git"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div class="manual-toc-root">
+  
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/getting_started.html"><a href="manual/getting_started.html" data-ice="link">Getting started</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/server.html"><a href="manual/server.html" data-ice="link">Server control, configuration and history</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/server.html"><a href="manual/server.html#server-control" data-ice="link">Server control</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/server.html"><a href="manual/server.html#adding-fixtures-to-server" data-ice="link">Adding fixtures to server</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/server.html"><a href="manual/server.html#error-management" data-ice="link">Error management</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/server.html"><a href="manual/server.html#server--39-s-history" data-ice="link">Server&apos;s history</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/response-configuration.html"><a href="manual/response-configuration.html" data-ice="link">Response configuration</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/response-configuration.html"><a href="manual/response-configuration.html#configure-response" data-ice="link">Configure response</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/response-configuration.html"><a href="manual/response-configuration.html#default-response-values" data-ice="link">Default response values</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/response-configuration.html"><a href="manual/response-configuration.html#response-configuration-persistence" data-ice="link">Response configuration persistence</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/response-configuration.html"><a href="manual/response-configuration.html#available-response-options" data-ice="link">Available response options</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/response-configuration.html"><a href="manual/response-configuration.html#using-wrappers" data-ice="link">Using wrappers</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/response-configuration.html"><a href="manual/response-configuration.html#using-patterns" data-ice="link">Using patterns</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/presets.html"><a href="manual/presets.html" data-ice="link">Presets</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/presets.html"><a href="manual/presets.html#using-presets" data-ice="link">Using presets</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/presets.html"><a href="manual/presets.html#adding-editing-a-preset" data-ice="link">adding/editing a preset</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/presets.html"><a href="manual/presets.html#preset-scope" data-ice="link">Preset scope</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/presets.html"><a href="manual/presets.html#built-in-presets" data-ice="link">Built-in presets</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/fixtures.html"><a href="manual/fixtures.html" data-ice="link">Fixture in-depth</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/fixtures.html"><a href="manual/fixtures.html#request-processing" data-ice="link">Request processing</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/fixtures.html"><a href="manual/fixtures.html#fixture-lifecycle" data-ice="link">Fixture lifecycle</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/fixtures.html"><a href="manual/fixtures.html#fixture-hooks-and-body-callback" data-ice="link">Fixture hooks and body callback</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/fixtures.html"><a href="manual/fixtures.html#-code-before--code--hook" data-ice="link">before hook</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/fixtures.html"><a href="manual/fixtures.html#body-callback" data-ice="link">Body callback</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/fixtures.html"><a href="manual/fixtures.html#-code-after--code--hook" data-ice="link">after hook</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/fixtures.html"><a href="manual/fixtures.html#hooks-scope" data-ice="link">Hooks scope</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/fixtures.html"><a href="manual/fixtures.html#adding-fixtures-to-server" data-ice="link">Adding fixtures to server</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/requests-matcher.html"><a href="manual/requests-matcher.html" data-ice="link">Requests matcher</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/requests-matcher.html"><a href="manual/requests-matcher.html#matching-request-properties" data-ice="link">Matching request properties</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/requests-matcher.html"><a href="manual/requests-matcher.html#matching-calls-count" data-ice="link">Matching calls count</a></li>
+</ul>
+  </div>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><div class="github-markdown">
+  <div class="manual-user-index" data-ice="manualUserIndex"><p><a href="https://travis-ci.org/liqueurdetoile/fetch-mock-fixtures"><img src="https://travis-ci.org/liqueurdetoile/fetch-mock-fixtures.svg?branch=master" alt="Build Status"></a>
+<a href="https://coveralls.io/github/liqueurdetoile/fetch-mock-fixtures?branch=master"><img src="https://coveralls.io/repos/github/liqueurdetoile/fetch-mock-fixtures/badge.svg?branch=master" alt="Coverage Status"></a>
+<a href="https://github.com/semantic-release/semantic-release"><img src="https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg" alt="semantic-release"></a>
+<a href="https://liqueurdetoile.github.io/fetch-mock-fixtures/"><img src="https://liqueurdetoile.github.io/fetch-mock-fixtures/badge.svg" alt="Documentation"></a>
+<a href="https://greenkeeper.io/"><img src="https://badges.greenkeeper.io/liqueurdetoile/fetch-mock-fixtures.svg" alt="Greenkeeper badge"></a>
+<a href="http://makeapullrequest.com"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square" alt="PRs Welcome"></a></p>
+<p></p><p><a href="https://liqueurdetoile.com" target="\_blank"><img src="https://hosting.liqueurdetoile.com/logo_lqdt.png"></a></p>
+
+<p></p>
+<h1 id="fetch-mock-fixtures--fmf-">Fetch-mock-fixtures (FMF)</h1><p>While most of mockers for fetch are only meant to intercept and define the next response content, FMF goes far beyond and offers a wide range of tools for testing js apps.</p>
+<p>What is featured :</p>
+<ul>
+<li>BDD style syntax to configure server and fixtures in a more readable-friendly way. It&apos;s heavily inspired by <a href="https://www.chaijs.com/guide/styles/#should">Chai <code>should</code> assertion library</a>,</li>
+<li>Easy way to configure response on-the-fly, mutating responses from call to call...</li>
+<li>Enhanced <a href="https://developer.mozilla.org/en-US/docs/Web/API/Request"><code>Request</code></a> native object to automatically parse url details and query content with <a href="https://github.com/unshiftio/url-parse#readme"><code>url-parse</code></a>,</li>
+<li>Powerful response presets and fixtures system to avoid writing the same things again and again and ease functional testing,</li>
+<li>Easy access to the full history or requests/responses handled by the server since its first start or last reset,</li>
+<li>Parametrized request thanks to <a href="https://github.com/pillarjs/path-to-regexp#readme"><code>path-to-regexp</code></a> to enable dynamic fixtures routing in a few lines of code</li>
+<li>and many more !</li>
+</ul>
+<p>For instance, with FMF, you can do such things to quickly configure two fixtures in a mocha test (that will obviously succeed) :</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Server from &apos;fetch-mock-fixtures&apos;;
+
+const server = new Server();
+
+describe(&apos;Headers test&apos;, function() {
+  before(() =&gt; server.start()) // Start intercepting fetch calls
+  after(() =&gt; server.stop()) // Restore to normal behavior
+
+  it(&apos;should use json headers&apos;, async function() {
+    server
+      .when // or .on
+        .header(&apos;content-type&apos;).equal(/json/) // use a regexp here to avoid writing full header
+        .respond.with.preset(&apos;200&apos;)
+      .fallback.to.preset(&apos;400&apos;)
+
+    let response = await fetch(&apos;/&apos;, {
+      headers: {&apos;content-type&apos;: &apos;application/json&apos;}
+    });
+
+    response.status.should.equal(200);
+  })
+})</code>
+</code></pre>
+<p><strong> How FMF can ease API outgoing requests unit tests ? </strong></p>
+<p>FMF enables really quick response configuration that allows testing the outgoing request to set up different responses (see above example). You only have to check a response property (like status) instead of manually parsing request built by your app to validate it.</p>
+<p>Furthermore, you can use the <code>before</code> and <code>after</code> hooks or <code>body</code> as a callback to alter response on very precise expectations.</p>
+<p><strong> How FMF can ease functional tests ? </strong></p>
+<p>In real life, scripts are often sending multiple requests to do their job. FMF removes the pain of handling multiple responses by easing their management. Let&apos;s see this example with a two steps authentication login. A bit verbose for what is actually doing but it aims to illustrate things :</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Server from &apos;fetch-mock-fixtures&apos;;
+
+const server = new Server();
+
+// Define on-the-fly fixtures to handle login tests
+server
+  .when
+      .pathname.equal(&apos;/login&apos;)
+      .method.equal(&apos;POST&apos;)
+      .body(&apos;json&apos;).equal(body =&gt; body.username === &apos;foo&apos;)
+    .respond.with
+      .preset(401)
+  .when
+      .pathname.equal(&apos;/session&apos;)
+      .method.equal(&apos;POST&apos;)
+      .body(&apos;json&apos;).equal(token =&gt; body.authToken === &apos;123&apos;)
+    .respond.with
+      .preset(&apos;json&apos;)
+      .body({success: true, sessionToken: &apos;456&apos;})
+  .fallback.to
+    .preset(403)
+
+describe(&apos;Login test suite&apos;, function() {
+  before(() =&gt; server.start())
+  after(() =&gt; server.stop())
+
+  it(&apos;should login&apos;, async function() {
+    await triggerTheLoginLogic(&apos;foo&apos;);
+    await sendTheTokenLogic(&apos;123&apos;);
+    logged.should.be.true;
+  })
+
+  it(&apos;should fail login on username&apos;, async function() {
+    await triggerTheLoginLogic(&apos;bar&apos;);
+    logged.should.be.false;
+  })
+
+  it(&apos;should fail login on token&apos;, async function() {
+    await triggerTheLoginLogic(&apos;foo&apos;);
+    await sendTheTokenLogic(&apos;hacked!&apos;);
+    logged.should.be.false;
+  })
+})</code>
+</code></pre>
+<p>We&apos;re not only sending back data to the app but also checking outgoing requests at the same time because the answer will only be sent if calling the right url with the right method and the right data. <code>with</code> and <code>to</code> are only optional sugars to improve human readability.</p>
+<p>Last not least, you can easily deploy url-based routing to use your &quot;real&quot; data inside each tests instead of providing fake data and get rid of on-the-fly fixtures (see <a href="https://liqueurdetoile.github.io/fetch-mock-fixtures/manual/dynamic-fixtures-examples">dynamic fixtures examples</a>).</p>
+<p><strong> When to use FMF ? </strong></p>
+<p>At any time :smile:</p>
+<p>Nevertheless, FMF will truly give its best with any testing framework (Mocha, Jasmine, Junit...) that allows to automate operations between each tests like <code>start</code>, <code>stop</code> or <code>reset</code> the server.</p>
+<h2 id="installation">Installation</h2><p>Installation can easily be done through NPM or Yarn. Sinon is required by FMF to stub <code>fetch</code> but is not included in the bundle. It must be installed as well if not already present.</p>
+<pre><code class="lang-bash"><code class="source-code prettyprint">npm install sinon fetch-mock-fixtures --save-dev
+
+yarn add sinon fetch-mock-fixtures --dev</code>
+</code></pre>
+<p>FMF should be installed as a dev dependency. It is not meant to be used as an in-app offline mode feature.</p>
+<p><strong>Note</strong> : FMF is built upon Promise, Proxy and fetch API (Request, Headers, Response) that are available in all modern browsers. If you intend to run tests on older browsers (IE) or versions, you may need to polyfill them. Here&apos;s some available tools you can use :</p>
+<ul>
+<li>Promise: <a href="https://www.npmjs.com/package/es6-promise">ES6-Promise</a></li>
+<li>Fetch API : <a href="https://www.npmjs.com/package/whatwg-fetch">window.fetch polyfill</a></li>
+<li>Proxy: <a href="https://www.npmjs.com/package/proxy-polyfill">proxy-polyfill</a></li>
+</ul>
+<h2 id="full-documentation-and-api-reference">Full documentation and API reference</h2><p>Please pay visit to <a href="https://liqueurdetoile.github.io/fetch-mock-fixtures/">the docs pages</a>.</p>
+<h2 id="bugs-and-improvements">Bugs and improvements</h2><p>Any bugs and issues can be filed on the <a href="https://github.com/liqueurdetoile/fetch-mock-fixtures/issues">github repository</a>.</p>
+<p>You are free and very welcome to fork the project and submit any PR to fix or improve FMF.</p>
+<p>I&apos;m especially interested for good will who wish to improve query matcher processors to provide more tools to evaluate query and choose the right response.</p>
+<h2 id="changelog">Changelog</h2><ul>
+<li>2.0.0 : BREAKING CHANGE - A brand new FMF highly <strong>not</strong> compatible with previous version</li>
+<li>1.0.1 : Add requests history and possibility to set up different responses based on requests order. Add delay as a response parameter into fixture.</li>
+</ul>
+</div>
+
+  
+
+  <div class="manual-cards">
+    
+  <div class="manual-card-wrap" data-ice="cards">
+      <div class="manual-card">
+        <div data-ice="card"><h1>Getting started</h1><p><strong> For installation tips, please consult <a href="./manual/index.html#installation">documentation home</a>. </strong></p><p><strong> Note on ES6 syntax : </strong> In all examples here, we&apos;re using ES6 modules import and, sometimes, the new spread operator. We&apos;re also using async/await syntax for asynchronous calls. All are supported natively by modern browsers.</p><p>FMF itself have been transpiled with Babel to support only alive browsers that share more than 5% of the market. It means that FMF is really not designed to test apps which are willing to support really old browsers as it will certainly be unsupported by them when testing. Nevertheless, you can still try to tweak the build to increase browsers coverage but with no guarantee.</p><p>At its most basic intend, FMF can be simply used as a convenient way to trap a remote <code>fetch</code> call and send a given response. For this to work, the server must have been started and provided with the response. At the end, the server must be stopped in order to resume on native <code>fetch</code> API.</p><p>Here&apos;s a simple example :</p><pre><code class="lang-javascript"><code class="source-code prettyprint">import Server from &apos;fetch-mock-fixtures&apos;;
+
+const server = new Server();
+
+server.start();
+
+server.respond.with.body(&apos;Hello world !&apos;);
+
+let response = await fetch(/** can have any arguments */);
+let data = await response.text();
+
+console.log(data); // will output Hello world !
+
+// What about the next call ?
+response = await fetch(/** can have any arguments */);
+data = await response.text();
+
+console.log(data); // will output Hello world again !
+
+server.stop();</code>
+</code></pre><p>Nothing too fancy here : we&apos;re starting the server, setting it to respond with &apos;Hello world !&apos;, running fetch twice and stop the server.</p><p>Behind the scene, we have :</p><ul>
+<li>overridden <code>window.fetch</code> to intercept calls</li>
+<li>Set up a single fixture to the server that matches all incoming requests</li>
+<li>restored <code>window.fetch</code> to its native state</li>
+</ul><p>Please read other parts of the documentation for a more advanced usage.</p></div>
+        <a data-ice="link" href="manual/getting_started.html"></a>
+      </div>
+    </div>
+<div class="manual-card-wrap" data-ice="cards">
+      <div class="manual-card">
+        <div data-ice="card"><h1>Server control, configuration and history</h1><p>Before being used, you must create a server instance :</p><pre><code class="lang-javascript"><code class="source-code prettyprint">import Server from &apos;fetch-mock-fixtures&apos;
+
+const server = new Server()</code>
+</code></pre><p>The constructor takes no arguments. Global presets are loaded when server instance is created. From server instance, you can start, stop and reset the server, configure presets and fixtures and access server history.</p><h2>Server control</h2><table>
+<thead>
+<tr>
+<th>Method / Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>start()</code></td>
+<td>Start the server by mocking native <code>window.fetch</code> with a <a href="https://sinonjs.org/releases/latest/stubs/">Sinon stub</a></td>
+</tr>
+<tr>
+<td><code>stop(reset=false)</code></td>
+<td>Stop the server by restoring <code>window.fetch</code>. You can optionally pass <code>true</code> as argument to also reset the server</td>
+</tr>
+<tr>
+<td><code>reset(resetStub=true)</code></td>
+<td>Reset the server (clear all fixtures and history) and, optionnally reset the stub history</td>
+</tr>
+<tr>
+<td><code>running</code></td>
+<td>If <code>true</code> server is running</td>
+</tr>
+<tr>
+<td><code>stub</code></td>
+<td>Direct access to the sinon stub</td>
+</tr>
+</tbody>
+</table><h2>Adding fixtures to server</h2><p>Adding fixtures to the server is pretty simple. See <a href="./manual/fixtures.html">fixtures</a> documentation.</p><h2>Error management</h2><p>When encountering an error during configuration, the server will throw an error.</p><p>During request processing, the server will display a warning in console and send back a 500 response with error description. This behavior can be changed with :</p><ul>
+<li><code>warnOnError(true|false)</code> : Activate/deactivate warnings in console</li>
+<li><code>throwOnError(true|false)</code> : If <code>true</code>, tells the server to throw an error instead of sending back a 500 error.</li>
+</ul><h2>Server&apos;s history</h2><p>The server keeps track of all incoming requests and responses. As convenience, you can access the last request and response by calling <code>server.request</code> or <code>server.response</code>. For more advanced selection tools, the history is available under <code>server.history</code>. See <a href="./manual/../test-file/tests/units/history.spec.js.html">history tests</a> for available tools.</p><p>The request is stored as a FMFRequest that also exposes parsed informations about the url using <a href="https://github.com/unshiftio/url-parse#readme">url-parse</a>).</p></div>
+        <a data-ice="link" href="manual/server.html"></a>
+      </div>
+    </div>
+<div class="manual-card-wrap" data-ice="cards">
+      <div class="manual-card">
+        <div data-ice="card"><h1>Response configuration</h1><p>Fixtures and presets share the same response configurator. It allows to set up response content and/or adapt request processing behavior.</p><h2>Configure response</h2><p>From the fixture or the preset, you can either use the <code>set</code> method and/or use the BDD style :</p><pre><code class="lang-javascript"><code class="source-code prettyprint">const server = new Server()
+
+server.respond // will register a new Fixture
+  .set({
+    status: 200
+  })
+  .headers({&apos;content-type&apos;: &apos;application/json&apos;})
+  .body(body =&gt; JSON.stringify({message: &apos;Hellow world !&apos;}));
+
+// Server will now respond to all requests with a JSON response and status 200</code>
+</code></pre><p>The response properties name are the same between object set approach and BDD style.
+The last assignment (no matter the way you&apos;re doing it) will override the previous. You can remove an option by providing false as value :</p><pre><code class="lang-javascript"><code class="source-code prettyprint">const server = new Server()
+
+server.respond // will register a single fixture
+  .body(body =&gt; JSON.stringify({message: &apos;Hello world !&apos;}));
+
+// Remove body callback
+server.respond // will fetch the fixture
+  .body(false);</code>
+</code></pre><h3>Default response values</h3><p>There&apos;s no default value for a fixture/preset response. You can use set up a preset and use it to automatically populate one
+or more response options of a fixture.</p><h3>Response configuration persistence</h3><p>Fixtures are stored within server and persists until server is reset. If you share the same server between many tests, any changes to fixtures
+configuration will persist into next tests. This can sometimes be tricky if you&apos;re updating an option of the fallback fixture in one test. See <a href="./manual/fixtures.html">fixtures</a> for more informations. This can also be really useful as you can create fixtures only once and share them along all tests.</p><h2>Available response options</h2><p>Each response option can be removed by affecting the false value to it. <strong> It is evaluated as a strict comparison.</strong></p><p>FMF doesn&apos;t provide any default values, but Response implementation usually set up a status 200 with &apos;text/html&apos; encoding to a new Response object when no options is provided.</p><table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Allowed value(s)</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>body</td>
+<td>null | Blob | BufferSource | FormData | ReadableStream | URLSearchParams | USVString | Function</td>
+<td>You can use any of the available types for a native <a href="https://developer.mozilla.org/fr/docs/Web/API/Response/Response">Response</a> object. FMF also accepts a callback that will return the body content or alter the response (see <a href="./manual/fixtures.html#fixture-lifecycle">fixture lifecycle</a>)</td>
+</tr>
+<tr>
+<td>delay</td>
+<td>Number</td>
+<td>The fixture response will be delayed by X ms</td>
+</tr>
+<tr>
+<td>headers</td>
+<td>Object | <a href="https://developer.mozilla.org/en-US/docs/Web/API/Headers">Headers</a></td>
+<td>The object will be used to instantiate the Headers</td>
+</tr>
+<tr>
+<td>status</td>
+<td>Number</td>
+<td>Status code of the response (2XX - 5XX). Some status code may have some requirements. For instance, trying to set up a body with a 204 status code will fail. It is not a FMF behavior but from native Response object.</td>
+</tr>
+<tr>
+<td>statusText</td>
+<td>String</td>
+<td>Status text along the status code</td>
+</tr>
+<tr>
+<td>wrapper</td>
+<td>Function</td>
+<td>Wrapper callback that transforms body. See <a href="#using_wrappers">wrappers</a></td>
+</tr>
+<tr>
+<td>preset</td>
+<td>String</td>
+<td><strong>Only available within a fixture</strong>. See <a href="./manual/presets.html">presets</a></td>
+</tr>
+<tr>
+<td>pattern</td>
+<td>String</td>
+<td>Pattern to apply to extract parameters from incoming request url. See <a href="#using_pattern">patterns</a></td>
+</tr>
+<tr>
+<td>before</td>
+<td>Function</td>
+<td>Callback called before the response is built. See <a href="./manual/fixtures.html#fixture-lifecycle">fixture lifecycle</a></td>
+</tr>
+<tr>
+<td>after</td>
+<td>Function</td>
+<td>Callback called after the response have been built.  See <a href="./manual/fixtures.html#fixture-lifecycle">fixture lifecycle</a></td>
+</tr>
+</tbody>
+</table><h2>Using wrappers</h2><p>Wrappers are used as body processors when preparing the response. Body stored from fixture is provided and the processed body must be returned. The main goal is to get rid of little transformations when providing the body to the fixture. Only one wrapper is allowed per response.</p><p>For instance, let&apos;s say we&apos;re working on a JSON API that expects the server&apos;s response to be always wrapped in the same patterns. You can use wrapper and two global presets to get rid of emulating this behavior each time you&apos;re creating a fixture :</p><pre><code class="lang-javascript"><code class="source-code prettyprint">import {presets, Server} from &apos;fetch-mock-fixtures&apos;;
+
+// Add the presets to global presets object
+// You can do it in your tests bootstrap
+presets = Object.assign(presets, {
+  &apos;api-success&apos;: {
+    headers: {&apos;content-type&apos;: &apos;application/json&apos;},
+    wrapper: body =&gt; JSON.stringify({
+      success: true,
+      data: body
+    })
+  },
+  &apos;api-failure&apos;: {
+    headers: {&apos;content-type&apos;: &apos;application/json&apos;},
+    wrapper: body =&gt; JSON.stringify({
+      success: false
+      error: body
+    })
+  }
+})
+
+// In tests scripts
+const server = new Server()
+
+server.respond.with.preset(&apos;api-success&apos;).and.body({
+  id: 1,
+  name: &apos;foo&apos;
+});
+
+// Parsed JSON response will be {success: true, data: {id: 1, name: &apos;foo&apos;}}
+</code>
+</code></pre><h2>Using patterns</h2><p>Patterns are a way to automatically extract parameters from the url. They will be provided as an object and first argument to the body callback (see fixtures#body_callback).</p><p>To extract params, url is parsed with <a href="https://github.com/pillarjs/path-to-regexp#readme"><code>path-to-regexp</code></a>. Please refer to this for advanced syntax.</p><p>Here&apos;s a simple example that use extract user id from url :</p><pre><code class="lang-javascript"><code class="source-code prettyprint">import {Server} from &apos;fetch-mock-fixtures&apos;;
+
+users = [
+  {id: 1, name: &apos;foo&apos;},
+  {id: 2, name: &apos;bar&apos;},
+  {id: 3, name: &apos;baz&apos;},
+]
+
+server.start().respond
+  .with.pattern(&apos;/api/users/:id?&apos;)
+  .and.body({id} =&gt; return id ? users.find(user =&gt; user.id === id) || users)
+</code>
+</code></pre></div>
+        <a data-ice="link" href="manual/response-configuration.html"></a>
+      </div>
+    </div>
+<div class="manual-card-wrap" data-ice="cards">
+      <div class="manual-card">
+        <div data-ice="card"><h1>Presets</h1><h2>Using presets</h2><p>You can tell a fixture to use a preset to build its response by simply calling its <code>preset</code> method with the name of the preset :</p><pre><code class="lang-javascript"><code class="source-code prettyprint">const server = new Server();
+
+server.respond.with.preset(400);</code>
+</code></pre><p>The preset is only evaluated and merged by the fixture at request time. You can easily override preset through <a href="./manual/fixtures.html">fixture response configuration</a>.</p><p>If the preset is not found in the server instance, an exception will be raised at request time.</p><h2>adding/editing a preset</h2><p>It can be done by providing an object with its <code>set</code> method and/or using BDD style syntax. Alternatively, the configuration object can be provided to <code>server.preset</code> :</p><pre><code class="lang-javascript"><code class="source-code prettyprint">const server = new Server();
+
+// In the server.preset call
+server.preset(&apos;myPreset&apos;, {
+  status: 250
+  statusText: &apos;weird status&apos;
+});
+
+// Another syntax, the same result
+server.preset(&apos;myPreset&apos;).set({status: 250}).statusText(&apos;weird&apos;)</code>
+</code></pre><p>You can have a look at the <a href="./manual/response-configuration.html">response configuration</a> for more details about the available options.</p><h2>Preset scope</h2><p>A preset can be added to a single server instance or in global scope.</p><p>To add a preset to server instance, simply create it with <code>server.preset</code>.</p><p>To add a preset to the global scope, just amend the <code>presets</code> property of the global export :</p><pre><code class="lang-javascript"><code class="source-code prettyprint">import {presets} from &apos;fetch-mock-fixtures&apos;;
+
+presets.myPreset = {
+  status: 250
+  statusText: &apos;weird status&apos;
+} // myPreset will now be available globally</code>
+</code></pre><h2>Built-in presets</h2><p>FMF already have commonly used built-in presets. See <a href="./manual/../file/src/presets.js.html"><code>presets.js</code></a> for details.</p></div>
+        <a data-ice="link" href="manual/presets.html"></a>
+      </div>
+    </div>
+<div class="manual-card-wrap" data-ice="cards">
+      <div class="manual-card">
+        <div data-ice="card"><h1>Fixture in-depth</h1><p>The fixture is the heart of FMF. Basically, a fixture organizes :</p><ul>
+<li>the response content (body, headers, status, statusText) and additional options (delay, wrapper, pattern, before and after hooks)</li>
+<li>Optionally, the conditions that the request must match to allow use of the fixture</li>
+</ul><h2>Request processing</h2><p>When the server receives a request, it :</p><ol>
+<li>tries to find a fixture with conditions that are matching explicitly the request. If multiple fixtures are found, it uses the first one. If none is found, it uses the fallback fixture if available or raise and error,</li>
+<li>passes the request to the fixture and await the response that triggers the fixture lifecycle,</li>
+<li>send back the response or an error if a problem occurred (see <a href="./manual/server.html#Error_management">server error management</a>).</li>
+</ol><h2>Fixture lifecycle</h2><p>When provided with the request, the fixture will :</p><ol>
+<li>Process the <code>before</code> hook is one have been set,</li>
+<li>Extract parameters from the url if a pattern have been set,</li>
+<li>Process the body callback or get the body value,</li>
+<li>Finalize the response setup from preset (if one have been used) and its own response configuration,</li>
+<li>Apply wrapper to body if one is set</li>
+<li>Construct a Response instance from response configuration</li>
+<li>Process the <code>after</code> hook if one have been set,</li>
+<li>Delay the response if asked to,</li>
+<li>Return the response to the server instance.</li>
+</ol><p>You can use any of hooks and body callback to amend response content or even cut the lifecycle by throwing another response or error.</p><h2>Fixture hooks and body callback</h2><p>In each hooks and callbacks, you can throw to stop fixture processing. If you throw :</p><ul>
+<li>A Response instance, it will be send back to the client immediately</li>
+<li>A Preset instance, it will be used to send back a response (useful for an HTTP error for instance)</li>
+<li>An error, it will used accordingly to server error management configuration</li>
+</ul><h3><code>before</code> hook</h3><p>It occurs at the very start of the fixture request processing. It receives the server instance, the request and the actual response configuration of the fixture as arguments.</p><p>You can return an updated response object that will be used for the rest of the lifecycle.</p><pre><code class="lang-javascript"><code class="source-code prettyprint">import {Server} from &apos;fetch-mock-fixtures&apos;
+
+const server = new Server();
+
+server.respond.before((server, request, response) =&gt; {
+  // Detect multiple identical requests
+  if(request.url === server.request.url) throw new Error(&apos;Duplicate requests&apos;);
+})</code>
+</code></pre><h3>Body callback</h3><p>The body callback is provided with two arguments :</p><ul>
+<li>The params parsed from the request url as a key/value object</li>
+<li>An object exposing request, response and server as properties</li>
+</ul><p>This is the best place for building <a href="./manual/../test-file/tests/examples/filesystem.fixture.spec.js.html">dynamic fixtures</a> as parameterss are directly provided to the callback.</p><h3><code>after</code> hook</h3><p>The after hook is ran at the very end and is provided with the server instance and Response instance as arguments.</p><p>It is most likely the place to do some cleanings or data resets between calls.</p><h3>Hooks scope</h3><p>The hooks are called within the scope of the fixture and <code>this</code> will refer to the fixture instance <strong>only if using regular function declaration</strong>. The scope of an arrow function is where the function have been declared, usually your test suite. For instance, to extract parameters from the <code>before</code> hook :</p><pre><code class="lang-javascript"><code class="source-code prettyprint">import {Server} from &apos;fetch-mock-fixtures&apos;
+
+const server = new Server();
+
+// Won&apos;t work - Scope problem
+server.respond.before((server, request, response) =&gt; {
+  const params = this.extractParams(request.pathname, response.pattern);
+})
+
+// This will work
+server.respond.before(function(server, request, response) {
+  const params = this.extractParams(request.pathname, response.pattern);
+})</code>
+</code></pre><h2>Adding fixtures to server</h2><p>As soon as you have some sample data you are using in many tests, it may be appropriate to stop adding fixtures on-the-fly to the server instance.</p><p>For simple datasets, a bunch of presets may be handful but if you&apos;re going on using calls count (see <a href="./manual/requests_matcher.html">requests matcher</a>), you can simply declare all your fixtures in one file that you can import/require into your test script. Then, you can simply add fixtures to the server by importing them :</p><pre><code class="lang-javascript"><code class="source-code prettyprint">import {Server} from &apos;fetch-mock-fixtures&apos;
+import fixtures from &apos;../myfixtures&apos;;
+
+const server = new Server();
+server.import(fixtures);</code>
+</code></pre><p>The fixtures can be response configuration object or fixtures instance.</p></div>
+        <a data-ice="link" href="manual/fixtures.html"></a>
+      </div>
+    </div>
+<div class="manual-card-wrap" data-ice="cards">
+      <div class="manual-card">
+        <div data-ice="card"><h1>Requests matcher</h1><p>Each fixture has a built-in requests matcher. You can configure a fixture to match only some requests properties and/or match only calls count.</p><h2>Matching request properties</h2><p>FMF is extending the native Request object with properties build from the parsing of the url with <a href="https://github.com/unshiftio/url-parse#readme">url-parse</a>). Therefore, you can directly access pathname, port, basic authentication...</p><p>Such matching evaluation is built in processors. By this time, there&apos;s only a common swiss army knife called <code>equal</code>. To add a matching configuration, you can do it with a one-shot call or with BDD style after using <code>on</code> or <code>when</code> getter.</p><p>Have a look to <a href="./manual/../test-file/tests/units/requests.processing.spec.js.html#lineNumber84">the tests</a> for examples on usage.</p><p>The next call to <code>respond</code> will set the fixture in response configuration mode.</p><p>You can then go on next conditional fixture by calling <code>on</code> or <code>when</code> again.</p><p>If you directly call <code>respond</code> or <code>fallback</code>, you will go on the fallback fixture and create or overwrite it.</p><p>The fallback fixture is the one (you can have only one obviously) that have no matching conditions. It will only be used if none of the others fixtures is matching the request.</p><h2>Matching calls count</h2><p>You can also configure a fixture to match only the nth call to the server or the nth call to itself.</p><p>You will find <a href="./manual/../test-file/tests/units/requests.processing.spec.js.html#lineNumber63">some examples</a> in tests.</p></div>
+        <a data-ice="link" href="manual/requests-matcher.html"></a>
+      </div>
+    </div>
+</div>
+</div>
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../">
+  <title data-ice="title">Manual | Fetch-mock-fixtures | Fetch API for testing</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<link rel="stylesheet" href="./inject/css/0-styles.css"><script src="./inject/script/0-docs.js"></script><meta name="description" content="Fixtures based mocker for fetch API with BDD style configuration"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="Fetch-mock-fixtures | Fetch API for testing"><meta property="twitter:description" content="Fixtures based mocker for fetch API with BDD style configuration"></head>
+<body class="layout-container manual-root" data-ice="rootContainer">
+
+<header>
+  <a href="./" style="display: flex; align-items: center;"><img src="./image/brand_logo.png" style="width:34px;"></a>
+  <a href="./manual/index.html" data-ice="manualHeaderLink">Manual</a>
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  <a href="test.html" data-ice="testLink">Test</a>
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/liqueurdetoile/fetch-mock-fixtures.git"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div class="manual-toc-root">
+  
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/getting_started.html"><a href="manual/getting_started.html" data-ice="link">Getting started</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/server.html"><a href="manual/server.html" data-ice="link">Server control, configuration and history</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/server.html"><a href="manual/server.html#server-control" data-ice="link">Server control</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/server.html"><a href="manual/server.html#adding-fixtures-to-server" data-ice="link">Adding fixtures to server</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/server.html"><a href="manual/server.html#error-management" data-ice="link">Error management</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/server.html"><a href="manual/server.html#server--39-s-history" data-ice="link">Server&apos;s history</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/response-configuration.html"><a href="manual/response-configuration.html" data-ice="link">Response configuration</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/response-configuration.html"><a href="manual/response-configuration.html#configure-response" data-ice="link">Configure response</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/response-configuration.html"><a href="manual/response-configuration.html#default-response-values" data-ice="link">Default response values</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/response-configuration.html"><a href="manual/response-configuration.html#response-configuration-persistence" data-ice="link">Response configuration persistence</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/response-configuration.html"><a href="manual/response-configuration.html#available-response-options" data-ice="link">Available response options</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/response-configuration.html"><a href="manual/response-configuration.html#using-wrappers" data-ice="link">Using wrappers</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/response-configuration.html"><a href="manual/response-configuration.html#using-patterns" data-ice="link">Using patterns</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/presets.html"><a href="manual/presets.html" data-ice="link">Presets</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/presets.html"><a href="manual/presets.html#using-presets" data-ice="link">Using presets</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/presets.html"><a href="manual/presets.html#adding-editing-a-preset" data-ice="link">adding/editing a preset</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/presets.html"><a href="manual/presets.html#preset-scope" data-ice="link">Preset scope</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/presets.html"><a href="manual/presets.html#built-in-presets" data-ice="link">Built-in presets</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/fixtures.html"><a href="manual/fixtures.html" data-ice="link">Fixture in-depth</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/fixtures.html"><a href="manual/fixtures.html#request-processing" data-ice="link">Request processing</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/fixtures.html"><a href="manual/fixtures.html#fixture-lifecycle" data-ice="link">Fixture lifecycle</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/fixtures.html"><a href="manual/fixtures.html#fixture-hooks-and-body-callback" data-ice="link">Fixture hooks and body callback</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/fixtures.html"><a href="manual/fixtures.html#-code-before--code--hook" data-ice="link">before hook</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/fixtures.html"><a href="manual/fixtures.html#body-callback" data-ice="link">Body callback</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/fixtures.html"><a href="manual/fixtures.html#-code-after--code--hook" data-ice="link">after hook</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/fixtures.html"><a href="manual/fixtures.html#hooks-scope" data-ice="link">Hooks scope</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/fixtures.html"><a href="manual/fixtures.html#adding-fixtures-to-server" data-ice="link">Adding fixtures to server</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/requests-matcher.html"><a href="manual/requests-matcher.html" data-ice="link">Requests matcher</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/requests-matcher.html"><a href="manual/requests-matcher.html#matching-request-properties" data-ice="link">Matching request properties</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/requests-matcher.html"><a href="manual/requests-matcher.html#matching-calls-count" data-ice="link">Matching calls count</a></li>
+</ul>
+  </div>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><div class="github-markdown" data-ice="content"><h1 id="response-configuration">Response configuration</h1><p>Fixtures and presets share the same response configurator. It allows to set up response content and/or adapt request processing behavior.</p>
+<h2 id="configure-response">Configure response</h2><p>From the fixture or the preset, you can either use the <code>set</code> method and/or use the BDD style :</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">const server = new Server()
+
+server.respond // will register a new Fixture
+  .set({
+    status: 200
+  })
+  .headers({&apos;content-type&apos;: &apos;application/json&apos;})
+  .body(body =&gt; JSON.stringify({message: &apos;Hellow world !&apos;}));
+
+// Server will now respond to all requests with a JSON response and status 200</code>
+</code></pre>
+<p>The response properties name are the same between object set approach and BDD style.
+The last assignment (no matter the way you&apos;re doing it) will override the previous. You can remove an option by providing false as value :</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">const server = new Server()
+
+server.respond // will register a single fixture
+  .body(body =&gt; JSON.stringify({message: &apos;Hello world !&apos;}));
+
+// Remove body callback
+server.respond // will fetch the fixture
+  .body(false);</code>
+</code></pre>
+<h3 id="default-response-values">Default response values</h3><p>There&apos;s no default value for a fixture/preset response. You can use set up a preset and use it to automatically populate one
+or more response options of a fixture.</p>
+<h3 id="response-configuration-persistence">Response configuration persistence</h3><p>Fixtures are stored within server and persists until server is reset. If you share the same server between many tests, any changes to fixtures
+configuration will persist into next tests. This can sometimes be tricky if you&apos;re updating an option of the fallback fixture in one test. See <a href="./manual/fixtures.html">fixtures</a> for more informations. This can also be really useful as you can create fixtures only once and share them along all tests.</p>
+<h2 id="available-response-options">Available response options</h2><p>Each response option can be removed by affecting the false value to it. <strong> It is evaluated as a strict comparison.</strong></p>
+<p>FMF doesn&apos;t provide any default values, but Response implementation usually set up a status 200 with &apos;text/html&apos; encoding to a new Response object when no options is provided.</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Allowed value(s)</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>body</td>
+<td>null | Blob | BufferSource | FormData | ReadableStream | URLSearchParams | USVString | Function</td>
+<td>You can use any of the available types for a native <a href="https://developer.mozilla.org/fr/docs/Web/API/Response/Response">Response</a> object. FMF also accepts a callback that will return the body content or alter the response (see <a href="./manual/fixtures.html#fixture-lifecycle">fixture lifecycle</a>)</td>
+</tr>
+<tr>
+<td>delay</td>
+<td>Number</td>
+<td>The fixture response will be delayed by X ms</td>
+</tr>
+<tr>
+<td>headers</td>
+<td>Object | <a href="https://developer.mozilla.org/en-US/docs/Web/API/Headers">Headers</a></td>
+<td>The object will be used to instantiate the Headers</td>
+</tr>
+<tr>
+<td>status</td>
+<td>Number</td>
+<td>Status code of the response (2XX - 5XX). Some status code may have some requirements. For instance, trying to set up a body with a 204 status code will fail. It is not a FMF behavior but from native Response object.</td>
+</tr>
+<tr>
+<td>statusText</td>
+<td>String</td>
+<td>Status text along the status code</td>
+</tr>
+<tr>
+<td>wrapper</td>
+<td>Function</td>
+<td>Wrapper callback that transforms body. See <a href="#using_wrappers">wrappers</a></td>
+</tr>
+<tr>
+<td>preset</td>
+<td>String</td>
+<td><strong>Only available within a fixture</strong>. See <a href="./manual/presets.html">presets</a></td>
+</tr>
+<tr>
+<td>pattern</td>
+<td>String</td>
+<td>Pattern to apply to extract parameters from incoming request url. See <a href="#using_pattern">patterns</a></td>
+</tr>
+<tr>
+<td>before</td>
+<td>Function</td>
+<td>Callback called before the response is built. See <a href="./manual/fixtures.html#fixture-lifecycle">fixture lifecycle</a></td>
+</tr>
+<tr>
+<td>after</td>
+<td>Function</td>
+<td>Callback called after the response have been built.  See <a href="./manual/fixtures.html#fixture-lifecycle">fixture lifecycle</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="using-wrappers">Using wrappers</h2><p>Wrappers are used as body processors when preparing the response. Body stored from fixture is provided and the processed body must be returned. The main goal is to get rid of little transformations when providing the body to the fixture. Only one wrapper is allowed per response.</p>
+<p>For instance, let&apos;s say we&apos;re working on a JSON API that expects the server&apos;s response to be always wrapped in the same patterns. You can use wrapper and two global presets to get rid of emulating this behavior each time you&apos;re creating a fixture :</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import {presets, Server} from &apos;fetch-mock-fixtures&apos;;
+
+// Add the presets to global presets object
+// You can do it in your tests bootstrap
+presets = Object.assign(presets, {
+  &apos;api-success&apos;: {
+    headers: {&apos;content-type&apos;: &apos;application/json&apos;},
+    wrapper: body =&gt; JSON.stringify({
+      success: true,
+      data: body
+    })
+  },
+  &apos;api-failure&apos;: {
+    headers: {&apos;content-type&apos;: &apos;application/json&apos;},
+    wrapper: body =&gt; JSON.stringify({
+      success: false
+      error: body
+    })
+  }
+})
+
+// In tests scripts
+const server = new Server()
+
+server.respond.with.preset(&apos;api-success&apos;).and.body({
+  id: 1,
+  name: &apos;foo&apos;
+});
+
+// Parsed JSON response will be {success: true, data: {id: 1, name: &apos;foo&apos;}}
+</code>
+</code></pre>
+<h2 id="using-patterns">Using patterns</h2><p>Patterns are a way to automatically extract parameters from the url. They will be provided as an object and first argument to the body callback (see fixtures#body_callback).</p>
+<p>To extract params, url is parsed with <a href="https://github.com/pillarjs/path-to-regexp#readme"><code>path-to-regexp</code></a>. Please refer to this for advanced syntax.</p>
+<p>Here&apos;s a simple example that use extract user id from url :</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import {Server} from &apos;fetch-mock-fixtures&apos;;
+
+users = [
+  {id: 1, name: &apos;foo&apos;},
+  {id: 2, name: &apos;bar&apos;},
+  {id: 3, name: &apos;baz&apos;},
+]
+
+server.start().respond
+  .with.pattern(&apos;/api/users/:id?&apos;)
+  .and.body({id} =&gt; return id ? users.find(user =&gt; user.id === id) || users)
+</code>
+</code></pre>
+</div>
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

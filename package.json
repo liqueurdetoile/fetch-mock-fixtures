@@ -1,8 +1,24 @@
 {
   "name": "fetch-mock-fixtures",
-  "version": "0.0.0",
-  "description": "Mocker for fetch API with fixtures support",
+  "version": "2.0.0",
+  "description": "Fixtures based mocker for fetch API with BDD style configuration",
   "main": "dist/index.min.js",
+  "keywords": [
+    "fetch",
+    "mock",
+    "fixtures",
+    "bdd"
+  ],
+  "author": "Liqueur de Toile",
+  "license": "MIT",
+  "homepage": "https://github.com/liqueurdetoile/fetch-mock-fixtures",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/liqueurdetoile/fetch-mock-fixtures.git"
+  },
+  "bugs": {
+    "url": "https://github.com/liqueurdetoile/fetch-mock-fixtures/issues"
+  },
   "scripts": {
     "build": "webpack --config webpack.conf/build.js -p",
     "test": "cross-env BABEL_ENV=test karma start --single-run --browsers ChromeHeadless && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
@@ -10,16 +26,16 @@
     "test:all": "cross-env BABEL_ENV=test karma start --single-run --log-level error"
   },
   "devDependencies": {
-    "@babel/core": "^7.4.0",
+    "@babel/core": "^7.4.3",
     "@babel/plugin-proposal-class-properties": "^7.4.0",
-    "@babel/plugin-proposal-object-rest-spread": "^7.4.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.4.3",
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
-    "@babel/preset-env": "^7.4.2",
+    "@babel/preset-env": "^7.4.3",
     "babel-eslint": "^10.0.0",
     "babel-loader": "^8",
     "babel-plugin-istanbul": "^5.1.0",
+    "babel-plugin-transform-builtin-extend": "^1.1.2",
     "chai": "^4.2.0",
-    "clean-webpack-plugin": "^2.0.1",
     "coveralls": "^3.0.3",
     "cross-env": "^5.2.0",
     "cz-conventional-changelog": "^2.1.0",
@@ -40,34 +56,20 @@
     "karma-sinon": "^1.0.5",
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^4.0.0-rc.6",
-    "mocha": "^6.1.2",
+    "mocha": "^6.1.3",
     "mocha-lcov-reporter": "^1.3.0",
     "pouchdb": "^7.0.0",
-    "semantic-release": "^15.13.3",
+    "semantic-release": "^15.13.8",
     "sinon": "^7.3.1",
-    "webpack": "^4.29.6",
-    "webpack-bundle-analyzer": "^3.1.0",
+    "webpack": "^4.30.0",
+    "webpack-bundle-analyzer": "^3.3.2",
     "webpack-cli": "^3.3.0",
     "webpack-merge": "^4.2.1"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/liqueurdetoile/fetch-mock-fixtures.git"
-  },
-  "keywords": [
-    "fetch",
-    "mock",
-    "fixtures"
-  ],
-  "author": "Liqueur de Toile",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/liqueurdetoile/fetch-mock-fixtures/issues"
-  },
-  "homepage": "https://github.com/liqueurdetoile/fetch-mock-fixtures",
   "dependencies": {
+    "lodash.isequal": "^4.5.0",
     "path-to-regexp": "^3.0.0",
-    "url-parse": "^1.4.4"
+    "url-parse": "^1.4.6"
   },
   "peerDependencies": {
     "sinon": "^7"

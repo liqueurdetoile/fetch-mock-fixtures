@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">tests/units/fixtures.spec.js | Fetch-mock-fixtures | Fetch API for testing</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<link rel="stylesheet" href="./inject/css/0-styles.css"><script src="./inject/script/0-docs.js"></script><meta name="description" content="Fixtures based mocker for fetch API with BDD style configuration"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="Fetch-mock-fixtures | Fetch API for testing"><meta property="twitter:description" content="Fixtures based mocker for fetch API with BDD style configuration"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./" style="display: flex; align-items: center;"><img src="./image/brand_logo.png" style="width:34px;"></a>
+  <a href="./manual/index.html" data-ice="manualHeaderLink">Manual</a>
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  <a href="test.html" data-ice="testLink">Test</a>
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/liqueurdetoile/fetch-mock-fixtures.git"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Fixture.js~Fixture.html">Fixture</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Preset.js~Preset.html">Preset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Server.js~Server.html">Server</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#helpers">helpers</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/FMFException.js~FMFException.html">FMFException</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/FMFRequest.js~FMFRequest.html">FMFRequest</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/RequestMatcher.js~RequestMatcher.html">RequestMatcher</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html">ResponseConfigurator</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/ServerHistory.js~ServerHistory.html">ServerHistory</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#processors">processors</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/BaseProcessor.js~BaseProcessor.html">BaseProcessor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/BodyProcessor.js~BodyProcessor.html">BodyProcessor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/BooleanProcessor.js~BooleanProcessor.html">BooleanProcessor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/HeadersProcessor.js~HeadersProcessor.html">HeadersProcessor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/QueryProcessor.js~QueryProcessor.html">QueryProcessor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/StringProcessor.js~StringProcessor.html">StringProcessor</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">tests/units/fixtures.spec.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import {FMFRequest, Fixture, Server} from &apos;@&apos;;
+import RequestMatcher from &apos;@/helpers/RequestMatcher&apos;;
+
+const server = new Server();
+
+describe(&apos;Fixtures test suite&apos;, function() {
+  before(() =&gt; server.start())
+  afterEach(() =&gt; server.reset())
+  after(() =&gt; server.stop());
+
+  describe(&apos;Fixture configuration&apos;, function() {
+    it(&apos;should create a fixture&apos;, function() {
+      const f = new Fixture(server);
+
+      f.should.be.instanceof(Fixture);
+      expect(f._matcher).to.be.null;
+      f.on.should.be.instanceof(RequestMatcher);
+      f.on.should.deep.equal(f._matcher);
+      f.respond.should.deep.equal(f);
+    })
+  })
+
+  describe(&apos;Fixture requests processing&apos;, function() {
+    it(&apos;should process fixture lifecyle&apos;, async function() {
+      const request = new FMFRequest(&apos;/api/v1/users/1&apos;);
+      const f = new Fixture(server);
+      const before = sinon.spy();
+      const body = sinon.spy();
+      const after = sinon.spy();
+      const response = {
+        pattern: &apos;/api/v1/users/:id?&apos;,
+        before,
+        body,
+        after
+      };
+
+      f.respond.set(response)
+
+      await f.getResponse(request);
+
+      before.calledOnce.should.be.true;
+      body.calledOnce.should.true;
+      after.calledOnce.should.be.true;
+    })
+
+    it(&apos;should alter response from before response callback&apos;, async function() {
+      server.respond.with.preset(&apos;default&apos;);
+
+      let response = await fetch(&apos;/api/v1/users/1&apos;);
+      response.status.should.equal(200);
+
+      server.respond.before(() =&gt; ({
+        status: 404
+      }));
+
+      response = await fetch(&apos;/api/v1/users/1&apos;);
+      response.status.should.equal(404);
+    })
+
+    it(&apos;should use a preset if one is thrown in fixture lifecycle&apos;, async function() {
+      server.respond
+        .with.preset(&apos;default&apos;)
+        .before(server =&gt; {
+          throw server.preset(404)
+        });
+
+      let response = await fetch(&apos;/api/v1/users/1&apos;);
+      response.status.should.equal(404);
+    })
+
+    it(&apos;should use a Response instance if one is thrown in fixture lifecycle&apos;, async function() {
+      server.respond
+        .with.preset(&apos;default&apos;)
+        .body(() =&gt; {
+          throw new Response(null, {status: 404});
+        });
+
+      let response = await fetch(&apos;/api/v1/users/1&apos;);
+      response.status.should.equal(404);
+    })
+
+    it(&apos;should use a response object descriptor if one is thrown in fixture lifecycle&apos;, async function() {
+      server.respond
+        .with.preset(&apos;default&apos;)
+        .after(() =&gt; {
+          throw {status: 404}
+        });
+
+      let response = await fetch(&apos;/api/v1/users/1&apos;);
+      response.status.should.equal(404);
+    })
+
+    it(&apos;should throw on Error&apos;, async function() {
+      let response;
+
+      server
+        .warnOnError(false)
+        .throwOnError(true)
+        .respond
+        .with.preset(&apos;default&apos;)
+        .before(() =&gt; {
+          throw new TypeError()
+        });
+
+      try {
+        response = await fetch(&apos;/api/v1/users/1&apos;);
+      } catch (err) {
+        err.should.be.instanceof(Error);
+        err.previous.should.be.instanceof(TypeError);
+      }
+
+      expect(response).to.be.undefined;
+    })
+
+    it(&apos;should return a 500 error for Error throws&apos;, async function() {
+      server
+        .throwOnError(false)
+        .respond
+        .with.preset(&apos;default&apos;)
+        .before(() =&gt; {
+          throw new TypeError()
+        });
+
+      let response = await fetch(&apos;/api/v1/users/1&apos;);
+      response.status.should.equal(500);
+      response.statusText.should.equal(&apos;FMF error: Unable to process before callback&apos;);
+    })
+
+    it(&apos;should throw by default for other throws&apos;, async function() {
+      let response;
+
+      server
+        .throwOnError(true)
+        .respond
+        .with.preset(&apos;default&apos;)
+        .before(() =&gt; {
+          throw &apos;My custom error&apos;
+        });
+
+      try {
+        response = await fetch(&apos;/api/v1/users/1&apos;);
+      } catch (err) {
+        err.toString().should.equal(&apos;FMF error: Unable to process before callback&apos;);
+        err.previous.should.equal(&apos;My custom error&apos;);
+      }
+
+      expect(response).to.be.undefined;
+    })
+
+    it(&apos;should return a 500 error for other throws&apos;, async function() {
+      server
+        .throwOnError(false)
+        .respond
+        .with.preset(&apos;default&apos;)
+        .before(() =&gt; {
+          throw &apos;My custom error&apos;
+        });
+
+      let response = await fetch(&apos;/api/v1/users/1&apos;);
+      response.status.should.equal(500);
+    })
+  })
+})
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

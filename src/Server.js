@@ -1,11 +1,17 @@
-import Fixture from './Fixture';
-import parse from 'url-parse';
-import pathToRegexp from 'path-to-regexp';
+import {FMFRequest, Fixture, Preset} from '.';
+import ServerHistory from './helpers/ServerHistory';
+import FMFException from './helpers/FMFException';
+import presets from './presets';
 import sinon from 'sinon';
 
 /**
- * Build a mock server to respond to fetch calls. It stubs
- * window.fetch
+ * Build a mock server to respond to any fetch calls. It replaces
+ * `window.fetch` with a [Sinon stub](https://sinonjs.org/releases/latest/stubs/). Therefore,
+ * all functionnalities provided by stub are available
+ *
+ * **Note :** All the server data is stored in the current instance. That may have
+ * unattended side effects when using the same instance through many test without
+ * resetting it each time
  *
  * @since 1.0.0
  * @version 1.0.0
@@ -13,132 +19,156 @@ import sinon from 'sinon';
  */
 export class Server {
   /**
-   * Server response delay in ms
-   * @type {Number}
-   * @since 1.0.0
+   * Store the fixtures loaded into the server or created on-the-fly
+   * @type {Array}
+   * @since 2.0.0
+   * @see {@link Fixture}
    */
-  delay = 0;
+  _fixtures = [];
 
   /**
-   * Server fixture file location pattern
+   * Store wether FMF shoud throw or send a 500 HTTP response when an error is raised
    * @type {Boolean}
-   * @since 1.0.0
+   * @since 2.0.0
+   * @see {@link Server#throwOnError}
+   * @see {@link Server#warnOnError}
    */
-  pattern = false;
+  _throwOnError = false;
 
   /**
-   * Server response headers
-   * @type {Headers}
-   * @since 1.0.0
+   * Store wether FMF shoud display a warning message in console when an error is raised
+   * @type {Boolean}
+   * @since 2.0.0
+   * @see {@link Server#throwOnError}
+   * @see {@link Server#warnOnError}
    */
-  headers = new Headers({'content-type': 'text/html'});
+  _warnOnError = true
 
   /**
-   * Server response status
-   * @type {Number}
-   * @since 1.0.0
+   * Store the loaded presets and those created on-the-fly
+   * @type {Object}
+   * @since 2.0.0
    */
-  status = 200;
+  _presets = {};
 
   /**
-   * Server response status text
-   * @type {String}
-   * @since 1.0.0
+   * Store the server history
+   * @type {ServerHistory}
+   * @since 2.0.0
    */
-  statusText = 'OK';
+  history = new ServerHistory();
 
   /**
-   * Server response data wrapper
-   * @type {Boolean|String|Function}
-   * @since 1.0.0
-   */
-  wrapper = false;
-
-  /**
-   * Stores a call flag to let initialize diifferent successive response
-   * @type {null|Number}
-   */
-  _call = null;
-
-  /**
-   * Stores the current stub when pausing server
-   * @type {Function}
-   */
-  _stub = null;
-
-  /**
-   * Constructor. Configuration options can be passed.
-   * @version 1.0.0
+   * Import the default presets into server
+   * @version 2.0.0
    * @since   1.0.0
-   * @param   {Object}  options Options
+   * @author Liqueur de Toile <contact@liqueurdetoile.com>
    */
-  constructor(options) {
-    if (options) this.configure(options);
-  }
-
-  /**
-   * Configuration setter
-   * @version 1.0.0
-   * @since   1.0.0
-   * @param   {Object}  [options={}] Options
-   * @params  {Number} [options.delay]  Response delay in ms
-   * @return  {Server}               Server instance
-   */
-  configure(options = {}) {
-    this
-      .setDelay(options.delay)
-      .setHeaders(options.headers)
-      .setStatus(options.status)
-      .setStatusText(options.statusText)
-      .setWrapper(options.wrapper)
-      .setFixturePattern(options.pattern);
-
-    return this;
+  constructor() {
+    // Load presets
+    for (let name in presets) {
+      this._presets[name] = new Preset(this, name, presets[name]);
+    }
   }
 
   /**
    * Start the server by stubbing `window.fetch`
-   * @version 1.0.0
+   * @version 2.0.0
    * @since   1.0.0
    * @return  {Server}               Server instance
    */
   start() {
     /* istanbul ignore else */
-    if (!this.running) sinon.stub(window, 'fetch');
+    if (!this.running) {
+      sinon.stub(window, 'fetch');
+      this.stub.callsFake(this._processRequest.bind(this));
+    }
 
     return this;
   }
 
   /**
-   * Stop the server
-   * @version 1.0.0
+   * Stop the server and, optionnally reset it
+   * @version 2.0.0
    * @since   1.0.0
+   * @param   {Boolean} [resetServer=false] If `true`, `stop` will also reset server (see {@link Server#reset})
    * @return  {Server}               Server instance
    */
-  stop() {
+  stop(resetServer = false) {
     if (this.running) window.fetch.restore();
 
+    if (resetServer) this.reset();
+
     return this;
   }
 
   /**
-   * Reset the server configuration to default and
-   * clear stub overrides and server history
-   * @version 1.1.0
+   * Reset the server configuration to default, clear server history and stub history
+   * @version 2.0.0
    * @since   1.0.0
+   * @param   {Boolean} [resetStub=true] If `true`, the stub history will also be resetted
    * @return  {Server}               Server instance
    */
-  reset(stub = false) {
-    if (this.running && stub) {
-      window.fetch.reset();
-    }
-    this.configure();
+  reset(resetStub = true) {
+    if (this.running && resetStub) this.stub.resetHistory();
+    this.history.reset();
+    this._fixtures = [];
 
     return this;
   }
 
   /**
-   * Check if server is running by trying to access a stub property
+   * Tells the server to display a warning in console when an error is raised or when
+   * something seems to went wrong in configuration.
+   *
+   * Default settings is true
+   *
+   * @version 1.0.0
+   * @since   2.0.0
+   * @param   {Boolean}  warnOnError `true` will display warnings
+   * @return  {Server}               Server instance
+   */
+  warnOnError(warnOnError) {
+    this._warnOnError = !!warnOnError;
+
+    return this;
+  }
+
+  /**
+   * Set the behavior of the server when an Error is thrown. If set to `true`, the server will
+   * also throw the error at runtime. If set to false, it will respond with a 500 HTTP error
+   *
+   * At default, the server is set to throw on error that will usually be
+   * the most suitable behavior when running tests to discard FMF failures.
+   *
+   * **note** Only errors thrown during requests processing are affected by this parameter.
+   * Errors that occured on settings processing will always be raised
+   *
+   * @version 1.0.0
+   * @since   2.0.0
+   * @param   {Boolean}  throwOnError If `true` server will throw
+   * @return  {Server}               Server instance
+   * @see {@link Server#_onError}
+   */
+  throwOnError(throwOnError) {
+    this._throwOnError = !!throwOnError;
+
+    return this;
+  }
+
+  /**
+   * Displays a warning message in console. It can be overridden
+   * to swap to another notification system
+   * @version 1.0.0
+   * @since   2.0.0
+   * @param   {String|Error}  error Error description
+   */
+  warn(error) {
+    console.warn(error.toString()); // eslint-disable-line
+  }
+
+  /**
+   * Check if server is currently running by trying to access a stub property
    * @version 1.0.0
    * @since   1.1.0
    * @return  {Boolean}
@@ -156,319 +186,261 @@ export class Server {
   get stub() {
     if (this.running) return window.fetch;
 
-    throw new Error('Server is not started');
+    throw new FMFException('Server is not started');
   }
 
   /**
-   * Returns a parsed request url with url-parse. Prior to 1.0.0, returns only pathname
-   * @version [1.1.0]
-   * @since   [1.0.0]
-   * @return  {Object}  Parsed url
-   * @property {String} protocol The protocol scheme of the URL (e.g. http:)
-   * @property {String} slashes A boolean which indicates whether the protocol is followed by two forward slashes (//)
-   * @property {String} auth Authentication information portion (e.g. username:password)
-   * @property {String} username Username of basic authentication
-   * @property {String} password Password of basic authentication
-   * @property {String} host Host name with port number
-   * @property {String} hostname Host name without port number
-   * @property {String} port Optional port number
-   * @property {String} pathname URL path
-   * @property {String} query Parsed object containing query string, unless parsing is set to false
-   * @property {String} hash The "fragment" portion of the URL including the pound-sign (#)
-   * @property {String} href The full URL
-   * @property {String} origin The origin of the URL
+   * Returns the selected preset or a new one based on name resolution.
    *
-   * @see https://www.npmjs.com/package/url-parse
+   * It allow a quick preset creation or edition that can be configured at once
+   * through the object provided within this call or with the classic
+   * ResponseConfigurator
+   *
+   * @version 1.0.0
+   * @since   2.0.0
+   * @param   {String}  name        Preset name
+   * @param   {Object}  [preset={}] Preset content
+   * @return {Preset}
+   * @see {@link ResponseConfigurator}
    */
-  requestToUrl(request) {
-    return parse(request.url, true);
+  preset(name, preset = {}) {
+    if (this._presets[name]) return this._presets[name].set(preset);
+
+    let newPreset = new Preset(this, name, preset);
+
+    this._presets[name] = newPreset;
+
+    return newPreset;
   }
 
-  get request() {
-    return this._argsToRequest(this.stub.lastCall.args);
+  /**
+   * Import a fixture into the server pool. Fixture can be provided as a
+   * fixture instance or as a configuration object
+   * @version 1.0.0
+   * @since   2.0.0
+   * @param   {Fixture|Object|Array}  fixtures Fixture(s) to import
+   * @return  {Server}               Server instance
+   * @throws {FMFException} If fixture cannot be parsed
+   */
+  import(fixtures) {
+    if (!(fixtures instanceof Array)) fixtures = [fixtures];
+
+    for (let fixture of fixtures) {
+      if (fixture instanceof Fixture) {
+        fixture.server = this;
+        this._fixtures.push(fixture);
+      }
+      else if (fixture instanceof Object) {
+        let f = new Fixture(this);
+        let conditions = fixture.on || fixture.when;
+
+        if (!fixture.respond) throw new FMFException('Fixture provided as object must have a respond property');
+        /* istanbul ignore else */
+        if (conditions) f.on.equal(conditions);
+        f.respond.set(fixture.respond);
+
+        this._fixtures.push(f)
+      }
+      else throw new FMFException('Invalid fixture provided');
+    }
+
+    return this;
   }
 
-  get url() {
-    return this.requestToUrl(this.request);
+  /**
+   * This getter is used when configuring a fixture in-the-fly. It will return
+   * and register a new Fixture and set it to `matching` mode
+   * @version 1.0.0
+   * @since   2.0.0
+   * @return  {Fixture}  New Fixture
+   */
+  get on() {
+    const fixture = new Fixture(this)
+
+    this._fixtures.push(fixture);
+
+    fixture._mode = 'on';
+
+    return fixture.on;
   }
 
-  get query() {
-    return this.url.query;
+  /**
+   * Alias for {@link Server#on}
+   * @version 1.0.0
+   * @since   2.0.0
+   * @return  {Fixture}  New fixture
+   */
+  get when() {
+    return this.on;
   }
 
-  _argsToRequest(args) {
-    if (args[0] instanceof Request) return args[0].clone();
-
-    return new Request(args[0], args[1]);
+  /**
+   * Returns the existing registered on the server or create and register a new fallback fixture
+   * to configure
+   * @version 1.0.0
+   * @since   2.0.0
+   * @return  {Fixture}  Fallback fixture
+   * @see {@link Server#_getDefaultFixture}
+   */
+  get fallback() {
+    return this._getDefaultFixture();
   }
 
-  get callCount() {
+  /**
+   * Returns the existing registered on the server or create a new fallback fixture
+   * to configure
+   * @version 1.0.0
+   * @since   2.0.0
+   * @return  {Fixture}  Fallback fixture
+   */
+  _getDefaultFixture() {
+    // If a default fixture exists, return it
+    const index = this._fixtures.findIndex(f => f._matcher === null);
+
+    if (index >= 0) return this._fixtures[index];
+
+    // Create a new default Fixture and register it
+    const fixture = new Fixture(this);
+
+    this._fixtures.push(fixture);
+    return fixture;
+  }
+
+  /**
+   * Process the respond call when called from a fixture to allow chainable
+   * fixtures on-the-fly configuration
+   * @version 1.0.0
+   * @since   2.0.0
+   * @param   {Object}  [fixture={}] Calling fixture or void object if not called from a fixture
+   * @return  {Fixture}              Return either the default fixture or set the current to `respond` mode
+   */
+  _processRespond(fixture = {}) {
+    if (fixture._mode === 'respond') fixture = this._getDefaultFixture();
+
+    fixture._mode = 'respond';
+
+    return fixture;
+  }
+
+  /**
+   * Getter used when configuring fixture on-the-fly
+   * @version 1.0.0
+   * @since   2.0.0
+   * @return  {Fixture}  Return either the default fixture or set the current to `respond` mode
+   * @see {@link Server#_processRespond}
+   */
+  get respond() {
+    return this._getDefaultFixture();
+  }
+
+  /**
+   * Seeks for matching fixtures when processing a request
+   *
+   * An error will be raised if no fixtures have been set or if no matching fixtures have been
+   * found.
+   *
+   * FMF will also send a warning to the console
+   *
+   * @version 1.0.0
+   * @since   2.0.0
+   * @param   {FMFRequest}  request Request
+   * @return  {Promise}         Resolved in fixture instance
+   * @throws  {FMFException}   If no fixtures are defined or no matching fixtures found
+   */
+  async _findFixture(request) {
+    let matches = [];
+    let fallback = null;
+
+    if (!this._fixtures.length) throw new FMFException('No fixtures defined');
+
+    for (let fixture of this._fixtures) {
+      // Do not register fallback fixture
+      if (fixture._matcher === null) {
+        fallback = fixture;
+        continue;
+      }
+      if (await fixture.match(request)) matches.push(fixture);
+    }
+
+    if (!matches.length) {
+      if (!fallback) throw new FMFException('Unable to find a matching fixture for the current request and no fixture is set as fallback');
+      matches[0] = fallback;
+    }
+
+    if (matches.length > 1) {
+      this.warn(`FMF : Server found ${matches.length} fixtures matching the request "${request.url}". Using the first one.`); // eslint-disable-line
+    }
+
+    return matches[0];
+  }
+
+  /**
+   * Process the incoming request and update history
+   * @version 1.0.0
+   * @since   2.0.0
+   * @param   {String|Request}  request Incoming request
+   * @param   {Object}  [init]  request options
+   * @return  {Promise}         Response
+   * @throws  {FMFException}  If request processing have failed
+   */
+  async _processRequest(request, init) {
+    try {
+      // Build FMFRequest object
+      request = new FMFRequest(request, init);
+
+      // Locate matching fixture
+      let fixture = await this._findFixture(request.clone());
+
+      // Prepare response
+      let response = await fixture.getResponse(request.clone());
+
+      // Store request in history
+      this.history.push(request.clone(), response.clone());
+
+      return response;
+    } catch (err) {
+      if (this._warnOnError) this.warn(err);
+      if (this._throwOnError) /* istanbul ignore next */ throw (err instanceof FMFException ? err : new FMFException('Request process failure', err));
+
+      return new Response(err.stack, {
+        'content-type': 'text/html',
+        status: 500,
+        statusText: err.toString()
+      })
+    }
+  }
+
+  /**
+   * Returs the number of calls made to server since start or last reset
+   * @version 1.0.0
+   * @since   2.0.0
+   * @return  {Number}  Number of requests received
+   */
+  get calls() {
     return this.stub.callCount;
   }
 
-  getRequest(n) {
-    return this._argsToRequest(this.stub.getCall(n).args);
-  }
-
-  getAllRequests() {
-    let requests = [];
-
-    for (let i = 0; i < this.callCount; i++) {
-      requests.push(this.getRequest(i));
-    }
-
-    return requests;
-  }
-
   /**
-   * Set the response delay server wide
+   * Returns the last request received by the server
    * @version 1.0.0
-   * @since   1.0.0
-   * @param   {Number}  [delay=0]    Response delay in ms
-   * @return  {Server}               Server instance
+   * @since   2.0.0
+   * @return  {FMFRequest}
+   * @see {@link ServerHistory}
    */
-  setDelay(delay = 0) {
-    this.delay = delay;
-
-    return this;
-  }
-
-  setStatus(status = 200) {
-    this.status = status;
-
-    return this;
-  }
-
-  setStatusText(text = 'OK') {
-    this.statusText = text;
-
-    return this;
-  }
-
-  setHeaders(headers = {'content-type':'text/html'}) {
-    if (headers instanceof Headers) {
-      this.headers = headers;
-      return this;
-    }
-
-    this.headers = new Headers(headers);
-    return this;
-  }
-
-  setWrapper(wrapper = false) {
-    this.wrapper = wrapper;
-
-    return this;
-  }
-
-  setFixturePattern(pattern) {
-    this.pattern = pattern;
-
-    return this;
-  }
-
-  get fixture() {
-    let url = this.pattern || this.url.pathname;
-    let path = url.split('/').filter(p => p && p.indexOf(':') < 0);
-    let filename = this.request.method.toLowerCase();
-
-    return path.concat(filename).join('/');
-  }
-
-  wrap(data, wrapper) {
-    if (wrapper) {
-      if (wrapper instanceof Function) return wrapper(data);
-
-      if (typeof data === 'string') {
-        return wrapper.replace('%data%', data);
-      }
-
-      let body = String(wrapper);
-      for (let key in data) {
-        body = body.replace('%' + key + '%', data[key]);
-      }
-
-      return body;
-    }
-
-    return data || null;
-  }
-
-  onFirstCall() {
-    return this.onCall(0);
-  }
-
-  onSecondCall() {
-    return this.onCall(1);
-  }
-
-  onThirdCall() {
-    return this.onCall(2);
+  get request() {
+    return this.history.last.request;
   }
 
   /**
-   * Set the next configuration to be bind to the nth call to fetch
-   *
+   * Returns the last response received by the server
    * @version 1.0.0
-   * @since   1.1.0
-   * @param   {Number}  n Call count
-   * @return  {Server}    Server instance
+   * @since   2.0.0
+   * @return  {FMFRequest}
+   * @see {@link ServerHistory}
    */
-  onCall(n) {
-    this._call = n;
-    return this;
-  }
 
-  /**
-   * Configure the server response
-   * @version 1.1.0
-   * @since   1.0.0
-   * @param   {null|Number|String|Function}  body  Response body
-   * @param   {Object}  [init={}]    Initialization object
-   * @return  {Server}               Server instance
-   */
-  respondWith(body, init = {}) {
-    let stub = this._call !== null ? this.stub.onCall(this._call) : this.stub;
-
-    // Freeze response init object
-    if (this._call !== null) {
-      init = Object.assign({
-        delay: this.delay,
-        headers: this.headers,
-        status: this.status,
-        statusText: this.statusText,
-        wrapper: this.wrapper,
-      }, init);
-    }
-
-    this._call = null;
-
-    stub.callsFake(() => this._getResponse(body, init));
-
-    return this;
-  }
-
-  respondWithStatus(status, body) {
-    return this.respondWith(body, {
-      status
-    });
-  }
-
-  respondWithJSON(body, init = {}) {
-    init.headers = init.headers || new Headers();
-    init.headers.set('content-type', 'application/json');
-
-    return this.respondWith(JSON.stringify(body), init);
-  }
-
-  respondWithFixture() {
-    let stub = this._call !== null ? this.stub.onCall(this._call) : this.stub;
-    this._call = null;
-
-    stub.callsFake(this._loadFixture.bind(this));
-
-    return this;
-  }
-
-  async sleep(delay) {
-    await new Promise(resolve => setTimeout(resolve, delay));
-  }
-
-  /**
-   * Loader for fixture params. You can use here the server.fixture dynamic property that
-   * computes a path from the current call
-   *
-   * @version 1.0.0
-   * @since   1.1.0
-   * @return  {Object}  Fixture params
-   */
-  getFixtureParams() {
-    try {
-      let params = this._getFixtureParams();
-      console.warn('_getFixtureParams have been deprecated and will be removed in next versions. Please use getFixtureParams instead.'); // eslint-disable-line
-
-      return params;
-    } catch (err) {
-      throw new Response(null, {
-        status: 500,
-        statusText: "Fixture loader have not been implemented. See readme for more informations."
-      });
-    }
-  }
-
-  async _loadFixture(fixture) {
-    let response;
-
-    if (typeof fixture === 'undefined') throw new Error('You must either provide a path or a fixture initialization object to fetch call');
-
-    /* istanbul ignore else */
-    if (typeof fixture === 'string') {
-      try {
-        const init = this.getFixtureParams();
-
-        fixture = new Fixture(this, init);
-      } catch (err) {
-        return err instanceof Response ?
-          err :
-          new Response(null, {
-            status: 404,
-            statusText: err.toString()
-          });
-      }
-    } else {
-      fixture = new Fixture(this, fixture);
-    }
-
-    let params = {};
-
-    /* istanbul ignore else */
-    if (this.pattern) {
-      const keys = [];
-      const re = pathToRegexp(this.pattern, keys);
-      const parts = re.exec(this.url.pathname);
-
-      for (let i = 0; i < keys.length; i++) {
-        params[keys[i].name] = parts[i + 1];
-      }
-    }
-
-    /* istanbul ignore else */
-    if (fixture.initialized instanceof Function) await fixture.initialized(params);
-
-    /* istanbul ignore else */
-    if (this.delay) await this.sleep(this.delay);
-
-    response = await this._getResponse(fixture.body, fixture.init);
-
-    /* istanbul ignore else */
-    if (fixture.destroyed instanceof Function) await fixture.destroyed();
-
-    return response;
-  }
-
-  async _getResponse(body, init = {}) {
-    let response;
-
-    if (body instanceof Response) {
-      init = Object.assign({delay: this.delay}, init);
-      response = body;
-    }
-    else {
-      init = Object.assign({
-        delay: this.delay,
-        headers: this.headers,
-        status: this.status,
-        statusText: this.statusText,
-        wrapper: this.wrapper
-      }, init);
-
-      if (body instanceof Function) body = body(this);
-      response = new Response(this.wrap(body, init.wrapper), init)
-    }
-
-    /* istanbul ignore else */
-    if (init.delay) await this.sleep(init.delay);
-    return response.clone();
+  get response() {
+    return this.history.last.response;
   }
 }
 

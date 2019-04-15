@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">tests/examples/pouchdb.fixture.spec.js | Fetch-mock-fixtures | Fetch API for testing</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<link rel="stylesheet" href="./inject/css/0-styles.css"><script src="./inject/script/0-docs.js"></script><meta name="description" content="Fixtures based mocker for fetch API with BDD style configuration"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="Fetch-mock-fixtures | Fetch API for testing"><meta property="twitter:description" content="Fixtures based mocker for fetch API with BDD style configuration"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./" style="display: flex; align-items: center;"><img src="./image/brand_logo.png" style="width:34px;"></a>
+  <a href="./manual/index.html" data-ice="manualHeaderLink">Manual</a>
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  <a href="test.html" data-ice="testLink">Test</a>
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/liqueurdetoile/fetch-mock-fixtures.git"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Fixture.js~Fixture.html">Fixture</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Preset.js~Preset.html">Preset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Server.js~Server.html">Server</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#helpers">helpers</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/FMFException.js~FMFException.html">FMFException</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/FMFRequest.js~FMFRequest.html">FMFRequest</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/RequestMatcher.js~RequestMatcher.html">RequestMatcher</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html">ResponseConfigurator</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/helpers/ServerHistory.js~ServerHistory.html">ServerHistory</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#processors">processors</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/BaseProcessor.js~BaseProcessor.html">BaseProcessor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/BodyProcessor.js~BodyProcessor.html">BodyProcessor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/BooleanProcessor.js~BooleanProcessor.html">BooleanProcessor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/HeadersProcessor.js~HeadersProcessor.html">HeadersProcessor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/QueryProcessor.js~QueryProcessor.html">QueryProcessor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/processors/StringProcessor.js~StringProcessor.html">StringProcessor</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">tests/examples/pouchdb.fixture.spec.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import Server from &apos;@&apos;;
+import PouchDB from &apos;pouchdb&apos;;
+
+let db;
+
+/** Data that will be stored and restored each time in database */
+const fixtures = [
+  {
+    _id: &apos;users/1&apos;,
+    id: 1,
+    name: &apos;foo&apos;
+  },
+  {
+    _id: &apos;users/2&apos;,
+    id: 1,
+    name: &apos;bar&apos;
+  },
+  {
+    _id: &apos;objects/1&apos;,
+    id: &apos;1&apos;,
+    value: &apos;object1&apos;
+  }
+];
+
+/** Callback to search/upsert database */
+const fetchFixture = async function(params, {request, response, server}) {
+  if (!params.model) throw server.preset(404);
+
+  const get = async function({model, id}) {
+    if (id) {
+      try {
+        const _id = `${model}/${id}`;
+        return await db.get(_id);
+      } catch (err) {
+        throw server.preset(err.status);
+      }
+    }
+
+    let docs = await db.allDocs({
+      include_docs: true
+    });
+
+    return docs.rows.filter(row =&gt; row.id.indexOf(model) === 0).map(row =&gt; row.doc)
+  }
+
+  const upsert = async function({model, id}) {
+    if (!id &amp;&amp; request.method !== &apos;POST&apos;) {
+      throw server.preset(400);
+    }
+
+    if (id &amp;&amp; request.method === &apos;POST&apos;) {
+      throw server.preset(400);
+    }
+
+    id = id || (await get({model})).length + 1;
+
+    const _id = `${model}/${id}`;
+    let doc;
+    let data = await request.json();
+
+    try {
+      doc = await db.get(_id);
+    } catch (err) {
+      if (err.status === 404) {
+        doc = Object.assign({_id}, data);
+      } else throw server.preset(err.status);
+    }
+
+    try {
+      await db.put(doc);
+    } catch (err) {
+      throw server.preset(err.status);
+    }
+
+    return doc;
+  }
+
+  if (request.method === &apos;POST&apos;) response.status = 201;
+  if (request.method === &apos;GET&apos;) return get(params);
+  if ([&apos;POST&apos;, &apos;PUT&apos;, &apos;PATCH&apos;].includes(request.method)) return upsert(params);
+}
+
+const server = new Server();
+
+describe(&apos;Dynamic fixture from database&apos;, function() {
+  beforeEach(async () =&gt; {
+    db = new PouchDB(&apos;FMF&apos;);
+
+    await db.bulkDocs(fixtures);
+    server.start()
+      .respond
+      .with.preset(&apos;json&apos;)
+      .with.body(fetchFixture)
+      .with.pattern(&apos;/apidb/:model/:id?&apos;);
+  })
+
+  afterEach(async () =&gt; {
+    await db.destroy();
+    server.stop();
+  })
+
+  it(&apos;should fetch all rows from a model&apos;, async function() {
+    let response = await fetch(&apos;/apidb/users&apos;);
+    let data = await response.json();
+
+    data.length.should.equal(2);
+  })
+
+  it(&apos;should fetch once record from a model&apos;, async function() {
+    let response = await fetch(&apos;/apidb/users/1&apos;);
+    let data = await response.json();
+
+    data.name.should.equal(&apos;foo&apos;);
+  })
+
+  it(&apos;should create a new record&apos;, async function() {
+    let response = await fetch(&apos;/apidb/users&apos;, {
+      method: &apos;POST&apos;,
+      body: JSON.stringify({
+        name: &apos;baz&apos;
+      })
+    });
+
+    response.status.should.equal(201);
+    let data = await response.json();
+
+    data.name.should.equal(&apos;baz&apos;);
+  })
+})
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>
