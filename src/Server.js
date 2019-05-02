@@ -27,6 +27,12 @@ export class Server {
   _fixtures = [];
 
   /**
+   * Store if server should output events to console
+   * @type {Boolean}
+   */
+  _verbose = false;
+
+  /**
    * Store wether FMF shoud throw or send a 500 HTTP response when an error is raised
    * @type {Boolean}
    * @since 2.0.0
@@ -113,6 +119,20 @@ export class Server {
     if (this.running && resetStub) this.stub.resetHistory();
     this.history.reset();
     this._fixtures = [];
+
+    return this;
+  }
+
+  /**
+   * Set the verbose behavior of the server
+   * @version 1.0.0
+   * @since   2.1.0
+   * @param   {Boolean}  verbose If `true` turn the verbose mode on
+   * @return  {Server}               Server instance
+   */
+  verbose(verbose) {
+    this._verbose = !!verbose;
+    this.history._verbose = !!verbose;
 
     return this;
   }
@@ -388,6 +408,9 @@ export class Server {
       // Build FMFRequest object
       request = new FMFRequest(request, init);
 
+      // Log incoming request
+      this.history.log(`Request : ${request.method} ${request.url}`)
+
       // Locate matching fixture
       let fixture = await this._findFixture(request.clone());
 
@@ -397,8 +420,12 @@ export class Server {
       // Store request in history
       this.history.push(request.clone(), response.clone());
 
+      this.history.log(`Response sent (${response.status} ${response.statusText})`);
+
       return response;
     } catch (err) {
+      this.history.log(err.toString());
+
       if (this._warnOnError) this.warn(err);
       if (this._throwOnError) /* istanbul ignore next */ throw (err instanceof FMFException ? err : new FMFException('Request process failure', err));
 

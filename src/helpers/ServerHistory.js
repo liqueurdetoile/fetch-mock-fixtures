@@ -1,13 +1,21 @@
 export default class ServerHistory {
+  logs = [];
   _history = [];
   _call = null;
   _target = null;
+  _verbose = false;
 
   push(request, response) {
     this._history.push({
       request,
       response
     })
+  }
+
+  log(message) {
+    this.logs.push(message);
+
+    if (this._verbose) console.log(message); // eslint-disable-line
   }
 
   get request() {
@@ -73,6 +81,7 @@ export default class ServerHistory {
 
   reset() {
     this._history = [];
+    this._log = [];
     this._call = null;
     this._target = null;
   }

@@ -62,6 +62,7 @@ const server = new Server();
 
 // Define on-the-fly fixtures to handle login tests
 server
+  .verbose(true) // Enable console login for each request/response/error
   .when
       .pathname.equal('/login')
       .method.equal('POST')
@@ -104,7 +105,7 @@ We're not only sending back data to the app but also checking outgoing requests 
 
 Last not least, you can easily deploy url-based routing to use your "real" data inside each tests instead of providing fake data and get rid of on-the-fly fixtures (see [dynamic fixtures examples](https://liqueurdetoile.github.io/fetch-mock-fixtures/manual/dynamic-fixtures-examples)).
 
-** When to use FMF ? **
+**When to use FMF ?**
 
 At any time :smile:
 
