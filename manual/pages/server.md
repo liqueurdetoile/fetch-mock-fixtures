@@ -21,6 +21,22 @@ Method / Property  |  Description
 ## Adding fixtures to server
 Adding fixtures to the server is pretty simple. See [fixtures](fixtures.html) documentation.
 
+## Logging and verbose mode
+*Since v2.1.0*
+
+To help go through requests history analysis or to debug fixtures, FMF logs all events in history. You can access logs through `server.history.logs`.
+
+Logs can also be displayed at runtime to console with the verbose mode of the server. Simply call the chainable `verbose` method on server instance.
+
+```javascript
+import Server from 'fetch-mock-fixtures'
+
+const server = new Server()
+
+server.verbose(true) // enable verbose mode
+server.verbose(false) // disable verbose mode
+```
+
 ## Error management
 When encountering an error during configuration, the server will throw an error.
 
