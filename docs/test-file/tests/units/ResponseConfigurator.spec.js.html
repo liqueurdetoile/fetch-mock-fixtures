@@ -50,7 +50,13 @@
 <div class="content" data-ice="content"><h1 data-ice="title">tests/units/ResponseConfigurator.spec.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import Fixture from &apos;@/Fixture&apos;;
 
+/**
+ * @test {ResponseConfigurator}
+ */
 describe(&apos;Response configurator test suite&apos;, function() {
+  /**
+   * @test {ResponseConfigurator#set}
+   */
   it(&apos;should set/unset a response from object&apos;, function() {
     const f = new Fixture();
     const set = {
@@ -109,6 +115,25 @@ describe(&apos;Response configurator test suite&apos;, function() {
 
     expect(f.respond.before.bind(f, &apos;foo&apos;)).to.throw();
     expect(f.respond.after.bind(f, &apos;foo&apos;)).to.throw();
+  })
+
+  /**
+   * @test {ResponseConfigurator#header}
+   */
+  it(&apos;should set individual headers&apos;, function() {
+    const f = new Fixture();
+
+    f.respond.with.header(&apos;content-type&apos;, &apos;application/json&apos;);
+
+    f._any.headers.get(&apos;content-type&apos;).should.equal(&apos;application/json&apos;);
+
+    f.respond.with.header(&apos;content-type&apos;, &apos;text/html&apos;);
+
+    f._any.headers.get(&apos;content-type&apos;).should.equal(&apos;text/html&apos;);
+
+    f.respond.with.header(&apos;content-type&apos;, &apos;encoding: UTF-8&apos;, true);
+
+    f._any.headers.get(&apos;content-type&apos;).should.equal(&apos;text/html, encoding: UTF-8&apos;);
   })
 })
 </code></pre>

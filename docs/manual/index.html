@@ -62,9 +62,14 @@
       
     <li data-ice="manualNav" class="indent-h1" data-link="manual/presets.html"><a href="manual/presets.html" data-ice="link">Presets</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="manual/presets.html"><a href="manual/presets.html#using-presets" data-ice="link">Using presets</a></li>
-<li data-ice="manualNav" class="indent-h2" data-link="manual/presets.html"><a href="manual/presets.html#adding-editing-a-preset" data-ice="link">adding/editing a preset</a></li>
-<li data-ice="manualNav" class="indent-h2" data-link="manual/presets.html"><a href="manual/presets.html#preset-scope" data-ice="link">Preset scope</a></li>
-<li data-ice="manualNav" class="indent-h2" data-link="manual/presets.html"><a href="manual/presets.html#built-in-presets" data-ice="link">Built-in presets</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/presets.html"><a href="manual/presets.html#local-presets" data-ice="link">Local presets</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/presets.html"><a href="manual/presets.html#adding-editing-a-local-preset" data-ice="link">Adding/editing a local preset</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/presets.html"><a href="manual/presets.html#removing-preset" data-ice="link">Removing preset</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/presets.html"><a href="manual/presets.html#using-global-presets" data-ice="link">Using global presets</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/presets.html"><a href="manual/presets.html#global--code-presets--code--singleton-exports" data-ice="link">Global presets singleton exports</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/presets.html"><a href="manual/presets.html#register-unregister-a-local-preset-as-global" data-ice="link">Register/unregister a local preset as global</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/presets.html"><a href="manual/presets.html#global-presets-availability" data-ice="link">Global presets availability</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/presets.html"><a href="manual/presets.html#built-in-presets" data-ice="link">Built-in presets</a></li>
 </ul>
   </div>
 <div data-ice="manual">
@@ -87,6 +92,17 @@
     <li data-ice="manualNav" class="indent-h1" data-link="manual/requests-matcher.html"><a href="manual/requests-matcher.html" data-ice="link">Requests matcher</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="manual/requests-matcher.html"><a href="manual/requests-matcher.html#matching-request-properties" data-ice="link">Matching request properties</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="manual/requests-matcher.html"><a href="manual/requests-matcher.html#matching-calls-count" data-ice="link">Matching calls count</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/cheat-sheet.html"><a href="manual/cheat-sheet.html" data-ice="link">Full cheat sheet</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/cheat-sheet.html"><a href="manual/cheat-sheet.html#creating-a-server-instance" data-ice="link">Creating a server instance</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/cheat-sheet.html"><a href="manual/cheat-sheet.html#response-setup--preset-or-fixture-" data-ice="link">Response setup (preset or fixture)</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/cheat-sheet.html"><a href="manual/cheat-sheet.html#ordered-responses--fixture-" data-ice="link">Ordered responses (fixture)</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/cheat-sheet.html"><a href="manual/cheat-sheet.html#request-matcher-setup--fixture-" data-ice="link">Request matcher setup (fixture)</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/cheat-sheet.html"><a href="manual/cheat-sheet.html#starting-configuration" data-ice="link">Starting configuration</a></li>
 </ul>
   </div>
 </div>
@@ -209,7 +225,7 @@ yarn add sinon fetch-mock-fixtures --dev</code>
 <p>You are free and very welcome to fork the project and submit any PR to fix or improve FMF.</p>
 <p>I&apos;m especially interested for good will who wish to improve query matcher processors to provide more tools to evaluate query and choose the right response.</p>
 <h2 id="changelog">Changelog</h2><ul>
-<li>2.2.0 : Add global preset configuration within server instance</li>
+<li>2.2.0 : Add global preset configuration within server instance and throw behavior for fixture</li>
 <li>2.1.0 : Add history logging and verbose mode</li>
 <li>2.0.0 : BREAKING CHANGE - A brand new FMF highly <strong>not</strong> compatible with previous version</li>
 <li>1.0.1 : Add requests history and possibility to set up different responses based on requests order. Add delay as a response parameter into fixture.</li>
@@ -432,7 +448,7 @@ server.start().respond
         <div data-ice="card"><h1>Presets</h1><h2>Using presets</h2><p>You can tell a fixture to use a preset to build its response by simply calling its <code>preset</code> method with the name of the preset :</p><pre><code class="lang-javascript"><code class="source-code prettyprint">const server = new Server();
 
 server.respond.with.preset(400);</code>
-</code></pre><p>The preset is only evaluated and merged by the fixture at request time. You can easily override preset through <a href="./manual/fixtures.html">fixture response configuration</a>.</p><p>If the preset is not found in the server instance, an exception will be raised at request time.</p><h2>adding/editing a preset</h2><p>It can be done by providing an object with its <code>set</code> method and/or using BDD style syntax. Alternatively, the configuration object can be provided to <code>server.preset</code> :</p><pre><code class="lang-javascript"><code class="source-code prettyprint">const server = new Server();
+</code></pre><p>The preset is only evaluated and merged by the fixture at request time. You can easily override preset options through <a href="./manual/fixtures.html">fixture response configuration</a>.</p><p>If the preset is not found in the server instance, an exception will be raised at request time.</p><h2>Local presets</h2><h3>Adding/editing a local preset</h3><p>It can be done by providing an object with its <code>set</code> method and/or using BDD style syntax. Alternatively, the configuration object can be provided to <code>server.preset</code> :</p><pre><code class="lang-javascript"><code class="source-code prettyprint">const server = new Server();
 
 // In the server.preset call
 server.preset(&apos;myPreset&apos;, {
@@ -442,13 +458,33 @@ server.preset(&apos;myPreset&apos;, {
 
 // Another syntax, the same result
 server.preset(&apos;myPreset&apos;).set({status: 250}).statusText(&apos;weird&apos;)</code>
-</code></pre><p>You can have a look at the <a href="./manual/response-configuration.html">response configuration</a> for more details about the available options.</p><h2>Preset scope</h2><p>A preset can be added to a single server instance or in global scope.</p><p>To add a preset to server instance, simply create it with <code>server.preset</code>.</p><p>To add a preset to the global scope, just amend the <code>presets</code> property of the global export :</p><pre><code class="lang-javascript"><code class="source-code prettyprint">import {presets} from &apos;fetch-mock-fixtures&apos;;
+</code></pre><p>Server will now have <code>myPreset</code> available in its own presets pool. If the presets was already defined, it will be overridden with new options.</p><p><strong>Note : the options that are not overridden will be kept as is</strong>.</p><pre><code class="lang-javascript"><code class="source-code prettyprint">const server = new Server();
+
+server.preset(&apos;myPreset&apos;, {status: 250, statusText: &apos;weird status&apos;});
+
+// Later on
+server.preset(&apos;myPreset&apos;).status(200);
+// statusText will still equal &apos;weird status&apos;</code>
+</code></pre><p>You can have a look at the <a href="./manual/response-configuration.html">response configuration</a> for more details about the available options.</p><h3>Removing preset</h3><p>Simply call the <code>remove</code> method of the preset :</p><pre><code class="lang-javascript"><code class="source-code prettyprint">  server.preset(&apos;myPreset&apos;).remove();</code>
+</code></pre><h2>Using global presets</h2><p>Aside local presets that can be defined within a server instance, FMF allows the registration of global presets. Global presets can be added/updated/removed in two ways :</p><h3>Global <code>presets</code> singleton exports</h3><p>Global presets are stored in a singleton available through the <code>presets</code> export. Object can be updated at will.</p><pre><code class="lang-javascript"><code class="source-code prettyprint">import {presets} from &apos;fetch-mock-fixtures&apos;;
 
 presets.myPreset = {
   status: 250
   statusText: &apos;weird status&apos;
 } // myPreset will now be available globally</code>
-</code></pre><h2>Built-in presets</h2><p>FMF already have commonly used built-in presets. See <a href="./manual/../file/src/presets.js.html"><code>presets.js</code></a> for details.</p></div>
+</code></pre><p>That way is interesting when bootstrapping presets configuration before running tests suite.</p><h3>Register/unregister a local preset as global</h3><p>Since FMF 2.2.0, it is possible to manage global presets from any server instance.</p><p>Any local preset can be made global through <code>register</code> method and any global preset can be removed with <code>unregister</code> method.</p><pre><code class="lang-javascript"><code class="source-code prettyprint">const server = new Server();
+// Create a local preset
+const myPreset = server.preset(&apos;myPreset&apos;, {status: 250, statusText: &apos;weird status&apos;});
+// And register it as global
+myPreset.register();
+// Remove the preset from global pool
+// It will still be available in the server instance
+myPreset.unregister();</code>
+</code></pre><p>Methods are chainable :</p><pre><code class="lang-javascript"><code class="source-code prettyprint">const server = new Server();
+
+// Register the preset, unregister it and remove it from server presets pool
+server.preset(&apos;myPreset&apos;).status(250).register().unregister().remove();</code>
+</code></pre><h3>Global presets availability</h3><p>To allow easy local tweaking of presets, global presets are cloned into local pool when creating a new server instance. Therefore, server&apos;s instance will only access global presets that are already defined before its creation or created within the server instance.</p><h3>Built-in presets</h3><p>FMF already have commonly used built-in presets. See <a href="./manual/../file/src/presets.js.html"><code>presets.js</code></a> for details.</p></div>
         <a data-ice="link" href="manual/presets.html"></a>
       </div>
     </div>
@@ -512,6 +548,94 @@ server.import(fixtures);</code>
       <div class="manual-card">
         <div data-ice="card"><h1>Requests matcher</h1><p>Each fixture has a built-in requests matcher. You can configure a fixture to match only some requests properties and/or match only calls count.</p><h2>Matching request properties</h2><p>FMF is extending the native Request object with properties build from the parsing of the url with <a href="https://github.com/unshiftio/url-parse#readme">url-parse</a>). Therefore, you can directly access pathname, port, basic authentication...</p><p>Such matching evaluation is built in processors. By this time, there&apos;s only a common swiss army knife called <code>equal</code>. To add a matching configuration, you can do it with a one-shot call or with BDD style after using <code>on</code> or <code>when</code> getter.</p><p>Have a look to <a href="./manual/../test-file/tests/units/requests.processing.spec.js.html#lineNumber84">the tests</a> for examples on usage.</p><p>The next call to <code>respond</code> will set the fixture in response configuration mode.</p><p>You can then go on next conditional fixture by calling <code>on</code> or <code>when</code> again.</p><p>If you directly call <code>respond</code> or <code>fallback</code>, you will go on the fallback fixture and create or overwrite it.</p><p>The fallback fixture is the one (you can have only one obviously) that have no matching conditions. It will only be used if none of the others fixtures is matching the request.</p><h2>Matching calls count</h2><p>You can also configure a fixture to match only the nth call to the server or the nth call to itself.</p><p>You will find <a href="./manual/../test-file/tests/units/requests.processing.spec.js.html#lineNumber63">some examples</a> in tests.</p></div>
         <a data-ice="link" href="manual/requests-matcher.html"></a>
+      </div>
+    </div>
+<div class="manual-card-wrap" data-ice="cards">
+      <div class="manual-card">
+        <div data-ice="card"><h1>Full cheat sheet</h1><h2>Creating a server instance</h2><pre><code class="lang-javascript"><code class="source-code prettyprint">import {Server} from &apos;fetch-mock-fixtures&apos;;
+
+const server = new Server();</code>
+</code></pre><h2>Response setup (preset or fixture)</h2><pre><code class="lang-javascript"><code class="source-code prettyprint">server.preset(string &lt;preset name&gt;) | server.respond | server.fallback
+  .with // Syntactic sugar for human readability
+  .and // Syntactic sugar for human readability  
+  .after(Function &lt;after&gt;) // After callback
+  .before(Function &lt;before&gt;) // Before callback
+  .body(String|Function &lt;response body&gt;) // Preset body content
+  .delay(Number &lt;delay&gt;) // Preset delay response
+  .header(String &lt;name&gt;, String &lt;value&gt; [, Boolean &lt;append=false&gt;]) // Configure single header
+  .headers(Object|Headers &lt;headers&gt;) // Configure bunch of headers at once
+  .pattern(String &lt;pattern&gt;) // Pattern string for parameters analysis
+  .set(Object &lt;set-up object&gt;) // Set up any options at once through an object
+  .status(Number &lt;status&gt;) // Response status code
+  .statusText(String &lt;statusText&gt;) // Response status text
+  .wrapper(Function &lt;wrapper&gt;) // Wrapper function applied to body</code>
+</code></pre><h2>Ordered responses (fixture)</h2><pre><code class="lang-javascript"><code class="source-code prettyprint">server.respond
+  .to // Syntactic sugar for human readability
+  .firstCall([Boolean &lt;own = false&gt;]) // Target local/global first call
+  .secondCall([Boolean &lt;own = false&gt;]) // Target local/global second call
+  .thirdCall([Boolean &lt;own = false&gt;]) // Target local/global third call
+  .call(Number &lt;n&gt;, [Boolean &lt;own = false&gt;]) // target nth local/global call</code>
+</code></pre><h2>Request matcher setup (fixture)</h2><p>For request parts details available for comparison, see <a href="https://github.com/unshiftio/url-parse#readme">url-parse</a> page.</p><pre><code class="lang-javascript"><code class="source-code prettyprint">server.on | server.when
+  .and // Syntactic sugar for human readability
+  .is // Syntactic sugar for human readability
+  .respond // End request matcher setup and switch to response configuration
+  .not // Negate result of the next matching evaluation
+   // Target the body and, optionnaly, define a type for the body processor
+  .body([String &lt;type=text&gt;])
+  .header(String &lt;name&gt;) // Target named header for matching
+   // Tells processor to evaluate equality based on expected value
+  .equal(Array|Boolean|Function|Number|Object|RegExp|String expected)
+  .headers
+  .query
+  .slashes
+  .auth
+  .cache
+  .credentials
+  .destination
+  .hash
+  .href
+  .host
+  .hostname
+  .integrity
+  .mode
+  .method
+  .password
+  .pathname
+  .port
+  .protocol
+  .redirect
+  .referrer
+  .referrerPolicy
+  .url
+  .username</code>
+</code></pre><h2>Starting configuration</h2><ul>
+<li><code>server.preset()</code> will start a preset configuration</li>
+<li><code>server.on</code> or <code>server.when</code> will start a request matcher configuration</li>
+<li><code>server.respond</code> or <code>server.fallback</code> will start a response configuration</li>
+</ul><p>All configuration methods are chainable, though one cannot configure a preset and a fixture in the same chain :</p><pre><code class="lang-javascript"><code class="source-code prettyprint">import {Server} from &apos;fetch-mock-fixtures&apos;;
+
+const server = new Server();
+
+// Configure the success preset and register it globally
+server  
+  .preset(&apos;success&apos;)
+  .header(&apos;content-type&apos;, &apos;application/json&apos;)
+  .wrapper(data =&gt; ({success: true, data}))
+  .register()
+
+server
+  // Configuration of fixture with matching request
+  .on
+    .pathname.equal(&apos;/api/v1/users&apos;)
+    .and.method.equal(&apos;POST&apos;)
+  .respond
+    .with.preset(&apos;success&apos;)
+    .and.body({token: &apos;123&apos;})
+  // Configuration of fallback fixture
+  .fallback
+    .throw(&apos;failed&apos;)</code>
+</code></pre></div>
+        <a data-ice="link" href="manual/cheat-sheet.html"></a>
       </div>
     </div>
 </div>

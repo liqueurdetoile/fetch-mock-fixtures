@@ -21,7 +21,8 @@
               "./manual/pages/response-configuration.md",
               "./manual/pages/presets.md",
               "./manual/pages/fixtures.md",
-              "./manual/pages/requests-matcher.md"
+              "./manual/pages/requests-matcher.md",
+              "./manual/pages/cheat-sheet.md"
             ]
           }
       }

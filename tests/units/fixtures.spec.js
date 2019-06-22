@@ -159,5 +159,27 @@ describe('Fixtures test suite', function() {
       let response = await fetch('/api/v1/users/1');
       response.status.should.equal(500);
     })
+
+    it('should throw when asked to', async function() {
+      server
+        .throwOnError(true)
+        .respond
+        .throw('failed')
+
+      try {
+        await fetch('/api/v1/users/1');
+        expect.fail();
+      } catch (err) {
+        err.message.should.equal('failed');
+      }
+    })
+
+    it('should throw when tryoing to go to fallback from a request matcher', function() {
+      let f = () => server
+        .on.pathname.equal('/')
+        .fallback;
+
+      expect(f).to.throw();
+    })
   })
 })

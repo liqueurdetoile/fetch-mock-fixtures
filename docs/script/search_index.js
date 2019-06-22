@@ -235,6 +235,18 @@ window.esdocSearchIndex = [
   ],
   [
     "",
+    "test-file/tests/units/fixtures.spec.js.html#lineNumber163",
+    "Fixtures test suite Fixture requests processing should throw when asked to",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/units/fixtures.spec.js.html#lineNumber177",
+    "Fixtures test suite Fixture requests processing should throw when tryoing to go to fallback from a request matcher",
+    "test"
+  ],
+  [
+    "",
     "test-file/tests/units/fixtures.spec.js.html#lineNumber71",
     "Fixtures test suite Fixture requests processing should use a Response instance if one is thrown in fixture lifecycle",
     "test"
@@ -570,38 +582,44 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
-    "",
-    "test-file/tests/units/ResponseConfigurator.spec.js.html#lineNumber3",
+    "responseconfigurator src/helpers/responseconfigurator.js~responseconfigurator,responseconfigurator",
+    "test-file/tests/units/ResponseConfigurator.spec.js.html#lineNumber6",
     "Response configurator test suite",
     "test"
   ],
   [
-    "",
-    "test-file/tests/units/ResponseConfigurator.spec.js.html#lineNumber4",
+    "responseconfigurator#header src/helpers/responseconfigurator.js~responseconfigurator#header,responseconfigurator#header",
+    "test-file/tests/units/ResponseConfigurator.spec.js.html#lineNumber73",
+    "Response configurator test suite should set individual headers",
+    "test"
+  ],
+  [
+    "responseconfigurator#set src/helpers/responseconfigurator.js~responseconfigurator#set,responseconfigurator#set",
+    "test-file/tests/units/ResponseConfigurator.spec.js.html#lineNumber10",
     "Response configurator test suite should set/unset a response from object",
     "test"
   ],
   [
     "",
-    "test-file/tests/units/ResponseConfigurator.spec.js.html#lineNumber57",
+    "test-file/tests/units/ResponseConfigurator.spec.js.html#lineNumber63",
     "Response configurator test suite should throw if before and after are not callbacks",
     "test"
   ],
   [
     "",
-    "test-file/tests/units/ResponseConfigurator.spec.js.html#lineNumber51",
+    "test-file/tests/units/ResponseConfigurator.spec.js.html#lineNumber57",
     "Response configurator test suite should throw if headers are not valid",
     "test"
   ],
   [
     "",
-    "test-file/tests/units/ResponseConfigurator.spec.js.html#lineNumber39",
+    "test-file/tests/units/ResponseConfigurator.spec.js.html#lineNumber45",
     "Response configurator test suite should throw with set if argument is not an object",
     "test"
   ],
   [
     "",
-    "test-file/tests/units/ResponseConfigurator.spec.js.html#lineNumber45",
+    "test-file/tests/units/ResponseConfigurator.spec.js.html#lineNumber51",
     "Response configurator test suite should throw with set if key is not allowed",
     "test"
   ],
@@ -1104,6 +1122,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/fixture.js~fixture#throw",
+    "class/src/Fixture.js~Fixture.html#instance-method-throw",
+    "src/Fixture.js~Fixture#throw",
+    "method"
+  ],
+  [
     "src/fixture.js~fixture#to",
     "class/src/Fixture.js~Fixture.html#instance-get-to",
     "src/Fixture.js~Fixture#to",
@@ -1428,6 +1452,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/helpers/requestmatcher.js~requestmatcher#fallback",
+    "class/src/helpers/RequestMatcher.js~RequestMatcher.html#instance-get-fallback",
+    "src/helpers/RequestMatcher.js~RequestMatcher#fallback",
+    "member"
+  ],
+  [
     "src/helpers/requestmatcher.js~requestmatcher#fixture",
     "class/src/helpers/RequestMatcher.js~RequestMatcher.html#instance-member-fixture",
     "src/helpers/RequestMatcher.js~RequestMatcher#fixture",
@@ -1521,6 +1551,12 @@ window.esdocSearchIndex = [
     "src/helpers/responseconfigurator.js~responseconfigurator#delay",
     "class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html#instance-method-delay",
     "src/helpers/ResponseConfigurator.js~ResponseConfigurator#delay",
+    "method"
+  ],
+  [
+    "src/helpers/responseconfigurator.js~responseconfigurator#header",
+    "class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html#instance-method-header",
+    "src/helpers/ResponseConfigurator.js~ResponseConfigurator#header",
     "method"
   ],
   [

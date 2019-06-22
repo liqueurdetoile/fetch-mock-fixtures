@@ -161,4 +161,15 @@ describe('Request processing test suite', function() {
     response = await fetch('/notlogin');
     response.status.should.equal(200)
   })
+
+  it('should warn when multiple requests are matching', async function() {
+    sinon.stub(console, 'warn');
+    server.on.pathname.equal(/\//).respond.with.status(201)
+    server.on.method.equal('GET').respond.with.status(200)
+
+    let response = await fetch('/');
+    console.warn.calledOnce.should.be.true;
+    response.status.should.equal(201);
+    console.warn.restore();
+  })
 })

@@ -244,6 +244,12 @@ export class Fixture extends ResponseConfigurator {
     return this;
   }
 
+  throw(message = &apos;&apos;) {
+    this.before(function () {
+      throw new FMFException(message);
+    });
+  }
+
   async match(request, server) {
     /* istanbul ignore if */
     if (!this._matcher) return true;
@@ -318,7 +324,7 @@ export class Fixture extends ResponseConfigurator {
 
         if (responseReplacement) response = responseReplacement;
       } catch (err) {
-        return this._exceptionManagement(err, &apos;Unable to process before callback&apos;);
+        return this._exceptionManagement(err, err.message || &apos;Unable to process before callback&apos;);
       }
     }
 
@@ -333,7 +339,7 @@ export class Fixture extends ResponseConfigurator {
         server: this.server
       }) : response.body;
     } catch (err) {
-      return this._exceptionManagement(err, &apos;Unable to process body callback&apos;);
+      return this._exceptionManagement(err, err.message || &apos;Unable to process body callback&apos;);
     }
 
     // Apply preset
@@ -354,7 +360,7 @@ export class Fixture extends ResponseConfigurator {
     try {
       if (response.after instanceof Function) await response.after.call(this, this.server, responseObject);
     } catch (err) {
-      return this._exceptionManagement(err, &apos;Unable to process after callback&apos;);
+      return this._exceptionManagement(err, err.message || &apos;Unable to process after callback&apos;);
     }
 
     // Delay response

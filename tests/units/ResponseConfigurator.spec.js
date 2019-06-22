@@ -1,6 +1,12 @@
 import Fixture from '@/Fixture';
 
+/**
+ * @test {ResponseConfigurator}
+ */
 describe('Response configurator test suite', function() {
+  /**
+   * @test {ResponseConfigurator#set}
+   */
   it('should set/unset a response from object', function() {
     const f = new Fixture();
     const set = {
@@ -59,5 +65,24 @@ describe('Response configurator test suite', function() {
 
     expect(f.respond.before.bind(f, 'foo')).to.throw();
     expect(f.respond.after.bind(f, 'foo')).to.throw();
+  })
+
+  /**
+   * @test {ResponseConfigurator#header}
+   */
+  it('should set individual headers', function() {
+    const f = new Fixture();
+
+    f.respond.with.header('content-type', 'application/json');
+
+    f._any.headers.get('content-type').should.equal('application/json');
+
+    f.respond.with.header('content-type', 'text/html');
+
+    f._any.headers.get('content-type').should.equal('text/html');
+
+    f.respond.with.header('content-type', 'encoding: UTF-8', true);
+
+    f._any.headers.get('content-type').should.equal('text/html, encoding: UTF-8');
   })
 })

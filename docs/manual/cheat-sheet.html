@@ -108,40 +108,96 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><div class="github-markdown" data-ice="content"><h1 id="getting-started">Getting started</h1><p><strong> For installation tips, please consult <a href="./manual/index.html#installation">documentation home</a>. </strong></p>
-<p><strong> Note on ES6 syntax : </strong> In all examples here, we&apos;re using ES6 modules import and, sometimes, the new spread operator. We&apos;re also using async/await syntax for asynchronous calls. All are supported natively by modern browsers.</p>
-<p>FMF itself have been transpiled with Babel to support only alive browsers that share more than 5% of the market. It means that FMF is really not designed to test apps which are willing to support really old browsers as it will certainly be unsupported by them when testing. Nevertheless, you can still try to tweak the build to increase browsers coverage but with no guarantee.</p>
-<p>At its most basic intend, FMF can be simply used as a convenient way to trap a remote <code>fetch</code> call and send a given response. For this to work, the server must have been started and provided with the response. At the end, the server must be stopped in order to resume on native <code>fetch</code> API.</p>
-<p>Here&apos;s a simple example :</p>
-<pre><code class="lang-javascript"><code class="source-code prettyprint">import Server from &apos;fetch-mock-fixtures&apos;;
+<div class="content" data-ice="content"><div class="github-markdown" data-ice="content"><h1 id="full-cheat-sheet">Full cheat sheet</h1><h2 id="creating-a-server-instance">Creating a server instance</h2><pre><code class="lang-javascript"><code class="source-code prettyprint">import {Server} from &apos;fetch-mock-fixtures&apos;;
+
+const server = new Server();</code>
+</code></pre>
+<h2 id="response-setup--preset-or-fixture-">Response setup (preset or fixture)</h2><pre><code class="lang-javascript"><code class="source-code prettyprint">server.preset(string &lt;preset name&gt;) | server.respond | server.fallback
+  .with // Syntactic sugar for human readability
+  .and // Syntactic sugar for human readability  
+  .after(Function &lt;after&gt;) // After callback
+  .before(Function &lt;before&gt;) // Before callback
+  .body(String|Function &lt;response body&gt;) // Preset body content
+  .delay(Number &lt;delay&gt;) // Preset delay response
+  .header(String &lt;name&gt;, String &lt;value&gt; [, Boolean &lt;append=false&gt;]) // Configure single header
+  .headers(Object|Headers &lt;headers&gt;) // Configure bunch of headers at once
+  .pattern(String &lt;pattern&gt;) // Pattern string for parameters analysis
+  .set(Object &lt;set-up object&gt;) // Set up any options at once through an object
+  .status(Number &lt;status&gt;) // Response status code
+  .statusText(String &lt;statusText&gt;) // Response status text
+  .wrapper(Function &lt;wrapper&gt;) // Wrapper function applied to body</code>
+</code></pre>
+<h2 id="ordered-responses--fixture-">Ordered responses (fixture)</h2><pre><code class="lang-javascript"><code class="source-code prettyprint">server.respond
+  .to // Syntactic sugar for human readability
+  .firstCall([Boolean &lt;own = false&gt;]) // Target local/global first call
+  .secondCall([Boolean &lt;own = false&gt;]) // Target local/global second call
+  .thirdCall([Boolean &lt;own = false&gt;]) // Target local/global third call
+  .call(Number &lt;n&gt;, [Boolean &lt;own = false&gt;]) // target nth local/global call</code>
+</code></pre>
+<h2 id="request-matcher-setup--fixture-">Request matcher setup (fixture)</h2><p>For request parts details available for comparison, see <a href="https://github.com/unshiftio/url-parse#readme">url-parse</a> page.</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">server.on | server.when
+  .and // Syntactic sugar for human readability
+  .is // Syntactic sugar for human readability
+  .respond // End request matcher setup and switch to response configuration
+  .not // Negate result of the next matching evaluation
+   // Target the body and, optionnaly, define a type for the body processor
+  .body([String &lt;type=text&gt;])
+  .header(String &lt;name&gt;) // Target named header for matching
+   // Tells processor to evaluate equality based on expected value
+  .equal(Array|Boolean|Function|Number|Object|RegExp|String expected)
+  .headers
+  .query
+  .slashes
+  .auth
+  .cache
+  .credentials
+  .destination
+  .hash
+  .href
+  .host
+  .hostname
+  .integrity
+  .mode
+  .method
+  .password
+  .pathname
+  .port
+  .protocol
+  .redirect
+  .referrer
+  .referrerPolicy
+  .url
+  .username</code>
+</code></pre>
+<h2 id="starting-configuration">Starting configuration</h2><ul>
+<li><code>server.preset()</code> will start a preset configuration</li>
+<li><code>server.on</code> or <code>server.when</code> will start a request matcher configuration</li>
+<li><code>server.respond</code> or <code>server.fallback</code> will start a response configuration</li>
+</ul>
+<p>All configuration methods are chainable, though one cannot configure a preset and a fixture in the same chain :</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import {Server} from &apos;fetch-mock-fixtures&apos;;
 
 const server = new Server();
 
-server.start();
+// Configure the success preset and register it globally
+server  
+  .preset(&apos;success&apos;)
+  .header(&apos;content-type&apos;, &apos;application/json&apos;)
+  .wrapper(data =&gt; ({success: true, data}))
+  .register()
 
-server.respond.with.body(&apos;Hello world !&apos;);
-
-let response = await fetch(/** can have any arguments */);
-let data = await response.text();
-
-console.log(data); // will output Hello world !
-
-// What about the next call ?
-response = await fetch(/** can have any arguments */);
-data = await response.text();
-
-console.log(data); // will output Hello world again !
-
-server.stop();</code>
+server
+  // Configuration of fixture with matching request
+  .on
+    .pathname.equal(&apos;/api/v1/users&apos;)
+    .and.method.equal(&apos;POST&apos;)
+  .respond
+    .with.preset(&apos;success&apos;)
+    .and.body({token: &apos;123&apos;})
+  // Configuration of fallback fixture
+  .fallback
+    .throw(&apos;failed&apos;)</code>
 </code></pre>
-<p>Nothing too fancy here : we&apos;re starting the server, setting it to respond with &apos;Hello world !&apos;, running fetch twice and stop the server.</p>
-<p>Behind the scene, we have :</p>
-<ul>
-<li>overridden <code>window.fetch</code> to intercept calls</li>
-<li>Set up a single fixture to the server that matches all incoming requests</li>
-<li>restored <code>window.fetch</code> to its native state</li>
-</ul>
-<p>Please read other parts of the documentation for a more advanced usage.</p>
 </div>
 </div>
 

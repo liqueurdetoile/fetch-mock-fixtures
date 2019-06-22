@@ -138,5 +138,7 @@ You are free and very welcome to fork the project and submit any PR to fix or im
 I'm especially interested for good will who wish to improve query matcher processors to provide more tools to evaluate query and choose the right response.
 
 ## Changelog
+- 2.2.0 : Add global preset configuration within server instance and throw behavior for fixture
+- 2.1.0 : Add history logging and verbose mode
 - 2.0.0 : BREAKING CHANGE - A brand new FMF highly **not** compatible with previous version
 - 1.0.1 : Add requests history and possibility to set up different responses based on requests order. Add delay as a response parameter into fixture.

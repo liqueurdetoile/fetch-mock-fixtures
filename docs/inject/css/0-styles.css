@@ -167,7 +167,7 @@ pre.prettyprint,
 pre.raw-source-code > code,
 pre > code {
   background:#1d1f21;
-  line-height: 1.5;
+  line-height: 1.8;
   font-size: 0.85rem !important
   overflow: auto;
 }

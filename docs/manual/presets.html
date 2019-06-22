@@ -62,9 +62,14 @@
       
     <li data-ice="manualNav" class="indent-h1" data-link="manual/presets.html"><a href="manual/presets.html" data-ice="link">Presets</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="manual/presets.html"><a href="manual/presets.html#using-presets" data-ice="link">Using presets</a></li>
-<li data-ice="manualNav" class="indent-h2" data-link="manual/presets.html"><a href="manual/presets.html#adding-editing-a-preset" data-ice="link">adding/editing a preset</a></li>
-<li data-ice="manualNav" class="indent-h2" data-link="manual/presets.html"><a href="manual/presets.html#preset-scope" data-ice="link">Preset scope</a></li>
-<li data-ice="manualNav" class="indent-h2" data-link="manual/presets.html"><a href="manual/presets.html#built-in-presets" data-ice="link">Built-in presets</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/presets.html"><a href="manual/presets.html#local-presets" data-ice="link">Local presets</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/presets.html"><a href="manual/presets.html#adding-editing-a-local-preset" data-ice="link">Adding/editing a local preset</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/presets.html"><a href="manual/presets.html#removing-preset" data-ice="link">Removing preset</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/presets.html"><a href="manual/presets.html#using-global-presets" data-ice="link">Using global presets</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/presets.html"><a href="manual/presets.html#global--code-presets--code--singleton-exports" data-ice="link">Global presets singleton exports</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/presets.html"><a href="manual/presets.html#register-unregister-a-local-preset-as-global" data-ice="link">Register/unregister a local preset as global</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/presets.html"><a href="manual/presets.html#global-presets-availability" data-ice="link">Global presets availability</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/presets.html"><a href="manual/presets.html#built-in-presets" data-ice="link">Built-in presets</a></li>
 </ul>
   </div>
 <div data-ice="manual">
@@ -89,6 +94,17 @@
 <li data-ice="manualNav" class="indent-h2" data-link="manual/requests-matcher.html"><a href="manual/requests-matcher.html#matching-calls-count" data-ice="link">Matching calls count</a></li>
 </ul>
   </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/cheat-sheet.html"><a href="manual/cheat-sheet.html" data-ice="link">Full cheat sheet</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/cheat-sheet.html"><a href="manual/cheat-sheet.html#creating-a-server-instance" data-ice="link">Creating a server instance</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/cheat-sheet.html"><a href="manual/cheat-sheet.html#response-setup--preset-or-fixture-" data-ice="link">Response setup (preset or fixture)</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/cheat-sheet.html"><a href="manual/cheat-sheet.html#ordered-responses--fixture-" data-ice="link">Ordered responses (fixture)</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/cheat-sheet.html"><a href="manual/cheat-sheet.html#request-matcher-setup--fixture-" data-ice="link">Request matcher setup (fixture)</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/cheat-sheet.html"><a href="manual/cheat-sheet.html#starting-configuration" data-ice="link">Starting configuration</a></li>
+</ul>
+  </div>
 </div>
 </nav>
 
@@ -97,9 +113,9 @@
 
 server.respond.with.preset(400);</code>
 </code></pre>
-<p>The preset is only evaluated and merged by the fixture at request time. You can easily override preset through <a href="./manual/fixtures.html">fixture response configuration</a>.</p>
+<p>The preset is only evaluated and merged by the fixture at request time. You can easily override preset options through <a href="./manual/fixtures.html">fixture response configuration</a>.</p>
 <p>If the preset is not found in the server instance, an exception will be raised at request time.</p>
-<h2 id="adding-editing-a-preset">adding/editing a preset</h2><p>It can be done by providing an object with its <code>set</code> method and/or using BDD style syntax. Alternatively, the configuration object can be provided to <code>server.preset</code> :</p>
+<h2 id="local-presets">Local presets</h2><h3 id="adding-editing-a-local-preset">Adding/editing a local preset</h3><p>It can be done by providing an object with its <code>set</code> method and/or using BDD style syntax. Alternatively, the configuration object can be provided to <code>server.preset</code> :</p>
 <pre><code class="lang-javascript"><code class="source-code prettyprint">const server = new Server();
 
 // In the server.preset call
@@ -111,10 +127,22 @@ server.preset(&apos;myPreset&apos;, {
 // Another syntax, the same result
 server.preset(&apos;myPreset&apos;).set({status: 250}).statusText(&apos;weird&apos;)</code>
 </code></pre>
+<p>Server will now have <code>myPreset</code> available in its own presets pool. If the presets was already defined, it will be overridden with new options.</p>
+<p><strong>Note : the options that are not overridden will be kept as is</strong>.</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">const server = new Server();
+
+server.preset(&apos;myPreset&apos;, {status: 250, statusText: &apos;weird status&apos;});
+
+// Later on
+server.preset(&apos;myPreset&apos;).status(200);
+// statusText will still equal &apos;weird status&apos;</code>
+</code></pre>
 <p>You can have a look at the <a href="./manual/response-configuration.html">response configuration</a> for more details about the available options.</p>
-<h2 id="preset-scope">Preset scope</h2><p>A preset can be added to a single server instance or in global scope.</p>
-<p>To add a preset to server instance, simply create it with <code>server.preset</code>.</p>
-<p>To add a preset to the global scope, just amend the <code>presets</code> property of the global export :</p>
+<h3 id="removing-preset">Removing preset</h3><p>Simply call the <code>remove</code> method of the preset :</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">  server.preset(&apos;myPreset&apos;).remove();</code>
+</code></pre>
+<h2 id="using-global-presets">Using global presets</h2><p>Aside local presets that can be defined within a server instance, FMF allows the registration of global presets. Global presets can be added/updated/removed in two ways :</p>
+<h3 id="global--code-presets--code--singleton-exports">Global <code>presets</code> singleton exports</h3><p>Global presets are stored in a singleton available through the <code>presets</code> export. Object can be updated at will.</p>
 <pre><code class="lang-javascript"><code class="source-code prettyprint">import {presets} from &apos;fetch-mock-fixtures&apos;;
 
 presets.myPreset = {
@@ -122,7 +150,26 @@ presets.myPreset = {
   statusText: &apos;weird status&apos;
 } // myPreset will now be available globally</code>
 </code></pre>
-<h2 id="built-in-presets">Built-in presets</h2><p>FMF already have commonly used built-in presets. See <a href="./manual/../file/src/presets.js.html"><code>presets.js</code></a> for details.</p>
+<p>That way is interesting when bootstrapping presets configuration before running tests suite.</p>
+<h3 id="register-unregister-a-local-preset-as-global">Register/unregister a local preset as global</h3><p>Since FMF 2.2.0, it is possible to manage global presets from any server instance.</p>
+<p>Any local preset can be made global through <code>register</code> method and any global preset can be removed with <code>unregister</code> method.</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">const server = new Server();
+// Create a local preset
+const myPreset = server.preset(&apos;myPreset&apos;, {status: 250, statusText: &apos;weird status&apos;});
+// And register it as global
+myPreset.register();
+// Remove the preset from global pool
+// It will still be available in the server instance
+myPreset.unregister();</code>
+</code></pre>
+<p>Methods are chainable :</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">const server = new Server();
+
+// Register the preset, unregister it and remove it from server presets pool
+server.preset(&apos;myPreset&apos;).status(250).register().unregister().remove();</code>
+</code></pre>
+<h3 id="global-presets-availability">Global presets availability</h3><p>To allow easy local tweaking of presets, global presets are cloned into local pool when creating a new server instance. Therefore, server&apos;s instance will only access global presets that are already defined before its creation or created within the server instance.</p>
+<h3 id="built-in-presets">Built-in presets</h3><p>FMF already have commonly used built-in presets. See <a href="./manual/../file/src/presets.js.html"><code>presets.js</code></a> for details.</p>
 </div>
 </div>
 

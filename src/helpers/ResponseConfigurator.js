@@ -114,7 +114,7 @@ export class ResponseConfigurator {
    * Set the time the server will wait before sending back response
    * @version 1.0.0
    * @since   2.0.0
-   * @param   {Number}  delay Delay in ms
+   * @param   {Boolean|Number}  delay Delay in ms or false to remove delay
    * @return  {ResponseConfigurator}  this
    * @see {@link Fixture#sleep}
    */
@@ -127,7 +127,38 @@ export class ResponseConfigurator {
     return this;
   }
 
-  headers(headers) {
+  /**
+   * Set a specific header value
+   *
+   * @version 1.0.0
+   * @since   2.2.0
+   * @param   {String}  name           Header name
+   * @param   {String}  content        Header content
+   * @param   {Boolean} [append=false] If `true`, the content will be appended to header, otherwise it replaces current value
+   * @return  {ResponseConfigurator}  this
+   */
+  header(name, content, append = false) {
+    const response = this._getCurrentResponseSet();
+
+    if (!(response.headers instanceof Headers)) response.headers = new Headers();
+
+    if (append) response.headers.append(name, content);
+    else response.headers.set(name, content);
+
+    return this;
+  }
+
+  /**
+   * One time setter for all headers
+   *
+   * It can accept object or an header instance
+   *
+   * @version 1.0.1
+   * @since   2.0.0
+   * @param   {Object|Headers|Boolean}  [headers={}] Headers. Passing false will remove all headers and passing nothing will reset all headers
+   * @return  {ResponseConfigurator}  this
+   */
+  headers(headers = {}) {
     if (headers && !(headers instanceof Object || headers instanceof Headers)) {
       throw new Error('Headers must be an object or an Headers instance');
     }
@@ -142,6 +173,13 @@ export class ResponseConfigurator {
     return this;
   }
 
+  /**
+   * Set the response status
+   * @version 1.0.0
+   * @since   2.0.0
+   * @param   {Number}  status Status code
+   * @return  {ResponseConfigurator}  this
+   */
   status(status) {
     let response = this._getCurrentResponseSet();
 
@@ -151,6 +189,13 @@ export class ResponseConfigurator {
     return this;
   }
 
+  /**
+   * Set the response status text
+   * @version 1.0.0
+   * @since   2.0.0
+   * @param   {String}  text Status text
+   * @return  {ResponseConfigurator}  this
+   */
   statusText(text) {
     let response = this._getCurrentResponseSet();
 
@@ -160,6 +205,13 @@ export class ResponseConfigurator {
     return this;
   }
 
+  /**
+   * Set the response body wrapper
+   * @version 1.0.0
+   * @since   2.0.0
+   * @param   {Function|Boolean}  wrapper Response body wrapper
+   * @return  {ResponseConfigurator}  this
+   */
   wrapper(wrapper) {
     let response = this._getCurrentResponseSet();
 
@@ -169,6 +221,14 @@ export class ResponseConfigurator {
     return this;
   }
 
+  /**
+   * Set the pattern that will be used to match the request
+   * @version 1.0.0
+   * @since   2.0.0
+   * @param   {String}  pattern Pattern
+   * @return  {ResponseConfigurator}  this
+   * @see Pattern{../../manual/response-configuration.html#using-patterns}
+   */
   pattern(pattern) {
     let response = this._getCurrentResponseSet();
 
@@ -178,6 +238,13 @@ export class ResponseConfigurator {
     return this;
   }
 
+  /**
+   * Set the before callback
+   * @version 1.0.0
+   * @since   2.0.0
+   * @param   {Function} cb Callback
+   * @return  {ResponseConfigurator}  this
+   */
   before(cb) {
     if (cb && !(cb instanceof Function)) {
       throw new Error('Before hook must be a function');
@@ -191,6 +258,13 @@ export class ResponseConfigurator {
     return this;
   }
 
+  /**
+   * Set the after callback
+   * @version 1.0.0
+   * @since   2.0.0
+   * @param   {Function} cb Callback
+   * @return  {ResponseConfigurator}  this
+   */
   after(cb) {
     if (cb && !(cb instanceof Function)) {
       throw new Error('Before hook must be a function');

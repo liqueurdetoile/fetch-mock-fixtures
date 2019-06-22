@@ -367,10 +367,10 @@
             }
           },
           "extra": {
-            "rawValue": "@/presets",
-            "raw": "'@/presets'"
+            "rawValue": "./presets",
+            "raw": "'./presets'"
           },
-          "value": "@/presets"
+          "value": "./presets"
         }
       },
       {
@@ -1301,7 +1301,7 @@
         "binop": null,
         "updateContext": null
       },
-      "value": "@/presets",
+      "value": "./presets",
       "start": 166,
       "end": 177,
       "loc": {

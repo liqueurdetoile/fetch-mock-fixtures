@@ -209,6 +209,28 @@ describe(&apos;Fixtures test suite&apos;, function() {
       let response = await fetch(&apos;/api/v1/users/1&apos;);
       response.status.should.equal(500);
     })
+
+    it(&apos;should throw when asked to&apos;, async function() {
+      server
+        .throwOnError(true)
+        .respond
+        .throw(&apos;failed&apos;)
+
+      try {
+        await fetch(&apos;/api/v1/users/1&apos;);
+        expect.fail();
+      } catch (err) {
+        err.message.should.equal(&apos;failed&apos;);
+      }
+    })
+
+    it(&apos;should throw when tryoing to go to fallback from a request matcher&apos;, function() {
+      let f = () =&gt; server
+        .on.pathname.equal(&apos;/&apos;)
+        .fallback;
+
+      expect(f).to.throw();
+    })
   })
 })
 </code></pre>
