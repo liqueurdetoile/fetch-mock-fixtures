@@ -30,6 +30,10 @@ export class RequestMatcher {
     return this.fixture.respond;
   }
 
+  get fallback() {
+    throw new FMFException('You cannot define a fallback fixture from request matcher')
+  }
+
   getProcessor(key) {
     let processor;
 
