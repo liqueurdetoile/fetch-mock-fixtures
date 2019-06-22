@@ -71,6 +71,12 @@ describe('Presets test suite', function() {
     preset._any.delay.should.equal(5000);
   })
 
+  it('should delete preset', function() {
+    server.preset('test').remove();
+
+    expect(server._presets.test).to.be.undefined;
+  })
+
   it('should throw if name is not provided', function() {
     expect(server.preset.bind(server)).to.throw();
   })
@@ -79,12 +85,25 @@ describe('Presets test suite', function() {
     expect(server.preset.bind(server, 'test', 'foo')).to.throw();
   })
 
-  it('should override presets app-wide', function() {
+  it('should add presets app-wide (manual way)', function() {
     presets.apisuccess = {
       status: 201
     };
 
     const server = new Server();
     server._presets.apisuccess.should.exist;
+  })
+
+  it('should register a preset globally', function() {
+    let preset = server.preset('test').delay(5000);
+
+    preset.register();
+    presets.test.delay.should.equal(5000);
+  })
+
+  it('should unregister global presets', function() {
+    server.preset('test').unregister();
+    expect(server._presets.test).to.be.instanceof(Object);
+    expect(presets.test).to.be.undefined;
   })
 });
