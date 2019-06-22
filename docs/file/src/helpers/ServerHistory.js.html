@@ -49,15 +49,23 @@
 
 <div class="content" data-ice="content"><h1 data-ice="title">src/helpers/ServerHistory.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">export default class ServerHistory {
+  logs = [];
   _history = [];
   _call = null;
   _target = null;
+  _verbose = false;
 
   push(request, response) {
     this._history.push({
       request,
       response
     })
+  }
+
+  log(message) {
+    this.logs.push(message);
+
+    if (this._verbose) console.log(message); // eslint-disable-line
   }
 
   get request() {
@@ -123,6 +131,7 @@
 
   reset() {
     this._history = [];
+    this._log = [];
     this._call = null;
     this._target = null;
   }

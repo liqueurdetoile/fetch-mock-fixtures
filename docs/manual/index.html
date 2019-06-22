@@ -40,6 +40,7 @@
     <li data-ice="manualNav" class="indent-h1" data-link="manual/server.html"><a href="manual/server.html" data-ice="link">Server control, configuration and history</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="manual/server.html"><a href="manual/server.html#server-control" data-ice="link">Server control</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="manual/server.html"><a href="manual/server.html#adding-fixtures-to-server" data-ice="link">Adding fixtures to server</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/server.html"><a href="manual/server.html#logging-and-verbose-mode" data-ice="link">Logging and verbose mode</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="manual/server.html"><a href="manual/server.html#error-management" data-ice="link">Error management</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="manual/server.html"><a href="manual/server.html#server--39-s-history" data-ice="link">Server&apos;s history</a></li>
 </ul>
@@ -136,10 +137,10 @@ describe(&apos;Headers test&apos;, function() {
   })
 })</code>
 </code></pre>
-<p><strong> How FMF can ease API outgoing requests unit tests ? </strong></p>
+<p><strong>How FMF can ease API outgoing requests unit tests ?</strong></p>
 <p>FMF enables really quick response configuration that allows testing the outgoing request to set up different responses (see above example). You only have to check a response property (like status) instead of manually parsing request built by your app to validate it.</p>
 <p>Furthermore, you can use the <code>before</code> and <code>after</code> hooks or <code>body</code> as a callback to alter response on very precise expectations.</p>
-<p><strong> How FMF can ease functional tests ? </strong></p>
+<p><strong>How FMF can ease functional tests ?</strong></p>
 <p>In real life, scripts are often sending multiple requests to do their job. FMF removes the pain of handling multiple responses by easing their management. Let&apos;s see this example with a two steps authentication login. A bit verbose for what is actually doing but it aims to illustrate things :</p>
 <pre><code class="lang-javascript"><code class="source-code prettyprint">import Server from &apos;fetch-mock-fixtures&apos;;
 
@@ -147,6 +148,7 @@ const server = new Server();
 
 // Define on-the-fly fixtures to handle login tests
 server
+  .verbose(true) // Enable console login for each request/response/error
   .when
       .pathname.equal(&apos;/login&apos;)
       .method.equal(&apos;POST&apos;)
@@ -187,7 +189,7 @@ describe(&apos;Login test suite&apos;, function() {
 </code></pre>
 <p>We&apos;re not only sending back data to the app but also checking outgoing requests at the same time because the answer will only be sent if calling the right url with the right method and the right data. <code>with</code> and <code>to</code> are only optional sugars to improve human readability.</p>
 <p>Last not least, you can easily deploy url-based routing to use your &quot;real&quot; data inside each tests instead of providing fake data and get rid of on-the-fly fixtures (see <a href="https://liqueurdetoile.github.io/fetch-mock-fixtures/manual/dynamic-fixtures-examples">dynamic fixtures examples</a>).</p>
-<p><strong> When to use FMF ? </strong></p>
+<p><strong>When to use FMF ?</strong></p>
 <p>At any time :smile:</p>
 <p>Nevertheless, FMF will truly give its best with any testing framework (Mocha, Jasmine, Junit...) that allows to automate operations between each tests like <code>start</code>, <code>stop</code> or <code>reset</code> the server.</p>
 <h2 id="installation">Installation</h2><p>Installation can easily be done through NPM or Yarn. Sinon is required by FMF to stub <code>fetch</code> but is not included in the bundle. It must be installed as well if not already present.</p>
@@ -207,6 +209,8 @@ yarn add sinon fetch-mock-fixtures --dev</code>
 <p>You are free and very welcome to fork the project and submit any PR to fix or improve FMF.</p>
 <p>I&apos;m especially interested for good will who wish to improve query matcher processors to provide more tools to evaluate query and choose the right response.</p>
 <h2 id="changelog">Changelog</h2><ul>
+<li>2.2.0 : Add global preset configuration within server instance</li>
+<li>2.1.0 : Add history logging and verbose mode</li>
 <li>2.0.0 : BREAKING CHANGE - A brand new FMF highly <strong>not</strong> compatible with previous version</li>
 <li>1.0.1 : Add requests history and possibility to set up different responses based on requests order. Add delay as a response parameter into fixture.</li>
 </ul>
@@ -280,7 +284,13 @@ const server = new Server()</code>
 <td>Direct access to the sinon stub</td>
 </tr>
 </tbody>
-</table><h2>Adding fixtures to server</h2><p>Adding fixtures to the server is pretty simple. See <a href="./manual/fixtures.html">fixtures</a> documentation.</p><h2>Error management</h2><p>When encountering an error during configuration, the server will throw an error.</p><p>During request processing, the server will display a warning in console and send back a 500 response with error description. This behavior can be changed with :</p><ul>
+</table><h2>Adding fixtures to server</h2><p>Adding fixtures to the server is pretty simple. See <a href="./manual/fixtures.html">fixtures</a> documentation.</p><h2>Logging and verbose mode</h2><p><em>Since v2.1.0</em></p><p>To help go through requests history analysis or to debug fixtures, FMF logs all events in history. You can access logs through <code>server.history.logs</code>.</p><p>Logs can also be displayed at runtime to console with the verbose mode of the server. Simply call the chainable <code>verbose</code> method on server instance.</p><pre><code class="lang-javascript"><code class="source-code prettyprint">import Server from &apos;fetch-mock-fixtures&apos;
+
+const server = new Server()
+
+server.verbose(true) // enable verbose mode
+server.verbose(false) // disable verbose mode</code>
+</code></pre><h2>Error management</h2><p>When encountering an error during configuration, the server will throw an error.</p><p>During request processing, the server will display a warning in console and send back a 500 response with error description. This behavior can be changed with :</p><ul>
 <li><code>warnOnError(true|false)</code> : Activate/deactivate warnings in console</li>
 <li><code>throwOnError(true|false)</code> : If <code>true</code>, tells the server to throw an error instead of sending back a 500 error.</li>
 </ul><h2>Server&apos;s history</h2><p>The server keeps track of all incoming requests and responses. As convenience, you can access the last request and response by calling <code>server.request</code> or <code>server.response</code>. For more advanced selection tools, the history is available under <code>server.history</code>. See <a href="./manual/../test-file/tests/units/history.spec.js.html">history tests</a> for available tools.</p><p>The request is stored as a FMFRequest that also exposes parsed informations about the url using <a href="https://github.com/unshiftio/url-parse#readme">url-parse</a>).</p></div>

@@ -283,8 +283,32 @@ window.esdocSearchIndex = [
   ],
   [
     "",
+    "test-file/tests/units/log.spec.js.html#lineNumber5",
+    "Log and verbose tests",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/units/log.spec.js.html#lineNumber24",
+    "Log and verbose tests should log and verbose request/response/error",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/units/log.spec.js.html#lineNumber10",
+    "Log and verbose tests should log request/response/error",
+    "test"
+  ],
+  [
+    "",
     "test-file/tests/units/presets.spec.js.html#lineNumber38",
     "Presets test suite",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/units/presets.spec.js.html#lineNumber88",
+    "Presets test suite should add presets app-wide (manual way)",
     "test"
   ],
   [
@@ -307,20 +331,32 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/tests/units/presets.spec.js.html#lineNumber82",
-    "Presets test suite should override presets app-wide",
+    "test-file/tests/units/presets.spec.js.html#lineNumber74",
+    "Presets test suite should delete preset",
     "test"
   ],
   [
     "",
-    "test-file/tests/units/presets.spec.js.html#lineNumber74",
+    "test-file/tests/units/presets.spec.js.html#lineNumber97",
+    "Presets test suite should register a preset globally",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/units/presets.spec.js.html#lineNumber80",
     "Presets test suite should throw if name is not provided",
     "test"
   ],
   [
     "",
-    "test-file/tests/units/presets.spec.js.html#lineNumber78",
+    "test-file/tests/units/presets.spec.js.html#lineNumber84",
     "Presets test suite should throw if params are not an object",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/units/presets.spec.js.html#lineNumber104",
+    "Presets test suite should unregister global presets",
     "test"
   ],
   [
@@ -1110,6 +1146,24 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "src/preset.js~preset#register",
+    "class/src/Preset.js~Preset.html#instance-method-register",
+    "src/Preset.js~Preset#register",
+    "method"
+  ],
+  [
+    "src/preset.js~preset#remove",
+    "class/src/Preset.js~Preset.html#instance-method-remove",
+    "src/Preset.js~Preset#remove",
+    "method"
+  ],
+  [
+    "src/preset.js~preset#unregister",
+    "class/src/Preset.js~Preset.html#instance-method-unregister",
+    "src/Preset.js~Preset#unregister",
+    "method"
+  ],
+  [
     "src/server.js",
     "file/src/Server.js.html",
     "src/Server.js",
@@ -1155,6 +1209,12 @@ window.esdocSearchIndex = [
     "src/server.js~server#_throwonerror",
     "class/src/Server.js~Server.html#instance-member-_throwOnError",
     "src/Server.js~Server#_throwOnError",
+    "member"
+  ],
+  [
+    "src/server.js~server#_verbose",
+    "class/src/Server.js~Server.html#instance-member-_verbose",
+    "src/Server.js~Server#_verbose",
     "member"
   ],
   [
@@ -1257,6 +1317,12 @@ window.esdocSearchIndex = [
     "src/server.js~server#throwonerror",
     "class/src/Server.js~Server.html#instance-method-throwOnError",
     "src/Server.js~Server#throwOnError",
+    "method"
+  ],
+  [
+    "src/server.js~server#verbose",
+    "class/src/Server.js~Server.html#instance-method-verbose",
+    "src/Server.js~Server#verbose",
     "method"
   ],
   [
@@ -1410,6 +1476,12 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "src/helpers/responseconfigurator.js~responseconfigurator#_getcurrentresponseset",
+    "class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html#instance-method-_getCurrentResponseSet",
+    "src/helpers/ResponseConfigurator.js~ResponseConfigurator#_getCurrentResponseSet",
+    "method"
+  ],
+  [
     "src/helpers/responseconfigurator.js~responseconfigurator#_responsekeys",
     "class/src/helpers/ResponseConfigurator.js~ResponseConfigurator.html#instance-member-_responseKeys",
     "src/helpers/ResponseConfigurator.js~ResponseConfigurator#_responseKeys",
@@ -1518,9 +1590,21 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "src/helpers/serverhistory.js~serverhistory#_log",
+    "class/src/helpers/ServerHistory.js~ServerHistory.html#instance-member-_log",
+    "src/helpers/ServerHistory.js~ServerHistory#_log",
+    "member"
+  ],
+  [
     "src/helpers/serverhistory.js~serverhistory#_target",
     "class/src/helpers/ServerHistory.js~ServerHistory.html#instance-member-_target",
     "src/helpers/ServerHistory.js~ServerHistory#_target",
+    "member"
+  ],
+  [
+    "src/helpers/serverhistory.js~serverhistory#_verbose",
+    "class/src/helpers/ServerHistory.js~ServerHistory.html#instance-member-_verbose",
+    "src/helpers/ServerHistory.js~ServerHistory#_verbose",
     "member"
   ],
   [
@@ -1545,6 +1629,18 @@ window.esdocSearchIndex = [
     "src/helpers/serverhistory.js~serverhistory#last",
     "class/src/helpers/ServerHistory.js~ServerHistory.html#instance-get-last",
     "src/helpers/ServerHistory.js~ServerHistory#last",
+    "member"
+  ],
+  [
+    "src/helpers/serverhistory.js~serverhistory#log",
+    "class/src/helpers/ServerHistory.js~ServerHistory.html#instance-method-log",
+    "src/helpers/ServerHistory.js~ServerHistory#log",
+    "method"
+  ],
+  [
+    "src/helpers/serverhistory.js~serverhistory#logs",
+    "class/src/helpers/ServerHistory.js~ServerHistory.html#instance-member-logs",
+    "src/helpers/ServerHistory.js~ServerHistory#logs",
     "member"
   ],
   [
@@ -1791,6 +1887,12 @@ window.esdocSearchIndex = [
     "tests/units/history.spec.js",
     "test-file/tests/units/history.spec.js.html",
     "tests/units/history.spec.js",
+    "testFile"
+  ],
+  [
+    "tests/units/log.spec.js",
+    "test-file/tests/units/log.spec.js.html",
+    "tests/units/log.spec.js",
     "testFile"
   ],
   [

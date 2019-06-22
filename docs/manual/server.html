@@ -40,6 +40,7 @@
     <li data-ice="manualNav" class="indent-h1" data-link="manual/server.html"><a href="manual/server.html" data-ice="link">Server control, configuration and history</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="manual/server.html"><a href="manual/server.html#server-control" data-ice="link">Server control</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="manual/server.html"><a href="manual/server.html#adding-fixtures-to-server" data-ice="link">Adding fixtures to server</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/server.html"><a href="manual/server.html#logging-and-verbose-mode" data-ice="link">Logging and verbose mode</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="manual/server.html"><a href="manual/server.html#error-management" data-ice="link">Error management</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="manual/server.html"><a href="manual/server.html#server--39-s-history" data-ice="link">Server&apos;s history</a></li>
 </ul>
@@ -128,6 +129,16 @@ const server = new Server()</code>
 </tbody>
 </table>
 <h2 id="adding-fixtures-to-server">Adding fixtures to server</h2><p>Adding fixtures to the server is pretty simple. See <a href="./manual/fixtures.html">fixtures</a> documentation.</p>
+<h2 id="logging-and-verbose-mode">Logging and verbose mode</h2><p><em>Since v2.1.0</em></p>
+<p>To help go through requests history analysis or to debug fixtures, FMF logs all events in history. You can access logs through <code>server.history.logs</code>.</p>
+<p>Logs can also be displayed at runtime to console with the verbose mode of the server. Simply call the chainable <code>verbose</code> method on server instance.</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Server from &apos;fetch-mock-fixtures&apos;
+
+const server = new Server()
+
+server.verbose(true) // enable verbose mode
+server.verbose(false) // disable verbose mode</code>
+</code></pre>
 <h2 id="error-management">Error management</h2><p>When encountering an error during configuration, the server will throw an error.</p>
 <p>During request processing, the server will display a warning in console and send back a 500 response with error description. This behavior can be changed with :</p>
 <ul>

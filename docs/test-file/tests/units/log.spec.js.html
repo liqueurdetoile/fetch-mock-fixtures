@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl" href="../../../">
-  <title data-ice="title">tests/units/presets.spec.js | Fetch-mock-fixtures | Fetch API for testing</title>
+  <title data-ice="title">tests/units/log.spec.js | Fetch-mock-fixtures | Fetch API for testing</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -47,116 +47,48 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><h1 data-ice="title">tests/units/presets.spec.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import {Preset, Server, presets} from &apos;@&apos;;
+<div class="content" data-ice="content"><h1 data-ice="title">tests/units/log.spec.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import {Server} from &apos;@&apos;;
 
-const p1 = {
-  body: null,
-  delay: 0,
-  headers: new Headers({&apos;content-type&apos;: &apos;application/json&apos;}),
-  status: 200,
-  statusText: &apos;OK&apos;,
-  wrapper: &apos;%data%&apos;,
-  pattern: &apos;pattern&apos;,
-  before: () =&gt; &apos;before&apos;,
-  after: () =&gt; &apos;after&apos;
-};
+const server = new Server();
 
-const r1 = p1;
+describe(&apos;Log and verbose tests&apos;, function() {
+  before(() =&gt; server.start());
+  afterEach(() =&gt; server.reset());
+  after(() =&gt; server.stop());
 
-const p2 = {
-  body: &apos;test&apos;,
-  delay: 1000,
-  headers: false,
-  status: 200,
-  statusText: &apos;OK&apos;,
-  wrapper: false,
-  pattern: false,
-  before: false,
-  after: false
-}
+  it(&apos;should log request/response/error&apos;, async function() {
+    server.warnOnError(false);
+    await fetch(&apos;/api/log&apos;);
+    server.respond.with.preset(&apos;default&apos;);
+    await fetch(&apos;/api/log&apos;);
 
-const r2 = {
-  body: &apos;test&apos;,
-  delay: 1000,
-  status: 200,
-  statusText: &apos;OK&apos;
-}
-
-let server;
-
-describe(&apos;Presets test suite&apos;, function() {
-  beforeEach(function() {
-    server = new Server();
-  });
-
-  it(&apos;should create a blank preset&apos;, function() {
-    const preset = server.preset(&apos;test&apos;);
-
-    preset.should.be.instanceof(Preset);
-  });
-
-  it(&apos;should create a configured preset&apos;, function() {
-    const preset = server.preset(&apos;test&apos;, {
-      status: 204
-    });
-
-    preset._any.should.deep.equal({status: 204});
-  });
-
-  it(&apos;should update preset&apos;, function() {
-    let preset;
-
-    preset = server.preset(&apos;test&apos;, p1);
-    preset._any.should.deep.equal(r1);
-    server._presets[&apos;test&apos;].should.equal(preset);
-    preset = server.preset(&apos;test&apos;, p2);
-    server._presets[&apos;test&apos;].should.equal(preset);
-    preset._any.should.deep.equal(r2);
+    server.history.logs.should.deep.equal([
+      &apos;Request : GET http://localhost:9876/api/log&apos;,
+      &apos;FMF error: No fixtures defined&apos;,
+      &apos;Request : GET http://localhost:9876/api/log&apos;,
+      &apos;Response sent (200 OK)&apos;
+    ])
   })
 
-  it(&apos;should configure preset with BDD style&apos;, function() {
-    let preset = server.preset(&apos;test&apos;).delay(5000);
+  it(&apos;should log and verbose request/response/error&apos;, async function() {
+    sinon.spy(console, &apos;log&apos;);
 
-    preset._any.delay.should.equal(5000);
+    server.warnOnError(false).verbose(true);
+    await fetch(&apos;/api/log&apos;);
+    server.respond.with.preset(&apos;default&apos;);
+    await fetch(&apos;/api/log&apos;);
+
+    console.log.args.should.deep.equal([ // eslint-disable-line
+      [&apos;Request : GET http://localhost:9876/api/log&apos;],
+      [&apos;FMF error: No fixtures defined&apos;],
+      [&apos;Request : GET http://localhost:9876/api/log&apos;],
+      [&apos;Response sent (200 OK)&apos;]
+    ])
+
+    console.log.restore(); // eslint-disable-line
   })
-
-  it(&apos;should delete preset&apos;, function() {
-    server.preset(&apos;test&apos;).remove();
-
-    expect(server._presets.test).to.be.undefined;
-  })
-
-  it(&apos;should throw if name is not provided&apos;, function() {
-    expect(server.preset.bind(server)).to.throw();
-  })
-
-  it(&apos;should throw if params are not an object&apos;, function() {
-    expect(server.preset.bind(server, &apos;test&apos;, &apos;foo&apos;)).to.throw();
-  })
-
-  it(&apos;should add presets app-wide (manual way)&apos;, function() {
-    presets.apisuccess = {
-      status: 201
-    };
-
-    const server = new Server();
-    server._presets.apisuccess.should.exist;
-  })
-
-  it(&apos;should register a preset globally&apos;, function() {
-    let preset = server.preset(&apos;test&apos;).delay(5000);
-
-    preset.register();
-    presets.test.delay.should.equal(5000);
-  })
-
-  it(&apos;should unregister global presets&apos;, function() {
-    server.preset(&apos;test&apos;).unregister();
-    expect(server._presets.test).to.be.instanceof(Object);
-    expect(presets.test).to.be.undefined;
-  })
-});
+})
 </code></pre>
 
 </div>
