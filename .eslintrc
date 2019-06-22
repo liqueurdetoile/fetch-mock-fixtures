@@ -45,7 +45,7 @@
   ],
 
   "rules" : {
-    "indent": ["error", 2, {"SwitchCase": 1}],
+    "indent": "off",
     "keyword-spacing": [2, {"before": true, "after": true}]
   }
 }
