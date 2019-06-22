@@ -259,6 +259,8 @@ export class Fixture extends ResponseConfigurator {
   }
 
   async _buildResponse(request, response) {
+    let body;
+
     // Process before hook and update response if one is returned
     if (response.before instanceof Function) {
       try {
@@ -275,11 +277,11 @@ export class Fixture extends ResponseConfigurator {
 
     // Process body callback
     try {
-      if (response.body instanceof Function) response.body = await response.body.call(this, params, {
+      body = (response.body instanceof Function) ? await response.body.call(this, params, {
         request,
         response,
         server: this.server
-      });
+      }) : response.body;
     } catch (err) {
       return this._exceptionManagement(err, 'Unable to process body callback');
     }
@@ -294,7 +296,7 @@ export class Fixture extends ResponseConfigurator {
     }
 
     // Construct response
-    let {body, headers, status, statusText, wrapper} = response;
+    let {headers, status, statusText, wrapper} = response;
 
     const responseObject = new Response(this.wrap(body, wrapper), {headers, status, statusText});
 
