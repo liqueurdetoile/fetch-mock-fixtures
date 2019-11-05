@@ -22,7 +22,7 @@ describe('Log and verbose tests', function() {
   })
 
   it('should log and verbose request/response/error', async function() {
-    sinon.spy(console, 'log');
+    sinon.stub(console, 'log');
 
     server.warnOnError(false).verbose(true);
     await fetch('/api/log');
