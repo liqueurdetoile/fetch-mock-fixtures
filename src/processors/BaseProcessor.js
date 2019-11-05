@@ -44,6 +44,10 @@ export default class BaseProcessor {
     return this._matcher;
   }
 
+  equals(expected) {
+    return this.equal(expected);
+  }
+
   async process(request, server) {
     let passed = await this._evaluate(request, server);
 
