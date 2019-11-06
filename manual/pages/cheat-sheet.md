@@ -47,6 +47,7 @@ server.on | server.when
   .header(String <name>) // Target named header for matching
    // Tells processor to evaluate equality based on expected value
   .equal(Array|Boolean|Function|Number|Object|RegExp|String expected)
+  .equals(Array|Boolean|Function|Number|Object|RegExp|String expected)
   .headers
   .query
   .slashes
