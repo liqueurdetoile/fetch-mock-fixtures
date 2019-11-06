@@ -174,12 +174,44 @@ describe('Fixtures test suite', function() {
       }
     })
 
-    it('should throw when tryoing to go to fallback from a request matcher', function() {
+    it('should throw when trying to go to fallback from a request matcher', function() {
       let f = () => server
         .on.pathname.equal('/')
         .fallback;
 
       expect(f).to.throw();
     })
+  })
+
+  /**
+   * @test {ResponseConfigurator#pattern}
+   */
+  describe.only('Fixture patterns', function() {
+    it('should handle patterns', async function() {
+      let croot, cid;
+
+      server
+        .throwOnError(true)
+        .on
+        .pathname.equal(/tests/)
+        .respond
+        .pattern('/api/v1/:root?/tests/:id?')
+        .body(({root, id}) => {
+          croot = root;
+          cid = id;
+        });
+
+      await fetch('/api/v1/tests');
+      expect(croot).to.be.undefined;
+      expect(cid).to.be.undefined;
+
+      await fetch('/api/v1/tests/d01fea9b-251b-4b48-a4fe-a4a9ab3ef420');
+      expect(croot).to.be.undefined;
+      expect(cid).to.equal('d01fea9b-251b-4b48-a4fe-a4a9ab3ef420');
+
+      await fetch('/api/v1/admin/tests/d01fea9b-251b-4b48-a4fe-a4a9ab3ef421');
+      expect(croot).to.equal('admin');
+      expect(cid).to.equal('d01fea9b-251b-4b48-a4fe-a4a9ab3ef421');
+    });
   })
 })
