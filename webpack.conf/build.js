@@ -2,7 +2,7 @@ const webpack = require('webpack');
 const path = require('path');
 const merge = require('webpack-merge');
 const base = require('./base.js');
-// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = merge(base, {
   devtool: false,
@@ -11,9 +11,17 @@ module.exports = merge(base, {
     path: path.resolve('./dist'),
     filename: 'index.min.js'
   },
+  optimization: {
+    minimizer: [
+      new TerserPlugin({
+        terserOptions: {
+          keep_classnames: true
+        }
+      }),
+    ],
+  },
   plugins: [
     new webpack.IgnorePlugin(/fixtures/),
-    new webpack.optimize.ModuleConcatenationPlugin(),
-  //  new BundleAnalyzerPlugin()
+    new webpack.optimize.ModuleConcatenationPlugin()
   ]
 });
