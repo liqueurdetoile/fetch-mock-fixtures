@@ -20,6 +20,12 @@ export default class BaseProcessor {
     return this;
   }
 
+  get matcher() {
+    return new Proxy(this._matcher, {
+      get: (obj, prop) => prop in obj ? obj[prop] : obj.getProcessor(prop)
+    });
+  }
+
   async _equal(current, expected, request) {
     if (expected instanceof Function) return await expected(current, this._key, request);
     if (expected instanceof RegExp) return expected.test(current);
@@ -41,7 +47,7 @@ export default class BaseProcessor {
       return await this._equal(current, expected, request);
     }
 
-    return this._matcher;
+    return this.matcher;
   }
 
   equals(expected) {

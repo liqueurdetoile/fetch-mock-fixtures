@@ -186,7 +186,7 @@ describe('Fixtures test suite', function() {
   /**
    * @test {ResponseConfigurator#pattern}
    */
-  describe.only('Fixture patterns', function() {
+  describe('Fixture patterns', function() {
     it('should handle patterns', async function() {
       let croot, cid;
 

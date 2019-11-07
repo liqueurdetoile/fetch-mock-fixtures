@@ -19,6 +19,6 @@ export default class HeadersProcessor extends BaseProcessor {
       return await this._equal(this._name ? headers.get(this._name) : headers, expected);
     }
 
-    return this._matcher;
+    return this.matcher;
   }
 }

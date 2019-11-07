@@ -76,4 +76,21 @@ describe('Request configurator test suite', function() {
 
     expect(f.on.equal.bind(f, {foo: 'bar'})).to.throw();
   })
+
+  it('should chain multiple conditions on the same matcher without on keyword', function() {
+    const f = new Fixture();
+
+    f.on.pathname.equals(/api/).method.equals('GET').should.deep.equal(f._matcher);
+  })
+
+  it('should chain multiple on to generate multiple matching requests', function() {
+    const f = new Fixture();
+    const first = f.on.method.equal('GET').respond.body('GET');
+
+    first.should.be.instanceof(Fixture);
+
+    const second = first.on.method.equal('POST').respond.body('POST');
+
+    second.should.be.instanceof(Fixture);
+  })
 })

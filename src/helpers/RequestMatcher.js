@@ -69,6 +69,11 @@ export class RequestMatcher {
       case 'username':
         processor = new StringProcessor(key, this)
         break;
+      case Symbol.toStringTag:
+      case 'outerHTML':
+      case 'tagName':
+      case 'nodeName':
+        return this[key];
       default:
         throw new FMFException(`Unsupported request parameter "${key}" to check`);
     }

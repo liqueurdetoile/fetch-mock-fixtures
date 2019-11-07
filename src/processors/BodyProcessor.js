@@ -69,6 +69,6 @@ export default class BodyProcessor extends BaseProcessor {
       return await this._equal(current, expected, request);
     }
 
-    return this._matcher;
+    return this.matcher;
   }
 }
