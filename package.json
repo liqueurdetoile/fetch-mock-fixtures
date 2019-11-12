@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "lodash.isequal": "^4.5.0",
-    "path-to-regexp": "^3.1.0",
+    "path-to-regexp": "^4.0.0",
     "url-parse": "^1.4.6"
   },
   "peerDependencies": {
