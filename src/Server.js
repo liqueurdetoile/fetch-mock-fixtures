@@ -404,6 +404,8 @@ export class Server {
    * @throws  {FMFException}  If request processing have failed
    */
   async _processRequest(request, init) {
+    let response;
+
     try {
       // Build FMFRequest object
       request = new FMFRequest(request, init);
@@ -415,26 +417,28 @@ export class Server {
       let fixture = await this._findFixture(request.clone());
 
       // Prepare response
-      let response = await fixture.getResponse(request.clone());
-
-      // Store request in history
-      this.history.push(request.clone(), response.clone());
+      response = await fixture.getResponse(request.clone());
 
       this.history.log(`Response sent (${response.status} ${response.statusText})`);
-
-      return response;
     } catch (err) {
       this.history.log(err.toString());
 
       if (this._warnOnError) this.warn(err);
       if (this._throwOnError) /* istanbul ignore next */ throw (err instanceof FMFException ? err : new FMFException('Request process failure', err));
 
-      return new Response(err.stack, {
+      response = new Response(err.stack, {
         'content-type': 'text/html',
         status: 500,
         statusText: err.toString()
       })
+
+      this.history.push(request.clone(), null);
     }
+
+    // Store history
+    this.history.push(request.clone(), response.clone());
+
+    return response;
   }
 
   /**
