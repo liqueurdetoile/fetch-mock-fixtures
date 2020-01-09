@@ -81,8 +81,8 @@ export default class ServerHistory {
 
   reset() {
     this._history = [];
-    this._log = [];
     this._call = null;
     this._target = null;
+    this.logs = [];
   }
 }
