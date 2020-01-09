@@ -192,6 +192,18 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
+    "responseconfigurator#pattern src/helpers/responseconfigurator.js~responseconfigurator#pattern,responseconfigurator#pattern",
+    "test-file/tests/units/fixtures.spec.js.html#lineNumber189",
+    "Fixtures test suite Fixture patterns",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/units/fixtures.spec.js.html#lineNumber190",
+    "Fixtures test suite Fixture patterns should handle patterns",
+    "test"
+  ],
+  [
     "",
     "test-file/tests/units/fixtures.spec.js.html#lineNumber23",
     "Fixtures test suite Fixture requests processing",
@@ -242,7 +254,7 @@ window.esdocSearchIndex = [
   [
     "",
     "test-file/tests/units/fixtures.spec.js.html#lineNumber177",
-    "Fixtures test suite Fixture requests processing should throw when tryoing to go to fallback from a request matcher",
+    "Fixtures test suite Fixture requests processing should throw when trying to go to fallback from a request matcher",
     "test"
   ],
   [
@@ -271,25 +283,31 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/tests/units/history.spec.js.html#lineNumber18",
+    "test-file/tests/units/history.spec.js.html#lineNumber19",
     "History test suite should get last request and response",
     "test"
   ],
   [
     "",
-    "test-file/tests/units/history.spec.js.html#lineNumber24",
+    "test-file/tests/units/history.spec.js.html#lineNumber25",
     "History test suite should get nth request",
     "test"
   ],
   [
     "",
-    "test-file/tests/units/history.spec.js.html#lineNumber31",
+    "test-file/tests/units/history.spec.js.html#lineNumber32",
     "History test suite should have cloned response before body parsing",
     "test"
   ],
   [
     "",
-    "test-file/tests/units/history.spec.js.html#lineNumber36",
+    "test-file/tests/units/history.spec.js.html#lineNumber49",
+    "History test suite should reset history",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/units/history.spec.js.html#lineNumber37",
     "History test suite should return all history, all requests or all responses",
     "test"
   ],
@@ -439,6 +457,18 @@ window.esdocSearchIndex = [
   ],
   [
     "",
+    "test-file/tests/units/RequestMatcher.spec.js.html#lineNumber80",
+    "Request configurator test suite should chain multiple conditions on the same matcher without on keyword",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/units/RequestMatcher.spec.js.html#lineNumber86",
+    "Request configurator test suite should chain multiple on to generate multiple matching requests",
+    "test"
+  ],
+  [
+    "",
     "test-file/tests/units/RequestMatcher.spec.js.html#lineNumber12",
     "Request configurator test suite should create a matcher",
     "test"
@@ -537,6 +567,12 @@ window.esdocSearchIndex = [
     "",
     "test-file/tests/units/requests.processing.spec.js.html#lineNumber23",
     "Request processing test suite should throw if no matching fixtures found",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/units/requests.processing.spec.js.html#lineNumber165",
+    "Request processing test suite should warn when multiple requests are matching",
     "test"
   ],
   [
@@ -1626,12 +1662,6 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
-    "src/helpers/serverhistory.js~serverhistory#_log",
-    "class/src/helpers/ServerHistory.js~ServerHistory.html#instance-member-_log",
-    "src/helpers/ServerHistory.js~ServerHistory#_log",
-    "member"
-  ],
-  [
     "src/helpers/serverhistory.js~serverhistory#_target",
     "class/src/helpers/ServerHistory.js~ServerHistory.html#instance-member-_target",
     "src/helpers/ServerHistory.js~ServerHistory#_target",
@@ -1776,9 +1806,21 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/processors/baseprocessor.js~baseprocessor#equals",
+    "class/src/processors/BaseProcessor.js~BaseProcessor.html#instance-method-equals",
+    "src/processors/BaseProcessor.js~BaseProcessor#equals",
+    "method"
+  ],
+  [
     "src/processors/baseprocessor.js~baseprocessor#is",
     "class/src/processors/BaseProcessor.js~BaseProcessor.html#instance-get-is",
     "src/processors/BaseProcessor.js~BaseProcessor#is",
+    "member"
+  ],
+  [
+    "src/processors/baseprocessor.js~baseprocessor#matcher",
+    "class/src/processors/BaseProcessor.js~BaseProcessor.html#instance-get-matcher",
+    "src/processors/BaseProcessor.js~BaseProcessor#matcher",
     "member"
   ],
   [

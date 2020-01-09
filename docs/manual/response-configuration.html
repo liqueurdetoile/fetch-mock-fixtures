@@ -246,7 +246,7 @@ users = [
 
 server.start().respond
   .with.pattern(&apos;/api/users/:id?&apos;)
-  .and.body({id} =&gt; return id ? users.find(user =&gt; user.id === id) || users)
+  .and.body({id} =&gt; return id ? users.find(user =&gt; user.id === id) : users)
 </code>
 </code></pre>
 </div>

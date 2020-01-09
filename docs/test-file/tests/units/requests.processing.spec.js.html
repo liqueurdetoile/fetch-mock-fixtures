@@ -211,6 +211,17 @@ describe(&apos;Request processing test suite&apos;, function() {
     response = await fetch(&apos;/notlogin&apos;);
     response.status.should.equal(200)
   })
+
+  it(&apos;should warn when multiple requests are matching&apos;, async function() {
+    sinon.stub(console, &apos;warn&apos;);
+    server.on.pathname.equal(/\//).respond.with.status(201)
+    server.on.method.equal(&apos;GET&apos;).respond.with.status(200)
+
+    let response = await fetch(&apos;/&apos;);
+    console.warn.calledOnce.should.be.true;
+    response.status.should.equal(201);
+    console.warn.restore();
+  })
 })
 </code></pre>
 

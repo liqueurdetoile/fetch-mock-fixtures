@@ -437,7 +437,7 @@ users = [
 
 server.start().respond
   .with.pattern(&apos;/api/users/:id?&apos;)
-  .and.body({id} =&gt; return id ? users.find(user =&gt; user.id === id) || users)
+  .and.body({id} =&gt; return id ? users.find(user =&gt; user.id === id) : users)
 </code>
 </code></pre></div>
         <a data-ice="link" href="manual/response-configuration.html"></a>
@@ -585,6 +585,7 @@ const server = new Server();</code>
   .header(String &lt;name&gt;) // Target named header for matching
    // Tells processor to evaluate equality based on expected value
   .equal(Array|Boolean|Function|Number|Object|RegExp|String expected)
+  .equals(Array|Boolean|Function|Number|Object|RegExp|String expected)
   .headers
   .query
   .slashes

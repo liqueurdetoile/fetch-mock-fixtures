@@ -63,6 +63,7 @@ describe(&apos;History test suite&apos;, function() {
     await fetch(&apos;/4&apos;);
     await fetch(&apos;/5&apos;);
   })
+
   after(() =&gt; server.stop())
 
   it(&apos;should get last request and response&apos;, function() {
@@ -93,6 +94,12 @@ describe(&apos;History test suite&apos;, function() {
 
     server.history.response.all().length.should.equal(5);
     server.history.response.all()[0].should.be.instanceof(Response);
+  })
+
+  it(&apos;should reset history&apos;, function() {
+    server.history.reset();
+    server.history.all().length.should.equal(0);
+    server.history.logs.length.should.equal(0);
   })
 })
 </code></pre>

@@ -126,6 +126,23 @@ describe(&apos;Request configurator test suite&apos;, function() {
 
     expect(f.on.equal.bind(f, {foo: &apos;bar&apos;})).to.throw();
   })
+
+  it(&apos;should chain multiple conditions on the same matcher without on keyword&apos;, function() {
+    const f = new Fixture();
+
+    f.on.pathname.equals(/api/).method.equals(&apos;GET&apos;).should.deep.equal(f._matcher);
+  })
+
+  it(&apos;should chain multiple on to generate multiple matching requests&apos;, function() {
+    const f = new Fixture();
+    const first = f.on.method.equal(&apos;GET&apos;).respond.body(&apos;GET&apos;);
+
+    first.should.be.instanceof(Fixture);
+
+    const second = first.on.method.equal(&apos;POST&apos;).respond.body(&apos;POST&apos;);
+
+    second.should.be.instanceof(Fixture);
+  })
 })
 </code></pre>
 

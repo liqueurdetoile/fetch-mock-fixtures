@@ -224,13 +224,45 @@ describe(&apos;Fixtures test suite&apos;, function() {
       }
     })
 
-    it(&apos;should throw when tryoing to go to fallback from a request matcher&apos;, function() {
+    it(&apos;should throw when trying to go to fallback from a request matcher&apos;, function() {
       let f = () =&gt; server
         .on.pathname.equal(&apos;/&apos;)
         .fallback;
 
       expect(f).to.throw();
     })
+  })
+
+  /**
+   * @test {ResponseConfigurator#pattern}
+   */
+  describe(&apos;Fixture patterns&apos;, function() {
+    it(&apos;should handle patterns&apos;, async function() {
+      let croot, cid;
+
+      server
+        .throwOnError(true)
+        .on
+        .pathname.equal(/tests/)
+        .respond
+        .pattern(&apos;/api/v1/:root?/tests/:id?&apos;)
+        .body(({root, id}) =&gt; {
+          croot = root;
+          cid = id;
+        });
+
+      await fetch(&apos;/api/v1/tests&apos;);
+      expect(croot).to.be.undefined;
+      expect(cid).to.be.undefined;
+
+      await fetch(&apos;/api/v1/tests/d01fea9b-251b-4b48-a4fe-a4a9ab3ef420&apos;);
+      expect(croot).to.be.undefined;
+      expect(cid).to.equal(&apos;d01fea9b-251b-4b48-a4fe-a4a9ab3ef420&apos;);
+
+      await fetch(&apos;/api/v1/admin/tests/d01fea9b-251b-4b48-a4fe-a4a9ab3ef421&apos;);
+      expect(croot).to.equal(&apos;admin&apos;);
+      expect(cid).to.equal(&apos;d01fea9b-251b-4b48-a4fe-a4a9ab3ef421&apos;);
+    });
   })
 })
 </code></pre>
