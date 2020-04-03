@@ -48,7 +48,7 @@
     "cross-env": "^7.0.0",
     "cz-conventional-changelog": "^3.0.2",
     "eslint": "^6.6.0",
-    "eslint-loader": "^3.0.2",
+    "eslint-loader": "^4.0.0",
     "karma": "^4.4.1",
     "karma-babel-preprocessor": "^8.0.1",
     "karma-chai": "^0.1.0",
