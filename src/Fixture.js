@@ -2,7 +2,7 @@ import Preset from './Preset';
 import ResponseConfigurator from './helpers/ResponseConfigurator';
 import RequestMatcher from './helpers/RequestMatcher';
 import FMFException from './helpers/FMFException';
-import pathToRegexp from 'path-to-regexp';
+import {pathToRegexp} from 'path-to-regexp';
 
 /**
  * A fixture contains all the needed informations to find
