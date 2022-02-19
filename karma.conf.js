@@ -48,7 +48,11 @@ module.exports = function(config) {
       reporters: [
         {
           type: 'html',
-          subdir: '.'
+          subdir: function(browser) {
+            // normalization process to keep a consistent browser name across different
+            // OS
+            return browser.toLowerCase().split(/[ /-]/)[0];
+          }
         }, {
           type: 'lcov',
           subdir: '.'
